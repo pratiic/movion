@@ -2,9 +2,9 @@ import React from "react";
 
 import { GlobalStyles } from "./styles/styles.global";
 
-import Header from "./components/header/header";
-
 import { BrowserRouter } from "react-router-dom";
+
+import Header from "./components/header/header";
 
 class App extends React.Component {
 	render() {

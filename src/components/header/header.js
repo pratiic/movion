@@ -4,30 +4,35 @@ import { Link } from "react-router-dom";
 
 import {
 	StyledHeader,
-	StyledHeaderContainer,
+	HeaderContainer,
 	StyledLogo,
-	StyledHeaderLinks,
+	HeaderLinks,
 	StyledLink,
 	StyledSunIcon,
 	StyledHeartIcon,
 } from "./header.styles";
 
+import SearchBar from "../search-bar/search-bar";
+
 class Header extends React.Component {
 	render() {
 		return (
 			<StyledHeader>
-				<StyledHeaderContainer>
+				<HeaderContainer>
 					<Link to="/">
 						<StyledLogo to="/" />
 					</Link>
-					<StyledHeaderLinks>
+
+					<SearchBar />
+
+					<HeaderLinks>
 						<StyledLink to="/">movies</StyledLink>
 						<StyledLink to="/tvshows">tv shows</StyledLink>
 						<StyledHeartIcon />
 						<StyledSunIcon />
 						<StyledLink to="/signin">sign in</StyledLink>
-					</StyledHeaderLinks>
-				</StyledHeaderContainer>
+					</HeaderLinks>
+				</HeaderContainer>
 			</StyledHeader>
 		);
 	}

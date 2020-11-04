@@ -14,10 +14,10 @@ const headerElementStyles = css`
 `;
 
 export const StyledHeader = styled.header`
-	background-color: ${cssColors.greyBgSecondary};
+	background-color: ${cssColors.blueSecondary};
 `;
 
-export const StyledHeaderContainer = styled.div`
+export const HeaderContainer = styled.div`
 	max-width: 1400px;
 	margin: auto;
 	display: flex;
@@ -34,7 +34,7 @@ export const StyledLogo = styled(Logo)`
 
 export const StyledLink = styled(Link)`
 	color: white;
-	font-size: 1.85rem;
+	font-size: 1.55rem;
 	text-transform: capitalize;
 	letter-spacing: 1px;
 	position: relative;
@@ -43,17 +43,13 @@ export const StyledLink = styled(Link)`
 	${headerElementStyles}
 	font-weight: 400;
 
-	&:active {
-		color: ${cssColors.greyTextPrimary};
-	}
-
 	&::after {
 		content: "";
 		position: absolute;
 		left: 0;
-		bottom: -0.55rem;
+		bottom: -0.4rem;
 		width: 100%;
-		height: 3px;
+		height: 2px;
 		background-color: ${cssColors.bluePrimary};
 		transition: transform 150ms ease-in;
 		transform: scaleX(0);
@@ -65,15 +61,24 @@ export const StyledLink = styled(Link)`
 			transform: scaleX(1);
 		}
 	}
+
+	&:active {
+		color: ${cssColors.greyLighter};
+
+		&::after {
+			background-color: ${cssColors.greyLighter};
+		}
+	}
 `;
 
-export const StyledHeaderLinks = styled.ul`
+export const HeaderLinks = styled.ul`
 	display: flex;
+	align-items: center;
 `;
 
 export const headerIconStyles = css`
-	width: 2.25rem;
-	height: 2.25rem;
+	width: 2rem;
+	height: 2rem;
 
 	&:hover {
 		path {
@@ -83,17 +88,22 @@ export const headerIconStyles = css`
 
 	&:active {
 		path {
-			fill: ${cssColors.greyTextPrimary};
+			fill: ${cssColors.greyLighter};
 		}
 	}
 `;
 
 export const StyledSunIcon = styled(SunIcon)`
-	${headerIconStyles}
-	${headerElementStyles}
+	${headerIconStyles};
+	${headerElementStyles};
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`
-	${headerIconStyles}
-	${headerElementStyles}
+	path {
+		fill: ${cssColors.orangePrimary};
+		stroke-width: 0px;
+	}
+
+	${headerIconStyles};
+	${headerElementStyles};
 `;
