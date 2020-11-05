@@ -27,7 +27,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const StyledLogo = styled(Logo)`
-	width: 17rem;
+	width: 15rem;
 	height: 5rem;
 	cursor: pointer;
 `;

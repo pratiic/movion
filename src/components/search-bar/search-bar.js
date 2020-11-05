@@ -1,12 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import {
 	SearchInputGroup,
 	SearchInput,
+	SearchOptionDisplay,
+	StyledChevronDownIcon,
+	SearchOptions,
+	SearchOption,
 	SearchInputControls,
 	StyledSearchIcon,
 	StyledDeleteIcon,
 } from "./search-bar.styles";
+
+import { toggleSearchMode } from "../../redux/search-mode/search-mode.actions";
 
 class SearchBar extends React.Component {
 	constructor() {
@@ -14,6 +21,8 @@ class SearchBar extends React.Component {
 
 		this.state = {
 			searchValue: "",
+			showSearchOptions: false,
+			searchBarFocused: false,
 		};
 
 		this.searchInputRef = React.createRef();
@@ -23,22 +32,81 @@ class SearchBar extends React.Component {
 		this.setState({ searchValue: event.target.value });
 	};
 
+	handleInputFocus = () => {
+		this.setState({ searchBarFocused: true });
+	};
+
+	handleInputBlur = () => {
+		this.setState({ searchBarFocused: false });
+	};
+
 	handleDeleteIconClick = () => {
 		this.setState({ searchValue: "" });
 		this.searchInputRef.current.focus();
 	};
 
+	toggleSearchOptions = () => {
+		this.setState((prevState) => {
+			return {
+				showSearchOptions: !prevState.showSearchOptions,
+			};
+		});
+	};
+
+	handleSearchOptionClick = (mode) => {
+		const { toggleSearchMode } = this.props;
+
+		if (mode === "movies") {
+			toggleSearchMode("movies");
+		} else {
+			toggleSearchMode("tv shows");
+		}
+
+		this.toggleSearchOptions();
+	};
+
 	render() {
+		const { searchMode } = this.props;
+
 		return (
 			<form>
-				<SearchInputGroup>
+				<SearchInputGroup focused={this.state.searchBarFocused}>
+					<div>
+						<SearchOptionDisplay onClick={this.toggleSearchOptions}>
+							{searchMode} <StyledChevronDownIcon /> |
+						</SearchOptionDisplay>
+						{this.state.showSearchOptions ? (
+							<SearchOptions>
+								<SearchOption
+									onClick={() => {
+										this.handleSearchOptionClick("movies");
+									}}
+								>
+									movies
+								</SearchOption>
+								<SearchOption
+									onClick={() => {
+										this.handleSearchOptionClick(
+											"tv shows"
+										);
+									}}
+								>
+									tv shows
+								</SearchOption>
+							</SearchOptions>
+						) : null}
+					</div>
+
 					<SearchInput
 						type="text"
-						placeholder="Search for movies..."
+						placeholder="search..."
 						value={this.state.searchValue}
 						onChange={this.handleInputChange}
 						ref={this.searchInputRef}
+						onFocus={this.handleInputFocus}
+						onBlur={this.handleInputBlur}
 					/>
+
 					<SearchInputControls>
 						<StyledDeleteIcon
 							onClick={this.handleDeleteIconClick}
@@ -63,4 +131,18 @@ class SearchBar extends React.Component {
 	}
 }
 
-export default SearchBar;
+const mapStateToProps = (state) => {
+	return {
+		searchMode: state.searchMode.searchMode,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleSearchMode: (newSearchMode) => {
+			dispatch(toggleSearchMode(newSearchMode));
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

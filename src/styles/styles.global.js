@@ -17,7 +17,6 @@ export const GlobalStyles = createGlobalStyle`
         min-height: 100vh;
         font-size: 1.8rem;
         font-family: ${cssFonts.fontStackPrimary};
-        //background-color: ${cssColors.greyBgPrimary};
         color: white;
     }
 
