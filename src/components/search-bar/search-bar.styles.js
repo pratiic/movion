@@ -29,12 +29,6 @@ const SearchBarControlStyles = css`
 			stroke: ${cssColors.greyLighter};
 		}
 	}
-
-	@media screen and (max-width: 500px) {
-		width: 1.6rem;
-		height: 1.6rem;
-		margin-left: 0.9rem;
-	}
 `;
 
 const SearchBarLayoutStyles = css`
@@ -88,10 +82,6 @@ export const SearchInputGroup = styled.div`
 	}};
 	width: 100%;
 
-	/* & > * {
-		flex: 1 1 auto;
-	} */
-
 	@media screen and (max-width: 700px) {
 		padding: 1rem 0.85rem;
 	}
@@ -100,8 +90,6 @@ export const SearchInputGroup = styled.div`
 export const SearchInput = styled.input`
 	background-color: transparent;
 	outline: none;
-	/* flex: 1 1 auto; */
-	//width: 50%;
 	border: none;
 	font-family: inherit;
 	${SearchBarTextStyles};
@@ -120,7 +108,6 @@ export const SearchOptionDisplay = styled.p`
 	${SearchBarTextStyles};
 	margin-right: 1rem;
 	cursor: pointer;
-	//text-transform: capitalize;
 	${SearchBarLayoutStyles};
 	height: 100%;
 	border-right: 1px solid ${cssColors.greyLighter};
@@ -152,7 +139,6 @@ export const SearchOption = styled.p`
 	text-align: center;
 	cursor: pointer;
 	border-radius: inherit;
-	//text-transform: capitalize;
 
 	&:hover {
 		background-color: ${cssColors.greyDark};
