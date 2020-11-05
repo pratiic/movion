@@ -21,8 +21,8 @@ const headerElementStyles = css`
 	@media screen and (max-width: 1000px) {
 		margin-left: 0;
 		width: 100%;
+		padding: 1rem 8rem;
 		text-align: center;
-		padding: 1rem 3rem;
 		border-bottom: 1px solid ${cssColors.greyLight};
 
 		&:hover {
@@ -34,18 +34,12 @@ const headerElementStyles = css`
 export const headerIconStyles = css`
 	width: 2rem;
 	height: 2rem;
+`;
 
-	&:hover {
-		path {
-			fill: ${cssColors.bluePrimary};
-		}
-	}
-
-	&:active {
-		path {
-			fill: ${cssColors.greyLighter};
-		}
-	}
+const HamSearchIconStyles = css`
+	width: 2.5rem;
+	height: 2.5rem;
+	cursor: pointer;
 `;
 
 export const StyledHeader = styled.header`
@@ -59,6 +53,7 @@ export const HeaderContainer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	padding: 0.5rem 5rem;
+	font-size: 1.55rem;
 
 	@media screen and (max-width: 550px) {
 		padding: 0.5rem 2.5rem;
@@ -80,15 +75,12 @@ export const StyledLogo = styled(Logo)`
 `;
 
 export const StyledLink = styled(Link)`
-	color: white;
-	font-size: 1.55rem;
 	text-transform: capitalize;
 	letter-spacing: 1px;
 	position: relative;
-	font-family: ${cssFonts.fontStackTertiary};
 	transition: padding 100ms ease-in;
+	font-family: ${cssFonts.fontStackTertiary};
 	${headerElementStyles};
-	font-weight: 400;
 
 	&:first-child {
 		margin-left: 0;
@@ -140,13 +132,19 @@ export const HeaderLinks = styled.ul`
 		right: 0;
 		top: 6rem;
 		flex-direction: column;
+		align-items: flex-start;
 		height: 100vh;
-		align-items: center;
 		transition: transform 200ms ease-in;
 		transform: ${({ show }) => {
 			return show ? `translateX(0)` : `translateX(100%)`;
 		}};
 		padding: 0.75rem 0;
+
+		a {
+			&:last-child {
+				order: -1;
+			}
+		}
 	}
 `;
 
@@ -155,6 +153,22 @@ export const StyledIconContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	${headerElementStyles};
+
+	&:hover {
+		svg {
+			path {
+				fill: ${cssColors.bluePrimary};
+			}
+		}
+	}
+
+	&:active {
+		svg {
+			path {
+				fill: ${cssColors.greyLighter};
+			}
+		}
+	}
 `;
 
 export const StyledSunIcon = styled(SunIcon)`
@@ -186,65 +200,8 @@ export const SearchHamContainer = styled.div`
 	}
 `;
 
-// export const Hamburger = styled.div`
-// 	display: none;
-// 	cursor: pointer;
-// 	margin-left: 2.5rem;
-
-// 	&:hover {
-// 		& > * {
-// 			background-color: white;
-// 		}
-// 	}
-
-// 	&:active {
-// 		& > * {
-// 			background-color: ${cssColors.greyLighter};
-// 		}
-// 	}
-
-// 	@media screen and (max-width: 1000px) {
-// 		display: block;
-// 	}
-// `;
-
-// export const HamburgerLine = styled.div`
-// 	width: 2.1rem;
-// 	height: 2px;
-// 	background-color: ${cssColors.greyLighter};
-// 	transition: transform 150ms ease-in;
-
-// 	&:first-child {
-// 		transform: ${({ cross }) => {
-// 			return cross ? `rotate(45deg) translate(1px, 2px)` : `none`;
-// 		}};
-// 	}
-
-// 	&:nth-child(2) {
-// 		display: ${({ cross }) => {
-// 			return cross ? `none` : `block`;
-// 		}};
-// 	}
-
-// 	&:last-child {
-// 		transform: ${({ cross }) => {
-// 			return cross ? `rotate(-45deg) translate(0px, -1px)` : `none`;
-// 		}};
-// 	}
-
-// 	&:nth-child(2) {
-// 		margin: 3.5px 0;
-// 	}
-// `;
-
-const HamSearchStyles = css`
-	width: 2.5rem;
-	height: 2.5rem;
-	cursor: pointer;
-`;
-
 export const StyledHamburgerIcon = styled(HamburgerIcon)`
-	${HamSearchStyles};
+	${HamSearchIconStyles};
 	margin-left: 3.5rem;
 
 	path {
@@ -268,7 +225,7 @@ export const StyledHamburgerIcon = styled(HamburgerIcon)`
 export const StyledSearchIcon = styled(SearchIcon)`
 	display: none;
 
-	${HamSearchStyles};
+	${HamSearchIconStyles};
 
 	path {
 		stroke: ${cssColors.greyLighter};
