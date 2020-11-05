@@ -8,13 +8,42 @@ import {
 	StyledLogo,
 	HeaderLinks,
 	StyledLink,
+	StyledIconContainer,
 	StyledSunIcon,
 	StyledHeartIcon,
+	SearchHamContainer,
+	StyledHamburgerIcon,
+	StyledSearchIcon,
 } from "./header.styles";
 
 import SearchBar from "../search-bar/search-bar";
 
 class Header extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			showSidebar: false,
+			showSearchbarOnSmallScreens: false,
+		};
+	}
+
+	toggleSideBar = () => {
+		this.setState((prevState) => {
+			return {
+				showSidebar: !prevState.showSidebar,
+			};
+		});
+	};
+
+	toggleSearchBar = () => {
+		this.setState((prevState) => {
+			return {
+				showSearchbarOnSmallScreens: !prevState.showSearchbarOnSmallScreens,
+			};
+		});
+	};
+
 	render() {
 		return (
 			<StyledHeader>
@@ -23,15 +52,31 @@ class Header extends React.Component {
 						<StyledLogo to="/" />
 					</Link>
 
-					<SearchBar />
+					<SearchBar
+						showOnSmallScreens={
+							this.state.showSearchbarOnSmallScreens
+						}
+						toggleSearchBar={this.toggleSearchBar}
+					/>
 
-					<HeaderLinks>
+					<HeaderLinks show={this.state.showSidebar}>
 						<StyledLink to="/">movies</StyledLink>
 						<StyledLink to="/tvshows">tv shows</StyledLink>
-						<StyledHeartIcon />
-						<StyledSunIcon />
+						<StyledIconContainer>
+							<StyledHeartIcon />
+						</StyledIconContainer>
+
+						<StyledIconContainer>
+							<StyledSunIcon />
+						</StyledIconContainer>
 						<StyledLink to="/signin">sign in</StyledLink>
 					</HeaderLinks>
+
+					<SearchHamContainer>
+						<StyledSearchIcon onClick={this.toggleSearchBar} />
+
+						<StyledHamburgerIcon onClick={this.toggleSideBar} />
+					</SearchHamContainer>
 				</HeaderContainer>
 			</StyledHeader>
 		);

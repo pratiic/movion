@@ -2,10 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
+	SearchInputForm,
 	SearchInputGroup,
 	SearchInput,
 	SearchOptionDisplay,
 	StyledChevronDownIcon,
+	StyledChevronUpIcon,
 	SearchOptions,
 	SearchOption,
 	SearchInputControls,
@@ -66,14 +68,14 @@ class SearchBar extends React.Component {
 	};
 
 	render() {
-		const { searchMode } = this.props;
+		const { searchMode, showOnSmallScreens, toggleSearchBar } = this.props;
 
 		return (
-			<form>
+			<SearchInputForm showOnSmallScreens={showOnSmallScreens}>
 				<SearchInputGroup focused={this.state.searchBarFocused}>
 					<div>
 						<SearchOptionDisplay onClick={this.toggleSearchOptions}>
-							{searchMode} <StyledChevronDownIcon /> |
+							{searchMode} <StyledChevronDownIcon />
 						</SearchOptionDisplay>
 						{this.state.showSearchOptions ? (
 							<SearchOptions>
@@ -124,9 +126,10 @@ class SearchBar extends React.Component {
 						>
 							<StyledSearchIcon />
 						</button>
+						<StyledChevronUpIcon onClick={toggleSearchBar} />
 					</SearchInputControls>
 				</SearchInputGroup>
-			</form>
+			</SearchInputForm>
 		);
 	}
 }

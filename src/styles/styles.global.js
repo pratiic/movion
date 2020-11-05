@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-import { cssFonts, cssColors } from "./styles.variables";
+import { cssFonts } from "./styles.variables";
 
 export const GlobalStyles = createGlobalStyle`
     *, *::before, *::after {
