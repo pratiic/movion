@@ -29,6 +29,12 @@ const SearchBarControlStyles = css`
 			stroke: ${cssColors.greyLighter};
 		}
 	}
+
+	@media screen and (max-width: 500px) {
+		width: 1.6rem;
+		height: 1.6rem;
+		margin-left: 0.9rem;
+	}
 `;
 
 const SearchBarLayoutStyles = css`
@@ -40,6 +46,10 @@ const SearchBarLayoutStyles = css`
 const SearchBarTextStyles = css`
 	font-size: 1.6rem;
 	color: ${cssColors.greyLighter};
+
+	@media screen and (max-width: 500px) {
+		font-size: 1.55rem;
+	}
 `;
 
 export const SearchInputForm = styled.form`
@@ -55,6 +65,16 @@ export const SearchInputForm = styled.form`
 		opacity: ${({ showOnSmallScreens }) =>
 			showOnSmallScreens ? `1` : `0`};
 	}
+
+	@media screen and (max-width: 500px) {
+		width: 85%;
+		margin: auto;
+	}
+
+	@media screen and (max-width: 400px) {
+		width: 95%;
+		margin: auto;
+	}
 `;
 
 export const SearchInputGroup = styled.div`
@@ -66,20 +86,22 @@ export const SearchInputGroup = styled.div`
 	border: ${({ focused }) => {
 		return focused ? `1px solid ${cssColors.bluePrimary}` : "none";
 	}};
+	width: 100%;
+
+	/* & > * {
+		flex: 1 1 auto;
+	} */
 
 	@media screen and (max-width: 700px) {
 		padding: 1rem 0.85rem;
-	}
-
-	@media screen and (max-width: 400px) {
-		margin: 0rem 2rem;
 	}
 `;
 
 export const SearchInput = styled.input`
 	background-color: transparent;
 	outline: none;
-	flex: 1 1 auto;
+	/* flex: 1 1 auto; */
+	//width: 50%;
 	border: none;
 	font-family: inherit;
 	${SearchBarTextStyles};
@@ -89,15 +111,9 @@ export const SearchInput = styled.input`
 		${SearchBarTextStyles};
 	}
 
-	/* @media screen and (max-width: 400px) {
-		font-size: 1.5rem;
-		width: 10rem;
+	@media screen and (max-width: 500px) {
+		width: 50%;
 	}
-
-	@media screen and (max-width: 350px) {
-		font-size: 1.5rem;
-		width: 7rem;
-	} */
 `;
 
 export const SearchOptionDisplay = styled.p`
