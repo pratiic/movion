@@ -14,12 +14,12 @@ const headerElementStyles = css`
 	margin-left: 3rem;
 	cursor: pointer;
 
-	@media screen and (max-width: 1100px) {
-		margin-left: 2.5rem;
+	@media screen and (max-width: 850px) {
+		margin-left: 3.4rem;
 	}
 
-	@media screen and (max-width: 450px) {
-		margin-left: 2rem;
+	@media screen and (max-width: 400px) {
+		margin-left: 2.4rem;
 	}
 
 	@media screen and (max-width: 350px) {
