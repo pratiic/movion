@@ -6,6 +6,7 @@ import {
 	StyledHeader,
 	HeaderContainer,
 	StyledLogo,
+	HeaderUtils,
 	HeaderLinks,
 	StyledLink,
 	StyledIconContainer,
@@ -59,9 +60,7 @@ class Header extends React.Component {
 						toggleSearchBar={this.toggleSearchBar}
 					/>
 
-					<HeaderLinks show={this.state.showSidebar}>
-						<StyledLink to="/">movies</StyledLink>
-						<StyledLink to="/tvshows">tv shows</StyledLink>
+					<HeaderUtils>
 						<StyledIconContainer>
 							<StyledHeartIcon />
 						</StyledIconContainer>
@@ -69,14 +68,17 @@ class Header extends React.Component {
 						<StyledIconContainer>
 							<StyledSunIcon />
 						</StyledIconContainer>
-						<StyledLink to="/signin">sign in</StyledLink>
-					</HeaderLinks>
 
-					<SearchHamContainer>
 						<StyledSearchIcon onClick={this.toggleSearchBar} />
 
 						<StyledHamburgerIcon onClick={this.toggleSideBar} />
-					</SearchHamContainer>
+					</HeaderUtils>
+
+					<HeaderLinks show={this.state.showSidebar}>
+						<StyledLink to="/">movies</StyledLink>
+						<StyledLink to="/tvshows">tv shows</StyledLink>
+						<StyledLink to="/signin">sign in</StyledLink>
+					</HeaderLinks>
 				</HeaderContainer>
 			</StyledHeader>
 		);

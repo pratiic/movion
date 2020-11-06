@@ -18,16 +18,12 @@ const headerElementStyles = css`
 		margin-left: 2.5rem;
 	}
 
-	@media screen and (max-width: 1000px) {
-		margin-left: 0;
-		width: 100%;
-		padding: 1rem 8rem;
-		text-align: center;
-		border-bottom: 1px solid ${cssColors.greyLight};
+	@media screen and (max-width: 450px) {
+		margin-left: 2rem;
+	}
 
-		&:hover {
-			background-color: ${cssColors.greyLight};
-		}
+	@media screen and (max-width: 350px) {
+		margin-left: 1.75rem;
 	}
 `;
 
@@ -37,9 +33,8 @@ export const headerIconStyles = css`
 `;
 
 const HamSearchIconStyles = css`
-	width: 2.5rem;
-	height: 2.5rem;
-	cursor: pointer;
+	width: 2.2rem;
+	height: 2.2rem;
 `;
 
 export const StyledHeader = styled.header`
@@ -69,8 +64,39 @@ export const StyledLogo = styled(Logo)`
 	height: 5rem;
 	cursor: pointer;
 
-	@media screen and (max-width: 700px) {
+	@media screen and (max-width: 850px) {
 		width: 13rem;
+	}
+`;
+
+export const HeaderUtils = styled.div`
+	display: flex;
+	align-items: center;
+`;
+
+export const HeaderLinks = styled.ul`
+	display: flex;
+	align-items: center;
+	background-color: ${cssColors.blueSecondary};
+
+	@media screen and (max-width: 1150px) {
+		position: fixed;
+		right: 0;
+		top: 6rem;
+		flex-direction: column;
+		align-items: flex-start;
+		height: 100vh;
+		transition: transform 200ms ease-in;
+		transform: ${({ show }) => {
+			return show ? `translateX(0)` : `translateX(100%)`;
+		}};
+		padding: 0.75rem 0;
+
+		a {
+			&:last-child {
+				order: -1;
+			}
+		}
 	}
 `;
 
@@ -98,7 +124,7 @@ export const StyledLink = styled(Link)`
 		transform: scaleX(0);
 		transform-origin: left;
 
-		@media screen and (max-width: 1000px) {
+		@media screen and (max-width: 1150px) {
 			background-color: transparent;
 		}
 	}
@@ -115,35 +141,21 @@ export const StyledLink = styled(Link)`
 		&::after {
 			background-color: ${cssColors.greyLighter};
 
-			@media screen and (max-width: 1000px) {
+			@media screen and (max-width: 1150px) {
 				background-color: transparent;
 			}
 		}
 	}
-`;
 
-export const HeaderLinks = styled.ul`
-	display: flex;
-	align-items: center;
-	background-color: ${cssColors.blueSecondary};
+	@media screen and (max-width: 1150px) {
+		margin-left: 0;
+		width: 100%;
+		padding: 1rem 8rem;
+		text-align: center;
+		border-bottom: 1px solid ${cssColors.greyLight};
 
-	@media screen and (max-width: 1000px) {
-		position: fixed;
-		right: 0;
-		top: 6rem;
-		flex-direction: column;
-		align-items: flex-start;
-		height: 100vh;
-		transition: transform 200ms ease-in;
-		transform: ${({ show }) => {
-			return show ? `translateX(0)` : `translateX(100%)`;
-		}};
-		padding: 0.75rem 0;
-
-		a {
-			&:last-child {
-				order: -1;
-			}
+		&:hover {
+			background-color: ${cssColors.greyLight};
 		}
 	}
 `;
@@ -153,6 +165,10 @@ export const StyledIconContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	${headerElementStyles};
+
+	&:first-child {
+		margin-left: 0;
+	}
 
 	&:hover {
 		svg {
@@ -173,6 +189,10 @@ export const StyledIconContainer = styled.div`
 
 export const StyledSunIcon = styled(SunIcon)`
 	${headerIconStyles};
+
+	path {
+		fill: ${cssColors.greyLighter};
+	}
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`
@@ -184,25 +204,11 @@ export const StyledHeartIcon = styled(HeartIcon)`
 	${headerIconStyles};
 `;
 
-export const SearchHamContainer = styled.div`
-	display: none;
-	justify-content: center;
-	align-items: center;
-
-	@media screen and (max-width: 1000px) {
-		display: flex;
-	}
-
-	@media screen and (max-width: 700px) {
-		background-color: ${cssColors.greyLight};
-		padding: 0.4rem 0.75rem;
-		border-radius: 5px;
-	}
-`;
-
 export const StyledHamburgerIcon = styled(HamburgerIcon)`
+	display: none;
+
 	${HamSearchIconStyles};
-	margin-left: 3.5rem;
+	${headerElementStyles};
 
 	path {
 		stroke: ${cssColors.greyLighter};
@@ -220,12 +226,17 @@ export const StyledHamburgerIcon = styled(HamburgerIcon)`
 			stroke: ${cssColors.greyLighter};
 		}
 	}
+
+	@media screen and (max-width: 1150px) {
+		display: block;
+	}
 `;
 
 export const StyledSearchIcon = styled(SearchIcon)`
 	display: none;
 
 	${HamSearchIconStyles};
+	${headerElementStyles};
 
 	path {
 		stroke: ${cssColors.greyLighter};
@@ -244,7 +255,7 @@ export const StyledSearchIcon = styled(SearchIcon)`
 		}
 	}
 
-	@media screen and (max-width: 700px) {
+	@media screen and (max-width: 850px) {
 		display: block;
 	}
 `;

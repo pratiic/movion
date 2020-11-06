@@ -47,7 +47,7 @@ const SearchBarTextStyles = css`
 `;
 
 export const SearchInputForm = styled.form`
-	@media screen and (max-width: 700px) {
+	@media screen and (max-width: 850px) {
 		position: fixed;
 		left: 50%;
 		transform: translateX(-50%);
@@ -74,7 +74,7 @@ export const SearchInputForm = styled.form`
 export const SearchInputGroup = styled.div`
 	${SearchBarLayoutStyles};
 	background-color: ${cssColors.greyLight};
-	padding: 0.85rem 0.85rem;
+	padding: 0.7rem 0.85rem;
 	border-radius: 3px;
 	position: relative;
 	border: ${({ focused }) => {
@@ -82,7 +82,7 @@ export const SearchInputGroup = styled.div`
 	}};
 	width: 100%;
 
-	@media screen and (max-width: 700px) {
+	@media screen and (max-width: 850px) {
 		padding: 1rem 0.85rem;
 	}
 `;
@@ -178,7 +178,7 @@ export const StyledChevronUpIcon = styled(ChevronUpIcon)`
 		}
 	}
 
-	@media screen and (max-width: 700px) {
+	@media screen and (max-width: 850px) {
 		display: block;
 	}
 `;
