@@ -67,6 +67,14 @@ class SearchBar extends React.Component {
 		this.toggleSearchOptions();
 	};
 
+	// componentDidUpdate() {
+	// 	const { showOnSmallScreens } = this.props;
+
+	// 	if (showOnSmallScreens) {
+	// 		this.searchInputRef.current.focus();
+	// 	}
+	// }
+
 	render() {
 		const { searchMode, showOnSmallScreens, toggleSearchBar } = this.props;
 

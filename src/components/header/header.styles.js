@@ -25,16 +25,38 @@ const headerElementStyles = css`
 	@media screen and (max-width: 350px) {
 		margin-left: 1.75rem;
 	}
+
+	&:first-child {
+		margin-left: 0;
+	}
 `;
 
 export const headerIconStyles = css`
-	width: 2rem;
-	height: 2rem;
-`;
-
-const HamSearchIconStyles = css`
 	width: 2.2rem;
 	height: 2.2rem;
+
+	path {
+		stroke: ${cssColors.greyLighter};
+	}
+
+	&:hover {
+		path {
+			stroke: white;
+		}
+	}
+
+	&:active {
+		path {
+			stroke: ${cssColors.greyLighter};
+		}
+	}
+
+	${({ smaller }) =>
+		smaller &&
+		css`
+			width: 2rem;
+			height: 2rem;
+		`}
 `;
 
 export const StyledHeader = styled.header`
@@ -150,7 +172,7 @@ export const StyledLink = styled(Link)`
 	@media screen and (max-width: 1150px) {
 		margin-left: 0;
 		width: 100%;
-		padding: 1rem 8rem;
+		padding: 1rem 5.5rem;
 		text-align: center;
 		border-bottom: 1px solid ${cssColors.greyLight};
 
@@ -160,71 +182,57 @@ export const StyledLink = styled(Link)`
 	}
 `;
 
-export const StyledIconContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	${headerElementStyles};
-
-	&:first-child {
-		margin-left: 0;
-	}
-
-	&:hover {
-		svg {
-			path {
-				fill: ${cssColors.bluePrimary};
-			}
-		}
-	}
-
-	&:active {
-		svg {
-			path {
-				fill: ${cssColors.greyLighter};
-			}
-		}
-	}
-`;
-
 export const StyledSunIcon = styled(SunIcon)`
+	${headerElementStyles};
 	${headerIconStyles};
 
 	path {
 		fill: ${cssColors.greyLighter};
 	}
-`;
-
-export const StyledHeartIcon = styled(HeartIcon)`
-	path {
-		fill: ${cssColors.orangePrimary};
-		stroke-width: 0px;
-	}
-
-	${headerIconStyles};
-`;
-
-export const StyledHamburgerIcon = styled(HamburgerIcon)`
-	display: none;
-
-	${HamSearchIconStyles};
-	${headerElementStyles};
-
-	path {
-		stroke: ${cssColors.greyLighter};
-		stroke-width: 4px;
-	}
 
 	&:hover {
 		path {
-			stroke: white;
+			fill: white;
 		}
 	}
 
 	&:active {
 		path {
-			stroke: ${cssColors.greyLighter};
+			fill: ${cssColors.greyLighter};
 		}
+	}
+`;
+
+export const StyledHeartIcon = styled(HeartIcon)`
+	${headerElementStyles};
+	${headerIconStyles};
+
+	path {
+		fill: ${cssColors.orangePrimary};
+		stroke-width: 0px;
+	}
+
+	&:hover {
+		path {
+			fill: ${cssColors.bluePrimary};
+		}
+	}
+
+	&:active {
+		path {
+			fill: ${cssColors.greyLighter};
+		}
+	}
+`;
+
+export const StyledHamburgerIcon = styled(HamburgerIcon)`
+	display: none;
+
+	${headerElementStyles};
+	${headerIconStyles};
+
+	path {
+		stroke-width: 4px;
 	}
 
 	@media screen and (max-width: 1150px) {
@@ -235,24 +243,13 @@ export const StyledHamburgerIcon = styled(HamburgerIcon)`
 export const StyledSearchIcon = styled(SearchIcon)`
 	display: none;
 
-	${HamSearchIconStyles};
 	${headerElementStyles};
+	${headerIconStyles};
+
+	height: 2rem;
 
 	path {
-		stroke: ${cssColors.greyLighter};
 		stroke-width: 5px;
-	}
-
-	&:hover {
-		path {
-			stroke: white;
-		}
-	}
-
-	&:active {
-		path {
-			stroke: ${cssColors.greyLighter};
-		}
 	}
 
 	@media screen and (max-width: 850px) {

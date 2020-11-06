@@ -9,10 +9,8 @@ import {
 	HeaderUtils,
 	HeaderLinks,
 	StyledLink,
-	StyledIconContainer,
 	StyledSunIcon,
 	StyledHeartIcon,
-	SearchHamContainer,
 	StyledHamburgerIcon,
 	StyledSearchIcon,
 } from "./header.styles";
@@ -61,13 +59,9 @@ class Header extends React.Component {
 					/>
 
 					<HeaderUtils>
-						<StyledIconContainer>
-							<StyledHeartIcon />
-						</StyledIconContainer>
+						<StyledHeartIcon smaller="true" />
 
-						<StyledIconContainer>
-							<StyledSunIcon />
-						</StyledIconContainer>
+						<StyledSunIcon smaller="true" />
 
 						<StyledSearchIcon onClick={this.toggleSearchBar} />
 
