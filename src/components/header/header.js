@@ -26,6 +26,25 @@ class Header extends React.Component {
 		super();
 
 		this.state = {
+			headerLinks: [
+				{
+					value: "movies",
+					icon: <StyledMovieIcon />,
+					to: "/",
+				},
+
+				{
+					value: "tv shows",
+					icon: <StyledTvIcon />,
+					to: "/tvshows",
+				},
+
+				{
+					value: "sign in",
+					icon: <StyledLoginIcon />,
+					to: "/signin",
+				},
+			],
 			showSidebar: false,
 			showSearchbarOnSmallScreens: false,
 		};
@@ -79,25 +98,20 @@ class Header extends React.Component {
 					</HeaderUtils>
 
 					<HeaderLinks show={this.state.showSidebar}>
-						<StyledLink to="/">
-							{" "}
-							{this.state.showSidebar ? (
-								<StyledMovieIcon />
-							) : null}
-							movies
-						</StyledLink>
-						<StyledLink to="/tvshows">
-							{" "}
-							{this.state.showSidebar ? <StyledTvIcon /> : null}
-							tv shows
-						</StyledLink>
-						<StyledLink to="/signin">
-							{" "}
-							{this.state.showSidebar ? (
-								<StyledLoginIcon />
-							) : null}
-							sign in
-						</StyledLink>
+						{this.state.headerLinks.map((headerLink) => {
+							return (
+								<StyledLink
+									to={headerLink.to}
+									key={headerLink.value}
+								>
+									{" "}
+									{this.state.showSidebar
+										? headerLink.icon
+										: null}
+									{headerLink.value}
+								</StyledLink>
+							);
+						})}
 					</HeaderLinks>
 				</HeaderContainer>
 			</StyledHeader>
