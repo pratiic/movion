@@ -5,6 +5,10 @@ import { ReactComponent as SunIcon } from "../../assets/icons/sun.svg";
 import { ReactComponent as HeartIcon } from "../../assets/icons/heart.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as HamburgerIcon } from "../../assets/icons/hamburger.svg";
+import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
+import { ReactComponent as MovieIcon } from "../../assets/icons/movie.svg";
+import { ReactComponent as TvIcon } from "../../assets/icons/tv.svg";
+import { ReactComponent as LoginIcon } from "../../assets/icons/login.svg";
 
 import { Link } from "react-router-dom";
 
@@ -59,8 +63,28 @@ export const headerIconStyles = css`
 		`}
 `;
 
+const SideBarToggleIconStyles = css`
+	display: none;
+
+	@media screen and (max-width: 1150px) {
+		display: block;
+	}
+`;
+
 export const StyledHeader = styled.header`
 	background-color: ${cssColors.blueSecondary};
+`;
+
+const HeaderLinkIconStyles = css`
+	height: 1.85rem;
+	width: 1.85rem;
+	margin-right: 1.7rem;
+
+	${SideBarToggleIconStyles};
+
+	path {
+		fill: white;
+	}
 `;
 
 export const HeaderContainer = styled.div`
@@ -126,8 +150,9 @@ export const StyledLink = styled(Link)`
 	text-transform: capitalize;
 	letter-spacing: 1px;
 	position: relative;
-	transition: padding 100ms ease-in;
 	font-family: ${cssFonts.fontStackTertiary};
+	display: flex;
+	align-items: center;
 	${headerElementStyles};
 
 	&:first-child {
@@ -180,6 +205,24 @@ export const StyledLink = styled(Link)`
 			background-color: ${cssColors.greyLight};
 		}
 	}
+
+	@media screen and (max-width: 450px) {
+		padding: 1rem 4.5rem;
+	}
+
+	@media screen and (max-width: 350px) {
+		padding: 1rem 4rem;
+	}
+`;
+
+export const StyledMovieIcon = styled(MovieIcon)`
+	${HeaderLinkIconStyles};
+`;
+export const StyledTvIcon = styled(TvIcon)`
+	${HeaderLinkIconStyles};
+`;
+export const StyledLoginIcon = styled(LoginIcon)`
+	${HeaderLinkIconStyles};
 `;
 
 export const StyledSunIcon = styled(SunIcon)`
@@ -226,17 +269,22 @@ export const StyledHeartIcon = styled(HeartIcon)`
 `;
 
 export const StyledHamburgerIcon = styled(HamburgerIcon)`
-	display: none;
-
 	${headerElementStyles};
 	${headerIconStyles};
+	${SideBarToggleIconStyles}
 
 	path {
 		stroke-width: 4px;
 	}
+`;
 
-	@media screen and (max-width: 1150px) {
-		display: block;
+export const StyledDeleteIcon = styled(DeleteIcon)`
+	${headerElementStyles};
+	${headerIconStyles};
+	${SideBarToggleIconStyles};
+
+	path {
+		stroke-width: 2px;
 	}
 `;
 

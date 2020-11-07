@@ -9,9 +9,13 @@ import {
 	HeaderUtils,
 	HeaderLinks,
 	StyledLink,
+	StyledMovieIcon,
+	StyledTvIcon,
+	StyledLoginIcon,
 	StyledSunIcon,
 	StyledHeartIcon,
 	StyledHamburgerIcon,
+	StyledDeleteIcon,
 	StyledSearchIcon,
 } from "./header.styles";
 
@@ -65,13 +69,35 @@ class Header extends React.Component {
 
 						<StyledSearchIcon onClick={this.toggleSearchBar} />
 
-						<StyledHamburgerIcon onClick={this.toggleSideBar} />
+						{this.state.showSidebar ? (
+							<StyledDeleteIcon
+								onClick={this.toggleSideBar}
+							></StyledDeleteIcon>
+						) : (
+							<StyledHamburgerIcon onClick={this.toggleSideBar} />
+						)}
 					</HeaderUtils>
 
 					<HeaderLinks show={this.state.showSidebar}>
-						<StyledLink to="/">movies</StyledLink>
-						<StyledLink to="/tvshows">tv shows</StyledLink>
-						<StyledLink to="/signin">sign in</StyledLink>
+						<StyledLink to="/">
+							{" "}
+							{this.state.showSidebar ? (
+								<StyledMovieIcon />
+							) : null}
+							movies
+						</StyledLink>
+						<StyledLink to="/tvshows">
+							{" "}
+							{this.state.showSidebar ? <StyledTvIcon /> : null}
+							tv shows
+						</StyledLink>
+						<StyledLink to="/signin">
+							{" "}
+							{this.state.showSidebar ? (
+								<StyledLoginIcon />
+							) : null}
+							sign in
+						</StyledLink>
 					</HeaderLinks>
 				</HeaderContainer>
 			</StyledHeader>
