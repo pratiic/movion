@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { ReactComponent as Search } from "../../assets/icons/search.svg";
 import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
 import { ReactComponent as ChevronDownIcon } from "../../assets/icons/chevron-down.svg";
-import { ReactComponent as ChevronUpIcon } from "../../assets/icons/chevron-up.svg";
+import { ReactComponent as ArrowUpIcon } from "../../assets/icons/arrow-up.svg";
 
 import { cssColors } from "../../styles/styles.variables";
 
@@ -142,10 +142,13 @@ export const StyledDeleteIcon = styled(Delete)`
 	${SearchBarControlStyles};
 `;
 
-export const StyledChevronUpIcon = styled(ChevronUpIcon)`
+export const StyledArrowUpIcon = styled(ArrowUpIcon)`
 	display: none;
 
 	${SearchBarControlStyles};
+
+	width: 1.95rem;
+	height: 1.95rem;
 
 	@media screen and (max-width: 850px) {
 		display: block;

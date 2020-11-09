@@ -7,7 +7,7 @@ import {
 	SearchInput,
 	SearchOptionDisplay,
 	StyledChevronDownIcon,
-	StyledChevronUpIcon,
+	StyledArrowUpIcon,
 	SearchOptions,
 	SearchOption,
 	SearchInputControls,
@@ -134,7 +134,7 @@ class SearchBar extends React.Component {
 						>
 							<StyledSearchIcon />
 						</button>
-						<StyledChevronUpIcon onClick={toggleSearchBar} />
+						<StyledArrowUpIcon onClick={toggleSearchBar} />
 					</SearchInputControls>
 				</SearchInputGroup>
 			</SearchInputForm>
