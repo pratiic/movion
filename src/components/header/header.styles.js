@@ -38,6 +38,7 @@ const headerElementStyles = css`
 export const headerIconStyles = css`
 	width: 2rem;
 	height: 2rem;
+	cursor: pointer;
 
 	path {
 		fill: ${cssColors.greyLighter};
@@ -245,13 +246,6 @@ export const StyledDeleteIcon = styled(DeleteIcon)`
 	${headerElementStyles};
 	${headerIconStyles};
 	${SideBarToggleIconStyles};
-
-	height: 2rem;
-	width: 2rem;
-
-	/* path {
-		stroke-width: 2px;
-	} */
 `;
 
 export const StyledSearchIcon = styled(SearchIcon)`
@@ -259,12 +253,6 @@ export const StyledSearchIcon = styled(SearchIcon)`
 
 	${headerElementStyles};
 	${headerIconStyles};
-
-	/* height: 2rem; */
-
-	/* path {
-		stroke-width: 5px;
-	} */
 
 	@media screen and (max-width: 850px) {
 		display: block;

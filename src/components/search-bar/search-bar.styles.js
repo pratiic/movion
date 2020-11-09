@@ -15,7 +15,6 @@ const SearchBarControlStyles = css`
 	width: 1.7rem;
 	height: 1.7rem;
 	margin-left: 1.3rem;
-	cursor: pointer;
 `;
 
 const SearchBarLayoutStyles = css`
@@ -155,6 +154,9 @@ export const StyledChevronUpIcon = styled(ChevronUpIcon)`
 
 export const StyledChevronDownIcon = styled(ChevronDownIcon)`
 	margin: 0 0.75rem;
+
+	width: 1.7rem;
+	height: 1.7rem;
 
 	path {
 		fill: ${cssColors.greyLighter};
