@@ -36,31 +36,24 @@ const headerElementStyles = css`
 `;
 
 export const headerIconStyles = css`
-	width: 2.2rem;
-	height: 2.2rem;
+	width: 2rem;
+	height: 2rem;
 
 	path {
-		stroke: ${cssColors.greyLighter};
+		fill: ${cssColors.greyLighter};
 	}
 
 	&:hover {
 		path {
-			stroke: white;
+			fill: ${cssColors.bluePrimary};
 		}
 	}
 
 	&:active {
 		path {
-			stroke: ${cssColors.greyLighter};
+			fill: ${cssColors.greyLighter};
 		}
 	}
-
-	${({ smaller }) =>
-		smaller &&
-		css`
-			width: 2rem;
-			height: 2rem;
-		`}
 `;
 
 const SideBarToggleIconStyles = css`
@@ -228,22 +221,6 @@ export const StyledLoginIcon = styled(LoginIcon)`
 export const StyledSunIcon = styled(SunIcon)`
 	${headerElementStyles};
 	${headerIconStyles};
-
-	path {
-		fill: ${cssColors.greyLighter};
-	}
-
-	&:hover {
-		path {
-			fill: white;
-		}
-	}
-
-	&:active {
-		path {
-			fill: ${cssColors.greyLighter};
-		}
-	}
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`
@@ -252,19 +229,6 @@ export const StyledHeartIcon = styled(HeartIcon)`
 
 	path {
 		fill: ${cssColors.orangePrimary};
-		stroke-width: 0px;
-	}
-
-	&:hover {
-		path {
-			fill: ${cssColors.bluePrimary};
-		}
-	}
-
-	&:active {
-		path {
-			fill: ${cssColors.greyLighter};
-		}
 	}
 `;
 
@@ -273,9 +237,8 @@ export const StyledHamburgerIcon = styled(HamburgerIcon)`
 	${headerIconStyles};
 	${SideBarToggleIconStyles}
 
-	path {
-		stroke-width: 4px;
-	}
+	height: 2.5rem;
+	width: 2.5rem;
 `;
 
 export const StyledDeleteIcon = styled(DeleteIcon)`
@@ -283,9 +246,12 @@ export const StyledDeleteIcon = styled(DeleteIcon)`
 	${headerIconStyles};
 	${SideBarToggleIconStyles};
 
-	path {
+	height: 2rem;
+	width: 2rem;
+
+	/* path {
 		stroke-width: 2px;
-	}
+	} */
 `;
 
 export const StyledSearchIcon = styled(SearchIcon)`
@@ -294,11 +260,11 @@ export const StyledSearchIcon = styled(SearchIcon)`
 	${headerElementStyles};
 	${headerIconStyles};
 
-	height: 2rem;
+	/* height: 2rem; */
 
-	path {
+	/* path {
 		stroke-width: 5px;
-	}
+	} */
 
 	@media screen and (max-width: 850px) {
 		display: block;

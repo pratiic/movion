@@ -7,28 +7,15 @@ import { ReactComponent as ChevronUpIcon } from "../../assets/icons/chevron-up.s
 
 import { cssColors } from "../../styles/styles.variables";
 
+import { headerIconStyles } from "../header/header.styles";
+
 const SearchBarControlStyles = css`
+	${headerIconStyles};
+
 	width: 1.7rem;
 	height: 1.7rem;
-
-	path {
-		stroke: ${cssColors.greyLighter};
-	}
-
 	margin-left: 1.3rem;
 	cursor: pointer;
-
-	&:hover {
-		path {
-			stroke: white;
-		}
-	}
-
-	&:active {
-		path {
-			stroke: ${cssColors.greyLighter};
-		}
-	}
 `;
 
 const SearchBarLayoutStyles = css`
@@ -38,12 +25,8 @@ const SearchBarLayoutStyles = css`
 `;
 
 const SearchBarTextStyles = css`
-	font-size: 1.6rem;
+	font-size: 1.65rem;
 	color: ${cssColors.greyLighter};
-
-	@media screen and (max-width: 500px) {
-		font-size: 1.55rem;
-	}
 `;
 
 export const SearchInputForm = styled.form`
@@ -51,13 +34,17 @@ export const SearchInputForm = styled.form`
 		position: fixed;
 		left: 50%;
 		transform: translateX(-50%);
+		top: 0;
+		z-index: -1;
+		opacity: 0;
 		transition: top 250ms ease-in, opacity 300ms ease-in;
-		top: ${({ showOnSmallScreens }) =>
-			showOnSmallScreens ? `6.7rem` : `0rem`};
-		z-index: ${({ showOnSmallScreens }) =>
-			showOnSmallScreens ? `0` : `-1`};
-		opacity: ${({ showOnSmallScreens }) =>
-			showOnSmallScreens ? `1` : `0`};
+		${({ showOnSmallScreens }) =>
+			showOnSmallScreens &&
+			css`
+				top: 6.7rem;
+				z-index: 0;
+				opacity: 1;
+			`}
 	}
 
 	@media screen and (max-width: 500px) {
@@ -116,10 +103,9 @@ export const SearchOptionDisplay = styled.p`
 	&:hover {
 		color: white;
 
-		& > * {
+		svg {
 			path {
 				fill: white;
-				stroke: white;
 			}
 		}
 	}
@@ -162,35 +148,15 @@ export const StyledChevronUpIcon = styled(ChevronUpIcon)`
 
 	${SearchBarControlStyles};
 
-	g {
-		fill: ${cssColors.greyLighter};
-	}
-
-	&:hover {
-		g {
-			fill: white;
-		}
-	}
-
-	&:active {
-		g {
-			fill: ${cssColors.greyLighter};
-		}
-	}
-
 	@media screen and (max-width: 850px) {
 		display: block;
 	}
 `;
 
 export const StyledChevronDownIcon = styled(ChevronDownIcon)`
-	width: 1rem;
-	height: 1rem;
 	margin: 0 0.75rem;
 
 	path {
 		fill: ${cssColors.greyLighter};
-		stroke: ${cssColors.greyLighter};
-		stroke-width: 7px;
 	}
 `;
