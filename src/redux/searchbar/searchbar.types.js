@@ -1,0 +1,4 @@
+export const searchbarActionTypes = {
+	TOGGLE_SEARCHBAR: "TOGGLE_SEARCHBAR",
+	TOGGLE_SEARCH_MODE: "TOGGLE_SEARCH_MODE",
+};

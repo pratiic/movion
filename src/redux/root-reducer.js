@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
-import { searchModeReducer } from "./search-mode/search-mode.reducer";
+import { sidebarReducer } from "./sidebar/sidebar.reducer";
+import { searchbarReducer } from "./searchbar/searchbar.reducer";
 
 export default combineReducers({
-	searchMode: searchModeReducer,
+	sidebar: sidebarReducer,
+	searchbar: searchbarReducer,
 });

@@ -15,16 +15,19 @@ import {
 	StyledDeleteIcon,
 } from "./search-bar.styles";
 
-import { toggleSearchMode } from "../../redux/search-mode/search-mode.actions";
+import {
+	toggleSearchbar,
+	toggleSearchMode,
+} from "../../redux/searchbar/searchbar.actions";
 
-class SearchBar extends React.Component {
+class Searchbar extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
 			searchValue: "",
 			showSearchOptions: false,
-			searchBarFocused: false,
+			SearchbarFocused: false,
 		};
 
 		this.searchInputRef = React.createRef();
@@ -35,16 +38,16 @@ class SearchBar extends React.Component {
 	};
 
 	handleInputFocus = () => {
-		this.setState({ searchBarFocused: true });
+		this.setState({ SearchbarFocused: true });
 	};
 
 	handleInputBlur = () => {
-		this.setState({ searchBarFocused: false });
+		this.setState({ SearchbarFocused: false });
 	};
 
 	handleDeleteIconClick = () => {
-		this.setState({ searchValue: "" });
 		this.searchInputRef.current.focus();
+		this.setState({ searchValue: "" });
 	};
 
 	toggleSearchOptions = () => {
@@ -67,6 +70,14 @@ class SearchBar extends React.Component {
 		this.toggleSearchOptions();
 	};
 
+	handleFormSubmit = (event) => {
+		const { toggleSearchbar } = this.props;
+
+		event.preventDefault();
+		this.setState({ searchValue: "" });
+		toggleSearchbar();
+	};
+
 	// componentDidUpdate() {
 	// 	const { showOnSmallScreens } = this.props;
 
@@ -76,14 +87,24 @@ class SearchBar extends React.Component {
 	// }
 
 	render() {
-		const { searchMode, showOnSmallScreens, toggleSearchBar } = this.props;
+		const {
+			searchMode,
+			showSearchbarOnSmallScreens,
+			toggleSearchbar,
+		} = this.props;
 
 		return (
-			<SearchInputForm showOnSmallScreens={showOnSmallScreens}>
-				<SearchInputGroup focused={this.state.searchBarFocused}>
+			<SearchInputForm
+				showSearchbarOnSmallScreens={showSearchbarOnSmallScreens}
+				onSubmit={this.handleFormSubmit}
+			>
+				<SearchInputGroup focused={this.state.SearchbarFocused}>
 					<div>
 						<SearchOptionDisplay onClick={this.toggleSearchOptions}>
-							{searchMode} <StyledChevronDownIcon />
+							{searchMode}{" "}
+							<StyledChevronDownIcon
+								$rotateUp={this.state.showSearchOptions}
+							/>
 						</SearchOptionDisplay>
 						{this.state.showSearchOptions ? (
 							<SearchOptions>
@@ -118,9 +139,11 @@ class SearchBar extends React.Component {
 					/>
 
 					<SearchInputControls>
-						<StyledDeleteIcon
-							onClick={this.handleDeleteIconClick}
-						/>
+						{this.state.searchValue ? (
+							<StyledDeleteIcon
+								onClick={this.handleDeleteIconClick}
+							/>
+						) : null}
 						<button
 							type="submit"
 							style={{
@@ -134,7 +157,7 @@ class SearchBar extends React.Component {
 						>
 							<StyledSearchIcon />
 						</button>
-						<StyledArrowUpIcon onClick={toggleSearchBar} />
+						<StyledArrowUpIcon onClick={toggleSearchbar} />
 					</SearchInputControls>
 				</SearchInputGroup>
 			</SearchInputForm>
@@ -144,7 +167,9 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		searchMode: state.searchMode.searchMode,
+		searchMode: state.searchbar.searchMode,
+		showSearchbarOnSmallScreens:
+			state.searchbar.showSearchbarOnSmallScreens,
 	};
 };
 
@@ -153,7 +178,10 @@ const mapDispatchToProps = (dispatch) => {
 		toggleSearchMode: (newSearchMode) => {
 			dispatch(toggleSearchMode(newSearchMode));
 		},
+		toggleSearchbar: () => {
+			dispatch(toggleSearchbar());
+		},
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);

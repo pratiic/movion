@@ -57,7 +57,7 @@ export const headerIconStyles = css`
 	}
 `;
 
-const SideBarToggleIconStyles = css`
+const SidebarToggleIconStyles = css`
 	display: none;
 
 	@media screen and (max-width: 1150px) {
@@ -74,7 +74,7 @@ const HeaderLinkIconStyles = css`
 	width: 1.85rem;
 	margin-right: 1.7rem;
 
-	${SideBarToggleIconStyles};
+	${SidebarToggleIconStyles};
 
 	path {
 		fill: white;
@@ -236,7 +236,7 @@ export const StyledHeartIcon = styled(HeartIcon)`
 export const StyledHamburgerIcon = styled(HamburgerIcon)`
 	${headerElementStyles};
 	${headerIconStyles};
-	${SideBarToggleIconStyles}
+	${SidebarToggleIconStyles}
 
 	height: 2.5rem;
 	width: 2.5rem;
@@ -245,7 +245,7 @@ export const StyledHamburgerIcon = styled(HamburgerIcon)`
 export const StyledDeleteIcon = styled(DeleteIcon)`
 	${headerElementStyles};
 	${headerIconStyles};
-	${SideBarToggleIconStyles};
+	${SidebarToggleIconStyles};
 `;
 
 export const StyledSearchIcon = styled(SearchIcon)`

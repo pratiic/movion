@@ -9,7 +9,7 @@ import { cssColors } from "../../styles/styles.variables";
 
 import { headerIconStyles } from "../header/header.styles";
 
-const SearchBarControlStyles = css`
+const SearchbarControlStyles = css`
 	${headerIconStyles};
 
 	width: 1.7rem;
@@ -17,13 +17,13 @@ const SearchBarControlStyles = css`
 	margin-left: 1.3rem;
 `;
 
-const SearchBarLayoutStyles = css`
+const SearchbarLayoutStyles = css`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 `;
 
-const SearchBarTextStyles = css`
+const SearchbarTextStyles = css`
 	font-size: 1.65rem;
 	color: ${cssColors.greyLighter};
 `;
@@ -37,8 +37,8 @@ export const SearchInputForm = styled.form`
 		z-index: -1;
 		opacity: 0;
 		transition: top 250ms ease-in, opacity 300ms ease-in;
-		${({ showOnSmallScreens }) =>
-			showOnSmallScreens &&
+		${({ showSearchbarOnSmallScreens }) =>
+			showSearchbarOnSmallScreens &&
 			css`
 				top: 6.7rem;
 				z-index: 0;
@@ -58,7 +58,7 @@ export const SearchInputForm = styled.form`
 `;
 
 export const SearchInputGroup = styled.div`
-	${SearchBarLayoutStyles};
+	${SearchbarLayoutStyles};
 	background-color: ${cssColors.greyLight};
 	padding: 0.7rem 0.85rem;
 	border-radius: 3px;
@@ -78,11 +78,11 @@ export const SearchInput = styled.input`
 	outline: none;
 	border: none;
 	font-family: inherit;
-	${SearchBarTextStyles};
+	${SearchbarTextStyles};
 
 	::-webkit-input-placeholder {
 		letter-spacing: 1px;
-		${SearchBarTextStyles};
+		${SearchbarTextStyles};
 	}
 
 	@media screen and (max-width: 500px) {
@@ -91,10 +91,10 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchOptionDisplay = styled.p`
-	${SearchBarTextStyles};
+	${SearchbarTextStyles};
 	margin-right: 1rem;
 	cursor: pointer;
-	${SearchBarLayoutStyles};
+	${SearchbarLayoutStyles};
 	height: 100%;
 	border-right: 1px solid ${cssColors.greyLighter};
 	white-space: nowrap;
@@ -119,7 +119,7 @@ export const SearchOptions = styled.div`
 `;
 
 export const SearchOption = styled.p`
-	${SearchBarTextStyles};
+	${SearchbarTextStyles};
 	padding: 0.7rem 1.55rem;
 	text-align: center;
 	cursor: pointer;
@@ -131,21 +131,21 @@ export const SearchOption = styled.p`
 `;
 
 export const SearchInputControls = styled.div`
-	${SearchBarLayoutStyles};
+	${SearchbarLayoutStyles};
 `;
 
 export const StyledSearchIcon = styled(Search)`
-	${SearchBarControlStyles};
+	${SearchbarControlStyles};
 `;
 
 export const StyledDeleteIcon = styled(Delete)`
-	${SearchBarControlStyles};
+	${SearchbarControlStyles};
 `;
 
 export const StyledArrowUpIcon = styled(ArrowUpIcon)`
 	display: none;
 
-	${SearchBarControlStyles};
+	${SearchbarControlStyles};
 
 	width: 1.95rem;
 	height: 1.95rem;
@@ -164,4 +164,9 @@ export const StyledChevronDownIcon = styled(ChevronDownIcon)`
 	path {
 		fill: ${cssColors.greyLighter};
 	}
+
+	transition: transform 100ms ease-in;
+
+	transform: ${({ $rotateUp }) =>
+		$rotateUp ? "rotate(180deg)" : "rotate(0deg)"};
 `;

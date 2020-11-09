@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import {
 	StyledHeader,
@@ -19,7 +20,10 @@ import {
 	StyledSearchIcon,
 } from "./header.styles";
 
-import SearchBar from "../search-bar/search-bar";
+import Searchbar from "../search-bar/search-bar";
+
+import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
+import { toggleSearchbar } from "../../redux/searchbar/searchbar.actions";
 
 class Header extends React.Component {
 	constructor() {
@@ -45,28 +49,12 @@ class Header extends React.Component {
 					to: "/signin",
 				},
 			],
-			showSidebar: false,
-			showSearchbarOnSmallScreens: false,
 		};
 	}
 
-	toggleSideBar = () => {
-		this.setState((prevState) => {
-			return {
-				showSidebar: !prevState.showSidebar,
-			};
-		});
-	};
-
-	toggleSearchBar = () => {
-		this.setState((prevState) => {
-			return {
-				showSearchbarOnSmallScreens: !prevState.showSearchbarOnSmallScreens,
-			};
-		});
-	};
-
 	render() {
+		const { toggleSidebar, showSidebar, toggleSearchbar } = this.props;
+
 		return (
 			<StyledHeader>
 				<HeaderContainer>
@@ -74,30 +62,25 @@ class Header extends React.Component {
 						<StyledLogo to="/" />
 					</Link>
 
-					<SearchBar
-						showOnSmallScreens={
-							this.state.showSearchbarOnSmallScreens
-						}
-						toggleSearchBar={this.toggleSearchBar}
-					/>
+					<Searchbar />
 
 					<HeaderUtils>
 						<StyledHeartIcon smaller="true" />
 
 						<StyledSunIcon smaller="true" />
 
-						<StyledSearchIcon onClick={this.toggleSearchBar} />
+						<StyledSearchIcon onClick={toggleSearchbar} />
 
-						{this.state.showSidebar ? (
+						{showSidebar ? (
 							<StyledDeleteIcon
-								onClick={this.toggleSideBar}
+								onClick={toggleSidebar}
 							></StyledDeleteIcon>
 						) : (
-							<StyledHamburgerIcon onClick={this.toggleSideBar} />
+							<StyledHamburgerIcon onClick={toggleSidebar} />
 						)}
 					</HeaderUtils>
 
-					<HeaderLinks show={this.state.showSidebar}>
+					<HeaderLinks show={showSidebar}>
 						{this.state.headerLinks.map((headerLink) => {
 							return (
 								<StyledLink
@@ -105,9 +88,7 @@ class Header extends React.Component {
 									key={headerLink.value}
 								>
 									{" "}
-									{this.state.showSidebar
-										? headerLink.icon
-										: null}
+									{showSidebar ? headerLink.icon : null}
 									{headerLink.value}
 								</StyledLink>
 							);
@@ -119,4 +100,21 @@ class Header extends React.Component {
 	}
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+	return {
+		showSidebar: state.sidebar.showSidebar,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleSidebar: () => {
+			dispatch(toggleSidebar());
+		},
+		toggleSearchbar: () => {
+			dispatch(toggleSearchbar());
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
