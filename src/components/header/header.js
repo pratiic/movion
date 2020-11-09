@@ -35,22 +35,36 @@ class Header extends React.Component {
 					value: "movies",
 					icon: <StyledMovieIcon />,
 					to: "/",
+					active: true,
 				},
 
 				{
 					value: "tv shows",
 					icon: <StyledTvIcon />,
 					to: "/tvshows",
+					active: false,
 				},
 
 				{
 					value: "sign in",
 					icon: <StyledLoginIcon />,
 					to: "/signin",
+					active: false,
 				},
 			],
 		};
 	}
+
+	toggleActive = (value) => {
+		this.setState({
+			headerLinks: this.state.headerLinks.map((headerLink) => {
+				if (headerLink.value === value) {
+					return { ...headerLink, active: true };
+				}
+				return { ...headerLink, active: false };
+			}),
+		});
+	};
 
 	render() {
 		const { toggleSidebar, showSidebar, toggleSearchbar } = this.props;
@@ -86,6 +100,10 @@ class Header extends React.Component {
 								<StyledLink
 									to={headerLink.to}
 									key={headerLink.value}
+									onClick={() => {
+										this.toggleActive(headerLink.value);
+									}}
+									$isActive={headerLink.active}
 								>
 									{" "}
 									{showSidebar ? headerLink.icon : null}

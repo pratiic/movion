@@ -65,6 +65,20 @@ const SidebarToggleIconStyles = css`
 	}
 `;
 
+const ActiveLinkStyles = css`
+	color: white;
+
+	@media screen and (max-width: 1150px) {
+		background-color: ${cssColors.greyLight};
+
+		svg {
+			path {
+				fill: white;
+			}
+		}
+	}
+`;
+
 export const StyledHeader = styled.header`
 	background-color: ${cssColors.blueSecondary};
 `;
@@ -77,7 +91,7 @@ const HeaderLinkIconStyles = css`
 	${SidebarToggleIconStyles};
 
 	path {
-		fill: white;
+		fill: ${cssColors.greyLighter};
 	}
 `;
 
@@ -145,9 +159,11 @@ export const StyledLink = styled(Link)`
 	letter-spacing: 1px;
 	position: relative;
 	font-family: ${cssFonts.fontStackTertiary};
+	color: ${cssColors.greyLighter};
 	display: flex;
 	align-items: center;
 	${headerElementStyles};
+	${({ $isActive }) => $isActive && ActiveLinkStyles};
 
 	&:first-child {
 		margin-left: 0;
@@ -162,15 +178,18 @@ export const StyledLink = styled(Link)`
 		height: 2px;
 		background-color: ${cssColors.bluePrimary};
 		transition: transform 150ms ease-in;
-		transform: scaleX(0);
+		transform: ${({ $isActive }) =>
+			$isActive ? "scaleX(1)" : "scaleX(0)"};
 		transform-origin: left;
 
 		@media screen and (max-width: 1150px) {
-			background-color: transparent;
+			display: none;
 		}
 	}
 
 	&:hover {
+		color: white;
+
 		&::after {
 			transform: scaleX(1);
 		}
@@ -178,14 +197,6 @@ export const StyledLink = styled(Link)`
 
 	&:active {
 		color: ${cssColors.greyLighter};
-
-		&::after {
-			background-color: ${cssColors.greyLighter};
-
-			@media screen and (max-width: 1150px) {
-				background-color: transparent;
-			}
-		}
 	}
 
 	@media screen and (max-width: 1150px) {
@@ -196,7 +207,7 @@ export const StyledLink = styled(Link)`
 		border-bottom: 1px solid ${cssColors.greyLight};
 
 		&:hover {
-			background-color: ${cssColors.greyLight};
+			${ActiveLinkStyles};
 		}
 	}
 
