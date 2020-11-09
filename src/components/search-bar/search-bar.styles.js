@@ -29,6 +29,12 @@ const SearchbarTextStyles = css`
 `;
 
 export const SearchInputForm = styled.form`
+	width: 30%;
+
+	@media screen and (max-width: 1250px) {
+		width: fit-content;
+	}
+
 	@media screen and (max-width: 850px) {
 		position: fixed;
 		left: 50%;
@@ -78,6 +84,7 @@ export const SearchInput = styled.input`
 	outline: none;
 	border: none;
 	font-family: inherit;
+	flex: 1 1 auto;
 	${SearchbarTextStyles};
 
 	::-webkit-input-placeholder {
@@ -95,7 +102,6 @@ export const SearchOptionDisplay = styled.p`
 	margin-right: 1rem;
 	cursor: pointer;
 	${SearchbarLayoutStyles};
-	height: 100%;
 	border-right: 1px solid ${cssColors.greyLighter};
 	white-space: nowrap;
 

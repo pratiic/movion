@@ -197,6 +197,10 @@ export const StyledLink = styled(Link)`
 
 	&:active {
 		color: ${cssColors.greyLighter};
+
+		&::after {
+			background-color: ${cssColors.greyLighter};
+		}
 	}
 
 	@media screen and (max-width: 1150px) {
