@@ -1,6 +1,5 @@
 import React from "react";
-
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -13,17 +12,20 @@ import {
 	StyledMovieIcon,
 	StyledTvIcon,
 	StyledLoginIcon,
-	StyledSunIcon,
 	StyledHeartIcon,
 	StyledHamburgerIcon,
 	StyledDeleteIcon,
 	StyledSearchIcon,
 } from "./header.styles";
 
-import Searchbar from "../search-bar/search-bar";
-
 import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
-import { toggleSearchbar } from "../../redux/searchbar/searchbar.actions";
+import {
+	toggleSearchbar,
+	toggleSearchMode,
+} from "../../redux/searchbar/searchbar.actions";
+
+import Searchbar from "../search-bar/search-bar";
+import ThemeToggler from "../theme-toggler/theme-toggler";
 
 class Header extends React.Component {
 	constructor() {
@@ -34,13 +36,15 @@ class Header extends React.Component {
 				{
 					value: "movies",
 					icon: <StyledMovieIcon />,
-					to: "/",
+					pathname: "movies",
+					to: "/movies",
 					active: true,
 				},
 
 				{
 					value: "tv shows",
 					icon: <StyledTvIcon />,
+					pathname: "tvshows",
 					to: "/tvshows",
 					active: false,
 				},
@@ -48,12 +52,25 @@ class Header extends React.Component {
 				{
 					value: "sign in",
 					icon: <StyledLoginIcon />,
+					pathname: "signin",
 					to: "/signin",
 					active: false,
 				},
 			],
 		};
 	}
+
+	handleLinkClick = (event, linkValue) => {
+		const { toggleSearchMode, toggleSidebar } = this.props;
+
+		this.toggleActive(linkValue);
+
+		if (linkValue === "movies" || linkValue === "tv shows") {
+			toggleSearchMode(linkValue);
+		}
+
+		toggleSidebar();
+	};
 
 	toggleActive = (value) => {
 		this.setState({
@@ -65,6 +82,20 @@ class Header extends React.Component {
 			}),
 		});
 	};
+
+	componentDidMount() {
+		const { location } = this.props;
+
+		this.setState({
+			headerLinks: this.state.headerLinks.map((headerLink) => {
+				if (location.pathname.includes(headerLink.pathname)) {
+					return { ...headerLink, active: true };
+				}
+
+				return { ...headerLink, active: false };
+			}),
+		});
+	}
 
 	render() {
 		const { toggleSidebar, showSidebar, toggleSearchbar } = this.props;
@@ -79,9 +110,9 @@ class Header extends React.Component {
 					<Searchbar />
 
 					<HeaderUtils>
-						<StyledHeartIcon smaller="true" />
+						<StyledHeartIcon />
 
-						<StyledSunIcon smaller="true" />
+						<ThemeToggler />
 
 						<StyledSearchIcon onClick={toggleSearchbar} />
 
@@ -100,8 +131,11 @@ class Header extends React.Component {
 								<StyledLink
 									to={headerLink.to}
 									key={headerLink.value}
-									onClick={() => {
-										this.toggleActive(headerLink.value);
+									onClick={(event) => {
+										this.handleLinkClick(
+											event,
+											headerLink.value
+										);
 									}}
 									$isActive={headerLink.active}
 								>
@@ -132,7 +166,10 @@ const mapDispatchToProps = (dispatch) => {
 		toggleSearchbar: () => {
 			dispatch(toggleSearchbar());
 		},
+		toggleSearchMode: (newSearchMode) => {
+			dispatch(toggleSearchMode(newSearchMode));
+		},
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

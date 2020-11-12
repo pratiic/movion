@@ -7,10 +7,10 @@ import { ReactComponent as ArrowUpIcon } from "../../assets/icons/arrow-up.svg";
 
 import { cssColors } from "../../styles/styles.variables";
 
-import { headerIconStyles } from "../header/header.styles";
+import { HeaderIconStyles } from "../header/header.styles";
 
 const SearchbarControlStyles = css`
-	${headerIconStyles};
+	${HeaderIconStyles};
 
 	width: 1.7rem;
 	height: 1.7rem;
@@ -29,7 +29,7 @@ const SearchbarTextStyles = css`
 `;
 
 export const SearchInputForm = styled.form`
-	width: 30%;
+	width: 28%;
 
 	@media screen and (max-width: 1250px) {
 		width: fit-content;

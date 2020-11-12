@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import {
 	SearchInputForm,
@@ -58,14 +59,10 @@ class Searchbar extends React.Component {
 		});
 	};
 
-	handleSearchOptionClick = (mode) => {
+	handleSearchOptionClick = (newSearchMode) => {
 		const { toggleSearchMode } = this.props;
 
-		if (mode === "movies") {
-			toggleSearchMode("movies");
-		} else {
-			toggleSearchMode("tv shows");
-		}
+		toggleSearchMode(newSearchMode);
 
 		this.toggleSearchOptions();
 	};
@@ -85,6 +82,17 @@ class Searchbar extends React.Component {
 	// 		this.searchInputRef.current.focus();
 	// 	}
 	// }
+
+	componentDidMount() {
+		const { location, toggleSearchMode } = this.props;
+
+		if (location.pathname === "/tvshows") {
+			toggleSearchMode("tv shows");
+		}
+		if (location.pathname === "/movies") {
+			toggleSearchMode("movies");
+		}
+	}
 
 	render() {
 		const {
@@ -184,4 +192,6 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
+export default withRouter(
+	connect(mapStateToProps, mapDispatchToProps)(Searchbar)
+);

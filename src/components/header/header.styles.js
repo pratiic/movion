@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 import { ReactComponent as Logo } from "../../assets/logos/logo.svg";
-import { ReactComponent as SunIcon } from "../../assets/icons/sun.svg";
 import { ReactComponent as HeartIcon } from "../../assets/icons/heart.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as HamburgerIcon } from "../../assets/icons/hamburger.svg";
@@ -14,7 +13,7 @@ import { Link } from "react-router-dom";
 
 import { cssColors, cssFonts } from "../../styles/styles.variables";
 
-const headerElementStyles = css`
+export const HeaderElementStyles = css`
 	margin-left: 3rem;
 	cursor: pointer;
 
@@ -35,7 +34,7 @@ const headerElementStyles = css`
 	}
 `;
 
-export const headerIconStyles = css`
+export const HeaderIconStyles = css`
 	width: 2rem;
 	height: 2rem;
 	cursor: pointer;
@@ -162,7 +161,7 @@ export const StyledLink = styled(Link)`
 	color: ${cssColors.greyLighter};
 	display: flex;
 	align-items: center;
-	${headerElementStyles};
+	${HeaderElementStyles};
 	${({ $isActive }) => $isActive && ActiveLinkStyles};
 
 	&:first-child {
@@ -234,14 +233,9 @@ export const StyledLoginIcon = styled(LoginIcon)`
 	${HeaderLinkIconStyles};
 `;
 
-export const StyledSunIcon = styled(SunIcon)`
-	${headerElementStyles};
-	${headerIconStyles};
-`;
-
 export const StyledHeartIcon = styled(HeartIcon)`
-	${headerElementStyles};
-	${headerIconStyles};
+	${HeaderElementStyles};
+	${HeaderIconStyles};
 
 	path {
 		fill: ${cssColors.orangePrimary};
@@ -249,8 +243,8 @@ export const StyledHeartIcon = styled(HeartIcon)`
 `;
 
 export const StyledHamburgerIcon = styled(HamburgerIcon)`
-	${headerElementStyles};
-	${headerIconStyles};
+	${HeaderElementStyles};
+	${HeaderIconStyles};
 	${SidebarToggleIconStyles}
 
 	height: 2.5rem;
@@ -258,16 +252,16 @@ export const StyledHamburgerIcon = styled(HamburgerIcon)`
 `;
 
 export const StyledDeleteIcon = styled(DeleteIcon)`
-	${headerElementStyles};
-	${headerIconStyles};
+	${HeaderElementStyles};
+	${HeaderIconStyles};
 	${SidebarToggleIconStyles};
 `;
 
 export const StyledSearchIcon = styled(SearchIcon)`
 	display: none;
 
-	${headerElementStyles};
-	${headerIconStyles};
+	${HeaderElementStyles};
+	${HeaderIconStyles};
 
 	@media screen and (max-width: 850px) {
 		display: block;
