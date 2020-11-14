@@ -5,6 +5,7 @@ export const cssColors = {
 	greyDark: "#181818",
 	greyLight: "#323739",
 	greyLighter: "lightgrey",
+	greyText: "#aaaaaa",
 };
 
 export const cssFonts = {

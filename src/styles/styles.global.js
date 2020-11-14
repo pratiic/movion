@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-import { cssFonts } from "./styles.variables";
+import { cssColors, cssFonts } from "./styles.variables";
 
 export const GlobalStyles = createGlobalStyle`
     *, *::before, *::after {
@@ -17,6 +17,7 @@ export const GlobalStyles = createGlobalStyle`
         min-height: 100vh;
         font-size: 1.8rem;
         font-family: ${cssFonts.fontStackPrimary};
+        background-color: ${cssColors.greyDark};
         color: white;
     }
 

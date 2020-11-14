@@ -68,11 +68,14 @@ class Searchbar extends React.Component {
 	};
 
 	handleFormSubmit = (event) => {
-		const { toggleSearchbar } = this.props;
+		const { toggleSearchbar, showSearchbarOnSmallScreens } = this.props;
 
 		event.preventDefault();
 		this.setState({ searchValue: "" });
-		toggleSearchbar();
+
+		if (showSearchbarOnSmallScreens) {
+			toggleSearchbar();
+		}
 	};
 
 	// componentDidUpdate() {
@@ -84,7 +87,7 @@ class Searchbar extends React.Component {
 	// }
 
 	componentDidMount() {
-		const { location, toggleSearchMode } = this.props;
+		const { location, toggleSearchMode, getSearchInputRef } = this.props;
 
 		if (location.pathname === "/tvshows") {
 			toggleSearchMode("tv shows");
@@ -92,6 +95,8 @@ class Searchbar extends React.Component {
 		if (location.pathname === "/movies") {
 			toggleSearchMode("movies");
 		}
+
+		getSearchInputRef(this.searchInputRef);
 	}
 
 	render() {
