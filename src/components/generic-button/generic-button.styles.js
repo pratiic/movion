@@ -18,7 +18,6 @@ export const StyledGenericButton = styled.button`
 	cursor: pointer;
 	display: flex;
 	align-items: center;
-	transition: background-color 100ms ease-in, color 100ms ease-in;
 
 	${({ outlined }) =>
 		outlined &&
@@ -33,7 +32,15 @@ export const StyledGenericButton = styled.button`
 			}
 		`}
 
+	${({ bigger }) =>
+		bigger &&
+		css`
+			padding: 0.7rem 2.5rem;
+			margin: 0 auto 3rem auto;
+		`}
+
+
 	&:active {
-		background-color: #0c4fa9;
+		background-color: #125bbb;
 	}
 `;

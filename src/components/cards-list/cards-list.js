@@ -11,16 +11,25 @@ const CardsList = ({ list, title }) => {
 		<StyledCardsList>
 			<StyledTitle>{title}</StyledTitle>
 			<CardsListWrapper>
-				{list.map(({ id, title, release_date, poster_path }) => {
-					return (
-						<Card
-							title={title}
-							releaseDate={release_date}
-							posterPath={poster_path}
-							key={id}
-						/>
-					);
-				})}
+				{list.map(
+					({
+						id,
+						title,
+						name,
+						release_date,
+						first_air_date,
+						poster_path,
+					}) => {
+						return (
+							<Card
+								title={title || name}
+								releaseDate={release_date || first_air_date}
+								posterPath={poster_path}
+								key={id}
+							/>
+						);
+					}
+				)}
 			</CardsListWrapper>
 		</StyledCardsList>
 	) : (

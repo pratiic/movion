@@ -118,8 +118,9 @@ export const SearchOptionDisplay = styled.p`
 
 export const SearchOptions = styled.div`
 	position: absolute;
+	z-index: 7;
 	background-color: ${cssColors.greyLight};
-	bottom: -7rem;
+	bottom: -8rem;
 	left: 0.2rem;
 	border-radius: 5px;
 `;

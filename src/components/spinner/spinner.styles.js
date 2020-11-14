@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { cssColors } from "../../styles/styles.variables";
 
 export const SpinnerOverlay = styled.div`
-	${(props) => {
-		console.log(props);
-	}}
 	height: ${({ height }) => height || "50vh"};
 	display: flex;
 	justify-content: center;

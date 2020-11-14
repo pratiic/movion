@@ -1,6 +1,5 @@
-import { apiActionTypes } from "./api.types";
-
 import { fetchPopularMoviesSuccess } from "../movies/movies.actions";
+import { fetchPopularTvShowsSuccess } from "../tv-shows/tv-shows.actions";
 
 export const fetchThePopulars = (url, mode) => {
 	return (dispatch) => {
@@ -18,6 +17,8 @@ export const fetchThePopulars = (url, mode) => {
 			.then((data) => {
 				if (mode === "movies") {
 					dispatch(fetchPopularMoviesSuccess(data));
+				} else {
+					dispatch(fetchPopularTvShowsSuccess(data));
 				}
 			});
 	};
