@@ -6,6 +6,7 @@ import { ReactComponent as TvIcon } from "../../assets/icons/tv.svg";
 import { ReactComponent as LoginIcon } from "../../assets/icons/login.svg";
 
 import { cssColors } from "../../styles/styles.variables";
+import { WrapperStyles } from "../../styles/styles.generic";
 
 export const HeaderElementStyles = css`
 	margin-left: 3rem;
@@ -52,6 +53,7 @@ export const HeaderIconStyles = css`
 
 export const StyledHeader = styled.header`
 	background-color: ${cssColors.blueSecondary};
+	padding: 0.5rem 0;
 `;
 
 const HeaderLinkIconStyles = css`
@@ -70,21 +72,11 @@ const HeaderLinkIconStyles = css`
 `;
 
 export const HeaderContainer = styled.div`
-	max-width: 1400px;
-	margin: auto;
+	${WrapperStyles};
+
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0.5rem 5rem;
-	font-size: 1.55rem;
-
-	@media screen and (max-width: 550px) {
-		padding: 0.5rem 2.5rem;
-	}
-
-	@media screen and (max-width: 450px) {
-		padding: 0.5rem 1.75rem;
-	}
 `;
 
 export const StyledLogo = styled(Logo)`

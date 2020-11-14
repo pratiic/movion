@@ -4,11 +4,10 @@ import { StyledCardsList, CardsListWrapper } from "./cards-list.styles";
 import { StyledTitle } from "../../styles/styles.generic";
 
 import Card from "../card/card";
+import Spinner from "../spinner/spinner";
 
 const CardsList = ({ list, title }) => {
-	console.log(list[0]);
-
-	return (
+	return list ? (
 		<StyledCardsList>
 			<StyledTitle>{title}</StyledTitle>
 			<CardsListWrapper>
@@ -24,6 +23,8 @@ const CardsList = ({ list, title }) => {
 				})}
 			</CardsListWrapper>
 		</StyledCardsList>
+	) : (
+		<Spinner />
 	);
 };
 

@@ -5,6 +5,7 @@ import { apiInfo } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularMovies } from "../../redux/movies/movies.selectors";
 
+import Featured from "../../components/featured/featured";
 import CardsList from "../../components/cards-list/cards-list";
 
 class MoviesPage extends React.Component {
@@ -21,7 +22,12 @@ class MoviesPage extends React.Component {
 	render() {
 		const { popularMovies } = this.props;
 
-		return <CardsList list={popularMovies} title="popular movies" />;
+		return (
+			<>
+				<Featured featured={popularMovies[1]} />
+				<CardsList list={popularMovies} title="popular movies" />
+			</>
+		);
 	}
 }
 

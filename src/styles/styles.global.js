@@ -15,10 +15,11 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         min-height: 100vh;
-        font-size: 1.8rem;
+        font-size: 1.75rem;
         font-family: ${cssFonts.fontStackPrimary};
         background-color: ${cssColors.greyDark};
         color: white;
+        line-height: 1.45;
     }
 
     a {

@@ -23,9 +23,11 @@ export const StyledHeaderLinks = styled.ul`
 	display: flex;
 	align-items: center;
 	background-color: ${cssColors.blueSecondary};
+	font-size: 1.55rem;
 
 	@media screen and (max-width: 1150px) {
 		position: fixed;
+		z-index: 10;
 		right: 0;
 		top: 6rem;
 		flex-direction: column;
