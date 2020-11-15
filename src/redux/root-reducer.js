@@ -6,6 +6,7 @@ import { themeReducer } from "./theme/theme.reducer";
 import { moviesReducer } from "./movies/movies.reducer";
 import { tvShowsReducer } from "./tv-shows/tv-shows.reducer";
 import { searchReducer } from "./search/search.reducer";
+import { detailsReducer } from "./details/details.reducer";
 
 export default combineReducers({
 	sidebar: sidebarReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
 	movies: moviesReducer,
 	tvShows: tvShowsReducer,
 	search: searchReducer,
+	details: detailsReducer,
 });

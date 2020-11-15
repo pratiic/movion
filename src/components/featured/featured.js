@@ -9,7 +9,7 @@ import GenericButton from "../generic-button/generic-button";
 
 const Featured = ({ featured }) => {
 	if (featured) {
-		const { title, name, backdrop_path, overview } = featured;
+		const { title, name, backdrop_path, overview, id } = featured;
 		return (
 			<StyledFeatured
 				backdropPath={`${apiInfo.baseURLs.images}/${backdrop_path}`}
@@ -17,7 +17,12 @@ const Featured = ({ featured }) => {
 				<FeaturedWrapper>
 					<p className="featured-title">{title || name}</p>
 					<p className="featured-overview">{overview}</p>
-					<GenericButton value="view more" outlined />
+					<GenericButton
+						value="view more"
+						outlined
+						func="view more"
+						detailFetchId={id}
+					/>
 				</FeaturedWrapper>
 			</StyledFeatured>
 		);

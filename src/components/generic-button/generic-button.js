@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter, useHistory } from "react-router-dom";
 
 import { StyledGenericButton } from "./generic-button.styles";
 
@@ -27,7 +28,10 @@ const GenericButton = ({
 	incrementPopularTvShowsFetchPage,
 	fetchMorePopularMoviesStart,
 	fetchMorePopularTvShowsStart,
+	detailFetchId,
 }) => {
+	const history = useHistory();
+
 	const handleButtonClick = () => {
 		if (func === "load more movies") {
 			fetchMorePopularMoviesStart();
@@ -49,6 +53,10 @@ const GenericButton = ({
 			);
 
 			incrementPopularTvShowsFetchPage();
+		}
+
+		if (func === "view more") {
+			history.push(`/details/${detailFetchId}`);
 		}
 	};
 
@@ -90,4 +98,6 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenericButton);
+export default withRouter(
+	connect(mapStateToProps, mapDispatchToProps)(GenericButton)
+);

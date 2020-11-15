@@ -36,3 +36,15 @@ export const WrapperStyles = css`
 		padding: 0rem 1.75rem;
 	}
 `;
+
+export const OverlayStyles = css`
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.65);
+	}
+`;

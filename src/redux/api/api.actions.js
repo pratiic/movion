@@ -5,6 +5,11 @@ import {
 	fetchSearchResultsSuccess,
 	fetchSearchResultsFailure,
 } from "../search/search.actions";
+import {
+	fetchDetailsStart,
+	fetchDetailsSuccess,
+	fetchDetailsFailure,
+} from "../details/details.actions";
 
 export const fetchData = (url, mode, dispatch, actionOne, actionTwo) => {
 	fetch(url)
@@ -47,6 +52,14 @@ export const fetchSearchResults = (url) => {
 	return (dispatch) => {
 		dispatch(fetchSearchResultsStart());
 
-		fetchData(url, null, dispatch, fetchSearchResultsSuccess, null);
+		fetchData(url, null, dispatch, fetchSearchResultsSuccess);
+	};
+};
+
+export const fetchDetails = (url) => {
+	return (dispatch) => {
+		dispatch(fetchDetailsStart());
+
+		fetchData(url, null, dispatch, fetchDetailsSuccess);
 	};
 };

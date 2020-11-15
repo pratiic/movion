@@ -7,6 +7,8 @@ import { fetchSearchResults } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 import { selectSearchResults } from "../../redux/search/search.selectors";
 
+import { searchModeMap } from "../../components/utils/utils.components";
+
 import CardsList from "../../components/cards-list/cards-list";
 import Spinner from "../../components/spinner/spinner";
 
@@ -19,15 +21,9 @@ class SearchResultsPage extends React.Component {
 		const { match, searchMode, fetchSearchResults } = this.props;
 
 		this.query = match.params.query;
-		let modeForURL;
+		const mode = searchModeMap[searchMode];
 
-		if (searchMode === "movies") {
-			modeForURL = "movie";
-		} else {
-			modeForURL = "tv";
-		}
-
-		const url = getURL(modeForURL, 1, "search", this.query);
+		const url = getURL(mode, 1, "search", this.query);
 
 		fetchSearchResults(url);
 	};

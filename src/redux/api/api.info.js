@@ -7,10 +7,14 @@ export const apiInfo = {
 	language: "en-US",
 };
 
-export const getURL = (mode, page, type, query) => {
+export const getURL = (mode, page, type, query, id) => {
+	const unChangingPart = `api_key=${apiInfo.apiKey}&language=${apiInfo.language}`;
+
 	if (type === "popular") {
-		return `${apiInfo.baseURLs.tmdb}/${mode}/popular?api_key=${apiInfo.apiKey}&language=${apiInfo.language}&page=${page}`;
+		return `${apiInfo.baseURLs.tmdb}/${mode}/popular?${unChangingPart}&page=${page}`;
 	} else if (type === "search") {
-		return `${apiInfo.baseURLs.tmdb}/search/${mode}?api_key=${apiInfo.apiKey}&language=${apiInfo.language}&page=${page}&include_adult=false&query=${query}`;
+		return `${apiInfo.baseURLs.tmdb}/search/${mode}?${unChangingPart}&page=${page}&include_adult=false&query=${query}`;
+	} else if (type === "details") {
+		return `${apiInfo.baseURLs.tmdb}/${mode}/${id}?${unChangingPart}`;
 	}
 };

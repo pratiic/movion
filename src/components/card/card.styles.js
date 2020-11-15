@@ -22,8 +22,8 @@ export const StyledDotMenuIcon = styled(DotMenuIcon)`
 
 export const StyledCard = styled.div`
 	font-family: ${cssFonts.fontStackTertiary};
-	cursor: pointer;
 	position: relative;
+	font-weight: 300;
 
 	.card-image-container {
 		width: 100%;
@@ -33,6 +33,8 @@ export const StyledCard = styled.div`
 			height: 100%;
 			display: block;
 		}
+
+		cursor: pointer;
 	}
 
 	.content-info {

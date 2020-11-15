@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { WrapperStyles } from "../../styles/styles.generic";
+import { WrapperStyles, OverlayStyles } from "../../styles/styles.generic";
 
 export const FeaturedWrapper = styled.div`
 	${WrapperStyles};
@@ -24,7 +24,7 @@ export const StyledFeatured = styled.div`
 	display: flex;
 	align-items: center;
 
-	&::after {
+	/* &::after {
 		content: "";
 		position: absolute;
 		left: 0;
@@ -32,7 +32,9 @@ export const StyledFeatured = styled.div`
 		height: 100%;
 		width: 100%;
 		background-color: rgba(0, 0, 0, 0.65);
-	}
+	} */
+
+	${OverlayStyles};
 
 	p {
 		margin-bottom: 1.5rem;

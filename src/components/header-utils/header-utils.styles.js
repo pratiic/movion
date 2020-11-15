@@ -17,12 +17,20 @@ export const SidebarToggleIconStyles = css`
 	}
 `;
 
-export const searchbarTogglerIconStyles = css`
+export const SearchbarTogglerStyles = css`
 	display: none;
 
 	@media screen and (max-width: 850px) {
 		display: block;
 	}
+`;
+
+export const HeaderUtilStyles = css`
+	${HeaderElementStyles};
+	${HeaderIconStyles};
+
+	height: 1.75rem;
+	width: 1.7rem;
 `;
 
 export const StyledHeaderUtils = styled.div`
@@ -31,8 +39,7 @@ export const StyledHeaderUtils = styled.div`
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`
-	${HeaderElementStyles};
-	${HeaderIconStyles};
+	${HeaderUtilStyles};
 
 	path {
 		fill: ${cssColors.orangePrimary};
@@ -47,7 +54,7 @@ export const StyledDeleteIcon = styled(DeleteIcon)`
 		if ($sidebarToggler) {
 			return SidebarToggleIconStyles;
 		} else if ($searchbarToggler) {
-			return searchbarTogglerIconStyles;
+			return SearchbarTogglerStyles;
 		}
 	}}
 `;
@@ -55,7 +62,7 @@ export const StyledDeleteIcon = styled(DeleteIcon)`
 export const StyledSearchIcon = styled(SearchIcon)`
 	${HeaderElementStyles};
 	${HeaderIconStyles};
-	${searchbarTogglerIconStyles}
+	${SearchbarTogglerStyles}
 `;
 
 export const StyledHamburgerIcon = styled(HamburgerIcon)`

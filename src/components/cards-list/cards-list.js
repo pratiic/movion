@@ -12,7 +12,9 @@ const CardsList = ({ list, title, titleSize, query }) => {
 			<StyledTitle titleSize={titleSize}>
 				{title}{" "}
 				{query ? (
-					<span style={{ textTransform: "lowercase" }}>
+					<span
+						style={{ textTransform: "lowercase", color: "#e86d1a" }}
+					>
 						"{query}"
 					</span>
 				) : null}
@@ -34,6 +36,7 @@ const CardsList = ({ list, title, titleSize, query }) => {
 									releaseDate={release_date || first_air_date}
 									posterPath={poster_path}
 									key={id}
+									id={id}
 								/>
 							);
 						} else {

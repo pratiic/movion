@@ -10,6 +10,7 @@ import Header from "./components/header/header";
 import MoviesPage from "./pages/movies/movies";
 import TvShowsPage from "./pages/tv-shows/tv-shows";
 import SearchResultsPage from "./pages/search-results/search-results";
+import DetailsPage from "./pages/details/details";
 
 class App extends React.Component {
 	render() {
@@ -34,6 +35,10 @@ class App extends React.Component {
 							<Route
 								path="/search/:query"
 								component={SearchResultsPage}
+							/>
+							<Route
+								path="/details/:id"
+								component={DetailsPage}
 							/>
 						</Switch>
 					</div>
