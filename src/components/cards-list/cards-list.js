@@ -6,10 +6,17 @@ import { StyledTitle } from "../../styles/styles.generic";
 import Card from "../card/card";
 import Spinner from "../spinner/spinner";
 
-const CardsList = ({ list, title, titleSize }) => {
+const CardsList = ({ list, title, titleSize, query }) => {
 	return list ? (
 		<StyledCardsList>
-			<StyledTitle titleSize={titleSize}>{title}</StyledTitle>
+			<StyledTitle titleSize={titleSize}>
+				{title}{" "}
+				{query ? (
+					<span style={{ textTransform: "lowercase" }}>
+						"{query}"
+					</span>
+				) : null}
+			</StyledTitle>
 			<CardsListWrapper>
 				{list.map(
 					({

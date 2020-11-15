@@ -23,7 +23,7 @@ class TvShowsPage extends React.Component {
 
 		return (
 			<>
-				<Featured featured={popularTvShows[1]} />
+				<Featured featured={popularTvShows[0]} />
 				<CardsList list={popularTvShows} title="popular tv shows" />
 				{fetchingMorePopularTvShows ? (
 					<Spinner height="3.5rem" />

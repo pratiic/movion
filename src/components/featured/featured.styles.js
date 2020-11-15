@@ -9,7 +9,7 @@ export const FeaturedWrapper = styled.div`
 	justify-content: center;
 
 	> * {
-		z-index: 5;
+		z-index: 3;
 	}
 `;
 

@@ -55,7 +55,8 @@ class SearchResultsPage extends React.Component {
 				) : (
 					<CardsList
 						list={searchResults}
-						title={`search results for "${this.query}"`}
+						title={`search results for`}
+						query={this.query}
 						titleSize="smaller"
 					/>
 				)}

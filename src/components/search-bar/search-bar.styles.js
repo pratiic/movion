@@ -7,14 +7,27 @@ import { ReactComponent as ArrowUpIcon } from "../../assets/icons/arrow-up.svg";
 
 import { cssColors } from "../../styles/styles.variables";
 
-import { HeaderIconStyles } from "../header/header.styles";
-
 const SearchbarControlStyles = css`
-	${HeaderIconStyles};
-
-	width: 1.7rem;
-	height: 1.7rem;
+	width: 1.5rem;
+	height: 1.5rem;
 	margin-left: 1.3rem;
+	cursor: pointer;
+
+	path {
+		fill: ${cssColors.greyLighter};
+	}
+
+	&:hover {
+		path {
+			fill: white;
+		}
+	}
+
+	&:active {
+		path {
+			fill: ${cssColors.greyLighter};
+		}
+	}
 `;
 
 const SearchbarLayoutStyles = css`
@@ -34,14 +47,14 @@ export const SearchInputForm = styled.form`
 		left: 50%;
 		transform: translateX(-50%);
 		top: 0;
-		z-index: -1;
+		z-index: 5;
 		opacity: 0;
 		transition: top 250ms ease-in, opacity 300ms ease-in;
 		${({ showSearchbarOnSmallScreens }) =>
 			showSearchbarOnSmallScreens &&
 			css`
 				top: 6.7rem;
-				z-index: 0;
+				z-index: 7;
 				opacity: 1;
 			`}
 	}
