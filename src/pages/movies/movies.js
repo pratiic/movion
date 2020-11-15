@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { apiInfo } from "../../redux/api/api.info";
+import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularMovies } from "../../redux/movies/movies.selectors";
 
@@ -14,12 +14,8 @@ class MoviesPage extends React.Component {
 	componentDidMount() {
 		const { fetchThePopulars, fetchPage } = this.props;
 		console.log(fetchPage);
-		const { baseURLs, language, apiKey } = apiInfo;
 
-		fetchThePopulars(
-			`${baseURLs.tmdb}/movie/popular?api_key=${apiKey}&language=${language}&page=${fetchPage}`,
-			"movies"
-		);
+		fetchThePopulars(getURL("movie", fetchPage, "popular"), "movies");
 	}
 
 	render() {
@@ -27,7 +23,7 @@ class MoviesPage extends React.Component {
 
 		return (
 			<>
-				<Featured featured={popularMovies[1]} />
+				<Featured featured={popularMovies[0]} />
 				<CardsList
 					marginsmall={fetchingMorePopularMovies}
 					list={popularMovies}

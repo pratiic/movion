@@ -26,7 +26,9 @@ const Card = ({ title, releaseDate, posterPath }) => {
 
 			<div className="content-info">
 				<p className="content-name">{title}</p>
-				<p className="content-release-date">{renderReleaseDate()}</p>
+				<p className="content-release-date">
+					{releaseDate ? renderReleaseDate() : "not available"}
+				</p>
 			</div>
 		</StyledCard>
 	);

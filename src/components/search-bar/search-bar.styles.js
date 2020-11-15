@@ -24,17 +24,11 @@ const SearchbarLayoutStyles = css`
 `;
 
 const SearchbarTextStyles = css`
-	font-size: 1.65rem;
+	font-size: 1.55rem;
 	color: ${cssColors.greyLighter};
 `;
 
 export const SearchInputForm = styled.form`
-	width: 28%;
-
-	@media screen and (max-width: 1250px) {
-		width: fit-content;
-	}
-
 	@media screen and (max-width: 850px) {
 		position: fixed;
 		left: 50%;
@@ -66,7 +60,7 @@ export const SearchInputForm = styled.form`
 export const SearchInputGroup = styled.div`
 	${SearchbarLayoutStyles};
 	background-color: ${cssColors.greyLight};
-	padding: 0.7rem 0.85rem;
+	padding: 0.55rem 0.85rem;
 	border-radius: 3px;
 	position: relative;
 	border: ${({ focused }) => {

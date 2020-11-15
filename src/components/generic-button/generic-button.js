@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { StyledGenericButton } from "./generic-button.styles";
 
 import { fetchThePopulars } from "../../redux/api/api.actions";
-import { apiInfo } from "../../redux/api/api.info";
+import { getURL } from "../../redux/api/api.info";
 
 import {
 	incrementPopularMoviesFetchPage,
@@ -29,19 +29,12 @@ const GenericButton = ({
 	fetchMorePopularTvShowsStart,
 }) => {
 	const handleButtonClick = () => {
-		const { baseURLs, apiKey, language } = apiInfo;
-
 		if (func === "load more movies") {
 			fetchMorePopularMoviesStart();
 
 			fetchThePopulars(
-				`${
-					baseURLs.tmdb
-				}/movie/popular?api_key=${apiKey}&language=${language}&page=${
-					popularMoviesFetchPage + 1
-				}`,
-				"movies",
-				false
+				getURL("movie", popularMoviesFetchPage + 1, "popular"),
+				"movies"
 			);
 
 			incrementPopularMoviesFetchPage();
@@ -51,13 +44,8 @@ const GenericButton = ({
 			fetchMorePopularTvShowsStart();
 
 			fetchThePopulars(
-				`${
-					baseURLs.tmdb
-				}/tv/popular?api_key=${apiKey}&language=${language}&page=${
-					popularTvShowsFetchPage + 1
-				}`,
-				"tv shows",
-				false
+				getURL("tv", popularTvShowsFetchPage + 1, "popular"),
+				"tv shows"
 			);
 
 			incrementPopularTvShowsFetchPage();

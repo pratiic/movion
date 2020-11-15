@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { apiInfo } from "../../redux/api/api.info";
+import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 
 import { selectPopularTvShows } from "../../redux/tv-shows/tv-shows.selectors";
@@ -14,12 +14,8 @@ import Spinner from "../../components/spinner/spinner";
 class TvShowsPage extends React.Component {
 	componentDidMount() {
 		const { fetchThePopulars, fetchPage } = this.props;
-		const { baseURLs, language, apiKey } = apiInfo;
 
-		fetchThePopulars(
-			`${baseURLs.tmdb}/tv/popular?api_key=${apiKey}&language=${language}&page=${fetchPage}`,
-			"tv shows"
-		);
+		fetchThePopulars(getURL("tv", fetchPage, "popular"), "tv shows");
 	}
 
 	render() {

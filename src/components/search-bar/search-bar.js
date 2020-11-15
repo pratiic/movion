@@ -68,10 +68,18 @@ class Searchbar extends React.Component {
 	};
 
 	handleFormSubmit = (event) => {
-		const { toggleSearchbar, showSearchbarOnSmallScreens } = this.props;
+		const {
+			toggleSearchbar,
+			showSearchbarOnSmallScreens,
+			history,
+		} = this.props;
 
 		event.preventDefault();
-		this.setState({ searchValue: "" });
+
+		if (this.state.searchValue !== "") {
+			history.push(`/search/${this.state.searchValue}`);
+			// this.setState({ searchValue: "" });
+		}
 
 		if (showSearchbarOnSmallScreens) {
 			toggleSearchbar();

@@ -7,6 +7,12 @@ export const StyledTitle = styled.h1`
 	margin-bottom: 3.5rem;
 	text-transform: capitalize;
 	letter-spacing: 1px;
+
+	${({ titleSize }) =>
+		titleSize === "smaller" &&
+		css`
+			font-size: 2.5rem;
+		`}
 `;
 
 export const WrapperStyles = css`
