@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { cssFonts } from "./styles.variables";
+
 export const WrapperStyles = css`
 	max-width: 1400px;
 	margin: auto;
@@ -63,4 +65,28 @@ export const OverlayStyles = css`
 		width: 100%;
 		background-color: rgba(0, 0, 0, 0.65);
 	}
+`;
+
+export const CardStyles = css`
+	font-family: ${cssFonts.fontStackTertiary};
+	position: relative;
+	font-weight: 300;
+
+	.card-image-container {
+		width: 100%;
+
+		img {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+
+		cursor: pointer;
+	}
+`;
+
+export const CardsListStyles = css`
+	${WrapperStyles};
+	display: grid;
+	justify-content: center;
 `;

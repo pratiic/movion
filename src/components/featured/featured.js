@@ -22,6 +22,7 @@ const Featured = ({ featured }) => {
 						outlined
 						func="view more"
 						detailFetchId={id}
+						type={title ? "movie" : "tv"}
 					/>
 				</FeaturedWrapper>
 			</StyledFeatured>

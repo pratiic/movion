@@ -29,6 +29,7 @@ const GenericButton = ({
 	fetchMorePopularMoviesStart,
 	fetchMorePopularTvShowsStart,
 	detailFetchId,
+	type,
 }) => {
 	const history = useHistory();
 
@@ -56,7 +57,7 @@ const GenericButton = ({
 		}
 
 		if (func === "view more") {
-			history.push(`/details/${detailFetchId}`);
+			history.push(`/details/${type}/${detailFetchId}`);
 		}
 	};
 

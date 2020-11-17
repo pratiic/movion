@@ -1,23 +1,22 @@
 import styled from "styled-components";
 
-import { cssColors, cssFonts } from "../../styles/styles.variables";
+import { cssColors } from "../../styles/styles.variables";
+import { CardStyles } from "../../styles/styles.generic";
 
 export const StyledPersonCard = styled.div`
-	font-family: ${cssFonts.fontStackTertiary};
+	${CardStyles};
 
-	.image-container {
+	.card-image-container {
 		img {
-			height: 100%;
-			width: 100%;
 			border-top-left-radius: 5px;
 			border-top-right-radius: 5px;
-			display: block;
 		}
+
+		cursor: auto;
 	}
 
 	.person-info {
 		font-size: 1.6rem;
-		font-weight: 300;
 		border: 1px solid ${cssColors.greyLight};
 		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;

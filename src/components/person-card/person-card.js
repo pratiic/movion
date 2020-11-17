@@ -7,7 +7,7 @@ import { apiInfo } from "../../redux/api/api.info";
 const PersonCard = ({ name, profilePath, character, job }) => {
 	return (
 		<StyledPersonCard>
-			<div className="image-container">
+			<div className="card-image-container">
 				<img
 					src={`${apiInfo.baseURLs.images}/${profilePath}`}
 					alt="not available here"

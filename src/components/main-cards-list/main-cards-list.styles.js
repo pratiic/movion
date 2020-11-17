@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-import { WrapperStyles } from "../../styles/styles.generic";
+import { CardsListStyles } from "../../styles/styles.generic";
 
-export const StyledMainCardsList = styled.div``;
+export const StyledMainCardsList = styled.div`
+	margin-bottom: 3rem;
+`;
 
 export const MainCardsListWrapper = styled.div`
-	${WrapperStyles};
-	display: grid;
+	${CardsListStyles};
 	grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));
 	grid-gap: 3.5rem;
-	justify-content: center;
-	margin-bottom: 3rem;
+
 	@media screen and (max-width: 550px) {
 		grid-template-columns: repeat(2, 1fr);
 		grid-gap: 2rem;

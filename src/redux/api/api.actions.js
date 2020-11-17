@@ -61,7 +61,7 @@ export const fetchSearchResults = (url) => {
 	};
 };
 
-export const fetchDetails = (url) => {
+export const fetchMainDetails = (url) => {
 	return (dispatch) => {
 		dispatch(fetchMainDetailsStart());
 
