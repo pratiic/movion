@@ -4,12 +4,11 @@ import { StyledCardsList, CardsListWrapper } from "./cards-list.styles";
 import { StyledTitle } from "../../styles/styles.generic";
 
 import Card from "../card/card";
-import Spinner from "../spinner/spinner";
 
-const CardsList = ({ list, title, titleSize, query }) => {
-	return list ? (
+const CardsList = ({ list, title, titleSize, query, titleBtMargin }) => {
+	return (
 		<StyledCardsList>
-			<StyledTitle titleSize={titleSize}>
+			<StyledTitle titleSize={titleSize} titleBtMargin={titleBtMargin}>
 				{title}{" "}
 				{query ? (
 					<span
@@ -37,6 +36,7 @@ const CardsList = ({ list, title, titleSize, query }) => {
 									posterPath={poster_path}
 									key={id}
 									id={id}
+									type={title ? "movie" : "tv"}
 								/>
 							);
 						} else {
@@ -46,8 +46,6 @@ const CardsList = ({ list, title, titleSize, query }) => {
 				)}
 			</CardsListWrapper>
 		</StyledCardsList>
-	) : (
-		<Spinner />
 	);
 };
 

@@ -3,12 +3,12 @@ import { fetchPopularTvShowsSuccess } from "../tv-shows/tv-shows.actions";
 import {
 	fetchSearchResultsStart,
 	fetchSearchResultsSuccess,
-	fetchSearchResultsFailure,
 } from "../search/search.actions";
 import {
-	fetchDetailsStart,
-	fetchDetailsSuccess,
-	fetchDetailsFailure,
+	fetchMainDetailsStart,
+	fetchMainDetailsSuccess,
+	fetchSimilarStart,
+	fetchSimilarSuccess,
 } from "../details/details.actions";
 
 export const fetchData = (url, mode, dispatch, actionOne, actionTwo) => {
@@ -58,8 +58,16 @@ export const fetchSearchResults = (url) => {
 
 export const fetchDetails = (url) => {
 	return (dispatch) => {
-		dispatch(fetchDetailsStart());
+		dispatch(fetchMainDetailsStart());
 
-		fetchData(url, null, dispatch, fetchDetailsSuccess);
+		fetchData(url, null, dispatch, fetchMainDetailsSuccess);
+	};
+};
+
+export const fetchSimilar = (url) => {
+	return (dispatch) => {
+		dispatch(fetchSimilarStart());
+
+		fetchData(url, null, dispatch, fetchSimilarSuccess);
 	};
 };

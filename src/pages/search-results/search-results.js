@@ -13,10 +13,6 @@ import CardsList from "../../components/cards-list/cards-list";
 import Spinner from "../../components/spinner/spinner";
 
 class SearchResultsPage extends React.Component {
-	state = {
-		keyForUpdate: 1,
-	};
-
 	startTheSearch = () => {
 		const { match, searchMode, fetchSearchResults } = this.props;
 
@@ -42,12 +38,12 @@ class SearchResultsPage extends React.Component {
 	}
 
 	render() {
-		const { searchResults, fetching } = this.props;
+		const { searchResults, fetchingSearchResults } = this.props;
 
 		return (
 			<StyledSearchResults>
-				{fetching ? (
-					<Spinner height="55vh" />
+				{fetchingSearchResults ? (
+					<Spinner />
 				) : (
 					<CardsList
 						list={searchResults}
@@ -73,7 +69,7 @@ const mapStateToProps = (state) => {
 	return {
 		searchMode: state.searchbar.searchMode,
 		searchResults: selectSearchResults(state),
-		fetching: state.search.fetching,
+		fetchingSearchResults: state.search.fetchingSearchResults,
 	};
 };
 

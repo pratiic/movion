@@ -13,6 +13,11 @@ export const StyledTitle = styled.h1`
 		css`
 			font-size: 2.5rem;
 		`}
+	${({ titleBtMargin }) =>
+		titleBtMargin === "smaller" &&
+		css`
+			margin-bottom: 2rem;
+		`}
 `;
 
 export const WrapperStyles = css`

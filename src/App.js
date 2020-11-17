@@ -37,7 +37,7 @@ class App extends React.Component {
 								component={SearchResultsPage}
 							/>
 							<Route
-								path="/details/:id"
+								path="/details/:type/:id"
 								component={DetailsPage}
 							/>
 						</Switch>

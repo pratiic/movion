@@ -54,6 +54,7 @@ export const HeaderIconStyles = css`
 export const StyledHeader = styled.header`
 	background-color: ${cssColors.blueSecondary};
 	padding: 0.5rem 0;
+	z-index: 5;
 `;
 
 const HeaderLinkIconStyles = css`

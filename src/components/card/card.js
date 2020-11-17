@@ -7,9 +7,9 @@ import { StyledCard, StyledDotMenuIcon } from "./card.styles";
 
 import { renderReleaseDate } from "../utils/utils.components";
 
-const Card = ({ title, releaseDate, posterPath, history, id }) => {
+const Card = ({ title, releaseDate, posterPath, history, match, id, type }) => {
 	const handleCardImageClick = () => {
-		history.push(`/details/${id}`);
+		history.push(`/details/${type}/${id}`);
 	};
 
 	return (

@@ -7,48 +7,66 @@ import {
 	DetailsMainWrapper,
 } from "./details.styles";
 
-import { fetchDetails } from "../../redux/api/api.actions";
+import { fetchDetails, fetchSimilar } from "../../redux/api/api.actions";
 import { getURL, apiInfo } from "../../redux/api/api.info";
+import { selectSimilar } from "../../redux/details/details.selectors";
 
 import {
-	searchModeMap,
 	renderReleaseDate,
 	getWithCommas,
 } from "../../components/utils/utils.components";
 
 import Spinner from "../../components/spinner/spinner";
+import CardsList from "../../components/cards-list/cards-list";
 
 class DetailsPage extends React.Component {
-	componentDidMount() {
-		const { match, fetchDetails, searchMode } = this.props;
+	startTheSearch = () => {
+		const { match, fetchDetails, fetchSimilar } = this.props;
 		const id = match.params.id;
-		const mode = searchModeMap[searchMode];
-		const url = getURL(mode, null, "details", null, id);
-		fetchDetails(url);
+		const type = match.params.type;
+		const mode = type;
+		const detailsURL = getURL(mode, null, "details", null, id);
+		fetchDetails(detailsURL);
+		const similarURL = getURL(mode, 1, "similar", null, id);
+		fetchSimilar(similarURL);
+	};
+
+	componentDidMount() {
+		this.startTheSearch();
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.match.params.id !== prevProps.match.params.id) {
+			this.startTheSearch();
+		}
 	}
 
 	render() {
-		const { details } = this.props;
+		const {
+			mainDetails,
+			fetchingMainDetails,
+			similar,
+			fetchingSimilar,
+			match,
+		} = this.props;
 
-		if (!details) {
-			return <Spinner height="55vh" />;
+		if (!mainDetails || (mainDetails && fetchingMainDetails)) {
+			return <Spinner />;
 		} else {
 			const {
 				backdrop_path,
 				budget,
 				genres,
-				imdb_id,
 				overview,
 				poster_path,
 				release_date,
 				first_air_date,
 				revenue,
-				runtime,
 				tagline,
 				title,
 				name,
 				created_by,
-			} = details;
+			} = mainDetails;
 
 			return (
 				<StyledDetails>
@@ -153,6 +171,21 @@ class DetailsPage extends React.Component {
 							</div>
 						</DetailsMainWrapper>
 					</DetailsMain>
+
+					{fetchingSimilar ? (
+						<Spinner height="7rem" />
+					) : (
+						<CardsList
+							list={similar}
+							title={`similar ${
+								match.params.type === "movie"
+									? "movies"
+									: "tv shows"
+							}`}
+							titleSize="smaller"
+							titleBtMargin="smaller"
+						/>
+					)}
 				</StyledDetails>
 			);
 		}
@@ -161,9 +194,11 @@ class DetailsPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		details: state.details.details,
+		mainDetails: state.details.mainDetails,
 		searchMode: state.searchbar.searchMode,
-		fetching: state.details.fetching,
+		fetchingMainDetails: state.details.fetchingMainDetails,
+		similar: selectSimilar(state),
+		fetchingSimilar: state.details.fetchingSimilar,
 	};
 };
 
@@ -171,6 +206,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchDetails: (url) => {
 			dispatch(fetchDetails(url));
+		},
+		fetchSimilar: (url) => {
+			dispatch(fetchSimilar(url));
 		},
 	};
 };

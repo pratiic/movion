@@ -2,7 +2,7 @@ import { searchActionTypes } from "./search.types";
 
 const INITIAL_STATE = {
 	searchResults: [],
-	fetching: false,
+	fetchingSearchResults: false,
 };
 
 export const searchReducer = (state = INITIAL_STATE, action) => {
@@ -10,13 +10,13 @@ export const searchReducer = (state = INITIAL_STATE, action) => {
 		case searchActionTypes.FETCH_SEARCH_RESULTS_START:
 			return {
 				...state,
-				fetching: true,
+				fetchingSearchResults: true,
 			};
 		case searchActionTypes.FETCH_SEARCH_RESULTS_SUCCESS:
 			return {
 				...state,
 				searchResults: [...action.payload.results],
-				fetching: false,
+				fetchingSearchResults: false,
 			};
 		default:
 			return state;

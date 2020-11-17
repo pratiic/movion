@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { StyledTvShowsPage } from "./tv-shows.styles";
+
 import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 
@@ -22,9 +24,14 @@ class TvShowsPage extends React.Component {
 		const { popularTvShows, fetchingMorePopularTvShows } = this.props;
 
 		return (
-			<>
+			<StyledTvShowsPage>
 				<Featured featured={popularTvShows[0]} />
-				<CardsList list={popularTvShows} title="popular tv shows" />
+				{popularTvShows ? (
+					<CardsList list={popularTvShows} title="popular tv shows" />
+				) : (
+					<Spinner />
+				)}
+
 				{fetchingMorePopularTvShows ? (
 					<Spinner height="3.5rem" />
 				) : (
@@ -34,7 +41,7 @@ class TvShowsPage extends React.Component {
 						bigger
 					/>
 				)}
-			</>
+			</StyledTvShowsPage>
 		);
 	}
 }

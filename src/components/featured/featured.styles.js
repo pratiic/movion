@@ -20,7 +20,7 @@ export const StyledFeatured = styled.div`
 	background-size: cover;
 	background-position: center;
 	position: relative;
-	margin-bottom: 5.5rem;
+	margin-bottom: 3.5rem;
 	display: flex;
 	align-items: center;
 

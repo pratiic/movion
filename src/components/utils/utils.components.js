@@ -63,8 +63,6 @@ export const getWithCommas = (number) => {
 
 		strNumber = arrNumber.join("");
 
-		console.log(strNumber);
-
 		return `$ ${strNumber}`;
 	} else {
 		return "unknown";

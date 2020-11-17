@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { StyledMoviesPage } from "./movies.styles";
+
 import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularMovies } from "../../redux/movies/movies.selectors";
@@ -13,7 +15,6 @@ import Spinner from "../../components/spinner/spinner";
 class MoviesPage extends React.Component {
 	componentDidMount() {
 		const { fetchThePopulars, fetchPage } = this.props;
-		console.log(fetchPage);
 
 		fetchThePopulars(getURL("movie", fetchPage, "popular"), "movies");
 	}
@@ -22,13 +23,19 @@ class MoviesPage extends React.Component {
 		const { popularMovies, fetchingMorePopularMovies } = this.props;
 
 		return (
-			<>
-				<Featured featured={popularMovies[0]} />
-				<CardsList
-					marginsmall={fetchingMorePopularMovies}
-					list={popularMovies}
-					title="popular movies"
-				/>
+			<StyledMoviesPage>
+				<Featured featured={popularMovies[1]} />
+
+				{popularMovies ? (
+					<CardsList
+						marginsmall={fetchingMorePopularMovies}
+						list={popularMovies}
+						title="popular movies"
+					/>
+				) : (
+					<Spinner />
+				)}
+
 				{fetchingMorePopularMovies ? (
 					<Spinner height="3.5rem" />
 				) : (
@@ -38,7 +45,7 @@ class MoviesPage extends React.Component {
 						bigger
 					/>
 				)}
-			</>
+			</StyledMoviesPage>
 		);
 	}
 }
