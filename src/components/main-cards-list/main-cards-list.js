@@ -1,24 +1,31 @@
 import React from "react";
 
-import { StyledCardsList, CardsListWrapper } from "./cards-list.styles";
+import {
+	StyledMainCardsList,
+	MainCardsListWrapper,
+} from "./main-cards-list.styles";
 import { StyledTitle } from "../../styles/styles.generic";
 
-import Card from "../card/card";
+import MainCard from "../main-card/main-card";
 
-const CardsList = ({ list, title, titleSize, query, titleBtMargin }) => {
+const MainCardsList = ({ list, title, titleSize, query, textAlign }) => {
 	return (
-		<StyledCardsList>
-			<StyledTitle titleSize={titleSize} titleBtMargin={titleBtMargin}>
+		<StyledMainCardsList>
+			<StyledTitle titleSize={titleSize} textAlign={textAlign}>
 				{title}{" "}
 				{query ? (
 					<span
-						style={{ textTransform: "lowercase", color: "#e86d1a" }}
+						style={{
+							textTransform: "lowercase",
+							color: "#e86d1a",
+						}}
 					>
 						"{query}"
 					</span>
 				) : null}
 			</StyledTitle>
-			<CardsListWrapper>
+
+			<MainCardsListWrapper>
 				{list.map(
 					({
 						id,
@@ -30,7 +37,7 @@ const CardsList = ({ list, title, titleSize, query, titleBtMargin }) => {
 					}) => {
 						if (poster_path) {
 							return (
-								<Card
+								<MainCard
 									title={title || name}
 									releaseDate={release_date || first_air_date}
 									posterPath={poster_path}
@@ -44,9 +51,9 @@ const CardsList = ({ list, title, titleSize, query, titleBtMargin }) => {
 						}
 					}
 				)}
-			</CardsListWrapper>
-		</StyledCardsList>
+			</MainCardsListWrapper>
+		</StyledMainCardsList>
 	);
 };
 
-export default CardsList;
+export default MainCardsList;

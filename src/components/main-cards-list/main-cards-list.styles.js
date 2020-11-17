@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 import { WrapperStyles } from "../../styles/styles.generic";
 
-export const StyledCardsList = styled.div``;
+export const StyledMainCardsList = styled.div``;
 
-export const CardsListWrapper = styled.div`
+export const MainCardsListWrapper = styled.div`
 	${WrapperStyles};
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));

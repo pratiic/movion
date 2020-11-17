@@ -37,3 +37,22 @@ export const fetchSimilarFailure = () => {
 		type: detailsActionTypes.FETCH_SIMILAR_FAILURE,
 	};
 };
+
+export const fetchCastAndCrewStart = () => {
+	return {
+		type: detailsActionTypes.FETCH_CAST_AND_CREW_START,
+	};
+};
+
+export const fetchCastAndCrewSuccess = (castAndCrew) => {
+	return {
+		type: detailsActionTypes.FETCH_CAST_AND_CREW_SUCCESS,
+		payload: { cast: castAndCrew.cast, crew: castAndCrew.crew },
+	};
+};
+
+export const fetchCastAndCrewFailure = () => {
+	return {
+		type: detailsActionTypes.FETCH_CAST_AND_CREW_FAILURE,
+	};
+};

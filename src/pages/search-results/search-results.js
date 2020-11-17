@@ -9,7 +9,7 @@ import { selectSearchResults } from "../../redux/search/search.selectors";
 
 import { searchModeMap } from "../../components/utils/utils.components";
 
-import CardsList from "../../components/cards-list/cards-list";
+import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import Spinner from "../../components/spinner/spinner";
 
 class SearchResultsPage extends React.Component {
@@ -45,7 +45,7 @@ class SearchResultsPage extends React.Component {
 				{fetchingSearchResults ? (
 					<Spinner />
 				) : (
-					<CardsList
+					<MainCardsList
 						list={searchResults}
 						title={`search results for`}
 						query={this.query}

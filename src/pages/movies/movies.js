@@ -8,7 +8,7 @@ import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularMovies } from "../../redux/movies/movies.selectors";
 
 import Featured from "../../components/featured/featured";
-import CardsList from "../../components/cards-list/cards-list";
+import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
 
@@ -27,7 +27,7 @@ class MoviesPage extends React.Component {
 				<Featured featured={popularMovies[1]} />
 
 				{popularMovies ? (
-					<CardsList
+					<MainCardsList
 						marginsmall={fetchingMorePopularMovies}
 						list={popularMovies}
 						title="popular movies"

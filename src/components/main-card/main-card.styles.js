@@ -20,7 +20,7 @@ export const StyledDotMenuIcon = styled(DotMenuIcon)`
 	}
 `;
 
-export const StyledCard = styled.div`
+export const StyledMainCard = styled.div`
 	font-family: ${cssFonts.fontStackTertiary};
 	position: relative;
 	font-weight: 300;

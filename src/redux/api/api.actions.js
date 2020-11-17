@@ -1,14 +1,19 @@
 import { fetchPopularMoviesSuccess } from "../movies/movies.actions";
+
 import { fetchPopularTvShowsSuccess } from "../tv-shows/tv-shows.actions";
+
 import {
 	fetchSearchResultsStart,
 	fetchSearchResultsSuccess,
 } from "../search/search.actions";
+
 import {
 	fetchMainDetailsStart,
 	fetchMainDetailsSuccess,
 	fetchSimilarStart,
 	fetchSimilarSuccess,
+	fetchCastAndCrewStart,
+	fetchCastAndCrewSuccess,
 } from "../details/details.actions";
 
 export const fetchData = (url, mode, dispatch, actionOne, actionTwo) => {
@@ -69,5 +74,13 @@ export const fetchSimilar = (url) => {
 		dispatch(fetchSimilarStart());
 
 		fetchData(url, null, dispatch, fetchSimilarSuccess);
+	};
+};
+
+export const fetchCastAndCrew = (url) => {
+	return (dispatch) => {
+		dispatch(fetchCastAndCrewStart());
+
+		fetchData(url, null, dispatch, fetchCastAndCrewSuccess);
 	};
 };

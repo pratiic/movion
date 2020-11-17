@@ -7,9 +7,17 @@ import {
 	DetailsMainWrapper,
 } from "./details.styles";
 
-import { fetchDetails, fetchSimilar } from "../../redux/api/api.actions";
+import {
+	fetchDetails,
+	fetchSimilar,
+	fetchCastAndCrew,
+} from "../../redux/api/api.actions";
 import { getURL, apiInfo } from "../../redux/api/api.info";
-import { selectSimilar } from "../../redux/details/details.selectors";
+import {
+	selectSimilar,
+	selectCast,
+	selectCrew,
+} from "../../redux/details/details.selectors";
 
 import {
 	renderReleaseDate,
@@ -17,18 +25,26 @@ import {
 } from "../../components/utils/utils.components";
 
 import Spinner from "../../components/spinner/spinner";
-import CardsList from "../../components/cards-list/cards-list";
+import MainCardsList from "../../components/main-cards-list/main-cards-list";
+import PersonCardsList from "../../components/person-cards-list/person-cards-list";
 
 class DetailsPage extends React.Component {
 	startTheSearch = () => {
-		const { match, fetchDetails, fetchSimilar } = this.props;
+		const {
+			match,
+			fetchDetails,
+			fetchSimilar,
+			fetchCastAndCrew,
+		} = this.props;
 		const id = match.params.id;
 		const type = match.params.type;
 		const mode = type;
 		const detailsURL = getURL(mode, null, "details", null, id);
 		fetchDetails(detailsURL);
-		const similarURL = getURL(mode, 1, "similar", null, id);
+		const similarURL = getURL(mode, null, "similar", null, id);
 		fetchSimilar(similarURL);
+		const castAndCrewURL = getURL(mode, null, "credits", null, id);
+		fetchCastAndCrew(castAndCrewURL);
 	};
 
 	componentDidMount() {
@@ -48,6 +64,9 @@ class DetailsPage extends React.Component {
 			similar,
 			fetchingSimilar,
 			match,
+			fetchingCastAndCrew,
+			cast,
+			crew,
 		} = this.props;
 
 		if (!mainDetails || (mainDetails && fetchingMainDetails)) {
@@ -172,10 +191,25 @@ class DetailsPage extends React.Component {
 						</DetailsMainWrapper>
 					</DetailsMain>
 
+					{fetchingCastAndCrew ? (
+						<Spinner height="5rem" />
+					) : (
+						<div className="cast-and-crew">
+							<PersonCardsList
+								list={cast}
+								title={`cast (${cast.length})`}
+							/>
+							<PersonCardsList
+								list={crew}
+								title={`crew (${crew.length})`}
+							/>
+						</div>
+					)}
+
 					{fetchingSimilar ? (
 						<Spinner height="7rem" />
 					) : (
-						<CardsList
+						<MainCardsList
 							list={similar}
 							title={`similar ${
 								match.params.type === "movie"
@@ -183,7 +217,7 @@ class DetailsPage extends React.Component {
 									: "tv shows"
 							}`}
 							titleSize="smaller"
-							titleBtMargin="smaller"
+							textAlign="left"
 						/>
 					)}
 				</StyledDetails>
@@ -199,6 +233,9 @@ const mapStateToProps = (state) => {
 		fetchingMainDetails: state.details.fetchingMainDetails,
 		similar: selectSimilar(state),
 		fetchingSimilar: state.details.fetchingSimilar,
+		fetchingCastAndCrew: state.details.fetchingCastAndCrew,
+		cast: selectCast(state),
+		crew: selectCrew(state),
 	};
 };
 
@@ -209,6 +246,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		fetchSimilar: (url) => {
 			dispatch(fetchSimilar(url));
+		},
+		fetchCastAndCrew: (url) => {
+			dispatch(fetchCastAndCrew(url));
 		},
 	};
 };

@@ -3,15 +3,18 @@ import styled from "styled-components";
 import { WrapperStyles, OverlayStyles } from "../../styles/styles.generic";
 import { cssColors } from "../../styles/styles.variables";
 
-export const StyledDetails = styled.div``;
+export const StyledDetails = styled.div`
+	.cast-and-crew {
+	}
+`;
 
 export const DetailsMain = styled.div`
 	background-image: ${({ backdropPath }) => `url(${backdropPath})`};
 	background-size: cover;
 	background-position: center;
 	position: relative;
-	padding: 7rem 0;
 	margin-bottom: 2rem;
+	padding: 10rem 0;
 
 	${OverlayStyles};
 
@@ -29,6 +32,7 @@ export const DetailsMainWrapper = styled.div`
 
 	display: flex;
 	justify-content: center;
+
 	> * {
 		z-index: 3;
 	}

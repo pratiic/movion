@@ -9,7 +9,7 @@ import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularTvShows } from "../../redux/tv-shows/tv-shows.selectors";
 
 import Featured from "../../components/featured/featured";
-import CardsList from "../../components/cards-list/cards-list";
+import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
 
@@ -27,7 +27,10 @@ class TvShowsPage extends React.Component {
 			<StyledTvShowsPage>
 				<Featured featured={popularTvShows[0]} />
 				{popularTvShows ? (
-					<CardsList list={popularTvShows} title="popular tv shows" />
+					<MainCardsList
+						list={popularTvShows}
+						title="popular tv shows"
+					/>
 				) : (
 					<Spinner />
 				)}

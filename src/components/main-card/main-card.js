@@ -3,17 +3,25 @@ import { withRouter } from "react-router-dom";
 
 import { apiInfo } from "../../redux/api/api.info";
 
-import { StyledCard, StyledDotMenuIcon } from "./card.styles";
+import { StyledMainCard, StyledDotMenuIcon } from "./main-card.styles";
 
 import { renderReleaseDate } from "../utils/utils.components";
 
-const Card = ({ title, releaseDate, posterPath, history, match, id, type }) => {
+const MainCard = ({
+	title,
+	releaseDate,
+	posterPath,
+	history,
+	match,
+	id,
+	type,
+}) => {
 	const handleCardImageClick = () => {
 		history.push(`/details/${type}/${id}`);
 	};
 
 	return (
-		<StyledCard>
+		<StyledMainCard>
 			<div
 				className="card-image-container"
 				onClick={handleCardImageClick}
@@ -33,8 +41,8 @@ const Card = ({ title, releaseDate, posterPath, history, match, id, type }) => {
 						: "not available"}
 				</p>
 			</div>
-		</StyledCard>
+		</StyledMainCard>
 	);
 };
 
-export default withRouter(Card);
+export default withRouter(MainCard);
