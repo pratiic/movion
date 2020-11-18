@@ -49,6 +49,7 @@ export const SearchInputForm = styled.form`
 		top: 0;
 		z-index: 5;
 		opacity: 0;
+		pointer-events: none;
 		transition: top 250ms ease-in, opacity 300ms ease-in;
 		${({ showSearchbarOnSmallScreens }) =>
 			showSearchbarOnSmallScreens &&
@@ -56,6 +57,7 @@ export const SearchInputForm = styled.form`
 				top: 6.7rem;
 				z-index: 7;
 				opacity: 1;
+				pointer-events: all;
 			`}
 	}
 
