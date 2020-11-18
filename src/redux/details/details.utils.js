@@ -7,6 +7,12 @@ export const filterRedundant = (list) => {
 
 		if (!redundantItem) {
 			newList = [...newList, listElement];
+		} else {
+			if (redundantItem.character) {
+				redundantItem.character += `, ${listElement.character}`;
+			} else if (redundantItem.job) {
+				redundantItem.job += `, ${listElement.job}`;
+			}
 		}
 	});
 	return newList;

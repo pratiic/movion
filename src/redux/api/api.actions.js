@@ -69,9 +69,11 @@ export const fetchMainDetails = (url) => {
 	};
 };
 
-export const fetchSimilar = (url) => {
+export const fetchSimilar = (url, fetchingMore) => {
 	return (dispatch) => {
-		dispatch(fetchSimilarStart());
+		if (!fetchingMore) {
+			dispatch(fetchSimilarStart());
+		}
 
 		fetchData(url, null, dispatch, fetchSimilarSuccess);
 	};

@@ -53,6 +53,7 @@ class DetailsMain extends React.Component {
 				title,
 				name,
 				created_by,
+				vote_average,
 			} = mainDetails;
 
 			return (
@@ -119,7 +120,7 @@ class DetailsMain extends React.Component {
 
 							{created_by ? (
 								<p className="created-by">
-									<span className="muted margin-rt-small">
+									<span className="muted margin-rt-small margin-bt-small">
 										{"Created by"}
 									</span>{" "}
 									<span>{created_by[0].name}</span>
@@ -139,7 +140,7 @@ class DetailsMain extends React.Component {
 							) : null}
 
 							{revenue ? (
-								<p className="revenue">
+								<p className="revenue margin-bt-small">
 									<span className="muted margin-rt-small">
 										{"Revenue"}{" "}
 									</span>
@@ -147,6 +148,15 @@ class DetailsMain extends React.Component {
 										{getWithCommas(revenue) ||
 											"not available"}
 									</span>
+								</p>
+							) : null}
+
+							{vote_average ? (
+								<p className="average-rating">
+									<span className="muted margin-rt-small">
+										Average rating
+									</span>
+									<span>{vote_average}</span>
 								</p>
 							) : null}
 						</div>

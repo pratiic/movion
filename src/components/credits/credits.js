@@ -38,15 +38,9 @@ class Credits extends React.Component {
 					<Spinner height="5rem" />
 				) : (
 					<div className="cast-and-crew">
-						<PersonCardsList
-							list={cast}
-							title={`cast (${cast.length})`}
-						/>
+						<PersonCardsList list={cast} title={`cast`} />
 
-						<PersonCardsList
-							list={crew}
-							title={`crew (${crew.length})`}
-						/>
+						<PersonCardsList list={crew} title={`crew`} />
 					</div>
 				)}
 			</div>

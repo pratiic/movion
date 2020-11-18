@@ -7,6 +7,9 @@ const INITIAL_STATE = {
 	fetchingMainDetails: false,
 	similar: [],
 	fetchingSimilar: false,
+	fetchingMoreSimilar: false,
+	currentSimilarFetchPage: 1,
+	totalSimilarPages: null,
 	cast: [],
 	crew: [],
 	fetchingCastAndCrew: false,
@@ -29,12 +32,32 @@ export const detailsReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				fetchingSimilar: true,
+				fetchingMoreSimilar: false,
 			};
 		case detailsActionTypes.FETCH_SIMILAR_SUCCESS:
 			return {
 				...state,
-				similar: [...action.payload.results],
+				similar:
+					state.currentSimilarFetchPage > 1
+						? [...state.similar, ...action.payload.results]
+						: [...action.payload.results],
+				totalSimilarPages: action.payload.total_pages,
 				fetchingSimilar: false,
+			};
+		case detailsActionTypes.FETCH_MORE_SIMILAR_START:
+			return {
+				...state,
+				fetchingMoreSimilar: true,
+			};
+		case detailsActionTypes.INCREMENT_SIMILAR_FETCH_PAGE:
+			return {
+				...state,
+				currentSimilarFetchPage: state.currentSimilarFetchPage + 1,
+			};
+		case detailsActionTypes.RESET_SIMILAR_FETCH_PAGE:
+			return {
+				...state,
+				currentSimilarFetchPage: 1,
 			};
 		case detailsActionTypes.FETCH_CAST_AND_CREW_START:
 			return {

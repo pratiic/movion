@@ -4,7 +4,7 @@ import { withRouter, useHistory } from "react-router-dom";
 
 import { StyledGenericButton } from "./generic-button.styles";
 
-import { fetchThePopulars } from "../../redux/api/api.actions";
+import { fetchThePopulars, fetchSimilar } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 
 import {
@@ -15,12 +15,17 @@ import {
 	incrementPopularTvShowsFetchPage,
 	fetchMorePopularTvShowsStart,
 } from "../../redux/tv-shows/tv-shows.actions";
+import {
+	fetchMoreSimilarStart,
+	incrementSimilarFetchPage,
+} from "../../redux/details/details.actions";
 
 const GenericButton = ({
 	value,
 	func,
 	outlined,
 	bigger,
+	type,
 	fetchThePopulars,
 	popularMoviesFetchPage,
 	popularTvShowsFetchPage,
@@ -29,7 +34,12 @@ const GenericButton = ({
 	fetchMorePopularMoviesStart,
 	fetchMorePopularTvShowsStart,
 	detailFetchId,
-	type,
+	currentSimilarFetchPage,
+	fetchSimilar,
+	fetchMoreSimilarStart,
+	incrementSimilarFetchPage,
+	detailId,
+	similarFetchType,
 }) => {
 	const history = useHistory();
 
@@ -59,6 +69,22 @@ const GenericButton = ({
 		if (func === "view more") {
 			history.push(`/details/${type}/${detailFetchId}`);
 		}
+
+		if (func === "load more similar") {
+			fetchMoreSimilarStart();
+
+			const similarURL = getURL(
+				similarFetchType,
+				currentSimilarFetchPage + 1,
+				"similar",
+				null,
+				Number(detailId)
+			);
+
+			fetchSimilar(similarURL, true);
+
+			incrementSimilarFetchPage();
+		}
 	};
 
 	return (
@@ -76,6 +102,7 @@ const mapStateToProps = (state) => {
 	return {
 		popularMoviesFetchPage: state.movies.popularMoviesFetchPage,
 		popularTvShowsFetchPage: state.tvShows.popularTvShowsFetchPage,
+		currentSimilarFetchPage: state.details.currentSimilarFetchPage,
 	};
 };
 
@@ -95,6 +122,15 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		fetchMorePopularTvShowsStart: () => {
 			dispatch(fetchMorePopularTvShowsStart());
+		},
+		fetchSimilar: (url) => {
+			dispatch(fetchSimilar(url));
+		},
+		fetchMoreSimilarStart: () => {
+			dispatch(fetchMoreSimilarStart());
+		},
+		incrementSimilarFetchPage: () => {
+			dispatch(incrementSimilarFetchPage());
 		},
 	};
 };

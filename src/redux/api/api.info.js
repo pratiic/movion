@@ -16,7 +16,9 @@ export const getURL = (mode, page, type, query, id) => {
 		return `${apiInfo.baseURLs.tmdb}/search/${mode}?${unChangingPart}&page=${page}&include_adult=false&query=${query}`;
 	} else if (type === "details") {
 		return `${apiInfo.baseURLs.tmdb}/${mode}/${id}?${unChangingPart}`;
-	} else if (type === "similar" || "credits") {
-		return `${apiInfo.baseURLs.tmdb}/${mode}/${id}/${type}?${unChangingPart}`;
+	} else if (type === "similar") {
+		return `${apiInfo.baseURLs.tmdb}/${mode}/${id}/similar?${unChangingPart}&page=${page}`;
+	} else if (type === "credits") {
+		return `${apiInfo.baseURLs.tmdb}/${mode}/${id}/credits?${unChangingPart}`;
 	}
 };

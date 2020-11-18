@@ -5,14 +5,20 @@ import {
 	PersonCardsListWrapper,
 } from "./person-cards-list.styles";
 
+import { cssColors } from "../../styles/styles.variables";
+
 import PersonCard from "../person-card/person-card";
 import { StyledTitle } from "../../styles/styles.generic";
 
 const PersonCardsList = ({ list, title }) => {
+	const mutedStyles = {
+		color: cssColors.greyLighter,
+	};
+
 	return (
 		<StyledPersonCardsList>
 			<StyledTitle titleSize="smaller" textAlign="left">
-				{title}
+				{title} <span style={mutedStyles}>({list.length})</span>
 			</StyledTitle>
 
 			<PersonCardsListWrapper>

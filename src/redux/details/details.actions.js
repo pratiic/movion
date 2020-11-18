@@ -38,6 +38,24 @@ export const fetchSimilarFailure = () => {
 	};
 };
 
+export const fetchMoreSimilarStart = () => {
+	return {
+		type: detailsActionTypes.FETCH_MORE_SIMILAR_START,
+	};
+};
+
+export const incrementSimilarFetchPage = () => {
+	return {
+		type: detailsActionTypes.INCREMENT_SIMILAR_FETCH_PAGE,
+	};
+};
+
+export const resetSimilarFetchPage = () => {
+	return {
+		type: detailsActionTypes.RESET_SIMILAR_FETCH_PAGE,
+	};
+};
+
 export const fetchCastAndCrewStart = () => {
 	return {
 		type: detailsActionTypes.FETCH_CAST_AND_CREW_START,
