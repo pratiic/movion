@@ -1,6 +1,6 @@
 import { detailsActionTypes } from "./details.types";
 
-import { filterRedundant } from "./details.utils";
+import { filterRedundant, filterRecurring } from "./details.utils";
 
 const INITIAL_STATE = {
 	mainDetails: null,
@@ -32,17 +32,17 @@ export const detailsReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				fetchingSimilar: true,
-				fetchingMoreSimilar: false,
 			};
 		case detailsActionTypes.FETCH_SIMILAR_SUCCESS:
 			return {
 				...state,
 				similar:
 					state.currentSimilarFetchPage > 1
-						? [...state.similar, ...action.payload.results]
+						? filterRecurring(state.similar, action.payload.results)
 						: [...action.payload.results],
 				totalSimilarPages: action.payload.total_pages,
 				fetchingSimilar: false,
+				fetchingMoreSimilar: false,
 			};
 		case detailsActionTypes.FETCH_MORE_SIMILAR_START:
 			return {

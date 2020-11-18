@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { StyledError } from "../../styles/styles.generic";
+import { cssColors } from "../../styles/styles.variables";
+
 import { StyledSearchResults } from "./search-results.styles";
 
 import { fetchSearchResults } from "../../redux/api/api.actions";
@@ -24,6 +27,30 @@ class SearchResultsPage extends React.Component {
 		fetchSearchResults(url);
 	};
 
+	renderSearchResults = () => {
+		const { searchResults, searchMode } = this.props;
+
+		if (searchResults.length > 0) {
+			return (
+				<MainCardsList
+					list={searchResults}
+					title={`search results for`}
+					query={this.query}
+					titleSize="smaller"
+				/>
+			);
+		} else {
+			return (
+				<StyledError>
+					Sorry, no {searchMode} found for{" "}
+					<span style={{ color: cssColors.orangePrimary }}>
+						"{this.query}"
+					</span>
+				</StyledError>
+			);
+		}
+	};
+
 	componentDidMount() {
 		this.startTheSearch();
 	}
@@ -38,19 +65,14 @@ class SearchResultsPage extends React.Component {
 	}
 
 	render() {
-		const { searchResults, fetchingSearchResults } = this.props;
+		const { fetchingSearchResults } = this.props;
 
 		return (
 			<StyledSearchResults>
 				{fetchingSearchResults ? (
 					<Spinner />
 				) : (
-					<MainCardsList
-						list={searchResults}
-						title={`search results for`}
-						query={this.query}
-						titleSize="smaller"
-					/>
+					this.renderSearchResults()
 				)}
 			</StyledSearchResults>
 		);

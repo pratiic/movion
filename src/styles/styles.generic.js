@@ -90,3 +90,9 @@ export const CardsListStyles = css`
 	display: grid;
 	justify-content: center;
 `;
+
+export const StyledError = styled.p`
+	font-size: 2.2rem;
+	text-align: center;
+	color: white;
+`;

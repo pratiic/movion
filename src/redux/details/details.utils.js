@@ -17,3 +17,17 @@ export const filterRedundant = (list) => {
 	});
 	return newList;
 };
+
+export const filterRecurring = (oldList, newList) => {
+	newList.forEach((newListElement) => {
+		const existing = oldList.find(
+			(oldListElement) => oldListElement.id === newListElement.id
+		);
+
+		if (!existing) {
+			oldList = [...oldList, newListElement];
+		}
+	});
+
+	return oldList;
+};

@@ -18,6 +18,7 @@ import {
 import {
 	fetchMoreSimilarStart,
 	incrementSimilarFetchPage,
+	resetSimilarFetchPage,
 } from "../../redux/details/details.actions";
 
 const GenericButton = ({
@@ -40,6 +41,7 @@ const GenericButton = ({
 	incrementSimilarFetchPage,
 	detailId,
 	similarFetchType,
+	resetSimilarFetchPage,
 }) => {
 	const history = useHistory();
 
@@ -67,6 +69,7 @@ const GenericButton = ({
 		}
 
 		if (func === "view more") {
+			resetSimilarFetchPage();
 			history.push(`/details/${type}/${detailFetchId}`);
 		}
 
@@ -123,14 +126,17 @@ const mapDispatchToProps = (dispatch) => {
 		fetchMorePopularTvShowsStart: () => {
 			dispatch(fetchMorePopularTvShowsStart());
 		},
-		fetchSimilar: (url) => {
-			dispatch(fetchSimilar(url));
+		fetchSimilar: (url, fetchingMore) => {
+			dispatch(fetchSimilar(url, fetchingMore));
 		},
 		fetchMoreSimilarStart: () => {
 			dispatch(fetchMoreSimilarStart());
 		},
 		incrementSimilarFetchPage: () => {
 			dispatch(incrementSimilarFetchPage());
+		},
+		resetSimilarFetchPage: () => {
+			dispatch(resetSimilarFetchPage());
 		},
 	};
 };
