@@ -46,46 +46,39 @@ class DetailsPage extends React.Component {
 			currentSimilarFetchPage,
 		} = this.props;
 
-		if (similar.length > 0) {
-			return (
-				<React.Fragment>
-					<MainCardsList
-						list={similar}
-						title={`similar ${this.getSearchMode()}`}
-						size="smaller"
-						align="left"
-					/>
+		return (
+			<React.Fragment>
+				<StyledTitle size="smaller" align="left">
+					similar {this.getSearchMode()}
+				</StyledTitle>
+				{similar.length > 0 ? (
+					<React.Fragment>
+						<MainCardsList list={similar} />
 
-					{renderGenericButton(
-						currentSimilarFetchPage,
-						totalSimilarPages,
-						<Spinner height="3.5rem" />,
-						<GenericButton
-							value="load more"
-							func="load more similar"
-							detailId={this.props.match.params.id}
-							similarFetchType={this.props.match.params.type}
-							bigger
-							marginbt
-							centered
-						/>,
-						fetchingMoreSimilar
-					)}
-				</React.Fragment>
-			);
-		} else {
-			return (
-				<React.Fragment>
-					<StyledTitle size="smaller" align="left">
-						similar {this.getSearchMode()}
-					</StyledTitle>
+						{renderGenericButton(
+							currentSimilarFetchPage,
+							totalSimilarPages,
+							<Spinner height="3.5rem" />,
+							<GenericButton
+								value="load more"
+								func="load more similar"
+								detailId={this.props.match.params.id}
+								similarFetchType={this.props.match.params.type}
+								bigger
+								marginbt
+								centered
+							/>,
+							fetchingMoreSimilar
+						)}
+					</React.Fragment>
+				) : (
 					<StyledError align="left" marginbt>
 						Sorry, no similar {this.getSearchMode()} available right
 						now
 					</StyledError>
-				</React.Fragment>
-			);
-		}
+				)}
+			</React.Fragment>
+		);
 	};
 
 	componentDidMount() {

@@ -41,7 +41,7 @@ export const StyledTitle = styled.div`
 			`;
 		} else if (size === "smallest") {
 			return css`
-				font-size: 2.3rem;align
+				font-size: 2.3rem;
 			`;
 		}
 	}}

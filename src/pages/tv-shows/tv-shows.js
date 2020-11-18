@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import { StyledTvShowsPage } from "./tv-shows.styles";
 
+import { StyledTitle } from "../../styles/styles.generic";
+
 import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularTvShows } from "../../redux/tv-shows/tv-shows.selectors";
@@ -36,10 +38,10 @@ class TvShowsPage extends React.Component {
 			<StyledTvShowsPage>
 				<Featured featured={popularTvShows[0]} />
 				{popularTvShows ? (
-					<MainCardsList
-						list={popularTvShows}
-						title="popular tv shows"
-					/>
+					<React.Fragment>
+						<StyledTitle>popular tv shows</StyledTitle>
+						<MainCardsList list={popularTvShows} />
+					</React.Fragment>
 				) : (
 					<Spinner />
 				)}

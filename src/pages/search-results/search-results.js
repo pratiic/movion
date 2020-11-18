@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { StyledError } from "../../styles/styles.generic";
+import { StyledError, StyledTitle } from "../../styles/styles.generic";
 import { cssColors } from "../../styles/styles.variables";
 
 import { StyledSearchResults } from "./search-results.styles";
@@ -30,22 +30,27 @@ class SearchResultsPage extends React.Component {
 	renderSearchResults = () => {
 		const { searchResults, searchMode } = this.props;
 
+		const queryStyles = {
+			color: cssColors.orangePrimary,
+			textTransform: "lowercase",
+		};
+
 		if (searchResults.length > 0) {
 			return (
-				<MainCardsList
-					list={searchResults}
-					title={`search results for`}
-					query={this.query}
-					titleSize="smaller"
-				/>
+				<React.Fragment>
+					<StyledTitle size="smaller">
+						search results for{" "}
+						<span style={queryStyles}>"{this.query}"</span>
+					</StyledTitle>
+
+					<MainCardsList list={searchResults} />
+				</React.Fragment>
 			);
 		} else {
 			return (
 				<StyledError>
 					Sorry, no {searchMode} found for{" "}
-					<span style={{ color: cssColors.orangePrimary }}>
-						"{this.query}"
-					</span>
+					<span style={queryStyles}>"{this.query}"</span>
 				</StyledError>
 			);
 		}

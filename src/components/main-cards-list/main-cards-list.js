@@ -4,27 +4,12 @@ import {
 	StyledMainCardsList,
 	MainCardsListWrapper,
 } from "./main-cards-list.styles";
-import { StyledTitle } from "../../styles/styles.generic";
 
 import MainCard from "../main-card/main-card";
 
-const MainCardsList = ({ list, title, size, query, align }) => {
+const MainCardsList = ({ list }) => {
 	return (
 		<StyledMainCardsList>
-			<StyledTitle size={size} align={align}>
-				{title}{" "}
-				{query ? (
-					<span
-						style={{
-							textTransform: "lowercase",
-							color: "#e86d1a",
-						}}
-					>
-						"{query}"
-					</span>
-				) : null}
-			</StyledTitle>
-
 			<MainCardsListWrapper>
 				{list.map(
 					({

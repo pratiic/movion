@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import { StyledMoviesPage } from "./movies.styles";
 
+import { StyledTitle } from "../../styles/styles.generic";
+
 import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularMovies } from "../../redux/movies/movies.selectors";
@@ -36,11 +38,14 @@ class MoviesPage extends React.Component {
 			<StyledMoviesPage>
 				<Featured featured={popularMovies[1]} />
 				{popularMovies ? (
-					<MainCardsList
-						marginsmall={fetchingMorePopularMovies}
-						list={popularMovies}
-						title="popular movies"
-					/>
+					<React.Fragment>
+						<StyledTitle>popular movies</StyledTitle>
+						<MainCardsList
+							marginsmall={fetchingMorePopularMovies}
+							list={popularMovies}
+							title="popular movies"
+						/>
+					</React.Fragment>
 				) : (
 					<Spinner />
 				)}

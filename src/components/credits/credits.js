@@ -2,6 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { StyledTitle } from "../../styles/styles.generic";
+import { cssColors } from "../../styles/styles.variables";
+
 import { fetchCastAndCrew } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 import { selectCast, selectCrew } from "../../redux/details/details.selectors";
@@ -32,16 +35,28 @@ class Credits extends React.Component {
 	render() {
 		const { fetchingCastAndCrew, cast, crew } = this.props;
 
+		const mutedStyles = {
+			color: cssColors.greyLighter,
+		};
+
 		return (
 			<div>
 				{fetchingCastAndCrew ? (
 					<Spinner height="5rem" />
 				) : (
-					<div className="cast-and-crew">
+					<React.Fragment>
+						<StyledTitle size="smaller" align="left">
+							cast{" "}
+							<span style={mutedStyles}>({cast.length})</span>
+						</StyledTitle>
 						<PersonCardsList list={cast} title={`cast`} />
 
+						<StyledTitle size="smaller" align="left">
+							crew{" "}
+							<span style={mutedStyles}>({crew.length})</span>
+						</StyledTitle>
 						<PersonCardsList list={crew} title={`crew`} />
-					</div>
+					</React.Fragment>
 				)}
 			</div>
 		);
