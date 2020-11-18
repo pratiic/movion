@@ -8,10 +8,10 @@ import { StyledTitle } from "../../styles/styles.generic";
 
 import MainCard from "../main-card/main-card";
 
-const MainCardsList = ({ list, title, titleSize, query, textAlign }) => {
+const MainCardsList = ({ list, title, size, query, align }) => {
 	return (
 		<StyledMainCardsList>
-			<StyledTitle titleSize={titleSize} textAlign={textAlign}>
+			<StyledTitle size={size} align={align}>
 				{title}{" "}
 				{query ? (
 					<span

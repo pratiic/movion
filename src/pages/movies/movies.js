@@ -7,6 +7,8 @@ import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularMovies } from "../../redux/movies/movies.selectors";
 
+import { renderGenericButton } from "../../components/utils/utils.components";
+
 import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import GenericButton from "../../components/generic-button/generic-button";
@@ -14,18 +16,25 @@ import Spinner from "../../components/spinner/spinner";
 
 class MoviesPage extends React.Component {
 	componentDidMount() {
-		const { fetchThePopulars, fetchPage } = this.props;
+		const { fetchThePopulars, popularMoviesFetchPage } = this.props;
 
-		fetchThePopulars(getURL("movie", fetchPage, "popular"), "movies");
+		fetchThePopulars(
+			getURL("movie", popularMoviesFetchPage, "popular"),
+			"movies"
+		);
 	}
 
 	render() {
-		const { popularMovies, fetchingMorePopularMovies } = this.props;
+		const {
+			popularMovies,
+			fetchingMorePopularMovies,
+			popularMoviesTotalPages,
+			popularMoviesFetchPage,
+		} = this.props;
 
 		return (
 			<StyledMoviesPage>
 				<Featured featured={popularMovies[1]} />
-
 				{popularMovies ? (
 					<MainCardsList
 						marginsmall={fetchingMorePopularMovies}
@@ -36,14 +45,18 @@ class MoviesPage extends React.Component {
 					<Spinner />
 				)}
 
-				{fetchingMorePopularMovies ? (
-					<Spinner height="3.5rem" />
-				) : (
+				{renderGenericButton(
+					popularMoviesFetchPage,
+					popularMoviesTotalPages,
+					<Spinner height="3.5rem" />,
 					<GenericButton
 						value="load more"
 						func="load more movies"
 						bigger
-					/>
+						marginbt
+						centered
+					/>,
+					fetchingMorePopularMovies
 				)}
 			</StyledMoviesPage>
 		);
@@ -52,9 +65,10 @@ class MoviesPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		fetchPage: state.movies.popularMoviesFetchPage,
+		popularMoviesFetchPage: state.movies.popularMoviesFetchPage,
 		popularMovies: selectPopularMovies(state),
 		fetchingMorePopularMovies: state.movies.fetchingMorePopularMovies,
+		popularMoviesTotalPages: state.movies.popularMoviesTotalPages,
 	};
 };
 

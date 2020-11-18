@@ -3,9 +3,13 @@ import { connect } from "react-redux";
 
 import { StyledDetails } from "./details.styles";
 
+import { StyledError, StyledTitle } from "../../styles/styles.generic";
+
 import { fetchSimilar } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 import { selectSimilar } from "../../redux/details/details.selectors";
+
+import { renderGenericButton } from "../../components/utils/utils.components";
 
 import Spinner from "../../components/spinner/spinner";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
@@ -29,29 +33,58 @@ class DetailsPage extends React.Component {
 		fetchSimilar(similarURL);
 	};
 
-	renderGenericButton = () => {
+	getSearchMode = () => {
+		const { match } = this.props;
+		return match.params.type === "movie" ? "movies" : "tv shows";
+	};
+
+	renderSimilar = () => {
 		const {
+			similar,
 			fetchingMoreSimilar,
 			totalSimilarPages,
 			currentSimilarFetchPage,
 		} = this.props;
 
-		if (currentSimilarFetchPage < totalSimilarPages) {
-			if (fetchingMoreSimilar) {
-				return <Spinner height="3.5rem" />;
-			} else {
-				return (
-					<GenericButton
-						value="load more"
-						func="load more similar"
-						detailId={this.props.match.params.id}
-						similarFetchType={this.props.match.params.type}
-						bigger
+		if (similar.length > 0) {
+			return (
+				<React.Fragment>
+					<MainCardsList
+						list={similar}
+						title={`similar ${this.getSearchMode()}`}
+						size="smaller"
+						align="left"
 					/>
-				);
-			}
+
+					{renderGenericButton(
+						currentSimilarFetchPage,
+						totalSimilarPages,
+						<Spinner height="3.5rem" />,
+						<GenericButton
+							value="load more"
+							func="load more similar"
+							detailId={this.props.match.params.id}
+							similarFetchType={this.props.match.params.type}
+							bigger
+							marginbt
+							centered
+						/>,
+						fetchingMoreSimilar
+					)}
+				</React.Fragment>
+			);
 		} else {
-			return null;
+			return (
+				<React.Fragment>
+					<StyledTitle size="smaller" align="left">
+						similar {this.getSearchMode()}
+					</StyledTitle>
+					<StyledError align="left" marginbt>
+						Sorry, no similar {this.getSearchMode()} available right
+						now
+					</StyledError>
+				</React.Fragment>
+			);
 		}
 	};
 
@@ -66,7 +99,7 @@ class DetailsPage extends React.Component {
 	}
 
 	render() {
-		const { similar, fetchingSimilar, match } = this.props;
+		const { fetchingSimilar } = this.props;
 
 		return (
 			<StyledDetails>
@@ -77,20 +110,7 @@ class DetailsPage extends React.Component {
 				{fetchingSimilar ? (
 					<Spinner height="7rem" />
 				) : (
-					<React.Fragment>
-						<MainCardsList
-							list={similar}
-							title={`similar ${
-								match.params.type === "movie"
-									? "movies"
-									: "tv shows"
-							}`}
-							titleSize="smaller"
-							textAlign="left"
-						/>
-
-						{this.renderGenericButton()}
-					</React.Fragment>
+					this.renderSimilar()
 				)}
 			</StyledDetails>
 		);

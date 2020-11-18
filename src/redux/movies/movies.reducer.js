@@ -20,6 +20,7 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
 					action.payload.results
 				),
 				fetchingMorePopularMovies: false,
+				popularMoviesTotalPages: action.payload.total_pages,
 			};
 		case moviesActionTypes.INCREMENT_POPULAR_MOVIES_FETCH_PAGE:
 			return {

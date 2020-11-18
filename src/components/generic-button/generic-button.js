@@ -21,71 +21,69 @@ import {
 	resetSimilarFetchPage,
 } from "../../redux/details/details.actions";
 
-const GenericButton = ({
-	value,
-	func,
-	outlined,
-	bigger,
-	type,
-	fetchThePopulars,
-	popularMoviesFetchPage,
-	popularTvShowsFetchPage,
-	incrementPopularMoviesFetchPage,
-	incrementPopularTvShowsFetchPage,
-	fetchMorePopularMoviesStart,
-	fetchMorePopularTvShowsStart,
-	detailFetchId,
-	currentSimilarFetchPage,
-	fetchSimilar,
-	fetchMoreSimilarStart,
-	incrementSimilarFetchPage,
-	detailId,
-	similarFetchType,
-	resetSimilarFetchPage,
-}) => {
+const GenericButton = (props) => {
+	const { value, func, outlined, bigger, marginbt, centered } = props;
 	const history = useHistory();
 
 	const handleButtonClick = () => {
 		if (func === "load more movies") {
-			fetchMorePopularMoviesStart();
+			const {
+				fetchMorePopularMoviesStart,
+				popularMoviesFetchPage,
+				fetchThePopulars,
+				incrementPopularMoviesFetchPage,
+			} = props;
 
+			fetchMorePopularMoviesStart();
 			fetchThePopulars(
 				getURL("movie", popularMoviesFetchPage + 1, "popular"),
 				"movies"
 			);
-
 			incrementPopularMoviesFetchPage();
 		}
 
 		if (func === "load more tv shows") {
-			fetchMorePopularTvShowsStart();
+			const {
+				fetchMorePopularTvShowsStart,
+				popularTvShowsFetchPage,
+				fetchThePopulars,
+				incrementPopularTvShowsFetchPage,
+			} = props;
 
+			fetchMorePopularTvShowsStart();
 			fetchThePopulars(
 				getURL("tv", popularTvShowsFetchPage + 1, "popular"),
 				"tv shows"
 			);
-
 			incrementPopularTvShowsFetchPage();
 		}
 
 		if (func === "view more") {
+			const { resetSimilarFetchPage, detailFetchId, type } = props;
+
 			resetSimilarFetchPage();
 			history.push(`/details/${type}/${detailFetchId}`);
 		}
 
 		if (func === "load more similar") {
-			fetchMoreSimilarStart();
+			const {
+				fetchMoreSimilarStart,
+				similarFetchType,
+				currentSimilarFetchPage,
+				detailId,
+				fetchSimilar,
+				incrementSimilarFetchPage,
+			} = props;
 
+			fetchMoreSimilarStart();
 			const similarURL = getURL(
 				similarFetchType,
 				currentSimilarFetchPage + 1,
 				"similar",
 				null,
-				Number(detailId)
+				detailId
 			);
-
 			fetchSimilar(similarURL, true);
-
 			incrementSimilarFetchPage();
 		}
 	};
@@ -94,6 +92,8 @@ const GenericButton = ({
 		<StyledGenericButton
 			outlined={outlined}
 			bigger={bigger}
+			marginbt={marginbt}
+			centered={centered}
 			onClick={handleButtonClick}
 		>
 			{value}

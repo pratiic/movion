@@ -20,6 +20,7 @@ export const tvShowsReducer = (state = INITIAL_STATE, action) => {
 					action.payload.results
 				),
 				fetchingMorePopularTvShows: false,
+				popularTvShowsTotalPages: action.payload.total_pages,
 			};
 		case tvShowsActionTypes.INCREMENT_POPULAR_TV_SHOWS_FETCH_PAGE:
 			return {

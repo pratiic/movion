@@ -26,33 +26,25 @@ export const WrapperStyles = css`
 
 export const StyledTitle = styled.div`
 	${WrapperStyles};
-	font-size: 3.2rem;
+	font-size: 3rem;
 	font-weight: 300;
-	text-align: ${({ textAlign }) =>
-		textAlign === "left" ? "left" : "center"};
-	margin: 0 auto 3.5rem auto;
+	text-align: ${({ align }) => align || "center"};
+	margin: 0 auto;
+	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
 	text-transform: capitalize;
 	letter-spacing: 1px;
 
-	${({ titleSize }) => {
-		if (titleSize === "smaller") {
+	${({ size }) => {
+		if (size === "smaller") {
 			return css`
 				font-size: 2.5rem;
-				margin: 0 auto 2.75rem auto;
 			`;
-		} else if (titleSize === "smallest") {
+		} else if (size === "smallest") {
 			return css`
-				font-size: 2.3rem;
-				margin: 0 auto 1.75rem auto;
+				font-size: 2.3rem;align
 			`;
 		}
 	}}
-
-	${({ titleBtMargin }) =>
-		titleBtMargin === "smaller" &&
-		css`
-			margin-bottom: 2rem;
-		`}
 `;
 
 export const OverlayStyles = css`
@@ -86,13 +78,24 @@ export const CardStyles = css`
 `;
 
 export const CardsListStyles = css`
+	margin-bottom: 3rem;
+`;
+
+export const CardsListWrapperStyles = css`
 	${WrapperStyles};
 	display: grid;
 	justify-content: center;
 `;
 
-export const StyledError = styled.p`
+export const StyledError = styled.div`
+	${WrapperStyles};
 	font-size: 2.2rem;
-	text-align: center;
+	text-align: ${({ align }) => align || "center"};
 	color: white;
+	font-weight: 300;
+	${({ marginbt }) =>
+		marginbt &&
+		css`
+			margin-bottom: 3rem;
+		`}
 `;

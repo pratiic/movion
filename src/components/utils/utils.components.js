@@ -68,3 +68,21 @@ export const getWithCommas = (number) => {
 		return "unknown";
 	}
 };
+
+export const renderGenericButton = (
+	currentPage,
+	totalPages,
+	spinner,
+	button,
+	condition
+) => {
+	if (currentPage < totalPages) {
+		if (condition) {
+			return spinner;
+		} else {
+			return button;
+		}
+	} else {
+		return null;
+	}
+};

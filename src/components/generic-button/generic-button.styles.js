@@ -36,9 +36,20 @@ export const StyledGenericButton = styled.button`
 		bigger &&
 		css`
 			padding: 0.7rem 2.5rem;
-			margin: 0 auto 3rem auto;
 		`}
 
+	${({ marginbt }) =>
+		marginbt &&
+		css`
+			margin-bottom: 3rem;
+		`}
+
+	${({ centered }) =>
+		centered &&
+		css`
+			margin-left: auto;
+			margin-right: auto;
+		`}
 
 	&:active {
 		background-color: #125bbb;

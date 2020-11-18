@@ -17,7 +17,7 @@ const PersonCardsList = ({ list, title }) => {
 
 	return (
 		<StyledPersonCardsList>
-			<StyledTitle titleSize="smaller" textAlign="left">
+			<StyledTitle size="smaller" align="left">
 				{title} <span style={mutedStyles}>({list.length})</span>
 			</StyledTitle>
 

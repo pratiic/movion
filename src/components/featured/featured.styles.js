@@ -20,19 +20,9 @@ export const StyledFeatured = styled.div`
 	background-size: cover;
 	background-position: center;
 	position: relative;
-	margin-bottom: 3.5rem;
+	margin-bottom: 3rem;
 	display: flex;
 	align-items: center;
-
-	/* &::after {
-		content: "";
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 100%;
-		width: 100%;
-		background-color: rgba(0, 0, 0, 0.65);
-	} */
 
 	${OverlayStyles};
 

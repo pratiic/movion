@@ -5,8 +5,9 @@ import { StyledTvShowsPage } from "./tv-shows.styles";
 
 import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
-
 import { selectPopularTvShows } from "../../redux/tv-shows/tv-shows.selectors";
+
+import { renderGenericButton } from "../../components/utils/utils.components";
 
 import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
@@ -15,13 +16,21 @@ import Spinner from "../../components/spinner/spinner";
 
 class TvShowsPage extends React.Component {
 	componentDidMount() {
-		const { fetchThePopulars, fetchPage } = this.props;
+		const { fetchThePopulars, popularTvShowsFetchPage } = this.props;
 
-		fetchThePopulars(getURL("tv", fetchPage, "popular"), "tv shows");
+		fetchThePopulars(
+			getURL("tv", popularTvShowsFetchPage, "popular"),
+			"tv shows"
+		);
 	}
 
 	render() {
-		const { popularTvShows, fetchingMorePopularTvShows } = this.props;
+		const {
+			popularTvShows,
+			fetchingMorePopularTvShows,
+			popularTvShowsFetchPage,
+			popularTvShowsTotalPages,
+		} = this.props;
 
 		return (
 			<StyledTvShowsPage>
@@ -35,14 +44,18 @@ class TvShowsPage extends React.Component {
 					<Spinner />
 				)}
 
-				{fetchingMorePopularTvShows ? (
-					<Spinner height="3.5rem" />
-				) : (
+				{renderGenericButton(
+					popularTvShowsFetchPage,
+					popularTvShowsTotalPages,
+					<Spinner height="3.5rem" />,
 					<GenericButton
 						value="load more"
 						func="load more tv shows"
 						bigger
-					/>
+						marginbt
+						centered
+					/>,
+					fetchingMorePopularTvShows
 				)}
 			</StyledTvShowsPage>
 		);
@@ -51,9 +64,10 @@ class TvShowsPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		fetchPage: state.tvShows.popularTvShowsFetchPage,
+		popularTvShowsFetchPage: state.tvShows.popularTvShowsFetchPage,
 		popularTvShows: selectPopularTvShows(state),
 		fetchingMorePopularTvShows: state.tvShows.fetchingMorePopularTvShows,
+		popularTvShowsTotalPages: state.tvShows.popularTvShowsTotalPages,
 	};
 };
 
