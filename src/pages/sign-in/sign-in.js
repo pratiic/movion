@@ -31,7 +31,7 @@ class SignInPage extends React.Component {
 		return (
 			<StyledSignInPage>
 				<StyledTitle marginbt="0rem">sign in to movion</StyledTitle>
-				<StyledSubtitle marginbt="5.5rem">
+				<StyledSubtitle>
 					Do not have an account?{" "}
 					<StyledFormLink to="/signup">sign up here</StyledFormLink>
 				</StyledSubtitle>

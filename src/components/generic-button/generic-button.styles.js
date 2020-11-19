@@ -19,6 +19,7 @@ export const StyledGenericButton = styled.button`
 	cursor: pointer;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 
 	${({ outlined }) =>
 		outlined &&

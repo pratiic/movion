@@ -75,11 +75,37 @@ export const TextStyles = css`
 
 export const FormPageStyles = css`
 	padding: 3rem 0;
+
+	@media screen and (max-width: 500px) {
+		padding: 1.5rem 0;
+	}
+
+	@media screen and (max-width: 350px) {
+		padding: 1rem 0;
+	}
+
+	button {
+		@media screen and (max-width: 450px) {
+			width: 100%;
+
+			&:first-child {
+				margin-bottom: 1.7rem;
+			}
+		}
+	}
 `;
 
 export const FormStyles = css`
 	width: 35rem;
 	margin: 0 auto;
+
+	@media screen and (max-width: 450px) {
+		width: 30rem;
+	}
+
+	@media screen and (max-width: 375px) {
+		width: 27rem;
+	}
 `;
 
 export const StyledFormLink = styled(Link)`
@@ -129,6 +155,10 @@ export const StyledError = styled.div`
 export const StyledSubtitle = styled.div`
 	${TextStyles};
 	font-size: 1.85rem;
-	margin-bottom: ${({ marginbt }) => marginbt};
+	margin-bottom: 5rem;
 	color: ${cssColors.greyText};
+
+	@media screen and (max-width: 500px) {
+		margin-bottom: 3rem;
+	}
 `;
