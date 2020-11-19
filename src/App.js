@@ -11,6 +11,8 @@ import MoviesPage from "./pages/movies/movies";
 import TvShowsPage from "./pages/tv-shows/tv-shows";
 import SearchResultsPage from "./pages/search-results/search-results";
 import DetailsPage from "./pages/details/details";
+import SignInPage from "./pages/sign-in/sign-in";
+import SignUpPage from "./pages/sign-up/sign-up";
 
 class App extends React.Component {
 	render() {
@@ -40,6 +42,8 @@ class App extends React.Component {
 								path="/details/:type/:id"
 								component={DetailsPage}
 							/>
+							<Route path="/signin" component={SignInPage} />
+							<Route path="/signup" component={SignUpPage} />
 						</Switch>
 					</div>
 				</ThemeProvider>

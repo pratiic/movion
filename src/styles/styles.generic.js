@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
-import { cssFonts } from "./styles.variables";
+import { cssColors, cssFonts } from "./styles.variables";
 
 export const WrapperStyles = css`
 	max-width: 1400px;
@@ -22,29 +23,6 @@ export const WrapperStyles = css`
 	@media screen and (max-width: 450px) {
 		padding: 0rem 1.75rem;
 	}
-`;
-
-export const StyledTitle = styled.div`
-	${WrapperStyles};
-	font-size: 3rem;
-	font-weight: 300;
-	text-align: ${({ align }) => align || "center"};
-	margin: 0 auto;
-	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
-	text-transform: capitalize;
-	letter-spacing: 1px;
-
-	${({ size }) => {
-		if (size === "smaller") {
-			return css`
-				font-size: 2.5rem;
-			`;
-		} else if (size === "smallest") {
-			return css`
-				font-size: 2.3rem;
-			`;
-		}
-	}}
 `;
 
 export const OverlayStyles = css`
@@ -87,15 +65,70 @@ export const CardsListWrapperStyles = css`
 	justify-content: center;
 `;
 
-export const StyledError = styled.div`
-	${WrapperStyles};
-	font-size: 2.2rem;
+export const TextStyles = css`
 	text-align: ${({ align }) => align || "center"};
-	color: white;
 	font-weight: 300;
+	margin: 0 auto;
+	color: white;
+	${WrapperStyles};
+`;
+
+export const FormPageStyles = css`
+	padding: 3rem 0;
+`;
+
+export const FormStyles = css`
+	width: 35rem;
+	margin: 0 auto;
+`;
+
+export const StyledFormLink = styled(Link)`
+	color: ${cssColors.bluePrimary};
+	cursor: pointer;
+
+	&:hover {
+		border-bottom: 1px solid ${cssColors.bluePrimary};
+	}
+
+	&:active {
+		color: ${cssColors.greyLighter};
+		border-color: ${cssColors.greyLighter};
+	}
+`;
+
+export const StyledTitle = styled.div`
+	${TextStyles};
+	font-size: 3rem;
+	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
+	text-transform: capitalize;
+	letter-spacing: 1px;
+
+	${({ size }) => {
+		if (size === "smaller") {
+			return css`
+				font-size: 2.5rem;
+			`;
+		} else if (size === "smallest") {
+			return css`
+				font-size: 2.3rem;
+			`;
+		}
+	}}
+`;
+
+export const StyledError = styled.div`
+	${TextStyles};
+	font-size: 2.2rem;
 	${({ marginbt }) =>
 		marginbt &&
 		css`
 			margin-bottom: 3rem;
 		`}
+`;
+
+export const StyledSubtitle = styled.div`
+	${TextStyles};
+	font-size: 1.85rem;
+	margin-bottom: ${({ marginbt }) => marginbt};
+	color: ${cssColors.greyText};
 `;

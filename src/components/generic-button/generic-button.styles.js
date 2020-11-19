@@ -10,8 +10,9 @@ export const StyledGenericButton = styled.button`
 	width: fit-content;
 	padding: 0.6rem 1.2rem;
 	font-weight: 500;
-	background-color: ${cssColors.bluePrimary};
-	border: 2px solid ${cssColors.bluePrimary};
+	background-color: ${({ bg }) => bg || cssColors.bluePrimary};
+	border: ${({ bg }) =>
+		bg ? `2px solid ${bg}` : `2px solid ${cssColors.bluePrimary}`};
 	border-radius: 3px;
 	color: white;
 	letter-spacing: 1px;
@@ -23,11 +24,10 @@ export const StyledGenericButton = styled.button`
 		outlined &&
 		css`
 			background-color: transparent;
-			color: ${cssColors.bluePrimary};
-			border: 2px solid ${cssColors.bluePrimary};
+			color: ${({ color }) => color || cssColors.bluePrimary};
 
 			&:hover {
-				background-color: ${cssColors.bluePrimary};
+				background-color: ${({ bg }) => bg || cssColors.bluePrimary};
 				color: white;
 			}
 		`}
@@ -52,6 +52,6 @@ export const StyledGenericButton = styled.button`
 		`}
 
 	&:active {
-		background-color: #125bbb;
+		background-color: ${({ darkBg }) => darkBg || "#125bbb"};
 	}
 `;

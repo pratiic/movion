@@ -22,7 +22,18 @@ import {
 } from "../../redux/details/details.actions";
 
 const GenericButton = (props) => {
-	const { value, func, outlined, bigger, marginbt, centered } = props;
+	const {
+		value,
+		func,
+		outlined,
+		bigger,
+		marginbt,
+		centered,
+		bg,
+		color,
+		iconClassName,
+		darkBg,
+	} = props;
 	const history = useHistory();
 
 	const handleButtonClick = () => {
@@ -94,9 +105,12 @@ const GenericButton = (props) => {
 			bigger={bigger}
 			marginbt={marginbt}
 			centered={centered}
+			bg={bg}
+			color={color}
+			darkBg={darkBg}
 			onClick={handleButtonClick}
 		>
-			{value}
+			{iconClassName && <i className={iconClassName}></i>} {value}
 		</StyledGenericButton>
 	);
 };
