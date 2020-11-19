@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 
 import { StyledSignUpPage } from "./sign-up.styles";
 
@@ -7,6 +7,15 @@ import {
 	StyledSubtitle,
 	StyledFormLink,
 } from "../../styles/styles.generic";
+
+import {
+	getEmptyFieldNames,
+	returnFieldObjects,
+	setFieldErrorMessage,
+	clearNonEmptyFieldErrorMessage,
+	validateEmail,
+	clearAllFields,
+} from "../../components/utils/utils.components";
 
 import CustomInput from "../../components/custom-input/custom-input";
 import GenericButton from "../../components/generic-button/generic-button";
@@ -17,15 +26,82 @@ class SignUpPage extends React.Component {
 
 		this.state = {
 			username: "",
+			usernameErrorMsg: "",
 			email: "",
+			emailErrorMsg: "",
 			password: "",
+			passwordErrorMsg: "",
 			retypedPassword: "",
+			retypedPasswordErrorMsg: "",
+
+			fieldValueNamesToValidate: [
+				"username",
+				"email",
+				"password",
+				"retypedPassword",
+			],
+			allFieldValueNames: [
+				"username",
+				"usernameErrorMsg",
+				"email",
+				"emailErrorMsg",
+				"password",
+				"passwordErrorMsg",
+				"retypedPassword",
+				"retypedPasswordErrorMsg",
+			],
 		};
+
+		this.inputRef = createRef();
+
+		this.returnFieldObjects = returnFieldObjects.bind(this);
+		this.setFieldErrorMessage = setFieldErrorMessage.bind(this);
+		this.clearNonEmptyFieldErrorMessage = clearNonEmptyFieldErrorMessage.bind(
+			this
+		);
+		this.clearAllFields = clearAllFields.bind(this);
 	}
 
 	handleInputChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value });
 	};
+
+	handleFormSubmit = (event) => {
+		event.preventDefault();
+
+		const fieldObjects = this.returnFieldObjects();
+
+		const [emptyFieldNames, nonEmptyFieldNames] = getEmptyFieldNames(
+			...fieldObjects
+		);
+
+		this.setFieldErrorMessage(
+			emptyFieldNames,
+			"this field cannot be empty"
+		);
+		this.clearNonEmptyFieldErrorMessage(nonEmptyFieldNames);
+
+		if (emptyFieldNames.length === 0) {
+			const validEmail = validateEmail(this.state.email);
+
+			if (!validEmail) {
+				this.setFieldErrorMessage(["email"], "this email is not valid");
+			}
+
+			if (this.state.password !== this.state.retypedPassword) {
+				this.setFieldErrorMessage(
+					["password", "retypedPassword"],
+					"these passwords do not match"
+				);
+			} else {
+				this.clearAllFields();
+			}
+		}
+	};
+
+	componentDidMount() {
+		this.inputRef.current.focus();
+	}
 
 	render() {
 		return (
@@ -36,13 +112,15 @@ class SignUpPage extends React.Component {
 					<StyledFormLink to="/signin">sign in here</StyledFormLink>
 				</StyledSubtitle>
 
-				<form>
+				<form onSubmit={this.handleFormSubmit}>
 					<CustomInput
 						label="username"
 						type="text"
 						name="username"
 						value={this.state.username}
 						handleInputChange={this.handleInputChange}
+						errorMsg={this.state.usernameErrorMsg}
+						inputRef={this.inputRef}
 					/>
 					<CustomInput
 						label="email"
@@ -50,6 +128,7 @@ class SignUpPage extends React.Component {
 						name="email"
 						value={this.state.email}
 						handleInputChange={this.handleInputChange}
+						errorMsg={this.state.emailErrorMsg}
 					/>
 					<CustomInput
 						label="password"
@@ -57,6 +136,7 @@ class SignUpPage extends React.Component {
 						name="password"
 						value={this.state.password}
 						handleInputChange={this.handleInputChange}
+						errorMsg={this.state.passwordErrorMsg}
 					/>
 					<CustomInput
 						label="retype password"
@@ -64,6 +144,7 @@ class SignUpPage extends React.Component {
 						name="retypedPassword"
 						value={this.state.retypedPassword}
 						handleInputChange={this.handleInputChange}
+						errorMsg={this.state.retypedPasswordErrorMsg}
 					/>
 					<GenericButton value="sign up" outlined />
 				</form>

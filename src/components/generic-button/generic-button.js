@@ -33,6 +33,7 @@ const GenericButton = (props) => {
 		color,
 		iconClassName,
 		darkBg,
+		type,
 	} = props;
 	const history = useHistory();
 
@@ -108,6 +109,7 @@ const GenericButton = (props) => {
 			bg={bg}
 			color={color}
 			darkBg={darkBg}
+			type={type}
 			onClick={handleButtonClick}
 		>
 			{iconClassName && <i className={iconClassName}></i>} {value}

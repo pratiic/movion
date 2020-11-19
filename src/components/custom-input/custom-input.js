@@ -1,20 +1,35 @@
 import React from "react";
 
-import { InputGroup, Label } from "./custom-input.styles";
+import { InputGroup, Label, FormError, Input } from "./custom-input.styles";
 
-const CustomInput = ({ label, type, handleInputChange, value, name }) => {
-	return (
-		<InputGroup>
-			<input
-				type={type}
-				required
-				onChange={handleInputChange}
-				value={value}
-				name={name}
-			/>
-			<Label value={value}>{label}</Label>
-		</InputGroup>
-	);
-};
+class CustomInput extends React.Component {
+	render() {
+		const {
+			label,
+			type,
+			handleInputChange,
+			value,
+			name,
+			errorMsg,
+			inputRef,
+		} = this.props;
+
+		return (
+			<InputGroup>
+				<Input
+					type={type}
+					onChange={handleInputChange}
+					value={value}
+					name={name}
+					errorMsg={errorMsg}
+					inputValue={value}
+					ref={inputRef}
+				/>
+				<Label value={value}>{label}</Label>
+				<FormError>{errorMsg && errorMsg}</FormError>
+			</InputGroup>
+		);
+	}
+}
 
 export default CustomInput;
