@@ -7,9 +7,9 @@ import {
 
 import PersonCard from "../person-card/person-card";
 
-const PersonCardsList = ({ list, title }) => {
+const PersonCardsList = ({ list, title, show }) => {
 	return (
-		<StyledPersonCardsList>
+		<StyledPersonCardsList show={show}>
 			<PersonCardsListWrapper>
 				{list.map(({ name, profile_path, character, job, id }) => {
 					if (profile_path) {

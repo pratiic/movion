@@ -48,7 +48,7 @@ class DetailsPage extends React.Component {
 
 		return (
 			<React.Fragment>
-				<StyledTitle size="smaller" align="left">
+				<StyledTitle size="smaller">
 					similar {this.getSearchMode()}
 				</StyledTitle>
 				{similar.length > 0 ? (

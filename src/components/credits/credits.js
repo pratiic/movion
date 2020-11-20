@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { StyledCredits } from "./credits.styles";
+
 import { StyledTitle } from "../../styles/styles.generic";
 import { cssColors } from "../../styles/styles.variables";
 
@@ -11,8 +13,18 @@ import { selectCast, selectCrew } from "../../redux/details/details.selectors";
 
 import Spinner from "../../components/spinner/spinner";
 import PersonCardsList from "../../components/person-cards-list/person-cards-list";
+import CardsListToggler from "../../components/cards-list-toggler/cards-list-toggler";
 
 class Credits extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			showCast: false,
+			showCrew: false,
+		};
+	}
+
 	startAsyncOp = () => {
 		const { match, fetchCastAndCrew } = this.props;
 		const id = match.params.id;
@@ -20,6 +32,28 @@ class Credits extends React.Component {
 		const mode = type;
 		const castAndCrewURL = getURL(mode, null, "credits", null, id);
 		fetchCastAndCrew(castAndCrewURL);
+	};
+
+	handleTogglerClick = (trigger) => {
+		// this.setState((prevState) => {
+		// 	return {
+		// 		[`show${trigger}`]: !prevState[`show${trigger}`],
+		// 	};
+		// });
+
+		if (trigger === "cast") {
+			this.setState((prevState) => {
+				return {
+					showCast: !prevState.showCast,
+				};
+			});
+		} else {
+			this.setState((prevState) => {
+				return {
+					showCrew: !prevState.showCrew,
+				};
+			});
+		}
 	};
 
 	componentDidMount() {
@@ -35,28 +69,34 @@ class Credits extends React.Component {
 	render() {
 		const { fetchingCastAndCrew, cast, crew } = this.props;
 
-		const mutedStyles = {
-			color: cssColors.greyLighter,
-		};
-
 		return (
 			<div>
 				{fetchingCastAndCrew ? (
 					<Spinner height="5rem" />
 				) : (
-					<React.Fragment>
-						<StyledTitle size="smaller" align="left">
-							cast{" "}
-							<span style={mutedStyles}>({cast.length})</span>
-						</StyledTitle>
-						<PersonCardsList list={cast} title={`cast`} />
+					<StyledCredits>
+						<CardsListToggler
+							title="cast"
+							trigger="cast"
+							rotateIconUp={this.state.showCast}
+							handleTogglerClick={this.handleTogglerClick}
+						/>
+						<PersonCardsList
+							list={cast}
+							show={this.state.showCast}
+						/>
 
-						<StyledTitle size="smaller" align="left">
-							crew{" "}
-							<span style={mutedStyles}>({crew.length})</span>
-						</StyledTitle>
-						<PersonCardsList list={crew} title={`crew`} />
-					</React.Fragment>
+						<CardsListToggler
+							title="crew"
+							trigger="crew"
+							rotateIconUp={this.state.showCrew}
+							handleTogglerClick={this.handleTogglerClick}
+						/>
+						<PersonCardsList
+							list={crew}
+							show={this.state.showCrew}
+						/>
+					</StyledCredits>
 				)}
 			</div>
 		);

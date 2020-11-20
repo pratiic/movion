@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import {
 	CardsListWrapperStyles,
@@ -7,6 +7,17 @@ import {
 
 export const StyledPersonCardsList = styled.div`
 	${CardsListStyles}
+
+	transform: scaleY(0);
+	height: 0;
+	//transition: transform 150ms ease-in, height 150ms ease-in;
+	transform-origin: top;
+	${({ show }) =>
+		show &&
+		css`
+			transform: scaleY(1);
+			height: auto;
+		`}
 `;
 
 export const PersonCardsListWrapper = styled.div`

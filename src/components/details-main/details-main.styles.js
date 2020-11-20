@@ -8,7 +8,7 @@ export const StyledDetailsMain = styled.div`
 	background-size: cover;
 	background-position: center;
 	position: relative;
-	margin-bottom: 2rem;
+	margin-bottom: 3rem;
 	padding: 10rem 0;
 
 	${OverlayStyles};
