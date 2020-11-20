@@ -6,6 +6,10 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./styles/styles.global";
 import { darkTheme, lightTheme } from "./styles/styles.themes";
 
+import { auth } from "./firebase/firebase.utils";
+
+import { updateCurrentUser } from "./redux/current-user/current-user.actions";
+
 import Header from "./components/header/header";
 import MoviesPage from "./pages/movies/movies";
 import TvShowsPage from "./pages/tv-shows/tv-shows";
@@ -15,8 +19,31 @@ import SignInPage from "./pages/sign-in/sign-in";
 import SignUpPage from "./pages/sign-up/sign-up";
 
 class App extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			currentUser: null,
+		};
+	}
+
+	unSubscribeFromAuth = null;
+
+	componentDidMount() {
+		const { updateCurrentUser } = this.props;
+
+		this.unSubscribeFromAuth = auth.onAuthStateChanged((user) => {
+			//this.setState({ currentUser: user });
+			updateCurrentUser(user);
+		});
+	}
+
+	componentWillUnmount() {
+		this.unSubscribeFromAuth();
+	}
+
 	render() {
-		const { currentTheme } = this.props;
+		const { currentTheme, currentUser } = this.props;
 
 		return (
 			<BrowserRouter>
@@ -25,7 +52,7 @@ class App extends React.Component {
 				>
 					<div className="app">
 						<GlobalStyles />
-						<Header />
+						<Header currentUser={this.state.currentUser} />
 						<Switch>
 							<Route
 								exact
@@ -42,8 +69,26 @@ class App extends React.Component {
 								path="/details/:type/:id"
 								component={DetailsPage}
 							/>
-							<Route path="/signin" component={SignInPage} />
-							<Route path="/signup" component={SignUpPage} />
+							<Route
+								path="/signin"
+								render={() => {
+									return currentUser ? (
+										<Redirect to="/movies" />
+									) : (
+										<SignInPage />
+									);
+								}}
+							/>
+							<Route
+								path="/signup"
+								render={() => {
+									return currentUser ? (
+										<Redirect to="/movies" />
+									) : (
+										<SignUpPage />
+									);
+								}}
+							/>
 						</Switch>
 					</div>
 				</ThemeProvider>
@@ -55,7 +100,16 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		currentTheme: state.theme.currentTheme,
+		currentUser: state.currentUser.currentUser,
 	};
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateCurrentUser: (user) => {
+			dispatch(updateCurrentUser(user));
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -146,7 +146,7 @@ class SignUpPage extends React.Component {
 						handleInputChange={this.handleInputChange}
 						errorMsg={this.state.retypedPasswordErrorMsg}
 					/>
-					<GenericButton value="sign up" outlined />
+					<GenericButton type="submit" value="sign up" outlined />
 				</form>
 			</StyledSignUpPage>
 		);

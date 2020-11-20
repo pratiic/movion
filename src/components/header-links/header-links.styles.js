@@ -38,12 +38,6 @@ export const StyledHeaderLinks = styled.ul`
 			return show ? `translateX(0)` : `translateX(100%)`;
 		}};
 		padding: 0.75rem 0;
-
-		a {
-			&:last-child {
-				order: -1;
-			}
-		}
 	}
 `;
 
@@ -57,6 +51,16 @@ export const StyledLink = styled(Link)`
 	align-items: center;
 	${HeaderElementStyles};
 	${({ $isActive }) => $isActive && ActiveLinkStyles};
+
+	${({ special }) =>
+		special &&
+		css`
+			display: none;
+
+			@media screen and (max-width: 1150px) {
+				display: flex;
+			}
+		`}
 
 	&:first-child {
 		margin-left: 0;

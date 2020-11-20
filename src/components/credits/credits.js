@@ -4,9 +4,6 @@ import { withRouter } from "react-router-dom";
 
 import { StyledCredits } from "./credits.styles";
 
-import { StyledTitle } from "../../styles/styles.generic";
-import { cssColors } from "../../styles/styles.variables";
-
 import { fetchCastAndCrew } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 import { selectCast, selectCrew } from "../../redux/details/details.selectors";

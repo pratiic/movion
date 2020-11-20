@@ -35,6 +35,7 @@ const GenericButton = (props) => {
 		darkBg,
 		type,
 	} = props;
+
 	const history = useHistory();
 
 	const handleButtonClick = () => {
@@ -97,6 +98,11 @@ const GenericButton = (props) => {
 			);
 			fetchSimilar(similarURL, true);
 			incrementSimilarFetchPage();
+		}
+
+		if (func === "sign in with google") {
+			const { signInWithGoogle } = props;
+			signInWithGoogle();
 		}
 	};
 

@@ -2,9 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { StyledHeaderLinks, StyledLink } from "./header-links.styles";
+import { StyledLoginIcon, StyledLogoutIcon } from "../header/header.styles";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
+
+import { auth } from "../../firebase/firebase.utils";
+
+import Profile from "../profile/profile";
 
 const HeaderLinks = ({
 	headerLinks,
@@ -12,6 +17,7 @@ const HeaderLinks = ({
 	toggleSearchMode,
 	toggleSidebar,
 	toggleActive,
+	currentUser,
 }) => {
 	const handleLinkClick = (event, linkValue) => {
 		toggleActive(linkValue);
@@ -41,6 +47,33 @@ const HeaderLinks = ({
 					</StyledLink>
 				);
 			})}
+
+			{currentUser ? (
+				<React.Fragment>
+					<Profile username={currentUser.displayName} />
+
+					<StyledLink
+						as="p"
+						onClick={() => {
+							auth.signOut();
+						}}
+						special
+					>
+						<StyledLogoutIcon /> sign out
+					</StyledLink>
+				</React.Fragment>
+			) : (
+				<StyledLink
+					to="/signin"
+					onClick={(event) => {
+						handleLinkClick(event, "sign in");
+					}}
+				>
+					{" "}
+					{showSidebar ? <StyledLoginIcon /> : null}
+					sign in
+				</StyledLink>
+			)}
 		</StyledHeaderLinks>
 	);
 };

@@ -8,7 +8,6 @@ import {
 	StyledLogo,
 	StyledMovieIcon,
 	StyledTvIcon,
-	StyledLoginIcon,
 } from "./header.styles";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
@@ -18,8 +17,8 @@ import HeaderUtils from "../header-utils/header-utils";
 import HeaderLinks from "../header-links/header-links";
 
 class Header extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			headerLinks: [
@@ -39,26 +38,32 @@ class Header extends React.Component {
 					active: false,
 				},
 
-				{
-					value: "sign in",
-					icon: <StyledLoginIcon />,
-					pathname: "signin",
-					to: "/signin",
-					active: false,
-				},
+				// {
+				// 	value: "sign in",
+				// 	icon: this.props.currentUser ? (
+				// 		<StyledLogoutIcon />
+				// 	) : (
+				// 		<StyledLoginIcon />
+				// 	),
+				// 	pathname: "signin",
+				// 	to: "/signin",
+				// 	active: false,
+				// },
 			],
 		};
 	}
 
 	toggleActive = (value) => {
-		this.setState({
-			headerLinks: this.state.headerLinks.map((headerLink) => {
-				if (headerLink.value === value) {
-					return { ...headerLink, active: true };
-				}
-				return { ...headerLink, active: false };
-			}),
-		});
+		if (value !== "sign in") {
+			this.setState({
+				headerLinks: this.state.headerLinks.map((headerLink) => {
+					if (headerLink.value === value) {
+						return { ...headerLink, active: true };
+					}
+					return { ...headerLink, active: false };
+				}),
+			});
+		}
 	};
 
 	getSearchInputRef = (inputRef) => {
@@ -102,6 +107,7 @@ class Header extends React.Component {
 					<HeaderLinks
 						headerLinks={this.state.headerLinks}
 						toggleActive={this.toggleActive}
+						currentUser={this.props.currentUser}
 					/>
 				</HeaderContainer>
 			</StyledHeader>
@@ -114,6 +120,7 @@ const mapStateToProps = (state) => {
 		showSidebar: state.sidebar.showSidebar,
 		showSearchbarOnSmallScreens:
 			state.searchbar.showSearchbarOnSmallScreens,
+		currentUser: state.currentUser.currentUser,
 	};
 };
 

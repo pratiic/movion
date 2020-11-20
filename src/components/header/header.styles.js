@@ -4,6 +4,7 @@ import { ReactComponent as Logo } from "../../assets/logos/logo.svg";
 import { ReactComponent as MovieIcon } from "../../assets/icons/movie.svg";
 import { ReactComponent as TvIcon } from "../../assets/icons/tv.svg";
 import { ReactComponent as LoginIcon } from "../../assets/icons/login.svg";
+import { ReactComponent as LogoutIcon } from "../../assets/icons/logout.svg";
 
 import { cssColors } from "../../styles/styles.variables";
 import { WrapperStyles } from "../../styles/styles.generic";
@@ -93,9 +94,15 @@ export const StyledLogo = styled(Logo)`
 export const StyledMovieIcon = styled(MovieIcon)`
 	${HeaderLinkIconStyles};
 `;
+
 export const StyledTvIcon = styled(TvIcon)`
 	${HeaderLinkIconStyles};
 `;
+
 export const StyledLoginIcon = styled(LoginIcon)`
+	${HeaderLinkIconStyles};
+`;
+
+export const StyledLogoutIcon = styled(LogoutIcon)`
 	${HeaderLinkIconStyles};
 `;

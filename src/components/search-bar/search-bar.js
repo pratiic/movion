@@ -9,8 +9,6 @@ import {
 	SearchOptionDisplay,
 	StyledChevronDownIcon,
 	StyledArrowUpIcon,
-	SearchOptions,
-	SearchOption,
 	SearchInputControls,
 	StyledSearchIcon,
 	StyledDeleteIcon,
@@ -21,14 +19,16 @@ import {
 	toggleSearchMode,
 } from "../../redux/searchbar/searchbar.actions";
 
+import Dropdown from "../dropdown/dropdown";
+
 class Searchbar extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
 			searchValue: "",
-			showSearchOptions: false,
 			SearchbarFocused: false,
+			showDropdown: false,
 		};
 
 		this.searchInputRef = React.createRef();
@@ -51,20 +51,10 @@ class Searchbar extends React.Component {
 		this.setState({ searchValue: "" });
 	};
 
-	toggleSearchOptions = () => {
-		this.setState((prevState) => {
-			return {
-				showSearchOptions: !prevState.showSearchOptions,
-			};
-		});
-	};
-
 	handleSearchOptionClick = (newSearchMode) => {
 		const { toggleSearchMode } = this.props;
 
 		toggleSearchMode(newSearchMode);
-
-		this.toggleSearchOptions();
 	};
 
 	handleFormSubmit = (event) => {
@@ -78,12 +68,19 @@ class Searchbar extends React.Component {
 
 		if (this.state.searchValue !== "") {
 			history.push(`/search/${this.state.searchValue}`);
-			// this.setState({ searchValue: "" });
 		}
 
 		if (showSearchbarOnSmallScreens) {
 			toggleSearchbar();
 		}
+	};
+
+	toggleDropdown = () => {
+		this.setState((prevState) => {
+			return {
+				showDropdown: !prevState.showDropdown,
+			};
+		});
 	};
 
 	// componentDidUpdate() {
@@ -121,32 +118,19 @@ class Searchbar extends React.Component {
 			>
 				<SearchInputGroup focused={this.state.SearchbarFocused}>
 					<div>
-						<SearchOptionDisplay onClick={this.toggleSearchOptions}>
+						<SearchOptionDisplay onClick={this.toggleDropdown}>
 							{searchMode}{" "}
 							<StyledChevronDownIcon
-								$rotateUp={this.state.showSearchOptions}
+								$rotateUp={this.state.showDropdown}
 							/>
 						</SearchOptionDisplay>
-						{this.state.showSearchOptions ? (
-							<SearchOptions>
-								<SearchOption
-									onClick={() => {
-										this.handleSearchOptionClick("movies");
-									}}
-								>
-									movies
-								</SearchOption>
-								<SearchOption
-									onClick={() => {
-										this.handleSearchOptionClick(
-											"tv shows"
-										);
-									}}
-								>
-									tv shows
-								</SearchOption>
-							</SearchOptions>
-						) : null}
+
+						<Dropdown
+							dropdownItems={["movies", "tv shows"]}
+							forComponent="searchbar"
+							show={this.state.showDropdown}
+							toggleDropdown={this.toggleDropdown}
+						/>
 					</div>
 
 					<SearchInput

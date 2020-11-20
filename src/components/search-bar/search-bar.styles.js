@@ -36,7 +36,7 @@ const SearchbarLayoutStyles = css`
 	align-items: center;
 `;
 
-const SearchbarTextStyles = css`
+export const SearchbarTextStyles = css`
 	font-size: 1.55rem;
 	color: ${cssColors.greyLighter};
 `;

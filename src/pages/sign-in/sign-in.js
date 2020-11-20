@@ -10,6 +10,8 @@ import {
 	StyledFormLink,
 } from "../../styles/styles.generic";
 
+import { signInWithGoogle } from "../../firebase/firebase.utils";
+
 import {
 	getEmptyFieldNames,
 	returnFieldObjects,
@@ -121,6 +123,8 @@ class SignInPage extends React.Component {
 							color={cssColors.googleRed}
 							darkBg="#d03325"
 							iconClassName="fab fa-google"
+							func="sign in with google"
+							signInWithGoogle={signInWithGoogle}
 						/>
 					</ButtonCollection>
 				</form>
