@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { cssColors } from "../../styles/styles.variables";
 
@@ -16,6 +16,15 @@ export const StyledSpinner = styled.div`
 	border: 3px solid ${cssColors.bluePrimary};
 	border-left-color: transparent;
 	animation: spinner-anim 550ms linear infinite;
+	${({ smaller }) =>
+		smaller &&
+		css`
+			height: 2.5rem;
+			width: 2.5rem;
+			border: 2px solid ${cssColors.bluePrimary};
+			border-left-color: transparent;
+			animation-duration: 350ms;
+		`}
 
 	@keyframes spinner-anim {
 		to {

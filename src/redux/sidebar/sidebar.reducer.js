@@ -11,7 +11,11 @@ export const sidebarReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				showSidebar: !state.showSidebar,
 			};
-
+		case sidebarActionTypes.CLOSE_SIDEBAR:
+			return {
+				...state,
+				showSidebar: false,
+			};
 		default:
 			return state;
 	}

@@ -5,8 +5,7 @@ import { StyledDropdownItem } from "./dropdown-item.styles";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
-
-import { auth } from "../../firebase/firebase.utils";
+import { currentUserSignout } from "../../redux/current-user/current-user.actions";
 
 class DropdownItem extends React.Component {
 	handleDropdownItemClick = () => {
@@ -15,7 +14,7 @@ class DropdownItem extends React.Component {
 			toggleSearchMode,
 			forComponent,
 			value,
-			toggleNotification,
+			currentUserSignout,
 		} = this.props;
 
 		toggleDropdown();
@@ -23,9 +22,7 @@ class DropdownItem extends React.Component {
 		if (forComponent === "searchbar") {
 			toggleSearchMode(value);
 		} else if (forComponent === "profile") {
-			auth.signOut();
-
-			toggleNotification("signed out successfully");
+			currentUserSignout();
 		}
 	};
 
@@ -47,6 +44,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		toggleNotification: (notificationMessage) => {
 			dispatch(toggleNotification(notificationMessage));
+		},
+		currentUserSignout: () => {
+			dispatch(currentUserSignout());
 		},
 	};
 };

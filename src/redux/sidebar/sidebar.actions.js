@@ -5,3 +5,9 @@ export const toggleSidebar = () => {
 		type: sidebarActionTypes.TOGGLE_SIDEBAR,
 	};
 };
+
+export const closeSidebar = () => {
+	return {
+		type: sidebarActionTypes.CLOSE_SIDEBAR,
+	};
+};

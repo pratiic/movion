@@ -25,6 +25,7 @@ import { auth } from "../../firebase/firebase.utils";
 
 import CustomInput from "../../components/custom-input/custom-input";
 import GenericButton from "../../components/generic-button/generic-button";
+import Spinner from "../../components/spinner/spinner";
 
 class SignInPage extends React.Component {
 	constructor() {
@@ -43,6 +44,8 @@ class SignInPage extends React.Component {
 				"password",
 				"passwordErrorMsg",
 			],
+
+			showSpinner: false,
 		};
 
 		this.inputRef = createRef();
@@ -57,6 +60,14 @@ class SignInPage extends React.Component {
 
 	handleInputChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value });
+	};
+
+	toggleSpinner = () => {
+		this.setState((prevState) => {
+			return {
+				showSpinner: !prevState.showSpinner,
+			};
+		});
 	};
 
 	handleFormSubmit = async (event) => {
@@ -80,10 +91,30 @@ class SignInPage extends React.Component {
 			if (!validEmail) {
 				this.setFieldErrorMessage(["email"], "this email is not valid");
 			} else {
-				await auth.signInWithEmailAndPassword(
-					this.state.email,
-					this.state.password
-				);
+				this.toggleSpinner();
+
+				try {
+					await auth.signInWithEmailAndPassword(
+						this.state.email,
+						this.state.password
+					);
+
+					this.toggleSpinner();
+				} catch (error) {
+					this.toggleSpinner();
+
+					if (error.code === "auth/wrong-password") {
+						this.setFieldErrorMessage(
+							["password"],
+							"wrong password"
+						);
+					} else if (error.code === "auth/user-not-found") {
+						this.setFieldErrorMessage(
+							["email"],
+							"user with this email does not exist"
+						);
+					}
+				}
 			}
 		}
 	};
@@ -123,6 +154,11 @@ class SignInPage extends React.Component {
 						value={this.state.password}
 						errorMsg={this.state.passwordErrorMsg}
 					/>
+
+					{this.state.showSpinner ? (
+						<Spinner height="4rem" smaller />
+					) : null}
+
 					<ButtonCollection>
 						<GenericButton type="submit" value="sign in" outlined />
 						<GenericButton

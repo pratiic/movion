@@ -21,6 +21,7 @@ import { createUserDocument, auth } from "../../firebase/firebase.utils";
 
 import CustomInput from "../../components/custom-input/custom-input";
 import GenericButton from "../../components/generic-button/generic-button";
+import Spinner from "../../components/spinner/spinner";
 
 class SignUpPage extends React.Component {
 	constructor() {
@@ -52,6 +53,8 @@ class SignUpPage extends React.Component {
 				"retypedPassword",
 				"retypedPasswordErrorMsg",
 			],
+
+			showSpinner: false,
 		};
 
 		this.inputRef = createRef();
@@ -63,6 +66,14 @@ class SignUpPage extends React.Component {
 		);
 		this.clearAllFields = clearAllFields.bind(this);
 	}
+
+	toggleSpinner = () => {
+		this.setState((prevState) => {
+			return {
+				showSpinner: !prevState.showSpinner,
+			};
+		});
+	};
 
 	handleInputChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value });
@@ -98,6 +109,8 @@ class SignUpPage extends React.Component {
 			} else {
 				const { username } = this.state;
 
+				this.toggleSpinner();
+
 				try {
 					const { user } = await auth.createUserWithEmailAndPassword(
 						this.state.email,
@@ -111,8 +124,17 @@ class SignUpPage extends React.Component {
 						uid,
 						displayName: username,
 					});
+
+					this.toggleSpinner();
 				} catch (error) {
-					console.log(error);
+					this.toggleSpinner();
+
+					if (error.code === "auth/email-already-in-use") {
+						this.setFieldErrorMessage(
+							["email"],
+							"this email is already in use in another account"
+						);
+					}
 				}
 			}
 		}
@@ -169,6 +191,10 @@ class SignUpPage extends React.Component {
 						handleInputChange={this.handleInputChange}
 						errorMsg={this.state.retypedPasswordErrorMsg}
 					/>
+					{this.state.showSpinner ? (
+						<Spinner height="4rem" smaller />
+					) : null}
+
 					<GenericButton type="submit" value="sign up" outlined />
 				</form>
 			</StyledSignUpPage>

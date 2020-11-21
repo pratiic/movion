@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
+import { SpinnerOverlay } from "../components/spinner/spinner.styles";
+
 import { cssColors, cssFonts } from "./styles.variables";
 
 export const WrapperStyles = css`
@@ -99,6 +101,11 @@ export const FormPageStyles = css`
 export const FormStyles = css`
 	width: 35rem;
 	margin: 0 auto;
+
+	${SpinnerOverlay} {
+		margin-bottom: 2rem;
+		margin-top: -2rem;
+	}
 
 	@media screen and (max-width: 450px) {
 		width: 30rem;
