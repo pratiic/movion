@@ -20,6 +20,7 @@ export const StyledNotification = styled.div`
 	align-items: center;
 	justify-content: center;
 	font-family: ${cssFonts.fontStackSecondary};
+	white-space: nowrap;
 `;
 
 export const StyledTickIcon = styled(TickIcon)`

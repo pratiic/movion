@@ -15,7 +15,7 @@ export const StyledSpinner = styled.div`
 	border-radius: 50%;
 	border: 3px solid ${cssColors.bluePrimary};
 	border-left-color: transparent;
-	animation: spinner-anim 550ms linear infinite;
+	animation: spinner-anim 350ms linear infinite;
 	${({ smaller }) =>
 		smaller &&
 		css`
@@ -30,5 +30,28 @@ export const StyledSpinner = styled.div`
 		to {
 			transform: rotate(360deg);
 		}
+		/* 25% {
+			transform: rotate(360deg);
+			border: 2px solid ${cssColors.orangePrimary};
+			border-left-color: transparent;
+		}
+
+		50% {
+			transform: rotate(720deg);
+			border: 3px solid ${cssColors.googleRed};
+			border-left-color: transparent;
+		}
+
+		75% {
+			transform: rotate(1080deg);
+			border: 2px solid ${cssColors.greyLighter};
+			border-left-color: transparent;
+		}
+
+		100% {
+			transform: rotate(1440deg);
+			border: 1px solid ${cssColors.bluePrimary};
+			border-left-color: transparent;
+		} */
 	}
 `;

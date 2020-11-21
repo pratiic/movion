@@ -66,6 +66,8 @@ class Searchbar extends React.Component {
 
 		event.preventDefault();
 
+		this.searchInputRef.current.blur();
+
 		if (this.state.searchValue !== "") {
 			history.push(`/search/${this.state.searchValue}`);
 		}
