@@ -17,6 +17,8 @@ import {
 	clearAllFields,
 } from "../../components/utils/utils.components";
 
+import { createUserDocument, auth } from "../../firebase/firebase.utils";
+
 import CustomInput from "../../components/custom-input/custom-input";
 import GenericButton from "../../components/generic-button/generic-button";
 
@@ -66,7 +68,7 @@ class SignUpPage extends React.Component {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
-	handleFormSubmit = (event) => {
+	handleFormSubmit = async (event) => {
 		event.preventDefault();
 
 		const fieldObjects = this.returnFieldObjects();
@@ -94,13 +96,34 @@ class SignUpPage extends React.Component {
 					"these passwords do not match"
 				);
 			} else {
-				this.clearAllFields();
+				const { username } = this.state;
+
+				try {
+					const { user } = await auth.createUserWithEmailAndPassword(
+						this.state.email,
+						this.state.password
+					);
+
+					const { email, uid } = user;
+
+					await createUserDocument({
+						email,
+						uid,
+						displayName: username,
+					});
+				} catch (error) {
+					console.log(error);
+				}
 			}
 		}
 	};
 
 	componentDidMount() {
 		this.inputRef.current.focus();
+	}
+
+	componentWillUnmount() {
+		this.clearAllFields();
 	}
 
 	render() {

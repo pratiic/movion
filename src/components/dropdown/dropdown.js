@@ -15,13 +15,11 @@ class Dropdown extends React.Component {
 			username,
 		} = this.props;
 
-		console.log(dropdownItems);
-
 		return (
 			<StyledDropdown forComponent={forComponent} show={show}>
 				{forComponent === "profile" ? (
 					<ProfileHeader>
-						<ProfileLetter>{username[0]}</ProfileLetter>
+						<ProfileLetter>{username && username[0]}</ProfileLetter>
 						{username}
 					</ProfileHeader>
 				) : null}

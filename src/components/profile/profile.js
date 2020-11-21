@@ -32,7 +32,7 @@ class Profile extends React.Component {
 		return (
 			<StyledProfile>
 				<ProfileLetter onClick={this.handleProfileClick}>
-					{username[0]}
+					{username && username[0]}
 				</ProfileLetter>
 				<Username>{username}</Username>
 				<Dropdown

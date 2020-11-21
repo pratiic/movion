@@ -21,6 +21,8 @@ import {
 	clearAllFields,
 } from "../../components/utils/utils.components";
 
+import { auth } from "../../firebase/firebase.utils";
+
 import CustomInput from "../../components/custom-input/custom-input";
 import GenericButton from "../../components/generic-button/generic-button";
 
@@ -57,7 +59,7 @@ class SignInPage extends React.Component {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
-	handleFormSubmit = (event) => {
+	handleFormSubmit = async (event) => {
 		event.preventDefault();
 
 		const fieldObjects = this.returnFieldObjects();
@@ -78,13 +80,20 @@ class SignInPage extends React.Component {
 			if (!validEmail) {
 				this.setFieldErrorMessage(["email"], "this email is not valid");
 			} else {
-				this.clearAllFields();
+				await auth.signInWithEmailAndPassword(
+					this.state.email,
+					this.state.password
+				);
 			}
 		}
 	};
 
 	componentDidMount() {
 		this.inputRef.current.focus();
+	}
+
+	componentWillUnmount() {
+		this.clearAllFields();
 	}
 
 	render() {

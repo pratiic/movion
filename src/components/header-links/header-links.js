@@ -52,7 +52,7 @@ const HeaderLinks = ({
 
 			{currentUser ? (
 				<React.Fragment>
-					<Profile username={currentUser.displayName} />
+					<Profile username={currentUser.username} />
 
 					<StyledLink
 						as="p"
