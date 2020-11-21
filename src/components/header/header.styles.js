@@ -57,18 +57,12 @@ export const StyledHeader = styled.header`
 	left: 0;
 	top: 0;
 	width: 100%;
-	opacity: 0.8;
 	background-color: ${cssColors.blueSecondary};
-	/* padding: 0.5rem 0; */
 	z-index: 5;
 	transition: opacity 250ms ease-in;
 	height: 6.5rem;
 	display: flex;
 	align-items: center;
-
-	&:hover {
-		opacity: 1;
-	}
 `;
 
 const HeaderLinkIconStyles = css`

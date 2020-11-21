@@ -29,7 +29,7 @@ export const StyledHeaderLinks = styled.ul`
 		position: fixed;
 		z-index: 10;
 		right: 0;
-		top: 6rem;
+		top: 6.5rem;
 		flex-direction: column;
 		align-items: flex-start;
 		height: 100vh;
@@ -37,7 +37,6 @@ export const StyledHeaderLinks = styled.ul`
 		transform: ${({ show }) => {
 			return show ? `translateX(0)` : `translateX(100%)`;
 		}};
-		padding: 0.75rem 0;
 	}
 `;
 
@@ -112,11 +111,11 @@ export const StyledLink = styled(Link)`
 		}
 	}
 
-	@media screen and (max-width: 450px) {
+	/* @media screen and (max-width: 450px) {
 		padding: 1rem 4.5rem;
 	}
 
 	@media screen and (max-width: 350px) {
 		padding: 1rem 4rem;
-	}
+	} */
 `;

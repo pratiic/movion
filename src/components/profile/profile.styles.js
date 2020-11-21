@@ -10,17 +10,20 @@ export const StyledProfile = styled.div`
 	font-size: 1.7rem;
 	text-transform: capitalize;
 	position: relative;
+	display: flex;
+	align-items: center;
 
 	@media screen and (max-width: 1150px) {
 		order: -1;
 		margin-left: 0;
 		margin: 0 auto;
-		padding: 1rem 0;
+		padding: 2.3rem 0;
 	}
 `;
 
 export const Username = styled.p`
 	display: none;
+	color: ${cssColors.greyLighter};
 
 	@media screen and (max-width: 1150px) {
 		display: block;
@@ -49,8 +52,8 @@ export const ProfileLetter = styled.div`
 	}
 
 	@media screen and (max-width: 1150px) {
-		margin: 0 auto 0.8rem auto;
 		pointer-events: none;
+		margin-right: 1.3rem;
 	}
 `;
 
@@ -59,6 +62,8 @@ export const ProfileHeader = styled.div`
 	border-bottom: 1px solid ${cssColors.greyLighter};
 	display: flex;
 	align-items: center;
+	text-transform: capitalize;
+	color: ${cssColors.greyLighter};
 
 	${ProfileLetter} {
 		background-color: ${cssColors.greyDark};
