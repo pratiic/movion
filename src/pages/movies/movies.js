@@ -36,7 +36,7 @@ class MoviesPage extends React.Component {
 
 		return (
 			<StyledMoviesPage>
-				<Featured featured={popularMovies[1]} />
+				<Featured featured={popularMovies[0]} />
 				{popularMovies ? (
 					<React.Fragment>
 						<StyledTitle>popular movies</StyledTitle>

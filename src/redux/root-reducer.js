@@ -8,6 +8,7 @@ import { tvShowsReducer } from "./tv-shows/tv-shows.reducer";
 import { searchReducer } from "./search/search.reducer";
 import { detailsReducer } from "./details/details.reducer";
 import { currentUserReducer } from "./current-user/current-user.reducer";
+import { notificationReducer } from "./notification/notification.reducer";
 
 export default combineReducers({
 	sidebar: sidebarReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
 	search: searchReducer,
 	details: detailsReducer,
 	currentUser: currentUserReducer,
+	notification: notificationReducer,
 });

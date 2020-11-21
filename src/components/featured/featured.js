@@ -28,7 +28,7 @@ const Featured = ({ featured }) => {
 			</StyledFeatured>
 		);
 	}
-	return <Spinner height="75vh" />;
+	return <Spinner height="85vh" />;
 };
 
 export default Featured;

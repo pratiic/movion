@@ -74,6 +74,7 @@ export const TextStyles = css`
 `;
 
 export const FormPageStyles = css`
+	margin-top: 6.5rem;
 	padding: 3rem 0;
 
 	@media screen and (max-width: 500px) {

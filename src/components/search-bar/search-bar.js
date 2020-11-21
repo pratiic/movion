@@ -126,7 +126,10 @@ class Searchbar extends React.Component {
 						</SearchOptionDisplay>
 
 						<Dropdown
-							dropdownItems={["movies", "tv shows"]}
+							dropdownItems={[
+								{ value: "movies" },
+								{ value: "tv shows" },
+							]}
 							forComponent="searchbar"
 							show={this.state.showDropdown}
 							toggleDropdown={this.toggleDropdown}

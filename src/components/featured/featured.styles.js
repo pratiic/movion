@@ -14,7 +14,7 @@ export const FeaturedWrapper = styled.div`
 `;
 
 export const StyledFeatured = styled.div`
-	height: 92vh;
+	height: 100vh;
 	width: 100%;
 	background-image: ${({ backdropPath }) => `url(${backdropPath})`};
 	background-size: cover;

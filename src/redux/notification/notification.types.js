@@ -1,0 +1,4 @@
+export const notificationActionTypes = {
+	SHOW_NOTIFICATION: "SHOW_NOTIFICATION",
+	CLEAR_NOTIFICATION: "CLEAR_NOTIFICATION",
+};

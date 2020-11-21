@@ -6,6 +6,7 @@ import { StyledLoginIcon, StyledLogoutIcon } from "../header/header.styles";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
+import { toggleNotification } from "../../redux/notification/notification.actions";
 
 import { auth } from "../../firebase/firebase.utils";
 
@@ -18,6 +19,7 @@ const HeaderLinks = ({
 	toggleSidebar,
 	toggleActive,
 	currentUser,
+	toggleNotification,
 }) => {
 	const handleLinkClick = (event, linkValue) => {
 		toggleActive(linkValue);
@@ -56,6 +58,8 @@ const HeaderLinks = ({
 						as="p"
 						onClick={() => {
 							auth.signOut();
+
+							toggleNotification("signed out successfully");
 						}}
 						special
 					>
@@ -91,6 +95,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		toggleSidebar: () => {
 			dispatch(toggleSidebar());
+		},
+		toggleNotification: (notificationMessage) => {
+			dispatch(toggleNotification(notificationMessage));
 		},
 	};
 };

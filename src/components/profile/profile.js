@@ -1,6 +1,7 @@
 import React from "react";
 
 import { StyledProfile, ProfileLetter, Username } from "./profile.styles";
+import { StyledLogoutIcon } from "../header/header.styles";
 
 import Dropdown from "../dropdown/dropdown";
 
@@ -35,7 +36,9 @@ class Profile extends React.Component {
 				</ProfileLetter>
 				<Username>{username}</Username>
 				<Dropdown
-					dropdownItems={["sign out"]}
+					dropdownItems={[
+						{ value: "sign out", icon: <StyledLogoutIcon /> },
+					]}
 					forComponent="profile"
 					show={this.state.showDropdown}
 					toggleDropdown={this.toggleDropdown}

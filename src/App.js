@@ -9,6 +9,7 @@ import { darkTheme, lightTheme } from "./styles/styles.themes";
 import { auth } from "./firebase/firebase.utils";
 
 import { updateCurrentUser } from "./redux/current-user/current-user.actions";
+import { toggleNotification } from "./redux/notification/notification.actions";
 
 import Header from "./components/header/header";
 import MoviesPage from "./pages/movies/movies";
@@ -17,6 +18,7 @@ import SearchResultsPage from "./pages/search-results/search-results";
 import DetailsPage from "./pages/details/details";
 import SignInPage from "./pages/sign-in/sign-in";
 import SignUpPage from "./pages/sign-up/sign-up";
+import Notification from "./components/notification/notification";
 
 class App extends React.Component {
 	constructor() {
@@ -30,11 +32,15 @@ class App extends React.Component {
 	unSubscribeFromAuth = null;
 
 	componentDidMount() {
-		const { updateCurrentUser } = this.props;
+		const { updateCurrentUser, toggleNotification } = this.props;
 
 		this.unSubscribeFromAuth = auth.onAuthStateChanged((user) => {
 			//this.setState({ currentUser: user });
 			updateCurrentUser(user);
+
+			if (user) {
+				toggleNotification("signed in successfully");
+			}
 		});
 	}
 
@@ -43,7 +49,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { currentTheme, currentUser } = this.props;
+		const { currentTheme, currentUser, notificationMessage } = this.props;
 
 		return (
 			<BrowserRouter>
@@ -53,6 +59,7 @@ class App extends React.Component {
 					<div className="app">
 						<GlobalStyles />
 						<Header currentUser={this.state.currentUser} />
+						<Notification message={notificationMessage} />
 						<Switch>
 							<Route
 								exact
@@ -101,6 +108,7 @@ const mapStateToProps = (state) => {
 	return {
 		currentTheme: state.theme.currentTheme,
 		currentUser: state.currentUser.currentUser,
+		notificationMessage: state.notification.notificationMessage,
 	};
 };
 
@@ -108,6 +116,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		updateCurrentUser: (user) => {
 			dispatch(updateCurrentUser(user));
+		},
+		toggleNotification: (notificationMessage) => {
+			dispatch(toggleNotification(notificationMessage));
 		},
 	};
 };

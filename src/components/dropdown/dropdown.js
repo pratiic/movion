@@ -15,6 +15,8 @@ class Dropdown extends React.Component {
 			username,
 		} = this.props;
 
+		console.log(dropdownItems);
+
 		return (
 			<StyledDropdown forComponent={forComponent} show={show}>
 				{forComponent === "profile" ? (
@@ -27,10 +29,11 @@ class Dropdown extends React.Component {
 				{dropdownItems.map((dropdownItem) => {
 					return (
 						<DropdownItem
-							value={dropdownItem}
+							value={dropdownItem.value}
+							icon={dropdownItem.icon ? dropdownItem.icon : null}
 							toggleDropdown={toggleDropdown}
 							forComponent={forComponent}
-							key={dropdownItem}
+							key={dropdownItem.value}
 						/>
 					);
 				})}
