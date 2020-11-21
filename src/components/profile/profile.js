@@ -3,6 +3,8 @@ import React from "react";
 import { StyledProfile, ProfileLetter, Username } from "./profile.styles";
 import { StyledLogoutIcon } from "../header/header.styles";
 
+import { toggleDropdown } from "../utils/utils.components";
+
 import Dropdown from "../dropdown/dropdown";
 
 class Profile extends React.Component {
@@ -12,18 +14,12 @@ class Profile extends React.Component {
 		this.state = {
 			showDropdown: false,
 		};
+
+		this.toggleDropdown = toggleDropdown.bind(this);
 	}
 
 	handleProfileClick = () => {
 		this.toggleDropdown();
-	};
-
-	toggleDropdown = () => {
-		this.setState((prevState) => {
-			return {
-				showDropdown: !prevState.showDropdown,
-			};
-		});
 	};
 
 	render() {

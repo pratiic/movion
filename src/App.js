@@ -19,6 +19,7 @@ import DetailsPage from "./pages/details/details";
 import SignInPage from "./pages/sign-in/sign-in";
 import SignUpPage from "./pages/sign-up/sign-up";
 import Notification from "./components/notification/notification";
+import FavoritesPage from "./pages/favorites/favorites";
 
 class App extends React.Component {
 	unSubscribeFromAuth = null;
@@ -32,7 +33,7 @@ class App extends React.Component {
 
 				userRef.onSnapshot((snapShot) => {
 					updateCurrentUser({ ...snapShot.data() });
-					toggleNotification("signed in successfully");
+					toggleNotification("signed in successfully", "success");
 				});
 			} else {
 				updateCurrentUser(userAuth);
@@ -45,7 +46,12 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { currentTheme, currentUser, notificationMessage } = this.props;
+		const {
+			currentTheme,
+			currentUser,
+			notificationMessage,
+			notificationType,
+		} = this.props;
 
 		return (
 			<BrowserRouter>
@@ -55,7 +61,10 @@ class App extends React.Component {
 					<div className="app">
 						<GlobalStyles />
 						<Header />
-						<Notification message={notificationMessage} />
+						<Notification
+							message={notificationMessage}
+							type={notificationType}
+						/>
 						<Switch>
 							<Route
 								exact
@@ -92,6 +101,16 @@ class App extends React.Component {
 									);
 								}}
 							/>
+							<Route
+								path="/favorites"
+								render={() => {
+									return currentUser ? (
+										<FavoritesPage />
+									) : (
+										<Redirect to="/signin" />
+									);
+								}}
+							/>
 						</Switch>
 					</div>
 				</ThemeProvider>
@@ -105,6 +124,7 @@ const mapStateToProps = (state) => {
 		currentTheme: state.theme.currentTheme,
 		currentUser: state.currentUser.currentUser,
 		notificationMessage: state.notification.notificationMessage,
+		notificationType: state.notification.notificationType,
 	};
 };
 
@@ -113,8 +133,8 @@ const mapDispatchToProps = (dispatch) => {
 		updateCurrentUser: (user) => {
 			dispatch(updateCurrentUser(user));
 		},
-		toggleNotification: (notificationMessage) => {
-			dispatch(toggleNotification(notificationMessage));
+		toggleNotification: (notificationMessage, notificationType) => {
+			dispatch(toggleNotification(notificationMessage, notificationType));
 		},
 	};
 };

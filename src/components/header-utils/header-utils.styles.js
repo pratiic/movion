@@ -33,6 +33,20 @@ export const HeaderUtilStyles = css`
 	width: 1.7rem;
 `;
 
+export const StyledLessHeartIconStyles = css`
+	&:hover {
+		path {
+			fill: ${cssColors.orangePrimary};
+		}
+	}
+
+	&:active {
+		path {
+			fill: ${cssColors.orangePrimary};
+		}
+	}
+`;
+
 export const StyledHeaderUtils = styled.div`
 	display: flex;
 	align-items: center;

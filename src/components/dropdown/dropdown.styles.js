@@ -21,6 +21,11 @@ export const StyledDropdown = styled.div`
 				left: 0.2rem;
 				bottom: -8rem;
 			`;
+		} else if (forComponent === "card") {
+			return css`
+				top: 3.5rem;
+				right: 0.7rem;
+			`;
 		}
 	}}
 

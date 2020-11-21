@@ -13,9 +13,9 @@ export const clearNotification = () => {
 	};
 };
 
-export const toggleNotification = (notificationMessage) => {
+export const toggleNotification = (notificationMessage, notificationType) => {
 	return (dispatch) => {
-		dispatch(showNotification(notificationMessage));
+		dispatch(showNotification({ notificationMessage, notificationType }));
 
 		setTimeout(() => {
 			dispatch(clearNotification());

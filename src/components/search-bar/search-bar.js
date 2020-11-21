@@ -19,6 +19,8 @@ import {
 	toggleSearchMode,
 } from "../../redux/searchbar/searchbar.actions";
 
+import { toggleDropdown } from "../utils/utils.components";
+
 import Dropdown from "../dropdown/dropdown";
 
 class Searchbar extends React.Component {
@@ -32,6 +34,8 @@ class Searchbar extends React.Component {
 		};
 
 		this.searchInputRef = React.createRef();
+
+		this.toggleDropdown = toggleDropdown.bind(this);
 	}
 
 	handleInputChange = (event) => {
@@ -75,14 +79,6 @@ class Searchbar extends React.Component {
 		if (showSearchbarOnSmallScreens) {
 			toggleSearchbar();
 		}
-	};
-
-	toggleDropdown = () => {
-		this.setState((prevState) => {
-			return {
-				showDropdown: !prevState.showDropdown,
-			};
-		});
 	};
 
 	// componentDidUpdate() {

@@ -148,4 +148,12 @@ export function clearAllFields() {
 	});
 }
 
+export function toggleDropdown() {
+	this.setState((prevState) => {
+		return {
+			showDropdown: !prevState.showDropdown,
+		};
+	});
+}
+
 export const validateForm = () => {};

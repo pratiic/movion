@@ -92,6 +92,39 @@ export const DetailsMainWrapper = styled.div`
 			font-style: italic;
 		}
 
+		.add-to-favorites {
+			display: flex;
+			align-items: center;
+			font-size: 1.55rem;
+			color: ${cssColors.greyLighter};
+			text-transform: capitalize;
+			border: 1px solid ${cssColors.greyText};
+			width: fit-content;
+			padding: 0.3rem 0.5rem;
+			border-radius: 5px;
+			cursor: pointer;
+
+			&:hover {
+				color: white;
+
+				svg {
+					path {
+						fill: ${cssColors.bluePrimary};
+					}
+				}
+			}
+
+			&:active {
+				color: ${cssColors.greyLighter};
+
+				svg {
+					path {
+						fill: ${cssColors.greyLighter};
+					}
+				}
+			}
+		}
+
 		.overview {
 			.overview-title {
 				font-size: 1.85rem;

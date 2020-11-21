@@ -14,6 +14,7 @@ export const StyledDotMenuIcon = styled(DotMenuIcon)`
 	top: 0.7rem;
 	right: 0.7rem;
 	opacity: 0.7;
+	cursor: pointer;
 
 	&:hover {
 		background-color: white;
@@ -22,8 +23,8 @@ export const StyledDotMenuIcon = styled(DotMenuIcon)`
 
 export const StyledMainCard = styled.div`
 	font-family: ${cssFonts.fontStackTertiary};
-	position: relative;
 	font-weight: 300;
+	position: relative;
 
 	.card-image-container {
 		width: 100%;

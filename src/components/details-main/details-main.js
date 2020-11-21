@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 
 import { StyledDetailsMain, DetailsMainWrapper } from "./details-main.styles";
 
+import { StyledHeartIcon } from "../header-utils/header-utils.styles";
+
 import { fetchMainDetails } from "../../redux/api/api.actions";
 import { getURL, apiInfo } from "../../redux/api/api.info";
 
@@ -13,6 +15,7 @@ import {
 } from "../../components/utils/utils.components";
 
 import Spinner from "../spinner/spinner";
+import DetailsController from "../details-controller/details-controller";
 
 class DetailsMain extends React.Component {
 	startAsyncOp = () => {
@@ -110,6 +113,11 @@ class DetailsMain extends React.Component {
 									"{tagline}"
 								</p>
 							) : null}
+
+							<DetailsController
+								icon={<StyledHeartIcon />}
+								value="add to favorites"
+							/>
 
 							<div className="overview margin-bt-large">
 								<p className="overview-title margin-bt-small">

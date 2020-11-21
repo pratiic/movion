@@ -75,9 +75,13 @@ export const TextStyles = css`
 	${WrapperStyles};
 `;
 
-export const FormPageStyles = css`
+export const PageStyles = css`
 	margin-top: 6.5rem;
 	padding: 3rem 0;
+`;
+
+export const FormPageStyles = css`
+	${PageStyles};
 
 	@media screen and (max-width: 500px) {
 		padding: 1.5rem 0;

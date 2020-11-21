@@ -15,7 +15,7 @@ export const updateCurrentUser = (user) => {
 export const currentUserSignout = () => {
 	return (dispatch) => {
 		auth.signOut();
-		dispatch(toggleNotification("signed out successfully"));
+		dispatch(toggleNotification("signed out successfully", "success"));
 		dispatch(closeSidebar());
 	};
 };

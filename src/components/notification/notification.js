@@ -1,12 +1,17 @@
 import React from "react";
 
-import { StyledNotification, StyledTickIcon } from "./notification.styles";
+import {
+	StyledNotification,
+	StyledTickIcon,
+	StyledDeleteIcon,
+} from "./notification.styles";
 
-const Notification = ({ message }) => {
+const Notification = ({ message, type }) => {
 	return message ? (
-		<StyledNotification>
+		<StyledNotification type={type}>
 			{" "}
-			<StyledTickIcon /> {message}
+			{type === "success" ? <StyledTickIcon /> : <StyledDeleteIcon />}
+			{message}
 		</StyledNotification>
 	) : null;
 };
