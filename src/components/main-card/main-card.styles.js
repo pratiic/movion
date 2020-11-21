@@ -11,7 +11,7 @@ export const StyledDotMenuIcon = styled(DotMenuIcon)`
 	background-color: ${cssColors.greyLighter};
 	border-radius: 50%;
 	padding: 0.2rem;
-	top: 0.7rem;
+	bottom: 0.7rem;
 	right: 0.7rem;
 	opacity: 0.7;
 	cursor: pointer;
@@ -24,7 +24,6 @@ export const StyledDotMenuIcon = styled(DotMenuIcon)`
 export const StyledMainCard = styled.div`
 	font-family: ${cssFonts.fontStackTertiary};
 	font-weight: 300;
-	position: relative;
 
 	.card-image-container {
 		width: 100%;
@@ -39,6 +38,7 @@ export const StyledMainCard = styled.div`
 	}
 
 	.content-info {
+		position: relative;
 		border: 1px solid ${cssColors.greyLight};
 		border-top: none;
 		border-bottom-left-radius: 5px;

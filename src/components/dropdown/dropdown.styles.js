@@ -9,6 +9,7 @@ export const StyledDropdown = styled.div`
 	border-radius: 5px;
 	text-transform: lowercase;
 	white-space: nowrap;
+	box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.5);
 
 	${({ forComponent }) => {
 		if (forComponent === "profile") {
@@ -23,7 +24,7 @@ export const StyledDropdown = styled.div`
 			`;
 		} else if (forComponent === "card") {
 			return css`
-				top: 3.5rem;
+				bottom: 3.75rem;
 				right: 0.7rem;
 			`;
 		}
