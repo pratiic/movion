@@ -7,17 +7,33 @@ import { StyledDetailsMain, DetailsMainWrapper } from "./details-main.styles";
 import { StyledHeartIcon } from "../header-utils/header-utils.styles";
 
 import { fetchMainDetails } from "../../redux/api/api.actions";
+import { toggleNotification } from "../../redux/notification/notification.actions";
+
 import { getURL, apiInfo } from "../../redux/api/api.info";
+
+import { createFavoriteDocument } from "../../firebase/firebase.utils";
+
+import {
+	selectFavoriteMovies,
+	selectFavoriteTvShows,
+} from "../../redux/favorites/favorites.selectors";
 
 import {
 	renderReleaseDate,
 	getWithCommas,
+	renderDetailsController,
 } from "../../components/utils/utils.components";
 
 import Spinner from "../spinner/spinner";
 import DetailsController from "../details-controller/details-controller";
 
 class DetailsMain extends React.Component {
+	constructor() {
+		super();
+
+		this.renderDetailsController = renderDetailsController.bind(this);
+	}
+
 	startAsyncOp = () => {
 		const { match, fetchMainDetails } = this.props;
 		const id = match.params.id;
@@ -25,6 +41,43 @@ class DetailsMain extends React.Component {
 		const mode = type;
 		const detailsURL = getURL(mode, null, "details", null, id);
 		fetchMainDetails(detailsURL);
+	};
+
+	renderType = (title, name, type) => {
+		if (type) {
+			return type;
+		} else if (!type && (title || name)) {
+			if (title) {
+				return "movie";
+			} else {
+				return "tv";
+			}
+		}
+	};
+
+	addToFavorites = async () => {
+		const { currentUser, toggleNotification, mainDetails } = this.props;
+		const {
+			title,
+			name,
+			poster_path,
+			release_date,
+			first_air_date,
+			id,
+		} = mainDetails;
+
+		const status = await createFavoriteDocument({
+			title: title || name,
+			posterPath: poster_path,
+			releaseDate: release_date || first_air_date,
+			id,
+			type: this.renderType(title, name),
+			currentUserId: currentUser.id,
+		});
+
+		if (status === "success") {
+			toggleNotification("added to favorites", "success");
+		}
 	};
 
 	componentDidMount() {
@@ -38,7 +91,12 @@ class DetailsMain extends React.Component {
 	}
 
 	render() {
-		const { mainDetails, fetchingMainDetails } = this.props;
+		const {
+			mainDetails,
+			fetchingMainDetails,
+			favoriteMovies,
+			favoriteTvShows,
+		} = this.props;
 
 		if (!mainDetails || (mainDetails && fetchingMainDetails)) {
 			return <Spinner />;
@@ -57,6 +115,7 @@ class DetailsMain extends React.Component {
 				name,
 				created_by,
 				vote_average,
+				id,
 			} = mainDetails;
 
 			return (
@@ -114,10 +173,13 @@ class DetailsMain extends React.Component {
 								</p>
 							) : null}
 
-							<DetailsController
-								icon={<StyledHeartIcon />}
-								value="add to favorites"
-							/>
+							{this.renderDetailsController(
+								id,
+								favoriteMovies,
+								favoriteTvShows,
+								title ? "movie" : "tv",
+								"details main"
+							)}
 
 							<div className="overview margin-bt-large">
 								<p className="overview-title margin-bt-small">
@@ -179,6 +241,9 @@ const mapStateToProps = (state) => {
 	return {
 		mainDetails: state.details.mainDetails,
 		fetchingMainDetails: state.details.fetchingMainDetails,
+		favoriteMovies: selectFavoriteMovies(state),
+		favoriteTvShows: selectFavoriteTvShows(state),
+		currentUser: state.currentUser.currentUser,
 	};
 };
 
@@ -186,6 +251,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchMainDetails: (url) => {
 			dispatch(fetchMainDetails(url));
+		},
+		toggleNotification: (notificationMessage, notificationType) => {
+			dispatch(toggleNotification(notificationMessage, notificationType));
 		},
 	};
 };

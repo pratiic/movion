@@ -22,6 +22,7 @@ import {
 import { toggleDropdown } from "../utils/utils.components";
 
 import Dropdown from "../dropdown/dropdown";
+import DropdownItem from "../dropdown-item/dropdown-item";
 
 class Searchbar extends React.Component {
 	constructor() {
@@ -122,16 +123,21 @@ class Searchbar extends React.Component {
 								$rotateUp={this.state.showDropdown}
 							/>
 						</SearchOptionDisplay>
-
 						<Dropdown
-							dropdownItems={[
-								{ value: "movies" },
-								{ value: "tv shows" },
-							]}
 							forComponent="searchbar"
 							show={this.state.showDropdown}
-							toggleDropdown={this.toggleDropdown}
-						/>
+						>
+							<DropdownItem
+								value="movies"
+								func="toggle search mode"
+								toggleDropdown={this.toggleDropdown}
+							/>
+							<DropdownItem
+								value="tv shows"
+								func="toggle search mode"
+								toggleDropdown={this.toggleDropdown}
+							/>
+						</Dropdown>
 					</div>
 
 					<SearchInput

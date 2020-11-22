@@ -1,11 +1,17 @@
 import React from "react";
 
-import { StyledProfile, ProfileLetter, Username } from "./profile.styles";
+import {
+	StyledProfile,
+	ProfileLetter,
+	Username,
+	ProfileHeader,
+} from "./profile.styles";
 import { StyledLogoutIcon } from "../header/header.styles";
 
 import { toggleDropdown } from "../utils/utils.components";
 
 import Dropdown from "../dropdown/dropdown";
+import DropdownItem from "../dropdown-item/dropdown-item";
 
 class Profile extends React.Component {
 	constructor() {
@@ -31,15 +37,18 @@ class Profile extends React.Component {
 					{username && username[0]}
 				</ProfileLetter>
 				<Username>{username}</Username>
-				<Dropdown
-					dropdownItems={[
-						{ value: "sign out", icon: <StyledLogoutIcon /> },
-					]}
-					forComponent="profile"
-					show={this.state.showDropdown}
-					toggleDropdown={this.toggleDropdown}
-					username={username}
-				/>
+				<Dropdown forComponent="profile" show={this.state.showDropdown}>
+					<ProfileHeader>
+						<ProfileLetter>{username && username[0]}</ProfileLetter>
+						{username}
+					</ProfileHeader>
+					<DropdownItem
+						value="sign out"
+						icon={<StyledLogoutIcon />}
+						func="sign out"
+						toggleDropdown={this.toggleDropdown}
+					/>
+				</Dropdown>
 			</StyledProfile>
 		);
 	}

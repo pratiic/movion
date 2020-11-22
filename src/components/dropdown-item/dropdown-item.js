@@ -12,17 +12,17 @@ class DropdownItem extends React.Component {
 		const {
 			toggleDropdown,
 			toggleSearchMode,
-			forComponent,
 			value,
 			currentUserSignout,
+			func,
 		} = this.props;
 
 		toggleDropdown();
 
-		if (forComponent === "searchbar") {
-			toggleSearchMode(value);
-		} else if (forComponent === "profile") {
+		if (func === "sign out") {
 			currentUserSignout();
+		} else if (func === "toggle search mode") {
+			toggleSearchMode(value);
 		}
 	};
 

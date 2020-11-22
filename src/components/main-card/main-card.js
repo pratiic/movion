@@ -2,17 +2,28 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { apiInfo } from "../../redux/api/api.info";
-
 import { StyledMainCard, StyledDotMenuIcon } from "./main-card.styles";
 
 import { StyledHeartIcon } from "../header-utils/header-utils.styles";
 
+import { StyledTickIcon } from "../notification/notification.styles";
+
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
+import { toggleNotification } from "../../redux/notification/notification.actions";
+
+import {
+	selectFavoriteMovies,
+	selectFavoriteTvShows,
+} from "../../redux/favorites/favorites.selectors";
 
 import { renderReleaseDate, toggleDropdown } from "../utils/utils.components";
+import { apiInfo } from "../../redux/api/api.info";
+import { createFavoriteDocument } from "../../firebase/firebase.utils";
+
+import { renderDetailsController } from "../utils/utils.components";
 
 import Dropdown from "../../components/dropdown/dropdown";
+import DetailsController from "../../components/details-controller/details-controller";
 
 class MainCard extends React.Component {
 	constructor() {
@@ -23,6 +34,8 @@ class MainCard extends React.Component {
 		};
 
 		this.toggleDropdown = toggleDropdown.bind(this);
+
+		this.renderDetailsController = renderDetailsController.bind(this);
 	}
 
 	handleCardImageClick = () => {
@@ -32,8 +45,41 @@ class MainCard extends React.Component {
 		history.push(`/details/${type}/${id}`);
 	};
 
+	addToFavorites = async () => {
+		const {
+			title,
+			releaseDate,
+			posterPath,
+			id,
+			type,
+			currentUser,
+			toggleNotification,
+		} = this.props;
+
+		const status = await createFavoriteDocument({
+			title,
+			posterPath,
+			releaseDate,
+			id,
+			type,
+			currentUserId: currentUser.id,
+		});
+
+		if (status === "success") {
+			toggleNotification("added to favorites", "success");
+		}
+	};
+
 	render() {
-		const { title, releaseDate, posterPath } = this.props;
+		const {
+			title,
+			id,
+			releaseDate,
+			posterPath,
+			favoriteMovies,
+			favoriteTvShows,
+			type,
+		} = this.props;
 
 		return (
 			<StyledMainCard>
@@ -50,21 +96,21 @@ class MainCard extends React.Component {
 				<div className="content-info">
 					<StyledDotMenuIcon
 						onClick={() => {
-							console.log("pratiic");
 							this.toggleDropdown();
 						}}
 					/>
 					<Dropdown
-						dropdownItems={[
-							{
-								value: "add to favorites",
-								icon: <StyledHeartIcon />,
-							},
-						]}
 						show={this.state.showDropdown}
 						forComponent="card"
-						toggleDropdown={this.toggleDropdown}
-					/>
+					>
+						{this.renderDetailsController(
+							id,
+							favoriteMovies,
+							favoriteTvShows,
+							type,
+							"card"
+						)}
+					</Dropdown>
 					<p className="content-name">{title}</p>
 					<p className="content-release-date">
 						{releaseDate
@@ -77,12 +123,25 @@ class MainCard extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => {
+	return {
+		currentUser: state.currentUser.currentUser,
+		favoriteMovies: selectFavoriteMovies(state),
+		favoriteTvShows: selectFavoriteTvShows(state),
+	};
+};
+
 const mapDispatchToProps = (dispatch) => {
 	return {
 		resetSimilarFetchPage: () => {
 			dispatch(resetSimilarFetchPage());
 		},
+		toggleNotification: (notificationMessage, notificationType) => {
+			dispatch(toggleNotification(notificationMessage, notificationType));
+		},
 	};
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(MainCard));
+export default withRouter(
+	connect(mapStateToProps, mapDispatchToProps)(MainCard)
+);

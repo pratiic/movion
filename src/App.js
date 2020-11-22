@@ -6,10 +6,15 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./styles/styles.global";
 import { darkTheme, lightTheme } from "./styles/styles.themes";
 
-import { auth, createUserDocument } from "./firebase/firebase.utils";
+import {
+	auth,
+	createUserDocument,
+	getFavoritesCollectionRef,
+} from "./firebase/firebase.utils";
 
 import { updateCurrentUser } from "./redux/current-user/current-user.actions";
 import { toggleNotification } from "./redux/notification/notification.actions";
+import { fetchFavoritesSuccess } from "./redux/favorites/favorites.actions";
 
 import Header from "./components/header/header";
 import MoviesPage from "./pages/movies/movies";
@@ -39,6 +44,24 @@ class App extends React.Component {
 				updateCurrentUser(userAuth);
 			}
 		});
+	}
+
+	componentDidUpdate(prevProps) {
+		const { currentUser, fetchFavoritesSuccess } = this.props;
+
+		if (prevProps.currentUser !== currentUser && currentUser) {
+			getFavoritesCollectionRef(currentUser.id).then((collectionRef) => {
+				collectionRef.onSnapshot((snapShot) => {
+					if (!snapShot.empty) {
+						const favorites = snapShot.docs.map((doc) => {
+							return doc.data();
+						});
+
+						fetchFavoritesSuccess(favorites);
+					}
+				});
+			});
+		}
 	}
 
 	componentWillUnmount() {
@@ -135,6 +158,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		toggleNotification: (notificationMessage, notificationType) => {
 			dispatch(toggleNotification(notificationMessage, notificationType));
+		},
+		fetchFavoritesSuccess: (favorites) => {
+			dispatch(fetchFavoritesSuccess(favorites));
 		},
 	};
 };

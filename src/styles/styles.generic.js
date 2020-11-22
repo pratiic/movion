@@ -77,7 +77,7 @@ export const TextStyles = css`
 
 export const PageStyles = css`
 	margin-top: 6.5rem;
-	padding: 3rem 0;
+	padding-top: 3rem;
 `;
 
 export const FormPageStyles = css`
@@ -140,6 +140,7 @@ export const StyledTitle = styled.div`
 	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
 	text-transform: capitalize;
 	letter-spacing: 1px;
+	color: ${cssColors.greyLighter};
 
 	${({ size }) => {
 		if (size === "smaller") {
@@ -157,11 +158,8 @@ export const StyledTitle = styled.div`
 export const StyledError = styled.div`
 	${TextStyles};
 	font-size: 2.2rem;
-	${({ marginbt }) =>
-		marginbt &&
-		css`
-			margin-bottom: 3rem;
-		`}
+	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
+	text-align: ${({ align }) => align || "center"};
 `;
 
 export const StyledSubtitle = styled.div`

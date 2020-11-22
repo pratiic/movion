@@ -20,6 +20,7 @@ export const StyledNotification = styled.div`
 	text-transform: capitalize;
 	position: fixed;
 	left: 50%;
+	font-weight: 300;
 	transform: translateX(-50%);
 	top: 8rem;
 	z-index: 10;
@@ -29,11 +30,13 @@ export const StyledNotification = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-family: ${cssFonts.fontStackSecondary};
+	font-family: ${cssFonts.fontStackTertiary};
 	white-space: nowrap;
+	letter-spacing: 1px;
+	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
 
 	background-color: ${({ type }) =>
-		type === "success" ? cssColors.greyDark : cssColors.googleRed};
+		type === "success" ? cssColors.greyLight : cssColors.googleRed};
 `;
 
 export const StyledTickIcon = styled(TickIcon)`

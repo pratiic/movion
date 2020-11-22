@@ -1,9 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import {
 	StyledHeartIcon,
 	StyledLessHeartIconStyles,
 } from "../header-utils/header-utils.styles";
+
+import { StyledTickIcon } from "../notification/notification.styles";
 
 import { cssColors, cssFonts } from "../../styles/styles.variables";
 
@@ -20,9 +22,32 @@ export const StyledDetailsController = styled.div`
 	margin-bottom: 1.7rem;
 	font-family: ${cssFonts.fontStackTertiary};
 
+	${({ forComponent }) => {
+		if (forComponent === "card") {
+			return css`
+				margin-bottom: 0rem;
+				border: none;
+
+				&:hover {
+					background-color: ${cssColors.greyDark};
+				}
+			`;
+		}
+	}}
+
 	${StyledHeartIcon} {
 		${StyledLessHeartIconStyles};
 		margin-right: 0.75rem;
+	}
+
+	${StyledTickIcon} {
+		height: 1.7rem;
+		width: 1.7rem;
+		margin-right: 0.75rem;
+
+		path {
+			fill: ${cssColors.greyLighter};
+		}
 	}
 
 	&:hover {
@@ -44,4 +69,18 @@ export const StyledDetailsController = styled.div`
 			}
 		}
 	}
+
+	${({ jobDone }) =>
+		jobDone &&
+		css`
+			&:hover {
+				color: ${cssColors.greyLighter};
+
+				svg {
+					path {
+						fill: ${cssColors.greyLighter};
+					}
+				}
+			}
+		`}
 `;

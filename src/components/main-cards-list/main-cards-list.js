@@ -8,6 +8,18 @@ import {
 import MainCard from "../main-card/main-card";
 
 const MainCardsList = ({ list }) => {
+	const renderType = (title, name, type) => {
+		if (type) {
+			return type;
+		} else if (!type && (title || name)) {
+			if (title) {
+				return "movie";
+			} else {
+				return "tv";
+			}
+		}
+	};
+
 	return (
 		<StyledMainCardsList>
 			<MainCardsListWrapper>
@@ -17,18 +29,25 @@ const MainCardsList = ({ list }) => {
 						title,
 						name,
 						release_date,
+						releaseDate,
 						first_air_date,
 						poster_path,
+						posterPath,
+						type,
 					}) => {
-						if (poster_path) {
+						if (poster_path || posterPath) {
 							return (
 								<MainCard
 									title={title || name}
-									releaseDate={release_date || first_air_date}
-									posterPath={poster_path}
+									releaseDate={
+										releaseDate ||
+										release_date ||
+										first_air_date
+									}
+									posterPath={poster_path || posterPath}
 									key={id}
 									id={id}
-									type={title ? "movie" : "tv"}
+									type={renderType(title, name, type)}
 								/>
 							);
 						} else {

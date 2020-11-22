@@ -1,3 +1,7 @@
+import DetailsController from "../../components/details-controller/details-controller";
+import { StyledTickIcon } from "../notification/notification.styles";
+import { StyledHeartIcon } from "../header-utils/header-utils.styles";
+
 export const numToStrMonthMap = {
 	0: "jan",
 	1: "feb",
@@ -154,6 +158,46 @@ export function toggleDropdown() {
 			showDropdown: !prevState.showDropdown,
 		};
 	});
+}
+
+export function renderDetailsController(
+	id,
+	favoriteMovies,
+	favoriteTvShows,
+	type,
+	forComponent
+) {
+	const listToBeFiltered =
+		type === "movie" ? favoriteMovies : favoriteTvShows;
+
+	const existing = listToBeFiltered.find((listItem) => listItem.id === id);
+
+	if (existing) {
+		return (
+			<DetailsController
+				icon={<StyledTickIcon />}
+				value="already in favorites"
+				jobDone
+				forComponent={forComponent}
+				toggleDropdown={
+					forComponent === "card" ? this.toggleDropdown : null
+				}
+			/>
+		);
+	} else {
+		return (
+			<DetailsController
+				icon={<StyledHeartIcon />}
+				value="add to favorites"
+				forComponent={forComponent}
+				func="add to favorites"
+				addToFavorites={this.addToFavorites}
+				toggleDropdown={
+					forComponent === "card" ? this.toggleDropdown : null
+				}
+			/>
+		);
+	}
 }
 
 export const validateForm = () => {};

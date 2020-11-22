@@ -37,7 +37,7 @@ class TvShowsPage extends React.Component {
 		return (
 			<StyledTvShowsPage>
 				<Featured featured={popularTvShows[0]} />
-				{popularTvShows ? (
+				{popularTvShows.length > 0 ? (
 					<React.Fragment>
 						<StyledTitle>popular tv shows</StyledTitle>
 						<MainCardsList list={popularTvShows} />

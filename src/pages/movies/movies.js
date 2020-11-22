@@ -37,7 +37,7 @@ class MoviesPage extends React.Component {
 		return (
 			<StyledMoviesPage>
 				<Featured featured={popularMovies[0]} />
-				{popularMovies ? (
+				{popularMovies.length > 0 ? (
 					<React.Fragment>
 						<StyledTitle>popular movies</StyledTitle>
 						<MainCardsList
