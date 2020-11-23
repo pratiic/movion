@@ -1,6 +1,6 @@
 import DetailsController from "../../components/details-controller/details-controller";
-import { StyledTickIcon } from "../notification/notification.styles";
-import { StyledHeartIcon } from "../header-utils/header-utils.styles";
+
+import { StyledTickIcon, StyledHeartIcon } from "../../styles/styles.icons";
 
 export const numToStrMonthMap = {
 	0: "jan",
@@ -175,7 +175,7 @@ export function renderDetailsController(
 	if (existing) {
 		return (
 			<DetailsController
-				icon={<StyledTickIcon />}
+				icon={<StyledTickIcon $smaller />}
 				value="already in favorites"
 				jobDone
 				forComponent={forComponent}
@@ -187,7 +187,7 @@ export function renderDetailsController(
 	} else {
 		return (
 			<DetailsController
-				icon={<StyledHeartIcon />}
+				icon={<StyledHeartIcon $smaller $noHoverActiveStyles />}
 				value="add to favorites"
 				forComponent={forComponent}
 				func="add to favorites"

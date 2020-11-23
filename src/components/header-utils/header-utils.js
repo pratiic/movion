@@ -2,13 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { StyledHeaderUtils } from "./header-utils.styles";
+
 import {
-	StyledHeaderUtils,
 	StyledHeartIcon,
 	StyledDeleteIcon,
 	StyledSearchIcon,
 	StyledHamburgerIcon,
-} from "./header-utils.styles";
+} from "../../styles/styles.icons";
 
 import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
 import { toggleSearchbar } from "../../redux/searchbar/searchbar.actions";
@@ -29,6 +30,8 @@ const HeaderUtils = ({
 	return (
 		<StyledHeaderUtils>
 			<StyledHeartIcon
+				$headerElement
+				$smaller
 				onClick={() => {
 					history.push("/favorites");
 
@@ -44,9 +47,15 @@ const HeaderUtils = ({
 			<ThemeToggler />
 
 			{showSearchbarOnSmallScreens ? (
-				<StyledDeleteIcon onClick={toggleSearchbar} $searchbarToggler />
+				<StyledDeleteIcon
+					$headerElement
+					$searchbarToggler
+					onClick={toggleSearchbar}
+				/>
 			) : (
 				<StyledSearchIcon
+					$headerElement
+					$searchbarToggler
 					onClick={() => {
 						toggleSearchbar();
 						focusSearchInput();
@@ -56,11 +65,16 @@ const HeaderUtils = ({
 
 			{showSidebar ? (
 				<StyledDeleteIcon
+					$headerElement
 					onClick={toggleSidebar}
 					$sidebarToggler
 				></StyledDeleteIcon>
 			) : (
-				<StyledHamburgerIcon onClick={toggleSidebar} />
+				<StyledHamburgerIcon
+					$headerElement
+					$bigger
+					onClick={toggleSidebar}
+				/>
 			)}
 		</StyledHeaderUtils>
 	);

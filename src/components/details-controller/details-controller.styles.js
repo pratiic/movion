@@ -1,12 +1,5 @@
 import styled, { css } from "styled-components";
 
-import {
-	StyledHeartIcon,
-	StyledLessHeartIconStyles,
-} from "../header-utils/header-utils.styles";
-
-import { StyledTickIcon } from "../notification/notification.styles";
-
 import { cssColors, cssFonts } from "../../styles/styles.variables";
 
 export const StyledDetailsController = styled.div`
@@ -35,19 +28,8 @@ export const StyledDetailsController = styled.div`
 		}
 	}}
 
-	${StyledHeartIcon} {
-		${StyledLessHeartIconStyles};
+	svg {
 		margin-right: 0.75rem;
-	}
-
-	${StyledTickIcon} {
-		height: 1.7rem;
-		width: 1.7rem;
-		margin-right: 0.75rem;
-
-		path {
-			fill: ${cssColors.greyLighter};
-		}
 	}
 
 	&:hover {

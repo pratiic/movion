@@ -2,9 +2,11 @@ import React from "react";
 
 import {
 	StyledCardsListToggler,
-	StyledChevronDownIcon,
+	// StyledChevronDownIcon,
 	Title,
 } from "./cards-list-toggler.styles";
+
+import { StyledChevronDownIcon } from "../../styles/styles.icons";
 
 import { cssColors } from "../../styles/styles.variables";
 
@@ -31,7 +33,11 @@ const CardsListToggler = ({
 					{optionalValue && { optionalValue }}
 				</span>{" "}
 			</Title>
-			<StyledChevronDownIcon rotateIconUp={rotateIconUp} />
+			<StyledChevronDownIcon
+				$noColor
+				$bigger
+				$rotateIconUp={rotateIconUp}
+			/>
 		</StyledCardsListToggler>
 	);
 };

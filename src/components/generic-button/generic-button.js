@@ -27,14 +27,16 @@ const GenericButton = (props) => {
 		func,
 		outlined,
 		bigger,
+		smaller,
+		full,
 		marginbt,
 		centered,
 		bg,
 		color,
-		iconClassName,
 		darkBg,
 		type,
 		hoverColor,
+		icon,
 	} = props;
 
 	const history = useHistory();
@@ -116,6 +118,8 @@ const GenericButton = (props) => {
 		<StyledGenericButton
 			outlined={outlined}
 			bigger={bigger}
+			smaller={smaller}
+			full={full}
 			marginbt={marginbt}
 			centered={centered}
 			bg={bg}
@@ -125,7 +129,7 @@ const GenericButton = (props) => {
 			hoverColor={hoverColor}
 			onClick={handleButtonClick}
 		>
-			{iconClassName && <i className={iconClassName}></i>} {value}
+			{icon && icon} {value}
 		</StyledGenericButton>
 	);
 };

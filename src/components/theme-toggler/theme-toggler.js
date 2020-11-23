@@ -1,16 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { StyledSunIcon } from "./theme-toggler.styles";
-import { StyledMoonIcon } from "./theme-toggler.styles";
+import { StyledSunIcon, StyledMoonIcon } from "../../styles/styles.icons";
 
 import { toggleTheme } from "../../redux/theme/theme.actions";
 
 let ThemeToggler = ({ toggleTheme, currentTheme }) => {
 	return currentTheme === "dark" ? (
-		<StyledSunIcon onClick={toggleTheme} />
+		<StyledSunIcon $smaller $headerElement onClick={toggleTheme} />
 	) : (
-		<StyledMoonIcon onClick={toggleTheme} />
+		<StyledMoonIcon $smaller $headerElement onClick={toggleTheme} />
 	);
 };
 

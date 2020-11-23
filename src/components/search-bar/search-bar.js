@@ -7,12 +7,19 @@ import {
 	SearchInputGroup,
 	SearchInput,
 	SearchOptionDisplay,
+	SearchInputControls,
+	// StyledChevronDownIcon,
+	// StyledArrowUpIcon,
+	// StyledSearchIcon,
+	// StyledDeleteIcon,
+} from "./search-bar.styles";
+
+import {
 	StyledChevronDownIcon,
 	StyledArrowUpIcon,
-	SearchInputControls,
 	StyledSearchIcon,
 	StyledDeleteIcon,
-} from "./search-bar.styles";
+} from "../../styles/styles.icons";
 
 import {
 	toggleSearchbar,
@@ -120,6 +127,7 @@ class Searchbar extends React.Component {
 						<SearchOptionDisplay onClick={this.toggleDropdown}>
 							{searchMode}{" "}
 							<StyledChevronDownIcon
+								$smaller
 								$rotateUp={this.state.showDropdown}
 							/>
 						</SearchOptionDisplay>
@@ -153,6 +161,8 @@ class Searchbar extends React.Component {
 					<SearchInputControls>
 						{this.state.searchValue ? (
 							<StyledDeleteIcon
+								$smallest
+								$searchbarControl
 								onClick={this.handleDeleteIconClick}
 							/>
 						) : null}
@@ -167,9 +177,13 @@ class Searchbar extends React.Component {
 								alignItems: "center",
 							}}
 						>
-							<StyledSearchIcon />
+							<StyledSearchIcon $searchbarControl $smallest />
 						</button>
-						<StyledArrowUpIcon onClick={toggleSearchbar} />
+						<StyledArrowUpIcon
+							$searchbarControl
+							$searchbarToggler
+							onClick={toggleSearchbar}
+						/>
 					</SearchInputControls>
 				</SearchInputGroup>
 			</SearchInputForm>

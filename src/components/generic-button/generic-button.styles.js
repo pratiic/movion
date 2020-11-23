@@ -22,9 +22,12 @@ export const StyledGenericButton = styled.button`
 	justify-content: center;
 	transition: color 100ms ease-in;
 
-	i {
-		margin-right: 0.85rem;
-		font-size: 1.75rem;
+	svg {
+		margin-right: 0.8rem;
+
+		path {
+			fill: ${({ color }) => color || cssColors.greyLighter};
+		}
 	}
 
 	${({ outlined }) =>
@@ -36,6 +39,13 @@ export const StyledGenericButton = styled.button`
 			&:hover {
 				background-color: ${({ bg }) => bg || cssColors.bluePrimary};
 				color: ${({ hoverColor }) => hoverColor || cssColors.greyDark};
+
+				svg {
+					path {
+						fill: ${({ hoverColor }) =>
+							hoverColor || cssColors.greyDark};
+					}
+				}
 			}
 		`}
 
@@ -43,6 +53,18 @@ export const StyledGenericButton = styled.button`
 		bigger &&
 		css`
 			padding: 0.7rem 2.5rem;
+		`}
+
+	${({ smaller }) =>
+		smaller &&
+		css`
+			padding: 0.2rem 0.85rem;
+		`}
+
+	${({ full }) =>
+		full &&
+		css`
+			width: 100%;
 		`}
 
 	${({ marginbt }) =>

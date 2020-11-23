@@ -2,6 +2,8 @@ import React, { createRef } from "react";
 
 import { StyledSignInPage, ButtonCollection } from "./sign-in.styles";
 
+import { StyledGoogleSignInIcon } from "../../styles/styles.icons";
+
 import { cssColors } from "../../styles/styles.variables";
 
 import {
@@ -167,10 +169,10 @@ class SignInPage extends React.Component {
 							bg={cssColors.googleRed}
 							color={cssColors.googleRed}
 							darkBg="#d03325"
-							iconClassName="fab fa-google"
 							hoverColor="white"
 							func="sign in with google"
 							signInWithGoogle={signInWithGoogle}
+							icon={<StyledGoogleSignInIcon $smaller />}
 						/>
 					</ButtonCollection>
 				</form>

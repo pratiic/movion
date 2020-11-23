@@ -6,6 +6,8 @@ import { StyledMainCard, StyledDotMenuIcon } from "./main-card.styles";
 
 import { cssColors } from "../../styles/styles.variables";
 
+import { StyledDeleteIcon } from "../../styles/styles.icons";
+
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 
@@ -143,8 +145,10 @@ class MainCard extends React.Component {
 						hoverColor="white"
 						darkBg={cssColors.dangerRedDark}
 						color={cssColors.dangerRed}
-						iconClassName="fas fa-times"
 						removeFromFavorites={this.removeFromFavorites}
+						icon={<StyledDeleteIcon $smallest />}
+						smaller
+						full
 					/>
 				) : null}
 			</StyledMainCard>

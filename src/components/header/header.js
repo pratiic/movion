@@ -2,13 +2,9 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import {
-	StyledHeader,
-	HeaderContainer,
-	StyledLogo,
-	StyledMovieIcon,
-	StyledTvIcon,
-} from "./header.styles";
+import { StyledHeader, HeaderContainer, StyledLogo } from "./header.styles";
+
+import { StyledMovieIcon, StyledTvIcon } from "../../styles/styles.icons";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 
@@ -24,7 +20,7 @@ class Header extends React.Component {
 			headerLinks: [
 				{
 					value: "movies",
-					icon: <StyledMovieIcon />,
+					icon: <StyledMovieIcon $headerLinkIcon $medium />,
 					pathname: "movies",
 					to: "/movies",
 					active: true,
@@ -32,7 +28,7 @@ class Header extends React.Component {
 
 				{
 					value: "tv shows",
-					icon: <StyledTvIcon />,
+					icon: <StyledTvIcon $headerLinkIcon $medium />,
 					pathname: "tvshows",
 					to: "/tvshows",
 					active: false,

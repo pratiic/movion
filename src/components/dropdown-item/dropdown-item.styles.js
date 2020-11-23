@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
 import { SearchbarTextStyles } from "../search-bar/search-bar.styles";
-import {
-	StyledHeartIcon,
-	StyledLessHeartIconStyles,
-} from "../header-utils/header-utils.styles";
 
 import { cssColors } from "../../styles/styles.variables";
 
@@ -17,10 +13,6 @@ export const StyledDropdownItem = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	${StyledHeartIcon} {
-		${StyledLessHeartIconStyles};
-	}
 
 	&:hover {
 		background-color: ${cssColors.greyDark};

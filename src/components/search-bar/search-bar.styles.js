@@ -174,8 +174,8 @@ export const StyledArrowUpIcon = styled(ArrowUpIcon)`
 export const StyledChevronDownIcon = styled(ChevronDownIcon)`
 	margin: 0 0.75rem;
 
-	width: 1.7rem;
-	height: 1.7rem;
+	width: 1.75rem;
+	height: 1.75rem;
 
 	path {
 		fill: ${cssColors.greyLighter};

@@ -6,7 +6,8 @@ import {
 	Username,
 	ProfileHeader,
 } from "./profile.styles";
-import { StyledLogoutIcon } from "../header/header.styles";
+
+import { StyledLogoutIcon } from "../../styles/styles.icons";
 
 import { toggleDropdown } from "../utils/utils.components";
 
@@ -44,7 +45,7 @@ class Profile extends React.Component {
 					</ProfileHeader>
 					<DropdownItem
 						value="sign out"
-						icon={<StyledLogoutIcon />}
+						icon={<StyledLogoutIcon $headerLinkIcon $medium />}
 						func="sign out"
 						toggleDropdown={this.toggleDropdown}
 					/>

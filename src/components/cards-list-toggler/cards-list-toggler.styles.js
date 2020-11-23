@@ -32,7 +32,7 @@ export const StyledCardsListToggler = styled.div`
 	&:hover {
 		color: white;
 
-		${StyledChevronDownIcon} {
+		svg {
 			path {
 				fill: white;
 			}
@@ -42,7 +42,7 @@ export const StyledCardsListToggler = styled.div`
 	&:active {
 		color: ${cssColors.greyLighter};
 
-		${StyledChevronDownIcon} {
+		svg {
 			path {
 				fill: ${cssColors.greyLighter};
 			}

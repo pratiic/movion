@@ -57,9 +57,4 @@ export const StyledMainCard = styled.div`
 		color: ${cssColors.greyText};
 		font-size: 1.6rem;
 	}
-
-	button {
-		width: 100%;
-		padding: 0.2rem 0rem;
-	}
 `;

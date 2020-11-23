@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { StyledHeaderLinks, StyledLink } from "./header-links.styles";
-import { StyledLoginIcon, StyledLogoutIcon } from "../header/header.styles";
+import { StyledLoginIcon, StyledLogoutIcon } from "../../styles/styles.icons";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
@@ -60,7 +60,7 @@ const HeaderLinks = ({
 						}}
 						special
 					>
-						<StyledLogoutIcon /> sign out
+						<StyledLogoutIcon $headerLinkIcon $medium /> sign out
 					</StyledLink>
 				</React.Fragment>
 			) : (
@@ -71,7 +71,9 @@ const HeaderLinks = ({
 					}}
 				>
 					{" "}
-					{showSidebar ? <StyledLoginIcon /> : null}
+					{showSidebar ? (
+						<StyledLoginIcon $headerLinkIcon $medium />
+					) : null}
 					sign in
 				</StyledLink>
 			)}
