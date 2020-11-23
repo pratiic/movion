@@ -104,6 +104,11 @@ const GenericButton = (props) => {
 			const { signInWithGoogle } = props;
 			signInWithGoogle();
 		}
+
+		if (func === "remove from favorites") {
+			const { removeFromFavorites } = props;
+			removeFromFavorites();
+		}
 	};
 
 	return (

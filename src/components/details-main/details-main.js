@@ -4,8 +4,6 @@ import { withRouter } from "react-router-dom";
 
 import { StyledDetailsMain, DetailsMainWrapper } from "./details-main.styles";
 
-import { StyledHeartIcon } from "../header-utils/header-utils.styles";
-
 import { fetchMainDetails } from "../../redux/api/api.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 
@@ -25,7 +23,6 @@ import {
 } from "../../components/utils/utils.components";
 
 import Spinner from "../spinner/spinner";
-import DetailsController from "../details-controller/details-controller";
 
 class DetailsMain extends React.Component {
 	constructor() {

@@ -7,6 +7,8 @@ export const cssColors = {
 	greyLighter: "lightgrey",
 	greyText: "#aaaaaa",
 	googleRed: "#DB4437",
+	dangerRed: "#DC3545",
+	dangerRedDark: "#d12434",
 };
 
 export const cssFonts = {

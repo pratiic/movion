@@ -7,7 +7,7 @@ import {
 
 import MainCard from "../main-card/main-card";
 
-const MainCardsList = ({ list }) => {
+const MainCardsList = ({ list, forComponent }) => {
 	const renderType = (title, name, type) => {
 		if (type) {
 			return type;
@@ -48,6 +48,7 @@ const MainCardsList = ({ list }) => {
 									key={id}
 									id={id}
 									type={renderType(title, name, type)}
+									forComponent = { forComponent }
 								/>
 							);
 						} else {

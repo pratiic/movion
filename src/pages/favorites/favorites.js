@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { StyledFavoritesPage } from "./favorites.styles";
 
-import { StyledTitle, StyledError } from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.generic";
 
 import { cssColors } from "../../styles/styles.variables";
 
@@ -20,7 +20,9 @@ class FavoritesPage extends React.Component {
 	};
 
 	renderList = (list, errorMessage) => {
-		return list.length > 0 ? <MainCardsList list={list} /> : null;
+		return list.length > 0 ? (
+			<MainCardsList list={list} forComponent="favorites" />
+		) : null;
 	};
 
 	render() {

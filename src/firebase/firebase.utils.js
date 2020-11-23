@@ -98,4 +98,34 @@ export const getFavoritesCollectionRef = async (currentUserId) => {
 	return favoritesRef;
 };
 
+export const getAllFavoriteDocuments = async (currentUserId) => {
+	const favoritesRef = firestore.collection(
+		`users/${currentUserId}/favorites`
+	);
+
+	const snapShot = await favoritesRef.get();
+	const favorites = snapShot.docs.map((doc) => {
+		return doc.data();
+	});
+
+	return favorites;
+};
+
+export const deleteFavoriteDocument = async (id, currentUserId) => {
+	const favoritesRef = await getFavoritesCollectionRef(currentUserId);
+	const snapShot = await favoritesRef.get();
+	const favoriteDocs = snapShot.docs;
+
+	const docToBeDeleted = favoriteDocs.find(
+		(favoriteDoc) => favoriteDoc.data().id === id
+	);
+
+	try {
+		await favoritesRef.doc(docToBeDeleted.id).delete();
+		return "success";
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export default firebase;

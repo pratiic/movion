@@ -10,6 +10,7 @@ import {
 	auth,
 	createUserDocument,
 	getFavoritesCollectionRef,
+	getAllFavoriteDocuments,
 } from "./firebase/firebase.utils";
 
 import { updateCurrentUser } from "./redux/current-user/current-user.actions";
@@ -51,14 +52,12 @@ class App extends React.Component {
 
 		if (prevProps.currentUser !== currentUser && currentUser) {
 			getFavoritesCollectionRef(currentUser.id).then((collectionRef) => {
-				collectionRef.onSnapshot((snapShot) => {
-					if (!snapShot.empty) {
-						const favorites = snapShot.docs.map((doc) => {
-							return doc.data();
-						});
+				collectionRef.onSnapshot(async (snapShot) => {
+					const favorites = await getAllFavoriteDocuments(
+						currentUser.id
+					);
 
-						fetchFavoritesSuccess(favorites);
-					}
+					fetchFavoritesSuccess(favorites);
 				});
 			});
 		}

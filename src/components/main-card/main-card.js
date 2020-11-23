@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 
 import { StyledMainCard, StyledDotMenuIcon } from "./main-card.styles";
 
-import { StyledHeartIcon } from "../header-utils/header-utils.styles";
-
-import { StyledTickIcon } from "../notification/notification.styles";
+import { cssColors } from "../../styles/styles.variables";
 
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
@@ -18,12 +16,15 @@ import {
 
 import { renderReleaseDate, toggleDropdown } from "../utils/utils.components";
 import { apiInfo } from "../../redux/api/api.info";
-import { createFavoriteDocument } from "../../firebase/firebase.utils";
+import {
+	createFavoriteDocument,
+	deleteFavoriteDocument,
+} from "../../firebase/firebase.utils";
 
 import { renderDetailsController } from "../utils/utils.components";
 
 import Dropdown from "../../components/dropdown/dropdown";
-import DetailsController from "../../components/details-controller/details-controller";
+import GenericButton from "../../components/generic-button/generic-button";
 
 class MainCard extends React.Component {
 	constructor() {
@@ -70,6 +71,15 @@ class MainCard extends React.Component {
 		}
 	};
 
+	removeFromFavorites = async () => {
+		const { id, currentUser, toggleNotification } = this.props;
+		const status = await deleteFavoriteDocument(id, currentUser.id);
+
+		if (status === "success") {
+			toggleNotification("removed from favorites", "success");
+		}
+	};
+
 	render() {
 		const {
 			title,
@@ -79,6 +89,7 @@ class MainCard extends React.Component {
 			favoriteMovies,
 			favoriteTvShows,
 			type,
+			forComponent,
 		} = this.props;
 
 		return (
@@ -118,6 +129,19 @@ class MainCard extends React.Component {
 							: "not available"}
 					</p>
 				</div>
+
+				{forComponent === "favorites" ? (
+					<GenericButton
+						value="remove"
+						func="remove from favorites"
+						outlined
+						bg={cssColors.dangerRed}
+						darkBg={cssColors.dangerRedDark}
+						color={cssColors.dangerRed}
+						iconClassName="fas fa-times"
+						removeFromFavorites={this.removeFromFavorites}
+					/>
+				) : null}
 			</StyledMainCard>
 		);
 	}

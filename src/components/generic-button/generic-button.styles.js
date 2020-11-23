@@ -21,6 +21,11 @@ export const StyledGenericButton = styled.button`
 	align-items: center;
 	justify-content: center;
 
+	i {
+		margin-right: 0.85rem;
+		font-size: 1.75rem;
+	}
+
 	${({ outlined }) =>
 		outlined &&
 		css`

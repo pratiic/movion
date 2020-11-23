@@ -45,6 +45,7 @@ export const StyledMainCard = styled.div`
 		border-bottom-right-radius: 5px;
 		padding: 0.55rem 0.8rem;
 		box-shadow: 0 0.3rem 0.45rem 0 rgba(0, 0, 0, 0.35);
+		margin-bottom: 0.7rem;
 	}
 
 	.content-name {
@@ -55,5 +56,10 @@ export const StyledMainCard = styled.div`
 	.content-release-date {
 		color: ${cssColors.greyText};
 		font-size: 1.6rem;
+	}
+
+	button {
+		width: 100%;
+		padding: 0.2rem 0rem;
 	}
 `;
