@@ -45,7 +45,7 @@ class Profile extends React.Component {
 					</ProfileHeader>
 					<DropdownItem
 						value="sign out"
-						icon={<StyledLogoutIcon $headerLinkIcon $medium />}
+						icon={<StyledLogoutIcon $headerLinkIcon />}
 						func="sign out"
 						toggleDropdown={this.toggleDropdown}
 					/>

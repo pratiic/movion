@@ -73,6 +73,7 @@ const HeaderUtils = ({
 				<StyledHamburgerIcon
 					$headerElement
 					$bigger
+					$sidebarToggler
 					onClick={toggleSidebar}
 				/>
 			)}

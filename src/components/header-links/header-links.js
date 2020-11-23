@@ -60,7 +60,7 @@ const HeaderLinks = ({
 						}}
 						special
 					>
-						<StyledLogoutIcon $headerLinkIcon $medium /> sign out
+						<StyledLogoutIcon $headerLinkIcon /> sign out
 					</StyledLink>
 				</React.Fragment>
 			) : (

@@ -1,34 +1,8 @@
 import styled, { css } from "styled-components";
 
-import { ReactComponent as Search } from "../../assets/icons/search.svg";
-import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
-import { ReactComponent as ChevronDownIcon } from "../../assets/icons/chevron-down.svg";
-import { ReactComponent as ArrowUpIcon } from "../../assets/icons/arrow-up.svg";
-
 import { cssColors } from "../../styles/styles.variables";
 
-const SearchbarControlStyles = css`
-	width: 1.5rem;
-	height: 1.5rem;
-	margin-left: 1.3rem;
-	cursor: pointer;
-
-	path {
-		fill: ${cssColors.greyLighter};
-	}
-
-	&:hover {
-		path {
-			fill: white;
-		}
-	}
-
-	&:active {
-		path {
-			fill: ${cssColors.greyLighter};
-		}
-	}
-`;
+import { StyledArrowUpIcon } from "../../styles/styles.icons";
 
 const SearchbarLayoutStyles = css`
 	display: flex;
@@ -42,6 +16,11 @@ export const SearchbarTextStyles = css`
 `;
 
 export const SearchInputForm = styled.form`
+	${StyledArrowUpIcon} {
+		height: 2rem;
+		width: 2rem;
+	}
+
 	@media screen and (max-width: 850px) {
 		position: fixed;
 		left: 50%;
@@ -148,41 +127,4 @@ export const SearchOption = styled.p`
 
 export const SearchInputControls = styled.div`
 	${SearchbarLayoutStyles};
-`;
-
-export const StyledSearchIcon = styled(Search)`
-	${SearchbarControlStyles};
-`;
-
-export const StyledDeleteIcon = styled(Delete)`
-	${SearchbarControlStyles};
-`;
-
-export const StyledArrowUpIcon = styled(ArrowUpIcon)`
-	display: none;
-
-	${SearchbarControlStyles};
-
-	width: 1.95rem;
-	height: 1.95rem;
-
-	@media screen and (max-width: 850px) {
-		display: block;
-	}
-`;
-
-export const StyledChevronDownIcon = styled(ChevronDownIcon)`
-	margin: 0 0.75rem;
-
-	width: 1.75rem;
-	height: 1.75rem;
-
-	path {
-		fill: ${cssColors.greyLighter};
-	}
-
-	transition: transform 100ms ease-in;
-
-	transform: ${({ $rotateUp }) =>
-		$rotateUp ? "rotate(180deg)" : "rotate(0deg)"};
 `;

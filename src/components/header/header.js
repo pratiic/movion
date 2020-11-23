@@ -20,7 +20,7 @@ class Header extends React.Component {
 			headerLinks: [
 				{
 					value: "movies",
-					icon: <StyledMovieIcon $headerLinkIcon $medium />,
+					icon: <StyledMovieIcon $headerLinkIcon />,
 					pathname: "movies",
 					to: "/movies",
 					active: true,
@@ -28,7 +28,7 @@ class Header extends React.Component {
 
 				{
 					value: "tv shows",
-					icon: <StyledTvIcon $headerLinkIcon $medium />,
+					icon: <StyledTvIcon $headerLinkIcon />,
 					pathname: "tvshows",
 					to: "/tvshows",
 					active: false,

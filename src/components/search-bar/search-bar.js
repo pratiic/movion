@@ -8,10 +8,6 @@ import {
 	SearchInput,
 	SearchOptionDisplay,
 	SearchInputControls,
-	// StyledChevronDownIcon,
-	// StyledArrowUpIcon,
-	// StyledSearchIcon,
-	// StyledDeleteIcon,
 } from "./search-bar.styles";
 
 import {
@@ -128,7 +124,7 @@ class Searchbar extends React.Component {
 							{searchMode}{" "}
 							<StyledChevronDownIcon
 								$smaller
-								$rotateUp={this.state.showDropdown}
+								$rotateIconUp={this.state.showDropdown}
 							/>
 						</SearchOptionDisplay>
 						<Dropdown
@@ -161,7 +157,6 @@ class Searchbar extends React.Component {
 					<SearchInputControls>
 						{this.state.searchValue ? (
 							<StyledDeleteIcon
-								$smallest
 								$searchbarControl
 								onClick={this.handleDeleteIconClick}
 							/>
@@ -177,7 +172,7 @@ class Searchbar extends React.Component {
 								alignItems: "center",
 							}}
 						>
-							<StyledSearchIcon $searchbarControl $smallest />
+							<StyledSearchIcon $searchbarControl />
 						</button>
 						<StyledArrowUpIcon
 							$searchbarControl

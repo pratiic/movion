@@ -19,6 +19,26 @@ import { cssColors } from "./styles.variables";
 
 import { HeaderElementStyles } from "../components/header/header.styles";
 
+export const SmallerIconStyles = css`
+	height: 1.75rem;
+	width: 1.75rem;
+`;
+
+export const SmallestIconStyles = css`
+	height: 1.5rem;
+	width: 1.5rem;
+`;
+
+export const MediumIconStyles = css`
+	height: 1.85rem;
+	width: 1.85rem;
+`;
+
+export const BiggerIconStyles = css`
+	height: 2.5rem;
+	width: 2.5rem;
+`;
+
 export const IconStyles = css`
 	height: 2rem;
 	width: 2rem;
@@ -51,34 +71,13 @@ export const IconStyles = css`
 			}
 		`}
 
-	${({ $smaller }) =>
-		$smaller &&
-		css`
-			height: 1.75rem;
-			width: 1.75rem;
-		`}
+	${({ $smaller }) => $smaller && SmallerIconStyles}
 
-	${({ $medium }) =>
-		$medium &&
-		css`
-			height: 1.85rem;
-			width: 1.85rem;
-		`}
+	${({ $medium }) => $medium && MediumIconStyles}
         
+	${({ $smallest }) => $smallest && SmallestIconStyles}
 
-	${({ $smallest }) =>
-		$smallest &&
-		css`
-			height: 1.5rem;
-			width: 1.5rem;
-		`}
-
-    ${({ $bigger }) =>
-		$bigger &&
-		css`
-			height: 2.5rem;
-			width: 2.5rem;
-		`}
+    ${({ $bigger }) => $bigger && BiggerIconStyles}
 
     ${({ $sidebarToggler }) =>
 		$sidebarToggler &&
@@ -104,6 +103,8 @@ export const IconStyles = css`
 		$searchbarControl &&
 		css`
 			margin-left: 1.3rem;
+
+			${SmallestIconStyles};
 		`}
 
     ${({ $headerElement }) => $headerElement && HeaderElementStyles}
@@ -117,6 +118,8 @@ export const IconStyles = css`
 			path {
 				fill: ${cssColors.greyLighter};
 			}
+
+			${MediumIconStyles};
 
 			@media screen and (max-width: 1150px) {
 				display: block;
