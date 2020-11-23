@@ -168,6 +168,7 @@ class SignInPage extends React.Component {
 							color={cssColors.googleRed}
 							darkBg="#d03325"
 							iconClassName="fab fa-google"
+							hoverColor="white"
 							func="sign in with google"
 							signInWithGoogle={signInWithGoogle}
 						/>

@@ -9,17 +9,18 @@ export const StyledGenericButton = styled.button`
 	text-transform: uppercase;
 	width: fit-content;
 	padding: 0.6rem 1.2rem;
-	font-weight: 500;
+	font-weight: 400;
 	background-color: ${({ bg }) => bg || cssColors.bluePrimary};
 	border: ${({ bg }) =>
-		bg ? `2px solid ${bg}` : `2px solid ${cssColors.bluePrimary}`};
+		bg ? `1px solid ${bg}` : `1px solid ${cssColors.bluePrimary}`};
 	border-radius: 3px;
-	color: white;
+	color: ${cssColors.greyDark};
 	letter-spacing: 1px;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transition: color 100ms ease-in;
 
 	i {
 		margin-right: 0.85rem;
@@ -34,7 +35,7 @@ export const StyledGenericButton = styled.button`
 
 			&:hover {
 				background-color: ${({ bg }) => bg || cssColors.bluePrimary};
-				color: white;
+				color: ${({ hoverColor }) => hoverColor || cssColors.greyDark};
 			}
 		`}
 

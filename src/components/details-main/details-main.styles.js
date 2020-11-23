@@ -69,6 +69,7 @@ export const DetailsMainWrapper = styled.div`
 
 		.title {
 			font-size: 2.3rem;
+			font-weight: 300;
 
 			.release-year {
 				margin-left: 0.8rem;

@@ -105,23 +105,27 @@ class MainCard extends React.Component {
 				</div>
 
 				<div className="content-info">
-					<StyledDotMenuIcon
-						onClick={() => {
-							this.toggleDropdown();
-						}}
-					/>
-					<Dropdown
-						show={this.state.showDropdown}
-						forComponent="card"
-					>
-						{this.renderDetailsController(
-							id,
-							favoriteMovies,
-							favoriteTvShows,
-							type,
-							"card"
-						)}
-					</Dropdown>
+					{forComponent !== "favorites" ? (
+						<React.Fragment>
+							<StyledDotMenuIcon
+								onClick={() => {
+									this.toggleDropdown();
+								}}
+							/>
+							<Dropdown
+								show={this.state.showDropdown}
+								forComponent="card"
+							>
+								{this.renderDetailsController(
+									id,
+									favoriteMovies,
+									favoriteTvShows,
+									type,
+									"card"
+								)}
+							</Dropdown>
+						</React.Fragment>
+					) : null}
 					<p className="content-name">{title}</p>
 					<p className="content-release-date">
 						{releaseDate
@@ -136,6 +140,7 @@ class MainCard extends React.Component {
 						func="remove from favorites"
 						outlined
 						bg={cssColors.dangerRed}
+						hoverColor="white"
 						darkBg={cssColors.dangerRedDark}
 						color={cssColors.dangerRed}
 						iconClassName="fas fa-times"

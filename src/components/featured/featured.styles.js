@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { WrapperStyles, OverlayStyles } from "../../styles/styles.generic";
+//import { cssColors } from "../../styles/styles.variables";
 
 export const FeaturedWrapper = styled.div`
 	${WrapperStyles};
@@ -32,6 +33,7 @@ export const StyledFeatured = styled.div`
 
 	.featured-title {
 		font-size: 2.8rem;
+		font-weight: 300;
 	}
 
 	.featured-overview {
