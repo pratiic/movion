@@ -41,6 +41,10 @@ class MainCard extends React.Component {
 		this.renderDetailsController = renderDetailsController.bind(this);
 	}
 
+	handleButtonClick = () => {
+		this.removeFromFavorites();
+	};
+
 	handleCardImageClick = () => {
 		const { history, id, type, resetSimilarFetchPage } = this.props;
 
@@ -139,16 +143,15 @@ class MainCard extends React.Component {
 				{forComponent === "favorites" ? (
 					<GenericButton
 						value="remove"
-						func="remove from favorites"
-						outlined
+						btnType="outlined"
+						size="smaller"
+						width="full"
 						bg={cssColors.dangerRed}
-						hoverColor="white"
 						darkBg={cssColors.dangerRedDark}
 						color={cssColors.dangerRed}
-						removeFromFavorites={this.removeFromFavorites}
+						hoverColor="white"
 						icon={<StyledDeleteIcon $smallest />}
-						smaller
-						full
+						handleButtonClick={this.handleButtonClick}
 					/>
 				) : null}
 			</StyledMainCard>

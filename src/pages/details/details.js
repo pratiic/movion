@@ -9,6 +9,12 @@ import { fetchSimilar } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 import { selectSimilar } from "../../redux/details/details.selectors";
 
+import {
+	fetchMoreSimilarStart,
+	incrementSimilarFetchPage,
+	resetSimilarFetchPage,
+} from "../../redux/details/details.actions";
+
 import { renderGenericButton } from "../../components/utils/utils.components";
 
 import Spinner from "../../components/spinner/spinner";
@@ -31,6 +37,26 @@ class DetailsPage extends React.Component {
 			id
 		);
 		fetchSimilar(similarURL);
+	};
+
+	handleButtonClick = () => {
+		const {
+			fetchMoreSimilarStart,
+			currentSimilarFetchPage,
+			fetchSimilar,
+			incrementSimilarFetchPage,
+		} = this.props;
+
+		fetchMoreSimilarStart();
+		const similarURL = getURL(
+			this.props.match.params.type,
+			currentSimilarFetchPage + 1,
+			"similar",
+			null,
+			this.props.match.params.id
+		);
+		fetchSimilar(similarURL, true);
+		incrementSimilarFetchPage();
 	};
 
 	getSearchMode = () => {
@@ -61,12 +87,10 @@ class DetailsPage extends React.Component {
 							<Spinner height="3.5rem" />,
 							<GenericButton
 								value="load more"
-								func="load more similar"
-								detailId={this.props.match.params.id}
-								similarFetchType={this.props.match.params.type}
-								bigger
+								size="bigger"
 								marginbt
-								centered
+								justify="center"
+								handleButtonClick={this.handleButtonClick}
 							/>,
 							fetchingMoreSimilar
 						)}
@@ -122,8 +146,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchSimilar: (url) => {
-			dispatch(fetchSimilar(url));
+		fetchSimilar: (url, fetchingMore) => {
+			dispatch(fetchSimilar(url, fetchingMore));
+		},
+		fetchMoreSimilarStart: () => {
+			dispatch(fetchMoreSimilarStart());
+		},
+		incrementSimilarFetchPage: () => {
+			dispatch(incrementSimilarFetchPage());
+		},
+		resetSimilarFetchPage: () => {
+			dispatch(resetSimilarFetchPage());
 		},
 	};
 };

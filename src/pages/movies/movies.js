@@ -11,12 +11,33 @@ import { selectPopularMovies } from "../../redux/movies/movies.selectors";
 
 import { renderGenericButton } from "../../components/utils/utils.components";
 
+import {
+	incrementPopularMoviesFetchPage,
+	fetchMorePopularMoviesStart,
+} from "../../redux/movies/movies.actions";
+
 import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
 
 class MoviesPage extends React.Component {
+	handleButtonClick = () => {
+		const {
+			fetchMorePopularMoviesStart,
+			popularMoviesFetchPage,
+			fetchThePopulars,
+			incrementPopularMoviesFetchPage,
+		} = this.props;
+
+		fetchMorePopularMoviesStart();
+		fetchThePopulars(
+			getURL("movie", popularMoviesFetchPage + 1, "popular"),
+			"movies"
+		);
+		incrementPopularMoviesFetchPage();
+	};
+
 	componentDidMount() {
 		const { fetchThePopulars, popularMoviesFetchPage } = this.props;
 
@@ -56,10 +77,10 @@ class MoviesPage extends React.Component {
 					<Spinner height="3.5rem" />,
 					<GenericButton
 						value="load more"
-						func="load more movies"
-						bigger
+						size="bigger"
 						marginbt
-						centered
+						justify="center"
+						handleButtonClick={this.handleButtonClick}
 					/>,
 					fetchingMorePopularMovies
 				)}
@@ -81,6 +102,12 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchThePopulars: (url, mode) => {
 			dispatch(fetchThePopulars(url, mode));
+		},
+		incrementPopularMoviesFetchPage: () => {
+			dispatch(incrementPopularMoviesFetchPage());
+		},
+		fetchMorePopularMoviesStart: () => {
+			dispatch(fetchMorePopularMoviesStart());
 		},
 	};
 };

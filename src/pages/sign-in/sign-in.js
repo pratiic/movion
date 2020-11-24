@@ -60,6 +60,10 @@ class SignInPage extends React.Component {
 		this.clearAllFields = clearAllFields.bind(this);
 	}
 
+	handleButtonClick = () => {
+		signInWithGoogle();
+	};
+
 	handleInputChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value });
 	};
@@ -162,17 +166,20 @@ class SignInPage extends React.Component {
 					) : null}
 
 					<ButtonCollection>
-						<GenericButton type="submit" value="sign in" outlined />
+						<GenericButton
+							type="submit"
+							value="sign in"
+							btnType="outlined"
+						/>
 						<GenericButton
 							value="sign in with google"
-							outlined
+							btnType="outlined"
 							bg={cssColors.googleRed}
 							color={cssColors.googleRed}
 							darkBg="#d03325"
 							hoverColor="white"
-							func="sign in with google"
-							signInWithGoogle={signInWithGoogle}
 							icon={<StyledGoogleSignInIcon $smaller />}
+							handleButtonClick={this.handleButtonClick}
 						/>
 					</ButtonCollection>
 				</form>

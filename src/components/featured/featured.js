@@ -1,15 +1,29 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { StyledFeatured, FeaturedWrapper } from "./featured.styles";
 
 import { apiInfo } from "../../redux/api/api.info";
 
+import { resetSimilarFetchPage } from "../../redux/details/details.actions";
+
 import Spinner from "../spinner/spinner";
 import GenericButton from "../generic-button/generic-button";
 
-const Featured = ({ featured }) => {
+const Featured = ({ featured, resetSimilarFetchPage }) => {
+	const history = useHistory();
+
+	const handleButtonClick = () => {
+		const { id, title } = featured;
+		const type = title ? "movie" : "tv";
+
+		resetSimilarFetchPage();
+		history.push(`/details/${type}/${id}`);
+	};
+
 	if (featured) {
-		const { title, name, backdrop_path, overview, id } = featured;
+		const { title, name, backdrop_path, overview } = featured;
 		return (
 			<StyledFeatured
 				backdropPath={`${apiInfo.baseURLs.images}/${backdrop_path}`}
@@ -19,10 +33,8 @@ const Featured = ({ featured }) => {
 					<p className="featured-overview">{overview}</p>
 					<GenericButton
 						value="view more"
-						outlined
-						func="view more"
-						detailFetchId={id}
-						type={title ? "movie" : "tv"}
+						btnType="outlined"
+						handleButtonClick={handleButtonClick}
 					/>
 				</FeaturedWrapper>
 			</StyledFeatured>
@@ -31,4 +43,12 @@ const Featured = ({ featured }) => {
 	return <Spinner height="85vh" />;
 };
 
-export default Featured;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		resetSimilarFetchPage: () => {
+			dispatch(resetSimilarFetchPage());
+		},
+	};
+};
+
+export default connect(null, mapDispatchToProps)(Featured);

@@ -7,7 +7,7 @@ export const StyledGenericButton = styled.button`
 	outline: none;
 	font-size: 1.5rem;
 	text-transform: uppercase;
-	width: fit-content;
+	width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
 	padding: 0.6rem 1.2rem;
 	font-weight: 400;
 	background-color: ${({ bg }) => bg || cssColors.bluePrimary};
@@ -30,42 +30,42 @@ export const StyledGenericButton = styled.button`
 		}
 	}
 
-	${({ outlined }) =>
-		outlined &&
-		css`
-			background-color: transparent;
-			color: ${({ color }) => color || cssColors.bluePrimary};
+	${({ btnType }) => {
+		if (btnType === "outlined") {
+			return css`
+				background-color: transparent;
+				color: ${({ color }) => color || cssColors.bluePrimary};
 
-			&:hover {
-				background-color: ${({ bg }) => bg || cssColors.bluePrimary};
-				color: ${({ hoverColor }) => hoverColor || cssColors.greyDark};
+				&:hover {
+					background-color: ${({ bg }) =>
+						bg || cssColors.bluePrimary};
+					color: ${({ hoverColor }) =>
+						hoverColor || cssColors.greyDark};
 
-				svg {
-					path {
-						fill: ${({ hoverColor }) =>
-							hoverColor || cssColors.greyDark};
+					svg {
+						path {
+							fill: ${({ hoverColor }) =>
+								hoverColor || cssColors.greyDark};
+						}
 					}
 				}
-			}
-		`}
+			`;
+		}
+	}}
 
-	${({ bigger }) =>
-		bigger &&
-		css`
-			padding: 0.7rem 2.5rem;
-		`}
+	${({ size }) => {
+		if (size === "smaller") {
+			return css`
+				padding: 0.2rem 0.85rem;
+			`;
+		}
 
-	${({ smaller }) =>
-		smaller &&
-		css`
-			padding: 0.2rem 0.85rem;
-		`}
-
-	${({ full }) =>
-		full &&
-		css`
-			width: 100%;
-		`}
+		if (size === "bigger") {
+			return css`
+				padding: 0.7rem 2.5rem;
+			`;
+		}
+	}}
 
 	${({ marginbt }) =>
 		marginbt &&
@@ -73,8 +73,8 @@ export const StyledGenericButton = styled.button`
 			margin-bottom: 3rem;
 		`}
 
-	${({ centered }) =>
-		centered &&
+	${({ justify }) =>
+		justify === "center" &&
 		css`
 			margin-left: auto;
 			margin-right: auto;

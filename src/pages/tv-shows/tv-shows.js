@@ -11,12 +11,33 @@ import { selectPopularTvShows } from "../../redux/tv-shows/tv-shows.selectors";
 
 import { renderGenericButton } from "../../components/utils/utils.components";
 
+import {
+	incrementPopularTvShowsFetchPage,
+	fetchMorePopularTvShowsStart,
+} from "../../redux/tv-shows/tv-shows.actions";
+
 import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
 
 class TvShowsPage extends React.Component {
+	handleButtonClick = () => {
+		const {
+			fetchMorePopularTvShowsStart,
+			popularTvShowsFetchPage,
+			fetchThePopulars,
+			incrementPopularTvShowsFetchPage,
+		} = this.props;
+
+		fetchMorePopularTvShowsStart();
+		fetchThePopulars(
+			getURL("tv", popularTvShowsFetchPage + 1, "popular"),
+			"tv shows"
+		);
+		incrementPopularTvShowsFetchPage();
+	};
+
 	componentDidMount() {
 		const { fetchThePopulars, popularTvShowsFetchPage } = this.props;
 
@@ -52,10 +73,10 @@ class TvShowsPage extends React.Component {
 					<Spinner height="3.5rem" />,
 					<GenericButton
 						value="load more"
-						func="load more tv shows"
-						bigger
+						size="bigger"
 						marginbt
-						centered
+						justify="center"
+						handleButtonClick={this.handleButtonClick}
 					/>,
 					fetchingMorePopularTvShows
 				)}
@@ -77,6 +98,12 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchThePopulars: (url, mode) => {
 			dispatch(fetchThePopulars(url, mode));
+		},
+		incrementPopularTvShowsFetchPage: () => {
+			dispatch(incrementPopularTvShowsFetchPage());
+		},
+		fetchMorePopularTvShowsStart: () => {
+			dispatch(fetchMorePopularTvShowsStart());
 		},
 	};
 };
