@@ -51,8 +51,8 @@ export const StyledLink = styled(Link)`
 	${HeaderElementStyles};
 	${({ $isActive }) => $isActive && ActiveLinkStyles};
 
-	${({ special }) =>
-		special &&
+	${({ forSmallerScreens }) =>
+		forSmallerScreens &&
 		css`
 			display: none;
 
@@ -60,6 +60,14 @@ export const StyledLink = styled(Link)`
 				display: flex;
 			}
 		`}
+
+	${({ $currentUser, $hideOnCurrentUser }) => {
+		if ($hideOnCurrentUser && $currentUser) {
+			return css`
+				display: none;
+			`;
+		}
+	}}
 
 	&:first-child {
 		margin-left: 0;

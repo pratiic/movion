@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 
 import { StyledHeader, HeaderContainer, StyledLogo } from "./header.styles";
 
-import { StyledMovieIcon, StyledTvIcon } from "../../styles/styles.icons";
-
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 
 import Searchbar from "../search-bar/search-bar";
@@ -16,51 +14,8 @@ class Header extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			headerLinks: [
-				{
-					value: "movies",
-					icon: <StyledMovieIcon $headerLinkIcon />,
-					pathname: "movies",
-					to: "/movies",
-					active: true,
-				},
-
-				{
-					value: "tv shows",
-					icon: <StyledTvIcon $headerLinkIcon />,
-					pathname: "tvshows",
-					to: "/tvshows",
-					active: false,
-				},
-
-				// {
-				// 	value: "sign in",
-				// 	icon: this.props.currentUser ? (
-				// 		<StyledLogoutIcon />
-				// 	) : (
-				// 		<StyledLoginIcon />
-				// 	),
-				// 	pathname: "signin",
-				// 	to: "/signin",
-				// 	active: false,
-				// },
-			],
-		};
+		this.state = {};
 	}
-
-	toggleActive = (value) => {
-		if (value !== "sign in") {
-			this.setState({
-				headerLinks: this.state.headerLinks.map((headerLink) => {
-					if (headerLink.value === value) {
-						return { ...headerLink, active: true };
-					}
-					return { ...headerLink, active: false };
-				}),
-			});
-		}
-	};
 
 	getSearchInputRef = (inputRef) => {
 		this.searchInputRef = inputRef;
@@ -70,30 +25,12 @@ class Header extends React.Component {
 		this.searchInputRef.current.focus();
 	};
 
-	componentDidMount() {
-		const { location } = this.props;
-
-		this.setState({
-			headerLinks: this.state.headerLinks.map((headerLink) => {
-				if (location.pathname.includes(headerLink.pathname)) {
-					return { ...headerLink, active: true };
-				}
-
-				return { ...headerLink, active: false };
-			}),
-		});
-	}
-
 	render() {
 		return (
 			<StyledHeader>
 				<HeaderContainer>
 					<Link to="/">
-						<StyledLogo
-							onClick={() => {
-								this.toggleActive("movies");
-							}}
-						/>
+						<StyledLogo />
 					</Link>
 
 					<Searchbar getSearchInputRef={this.getSearchInputRef} />

@@ -1,8 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
+import {
+	StyledMovieIcon,
+	StyledTvIcon,
+	StyledLoginIcon,
+	StyledLogoutIcon,
+} from "../../styles/styles.icons";
 
 import { StyledHeaderLinks, StyledLink } from "./header-links.styles";
-import { StyledLoginIcon, StyledLogoutIcon } from "../../styles/styles.icons";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
@@ -11,17 +18,53 @@ import { currentUserSignout } from "../../redux/current-user/current-user.action
 
 import Profile from "../profile/profile";
 
-const HeaderLinks = ({
-	headerLinks,
-	showSidebar,
-	toggleSearchMode,
-	toggleSidebar,
-	toggleActive,
-	currentUser,
-	currentUserSignout,
-}) => {
-	const handleLinkClick = (event, linkValue) => {
-		toggleActive(linkValue);
+class HeaderLinks extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			headerLinks: [
+				{
+					value: "movies",
+					icon: <StyledMovieIcon $headerLinkIcon />,
+					pathnames: {
+						pathnameOne: "movies",
+						pathnameTwo: "movie",
+					},
+					to: "/movies",
+					active: false,
+					hideOnCurrentUser: false,
+				},
+
+				{
+					value: "tv shows",
+					icon: <StyledTvIcon $headerLinkIcon />,
+					pathnames: {
+						pathnameOne: "tvshows",
+						pathnameTwo: "tv",
+					},
+					to: "/tvshows",
+					active: false,
+					hideOnCurrentUser: false,
+				},
+
+				{
+					value: "sign in",
+					icon: <StyledLoginIcon $headerLinkIcon />,
+					pathnames: {
+						pathnameOne: "signin",
+						pathnameTwo: "",
+					},
+					to: "/signin",
+					active: false,
+					hideOnCurrentUser: true,
+				},
+			],
+		};
+	}
+
+	handleLinkClick = (event, linkValue) => {
+		const { toggleSearchMode, toggleSidebar } = this.props;
 
 		if (linkValue === "movies" || linkValue === "tv shows") {
 			toggleSearchMode(linkValue);
@@ -30,56 +73,87 @@ const HeaderLinks = ({
 		toggleSidebar();
 	};
 
-	return (
-		<StyledHeaderLinks show={showSidebar}>
-			{headerLinks.map((headerLink) => {
-				return (
-					<StyledLink
-						to={headerLink.to}
-						key={headerLink.value}
-						onClick={(event) => {
-							handleLinkClick(event, headerLink.value);
-						}}
-						$isActive={headerLink.active}
-					>
-						{" "}
-						{showSidebar ? headerLink.icon : null}
-						{headerLink.value}
-					</StyledLink>
-				);
-			})}
+	toggleActiveLink = () => {
+		const { location } = this.props;
 
-			{currentUser ? (
-				<React.Fragment>
-					<Profile username={currentUser.username} />
+		this.state.headerLinks.forEach((headerLink) => {
+			if (
+				location.pathname
+					.toLowerCase()
+					.includes(
+						headerLink.pathnames.pathnameOne ||
+							headerLink.pathnames.pathnameTwo
+					)
+			) {
+				this.setActiveLink(headerLink.pathnames.pathnameOne);
+			}
+		});
+	};
 
-					<StyledLink
-						as="p"
-						onClick={() => {
-							currentUserSignout();
-						}}
-						special
-					>
-						<StyledLogoutIcon $headerLinkIcon /> sign out
-					</StyledLink>
-				</React.Fragment>
-			) : (
-				<StyledLink
-					to="/signin"
-					onClick={(event) => {
-						handleLinkClick(event, "sign in");
-					}}
-				>
-					{" "}
-					{showSidebar ? (
-						<StyledLoginIcon $headerLinkIcon $medium />
-					) : null}
-					sign in
-				</StyledLink>
-			)}
-		</StyledHeaderLinks>
-	);
-};
+	setActiveLink = (value) => {
+		this.setState({
+			headerLinks: this.state.headerLinks.map((headerLink) => {
+				if (headerLink.pathnames.pathnameOne === value) {
+					return { ...headerLink, active: true };
+				}
+				return { ...headerLink, active: false };
+			}),
+		});
+	};
+
+	componentDidMount() {
+		this.toggleActiveLink();
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.location !== this.props.location) {
+			this.toggleActiveLink();
+		}
+	}
+
+	render() {
+		const { showSidebar, currentUser, currentUserSignout } = this.props;
+
+		return (
+			<StyledHeaderLinks show={showSidebar}>
+				{this.state.headerLinks.map((headerLink) => {
+					return (
+						<StyledLink
+							to={headerLink.to}
+							key={headerLink.value}
+							onClick={(event) => {
+								this.handleLinkClick(event, headerLink.value);
+							}}
+							$isActive={headerLink.active}
+							$currentUser={currentUser}
+							$hideOnCurrentUser={headerLink.hideOnCurrentUser}
+						>
+							{" "}
+							{showSidebar ? headerLink.icon : null}
+							{headerLink.value}
+						</StyledLink>
+					);
+				})}
+
+				{currentUser ? (
+					<React.Fragment>
+						<Profile username={currentUser.username} />
+
+						<StyledLink
+							as="p"
+							onClick={() => {
+								currentUserSignout();
+							}}
+							forSmallerScreens
+						>
+							<StyledLogoutIcon $headerLinkIcon /> sign out
+						</StyledLink>
+					</React.Fragment>
+				) : null}
+			</StyledHeaderLinks>
+		);
+	}
+}
 
 const mapStateToProps = (state) => {
 	return {
@@ -104,4 +178,6 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderLinks);
+export default withRouter(
+	connect(mapStateToProps, mapDispatchToProps)(HeaderLinks)
+);
