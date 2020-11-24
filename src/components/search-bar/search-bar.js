@@ -85,23 +85,29 @@ class Searchbar extends React.Component {
 		}
 	};
 
-	// componentDidUpdate() {
-	// 	const { showOnSmallScreens } = this.props;
+	setSearchMode = () => {
+		const { location, toggleSearchMode } = this.props;
+		const pathname = location.pathname.toLowerCase();
 
-	// 	if (showOnSmallScreens) {
-	// 		this.searchInputRef.current.focus();
-	// 	}
-	// }
-
-	componentDidMount() {
-		const { location, toggleSearchMode, getSearchInputRef } = this.props;
-
-		if (location.pathname === "/tvshows") {
-			toggleSearchMode("tv shows");
-		}
-		if (location.pathname === "/movies") {
+		if (pathname.includes("movies") || pathname.includes("movie")) {
 			toggleSearchMode("movies");
 		}
+
+		if (pathname.includes("tvshows") || pathname.includes("tv")) {
+			toggleSearchMode("tv shows");
+		}
+	};
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.location !== this.props.location) {
+			this.setSearchMode();
+		}
+	}
+
+	componentDidMount() {
+		const { getSearchInputRef } = this.props;
+
+		this.setSearchMode();
 
 		getSearchInputRef(this.searchInputRef);
 	}

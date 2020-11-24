@@ -53,7 +53,7 @@ class HeaderLinks extends React.Component {
 					icon: <StyledLoginIcon $headerLinkIcon />,
 					pathnames: {
 						pathnameOne: "signin",
-						pathnameTwo: "",
+						pathnameTwo: "signup",
 					},
 					to: "/signin",
 					active: false,
@@ -63,29 +63,24 @@ class HeaderLinks extends React.Component {
 		};
 	}
 
-	handleLinkClick = (event, linkValue) => {
-		const { toggleSearchMode, toggleSidebar } = this.props;
-
-		if (linkValue === "movies" || linkValue === "tv shows") {
-			toggleSearchMode(linkValue);
-		}
+	handleLinkClick = (event) => {
+		const { toggleSidebar } = this.props;
 
 		toggleSidebar();
 	};
 
 	toggleActiveLink = () => {
 		const { location } = this.props;
+		const pathname = location.pathname.toLowerCase();
 
 		this.state.headerLinks.forEach((headerLink) => {
 			if (
-				location.pathname
-					.toLowerCase()
-					.includes(
-						headerLink.pathnames.pathnameOne ||
-							headerLink.pathnames.pathnameTwo
-					)
+				pathname.includes(headerLink.pathnames.pathnameOne) ||
+				pathname.includes(headerLink.pathnames.pathnameTwo)
 			) {
 				this.setActiveLink(headerLink.pathnames.pathnameOne);
+			} else if (pathname.includes("favorites")) {
+				this.setAllLinksInActive();
 			}
 		});
 	};
@@ -96,6 +91,14 @@ class HeaderLinks extends React.Component {
 				if (headerLink.pathnames.pathnameOne === value) {
 					return { ...headerLink, active: true };
 				}
+				return { ...headerLink, active: false };
+			}),
+		});
+	};
+
+	setAllLinksInActive = () => {
+		this.setState({
+			headerLinks: this.state.headerLinks.map((headerLink) => {
 				return { ...headerLink, active: false };
 			}),
 		});
