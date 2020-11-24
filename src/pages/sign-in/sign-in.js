@@ -21,7 +21,7 @@ import {
 	clearNonEmptyFieldErrorMessage,
 	validateEmail,
 	clearAllFields,
-} from "../../components/utils/utils.components";
+} from "../../components/utils/utils.form-validation";
 
 import { auth } from "../../firebase/firebase.utils";
 

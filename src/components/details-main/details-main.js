@@ -19,8 +19,9 @@ import {
 import {
 	renderReleaseDate,
 	getWithCommas,
-	renderDetailsController,
 } from "../../components/utils/utils.components";
+
+import { renderDetailsController } from "../../components/utils/utils.details-controller";
 
 import Spinner from "../spinner/spinner";
 

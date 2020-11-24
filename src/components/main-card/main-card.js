@@ -23,7 +23,7 @@ import {
 	deleteFavoriteDocument,
 } from "../../firebase/firebase.utils";
 
-import { renderDetailsController } from "../utils/utils.components";
+import { renderDetailsController } from "../utils/utils.details-controller";
 
 import Dropdown from "../../components/dropdown/dropdown";
 import GenericButton from "../../components/generic-button/generic-button";
