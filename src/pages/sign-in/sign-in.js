@@ -1,18 +1,13 @@
 import React, { createRef } from "react";
 
 import { StyledSignInPage, ButtonCollection } from "./sign-in.styles";
-
 import { StyledGoogleSignInIcon } from "../../styles/styles.icons";
-
 import { cssColors } from "../../styles/styles.variables";
-
 import {
 	StyledTitle,
 	StyledSubtitle,
 	StyledFormLink,
 } from "../../styles/styles.generic";
-
-import { signInWithGoogle } from "../../firebase/firebase.utils";
 
 import {
 	getEmptyFieldNames,
@@ -23,7 +18,7 @@ import {
 	clearAllFields,
 } from "../../components/utils/utils.form-validation";
 
-import { auth } from "../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import CustomInput from "../../components/custom-input/custom-input";
 import GenericButton from "../../components/generic-button/generic-button";

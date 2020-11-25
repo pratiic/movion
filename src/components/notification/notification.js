@@ -1,11 +1,6 @@
 import React from "react";
 
-import {
-	StyledNotification,
-	// StyledTickIcon,
-	// StyledDeleteIcon,
-} from "./notification.styles";
-
+import { StyledNotification } from "./notification.styles";
 import { StyledTickIcon, StyledDeleteIcon } from "../../styles/styles.icons";
 
 const Notification = ({ message, type }) => {

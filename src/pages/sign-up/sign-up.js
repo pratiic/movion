@@ -1,7 +1,6 @@
 import React, { createRef } from "react";
 
 import { StyledSignUpPage } from "./sign-up.styles";
-
 import {
 	StyledTitle,
 	StyledSubtitle,

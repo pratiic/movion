@@ -6,9 +6,7 @@ import { StyledDetailsMain, DetailsMainWrapper } from "./details-main.styles";
 
 import { fetchMainDetails } from "../../redux/api/api.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
-
 import { getURL, apiInfo } from "../../redux/api/api.info";
-
 import {
 	selectFavoriteMovies,
 	selectFavoriteTvShows,
@@ -19,12 +17,10 @@ import {
 	getWithCommas,
 	getContentType,
 } from "../../components/utils/utils.components";
-
 import {
 	addToFavorites,
 	showAddedToFavoritesNotification,
 } from "../../components/utils/utils.favorites";
-
 import { renderDetailsController } from "../../components/utils/utils.details-controller";
 
 import Spinner from "../spinner/spinner";

@@ -8,7 +8,6 @@ import {
 	StyledLoginIcon,
 	StyledLogoutIcon,
 } from "../../styles/styles.icons";
-
 import { StyledHeaderLinks, StyledLink } from "./header-links.styles";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";

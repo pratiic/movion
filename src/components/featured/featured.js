@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { StyledFeatured, FeaturedWrapper } from "./featured.styles";
 
 import { apiInfo } from "../../redux/api/api.info";
-
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
 
 import Spinner from "../spinner/spinner";

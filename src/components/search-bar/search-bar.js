@@ -9,7 +9,6 @@ import {
 	SearchOptionDisplay,
 	SearchInputControls,
 } from "./search-bar.styles";
-
 import {
 	StyledChevronDownIcon,
 	StyledArrowUpIcon,

@@ -6,16 +6,16 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./styles/styles.global";
 import { darkTheme, lightTheme } from "./styles/styles.themes";
 
+import { updateCurrentUser } from "./redux/current-user/current-user.actions";
+import { toggleNotification } from "./redux/notification/notification.actions";
+import { fetchFavoritesSuccess } from "./redux/favorites/favorites.actions";
+
 import {
 	auth,
 	createUserDocument,
 	getFavoritesCollectionRef,
 	getAllFavoriteDocuments,
 } from "./firebase/firebase.utils";
-
-import { updateCurrentUser } from "./redux/current-user/current-user.actions";
-import { toggleNotification } from "./redux/notification/notification.actions";
-import { fetchFavoritesSuccess } from "./redux/favorites/favorites.actions";
 
 import Header from "./components/header/header";
 import MoviesPage from "./pages/movies/movies";

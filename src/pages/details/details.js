@@ -2,13 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { StyledDetails } from "./details.styles";
-
 import { StyledError, StyledTitle } from "../../styles/styles.generic";
 
 import { fetchSimilar } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 import { selectSimilar } from "../../redux/details/details.selectors";
-
 import {
 	fetchMoreSimilarStart,
 	incrementSimilarFetchPage,

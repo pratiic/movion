@@ -7,6 +7,7 @@ import { cssColors } from "../../styles/styles.variables";
 export const StyledDropdownItem = styled.div`
 	${SearchbarTextStyles};
 	padding: 0.7rem 1.55rem;
+	color: ${cssColors.greyLighter};
 	text-align: center;
 	cursor: pointer;
 	border-radius: inherit;
@@ -15,7 +16,8 @@ export const StyledDropdownItem = styled.div`
 	align-items: center;
 
 	&:hover {
-		background-color: ${cssColors.greyDark};
+		background-color: ${cssColors.greyLight};
+		color: white;
 	}
 
 	svg {

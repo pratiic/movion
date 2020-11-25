@@ -5,7 +5,7 @@ import { cssColors } from "../../styles/styles.variables";
 export const StyledDropdown = styled.div`
 	position: absolute;
 	z-index: 7;
-	background-color: ${cssColors.greyLight};
+	background-color: ${cssColors.greyDark};
 	border-radius: 5px;
 	text-transform: lowercase;
 	white-space: nowrap;

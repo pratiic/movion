@@ -22,7 +22,7 @@ export const StyledDetailsController = styled.div`
 				border: none;
 
 				&:hover {
-					background-color: ${cssColors.greyDark};
+					background-color: ${cssColors.greyLight};
 				}
 			`;
 		}
@@ -34,22 +34,10 @@ export const StyledDetailsController = styled.div`
 
 	&:hover {
 		color: white;
-
-		svg {
-			path {
-				fill: ${cssColors.bluePrimary};
-			}
-		}
 	}
 
 	&:active {
 		color: ${cssColors.greyLighter};
-
-		svg {
-			path {
-				fill: ${cssColors.greyLighter};
-			}
-		}
 	}
 
 	${({ jobDone }) =>

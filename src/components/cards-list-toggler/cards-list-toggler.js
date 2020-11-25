@@ -1,13 +1,7 @@
 import React from "react";
 
-import {
-	StyledCardsListToggler,
-	// StyledChevronDownIcon,
-	Title,
-} from "./cards-list-toggler.styles";
-
+import { StyledCardsListToggler, Title } from "./cards-list-toggler.styles";
 import { StyledChevronDownIcon } from "../../styles/styles.icons";
-
 import { cssColors } from "../../styles/styles.variables";
 
 const CardsListToggler = ({

@@ -2,19 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { StyledTvShowsPage } from "./tv-shows.styles";
-
 import { StyledTitle } from "../../styles/styles.generic";
 
 import { getURL } from "../../redux/api/api.info";
 import { fetchThePopulars } from "../../redux/api/api.actions";
 import { selectPopularTvShows } from "../../redux/tv-shows/tv-shows.selectors";
 
-import { renderGenericButton } from "../../components/utils/utils.components";
-
 import {
 	incrementPopularTvShowsFetchPage,
 	fetchMorePopularTvShowsStart,
 } from "../../redux/tv-shows/tv-shows.actions";
+
+import { renderGenericButton } from "../../components/utils/utils.components";
 
 import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";

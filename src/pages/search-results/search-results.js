@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 import { StyledError, StyledTitle } from "../../styles/styles.generic";
 import { cssColors } from "../../styles/styles.variables";
-
 import { StyledSearchResults } from "./search-results.styles";
 
 import { fetchSearchResults } from "../../redux/api/api.actions";

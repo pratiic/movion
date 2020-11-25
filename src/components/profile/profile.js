@@ -6,7 +6,6 @@ import {
 	Username,
 	ProfileHeader,
 } from "./profile.styles";
-
 import { StyledLogoutIcon } from "../../styles/styles.icons";
 
 import { toggleDropdown } from "../utils/utils.components";

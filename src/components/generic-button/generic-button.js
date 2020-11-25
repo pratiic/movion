@@ -2,37 +2,9 @@ import React from "react";
 
 import { StyledGenericButton } from "./generic-button.styles";
 
-const GenericButton = (props) => {
-	const {
-		value,
-		btnType,
-		width,
-		size,
-		marginbt,
-		justify,
-		bg,
-		color,
-		darkBg,
-		type,
-		hoverColor,
-		icon,
-		handleButtonClick,
-	} = props;
-
+const GenericButton = ({ value, icon, handleButtonClick, ...otherProps }) => {
 	return (
-		<StyledGenericButton
-			size={size}
-			btnType={btnType}
-			width={width}
-			marginbt={marginbt}
-			justify={justify}
-			bg={bg}
-			color={color}
-			darkBg={darkBg}
-			type={type}
-			hoverColor={hoverColor}
-			onClick={handleButtonClick}
-		>
+		<StyledGenericButton {...otherProps} onClick={handleButtonClick}>
 			{icon && icon} {value}
 		</StyledGenericButton>
 	);

@@ -2,9 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { StyledFavoritesPage } from "./favorites.styles";
-
 import { StyledTitle } from "../../styles/styles.generic";
-
 import { cssColors } from "../../styles/styles.variables";
 
 import {
