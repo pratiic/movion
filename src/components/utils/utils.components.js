@@ -94,3 +94,15 @@ export function toggleDropdown() {
 		};
 	});
 }
+
+export const getContentType = (title, name, type) => {
+	if (type) {
+		return type;
+	} else if (!type && (title || name)) {
+		if (title) {
+			return "movie";
+		} else {
+			return "tv";
+		}
+	}
+};

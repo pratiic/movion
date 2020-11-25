@@ -9,8 +9,6 @@ import { toggleNotification } from "../../redux/notification/notification.action
 
 import { getURL, apiInfo } from "../../redux/api/api.info";
 
-import { createFavoriteDocument } from "../../firebase/firebase.utils";
-
 import {
 	selectFavoriteMovies,
 	selectFavoriteTvShows,
@@ -19,7 +17,13 @@ import {
 import {
 	renderReleaseDate,
 	getWithCommas,
+	getContentType,
 } from "../../components/utils/utils.components";
+
+import {
+	addToFavorites,
+	showAddedToFavoritesNotification,
+} from "../../components/utils/utils.favorites";
 
 import { renderDetailsController } from "../../components/utils/utils.details-controller";
 
@@ -41,20 +45,8 @@ class DetailsMain extends React.Component {
 		fetchMainDetails(detailsURL);
 	};
 
-	renderType = (title, name, type) => {
-		if (type) {
-			return type;
-		} else if (!type && (title || name)) {
-			if (title) {
-				return "movie";
-			} else {
-				return "tv";
-			}
-		}
-	};
-
-	addToFavorites = async () => {
-		const { currentUser, toggleNotification, mainDetails } = this.props;
+	handleDetailsControllerClick = async () => {
+		const { currentUser, mainDetails, toggleNotification } = this.props;
 		const {
 			title,
 			name,
@@ -64,18 +56,16 @@ class DetailsMain extends React.Component {
 			id,
 		} = mainDetails;
 
-		const status = await createFavoriteDocument({
-			title: title || name,
-			posterPath: poster_path,
-			releaseDate: release_date || first_air_date,
+		const status = await addToFavorites({
 			id,
-			type: this.renderType(title, name),
 			currentUserId: currentUser.id,
+			title: title || name,
+			poster_path,
+			release_date: release_date || first_air_date,
+			type: getContentType(title, name),
 		});
 
-		if (status === "success") {
-			toggleNotification("added to favorites", "success");
-		}
+		showAddedToFavoritesNotification(status, toggleNotification);
 	};
 
 	componentDidMount() {

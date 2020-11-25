@@ -10,34 +10,40 @@ const DetailsController = ({
 	icon,
 	value,
 	forComponent,
-	func,
-	addToFavorites,
 	toggleDropdown,
 	currentUser,
 	history,
 	toggleNotification,
 	jobDone,
+	handleDetailsControllerClick,
 }) => {
-	const handleDetailsControllerClick = () => {
-		if (toggleDropdown) {
-			toggleDropdown();
-		}
+	// const handleDetailsControllerClick = () => {
+	// 	if (toggleDropdown) {
+	// 		toggleDropdown();
+	// 	}
 
-		if (func === "add to favorites") {
-			if (!currentUser) {
-				history.push("/signin");
-				toggleNotification("you need to sign in first", "failure");
-			} else {
-				addToFavorites();
-			}
-		}
-	};
+	// 	if (func === "add to favorites") {
+	// 		if (!currentUser) {
+	// 			history.push("/signin");
+	// 			toggleNotification("you need to sign in first", "failure");
+	// 		} else {
+	// 			addToFavorites();
+	// 		}
+	// 	}
+	// };
 
 	return (
 		<StyledDetailsController
 			forComponent={forComponent}
 			jobDone={jobDone}
-			onClick={handleDetailsControllerClick}
+			onClick={() => {
+				if (handleDetailsControllerClick) {
+					handleDetailsControllerClick();
+				}
+				if (toggleDropdown) {
+					toggleDropdown();
+				}
+			}}
 		>
 			{icon} {value}
 		</StyledDetailsController>

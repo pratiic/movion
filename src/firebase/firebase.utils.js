@@ -49,26 +49,18 @@ export const createUserDocument = async (userAuth) => {
 	return userRef;
 };
 
-// export const createFavoriteDocument = async (uid) => {
-// 	const favoritesRef = firestore.collection(`users/${uid}/favorites`);
-// 	const snapShot = await favoritesRef.get();
-// 	await favoritesRef.add({
-// 		name: "forrest gump",
-// 	});
-// };
-
 export const createFavoriteDocument = async (favoriteToCreate) => {
 	let {
-		title,
-		releaseDate,
-		posterPath,
 		id,
-		type,
 		currentUserId,
+		title,
+		release_date,
+		poster_path,
+		type,
 	} = favoriteToCreate;
 
-	if (!releaseDate) {
-		releaseDate = "";
+	if (!release_date) {
+		release_date = "";
 	}
 
 	const favoritesRef = firestore.collection(
@@ -77,10 +69,10 @@ export const createFavoriteDocument = async (favoriteToCreate) => {
 
 	try {
 		await favoritesRef.add({
-			title,
-			releaseDate,
-			posterPath,
 			id,
+			title,
+			release_date,
+			poster_path,
 			type,
 		});
 

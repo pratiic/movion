@@ -5,21 +5,11 @@ import {
 	MainCardsListWrapper,
 } from "./main-cards-list.styles";
 
+import { getContentType } from "../utils/utils.components";
+
 import MainCard from "../main-card/main-card";
 
 const MainCardsList = ({ list, forComponent }) => {
-	const renderType = (title, name, type) => {
-		if (type) {
-			return type;
-		} else if (!type && (title || name)) {
-			if (title) {
-				return "movie";
-			} else {
-				return "tv";
-			}
-		}
-	};
-
 	return (
 		<StyledMainCardsList>
 			<MainCardsListWrapper>
@@ -29,26 +19,20 @@ const MainCardsList = ({ list, forComponent }) => {
 						title,
 						name,
 						release_date,
-						releaseDate,
 						first_air_date,
 						poster_path,
-						posterPath,
 						type,
 					}) => {
-						if (poster_path || posterPath) {
+						if (poster_path) {
 							return (
 								<MainCard
 									title={title || name}
-									releaseDate={
-										releaseDate ||
-										release_date ||
-										first_air_date
-									}
-									posterPath={poster_path || posterPath}
+									releaseDate={release_date || first_air_date}
+									posterPath={poster_path}
 									key={id}
 									id={id}
-									type={renderType(title, name, type)}
-									forComponent = { forComponent }
+									type={getContentType(title, name, type)}
+									forComponent={forComponent}
 								/>
 							);
 						} else {

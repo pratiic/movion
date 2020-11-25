@@ -17,11 +17,14 @@ import {
 } from "../../redux/favorites/favorites.selectors";
 
 import { renderReleaseDate, toggleDropdown } from "../utils/utils.components";
-import { apiInfo } from "../../redux/api/api.info";
 import {
-	createFavoriteDocument,
-	deleteFavoriteDocument,
-} from "../../firebase/firebase.utils";
+	addToFavorites,
+	showAddedToFavoritesNotification,
+} from "../utils/utils.favorites";
+
+import { apiInfo } from "../../redux/api/api.info";
+
+import { deleteFavoriteDocument } from "../../firebase/firebase.utils";
 
 import { renderDetailsController } from "../utils/utils.details-controller";
 
@@ -52,29 +55,27 @@ class MainCard extends React.Component {
 		history.push(`/details/${type}/${id}`);
 	};
 
-	addToFavorites = async () => {
+	handleDetailsControllerClick = async () => {
 		const {
+			id,
+			currentUser,
 			title,
 			releaseDate,
 			posterPath,
-			id,
 			type,
-			currentUser,
 			toggleNotification,
 		} = this.props;
 
-		const status = await createFavoriteDocument({
-			title,
-			posterPath,
-			releaseDate,
+		const status = await addToFavorites({
 			id,
-			type,
 			currentUserId: currentUser.id,
+			title,
+			release_date: releaseDate,
+			poster_path: posterPath,
+			type,
 		});
 
-		if (status === "success") {
-			toggleNotification("added to favorites", "success");
-		}
+		showAddedToFavoritesNotification(status, toggleNotification);
 	};
 
 	removeFromFavorites = async () => {
