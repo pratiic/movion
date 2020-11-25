@@ -17,6 +17,7 @@ import {
 } from "../../redux/favorites/favorites.selectors";
 
 import { renderReleaseDate, toggleDropdown } from "../utils/utils.components";
+
 import {
 	addToFavorites,
 	showAddedToFavoritesNotification,
