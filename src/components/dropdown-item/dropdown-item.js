@@ -10,11 +10,12 @@ import { currentUserSignout } from "../../redux/current-user/current-user.action
 class DropdownItem extends React.Component {
 	handleDropdownItemClick = () => {
 		const {
-			toggleDropdown,
-			toggleSearchMode,
 			value,
-			currentUserSignout,
+			toggleDropdown,
 			func,
+			toggleSearchMode,
+			currentUserSignout,
+			getNewFetchType,
 		} = this.props;
 
 		toggleDropdown();
@@ -23,6 +24,8 @@ class DropdownItem extends React.Component {
 			currentUserSignout();
 		} else if (func === "toggle search mode") {
 			toggleSearchMode(value);
+		} else if (func === "change fetch type") {
+			getNewFetchType(value);
 		}
 	};
 

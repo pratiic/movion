@@ -10,10 +10,19 @@ export const StyledDropdownItem = styled.div`
 	color: ${cssColors.greyLighter};
 	text-align: center;
 	cursor: pointer;
-	border-radius: inherit;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	&:first-child {
+		border-top-left-radius: inherit;
+		border-top-right-radius: inherit;
+	}
+
+	&:last-child {
+		border-bottom-left-radius: inherit;
+		border-bottom-right-radius: inherit;
+	}
 
 	&:hover {
 		background-color: ${cssColors.greyLight};

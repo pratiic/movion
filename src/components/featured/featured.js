@@ -6,8 +6,6 @@ import { StyledFeatured, FeaturedWrapper } from "./featured.styles";
 
 import { apiInfo } from "../../redux/api/api.info";
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
-
-import Spinner from "../spinner/spinner";
 import GenericButton from "../generic-button/generic-button";
 
 const Featured = ({ featured, resetSimilarFetchPage }) => {
@@ -23,6 +21,7 @@ const Featured = ({ featured, resetSimilarFetchPage }) => {
 
 	if (featured) {
 		const { title, name, backdrop_path, overview } = featured;
+
 		return (
 			<StyledFeatured
 				backdropPath={`${apiInfo.baseURLs.images}/${backdrop_path}`}
@@ -38,8 +37,9 @@ const Featured = ({ featured, resetSimilarFetchPage }) => {
 				</FeaturedWrapper>
 			</StyledFeatured>
 		);
+	} else {
+		return null;
 	}
-	return <Spinner height="85vh" />;
 };
 
 const mapDispatchToProps = (dispatch) => {

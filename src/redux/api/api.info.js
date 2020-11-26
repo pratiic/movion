@@ -7,18 +7,33 @@ export const apiInfo = {
 	language: "en-US",
 };
 
-export const getURL = (mode, page, type, query, id) => {
-	const unChangingPart = `api_key=${apiInfo.apiKey}&language=${apiInfo.language}`;
+const fetchTypeApiMap = {
+	popular: "popular",
+	"now playing": "now_playing",
+	upcoming: "upcoming",
+	"top rated": "top_rated",
+	"on the air": "on_the_air",
+};
 
-	if (type === "popular") {
-		return `${apiInfo.baseURLs.tmdb}/${mode}/popular?${unChangingPart}&page=${page}`;
-	} else if (type === "search") {
-		return `${apiInfo.baseURLs.tmdb}/search/${mode}?${unChangingPart}&page=${page}&include_adult=false&query=${query}`;
-	} else if (type === "details") {
-		return `${apiInfo.baseURLs.tmdb}/${mode}/${id}?${unChangingPart}`;
-	} else if (type === "similar") {
-		return `${apiInfo.baseURLs.tmdb}/${mode}/${id}/similar?${unChangingPart}&page=${page}`;
-	} else if (type === "credits") {
-		return `${apiInfo.baseURLs.tmdb}/${mode}/${id}/credits?${unChangingPart}`;
+export const getURL = (mode, page, fetchType, query, id) => {
+	const unChangingPart = `api_key=${apiInfo.apiKey}&language=${apiInfo.language}`;
+	const baseURL = apiInfo.baseURLs.tmdb;
+
+	if (
+		fetchType === "popular" ||
+		fetchType === "now playing" ||
+		fetchType === "upcoming" ||
+		fetchType === "top rated" ||
+		fetchType === "on the air"
+	) {
+		return `${baseURL}/${mode}/${fetchTypeApiMap[fetchType]}?${unChangingPart}&page=${page}`;
+	} else if (fetchType === "search") {
+		return `${baseURL}/search/${mode}?${unChangingPart}&page=${page}&include_adult=false&query=${query}`;
+	} else if (fetchType === "details") {
+		return `${baseURL}/${mode}/${id}?${unChangingPart}`;
+	} else if (fetchType === "similar") {
+		return `${baseURL}/${mode}/${id}/similar?${unChangingPart}&page=${page}`;
+	} else if (fetchType === "credits") {
+		return `${baseURL}/${mode}/${id}/credits?${unChangingPart}`;
 	}
 };

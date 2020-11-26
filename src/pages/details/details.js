@@ -34,6 +34,7 @@ class DetailsPage extends React.Component {
 			null,
 			id
 		);
+		console.log(similarURL);
 		fetchSimilar(similarURL);
 	};
 

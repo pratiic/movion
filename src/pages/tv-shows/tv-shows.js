@@ -5,12 +5,12 @@ import { StyledTvShowsPage } from "./tv-shows.styles";
 import { StyledTitle } from "../../styles/styles.generic";
 
 import { getURL } from "../../redux/api/api.info";
-import { fetchThePopulars } from "../../redux/api/api.actions";
-import { selectPopularTvShows } from "../../redux/tv-shows/tv-shows.selectors";
+import { fetchMoviesOrTvShows } from "../../redux/api/api.actions";
+import { selectTvShows } from "../../redux/tv-shows/tv-shows.selectors";
 
 import {
-	incrementPopularTvShowsFetchPage,
-	fetchMorePopularTvShowsStart,
+	incrementCurrentTvShowsFetchPage,
+	fetchMoreTvShowsStart,
 } from "../../redux/tv-shows/tv-shows.actions";
 
 import { renderGenericButton } from "../../components/utils/utils.components";
@@ -19,65 +19,91 @@ import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
+import FetchTypeMenu from "../../components/fetch-type-menu/fetch-type-menu";
 
 class TvShowsPage extends React.Component {
 	handleButtonClick = () => {
 		const {
-			fetchMorePopularTvShowsStart,
-			popularTvShowsFetchPage,
-			fetchThePopulars,
-			incrementPopularTvShowsFetchPage,
+			fetchMoreTvShowsStart,
+			currentTvShowsFetchPage,
+			fetchMoviesOrTvShows,
+			incrementCurrentTvShowsFetchPage,
+			tvShowsFetchType,
 		} = this.props;
 
-		fetchMorePopularTvShowsStart();
-		fetchThePopulars(
-			getURL("tv", popularTvShowsFetchPage + 1, "popular"),
-			"tv shows"
+		fetchMoreTvShowsStart();
+		fetchMoviesOrTvShows(
+			getURL("tv", currentTvShowsFetchPage + 1, tvShowsFetchType),
+			"tv shows",
+			true
 		);
-		incrementPopularTvShowsFetchPage();
+		incrementCurrentTvShowsFetchPage();
+	};
+
+	startAsyncOp = () => {
+		const {
+			fetchMoviesOrTvShows,
+			currentTvShowsFetchPage,
+			tvShowsFetchType,
+		} = this.props;
+
+		const url = getURL("tv", currentTvShowsFetchPage, tvShowsFetchType);
+
+		fetchMoviesOrTvShows(url, "tv shows");
 	};
 
 	componentDidMount() {
-		const { fetchThePopulars, popularTvShowsFetchPage } = this.props;
+		this.startAsyncOp();
+	}
 
-		fetchThePopulars(
-			getURL("tv", popularTvShowsFetchPage, "popular"),
-			"tv shows"
-		);
+	componentDidUpdate(prevProps) {
+		if (prevProps.tvShowsFetchType !== this.props.tvShowsFetchType) {
+			this.startAsyncOp();
+		}
 	}
 
 	render() {
 		const {
-			popularTvShows,
-			fetchingMorePopularTvShows,
-			popularTvShowsFetchPage,
-			popularTvShowsTotalPages,
+			tvShows,
+			fetchingMoreTvShows,
+			currentTvShowsFetchPage,
+			tvShowsTotalPages,
+			tvShowsFetchType,
+			fetchingTvShows,
 		} = this.props;
 
 		return (
 			<StyledTvShowsPage>
-				<Featured featured={popularTvShows[0]} />
-				{popularTvShows.length > 0 ? (
-					<React.Fragment>
-						<StyledTitle>popular tv shows</StyledTitle>
-						<MainCardsList list={popularTvShows} />
-					</React.Fragment>
+				{fetchingTvShows ? (
+					<Spinner height="105vh" />
 				) : (
-					<Spinner />
-				)}
+					<React.Fragment>
+						<Featured featured={tvShows[0]} />
+						<React.Fragment>
+							<FetchTypeMenu
+								fetchType={tvShowsFetchType}
+								mode="tv shows"
+							/>
+							<StyledTitle>
+								{tvShowsFetchType} tv shows
+							</StyledTitle>
+							<MainCardsList list={tvShows} />
+						</React.Fragment>
 
-				{renderGenericButton(
-					popularTvShowsFetchPage,
-					popularTvShowsTotalPages,
-					<Spinner height="3.5rem" />,
-					<GenericButton
-						value="load more"
-						size="bigger"
-						marginbt
-						justify="center"
-						handleButtonClick={this.handleButtonClick}
-					/>,
-					fetchingMorePopularTvShows
+						{renderGenericButton(
+							currentTvShowsFetchPage,
+							tvShowsTotalPages,
+							<Spinner height="3.5rem" />,
+							<GenericButton
+								value="load more"
+								size="bigger"
+								marginbt
+								justify="center"
+								handleButtonClick={this.handleButtonClick}
+							/>,
+							fetchingMoreTvShows
+						)}
+					</React.Fragment>
 				)}
 			</StyledTvShowsPage>
 		);
@@ -86,23 +112,25 @@ class TvShowsPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		popularTvShowsFetchPage: state.tvShows.popularTvShowsFetchPage,
-		popularTvShows: selectPopularTvShows(state),
-		fetchingMorePopularTvShows: state.tvShows.fetchingMorePopularTvShows,
-		popularTvShowsTotalPages: state.tvShows.popularTvShowsTotalPages,
+		currentTvShowsFetchPage: state.tvShows.currentTvShowsFetchPage,
+		tvShows: selectTvShows(state),
+		fetchingMoreTvShows: state.tvShows.fetchingMoreTvShows,
+		tvShowsTotalPages: state.tvShows.tvShowsTotalPages,
+		tvShowsFetchType: state.tvShows.tvShowsFetchType,
+		fetchingTvShows: state.tvShows.fetchingTvShows,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchThePopulars: (url, mode) => {
-			dispatch(fetchThePopulars(url, mode));
+		fetchMoviesOrTvShows: (url, mode, fetchingMore) => {
+			dispatch(fetchMoviesOrTvShows(url, mode, fetchingMore));
 		},
-		incrementPopularTvShowsFetchPage: () => {
-			dispatch(incrementPopularTvShowsFetchPage());
+		incrementCurrentTvShowsFetchPage: () => {
+			dispatch(incrementCurrentTvShowsFetchPage());
 		},
-		fetchMorePopularTvShowsStart: () => {
-			dispatch(fetchMorePopularTvShowsStart());
+		fetchMoreTvShowsStart: () => {
+			dispatch(fetchMoreTvShowsStart());
 		},
 	};
 };

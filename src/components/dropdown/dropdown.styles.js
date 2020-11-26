@@ -27,6 +27,18 @@ export const StyledDropdown = styled.div`
 				bottom: 3.75rem;
 				right: 0.7rem;
 			`;
+		} else if (forComponent === "movieAndTv") {
+			return css`
+				/* & > * {
+					border-bottom: 1px solid ${cssColors.greyLight};
+				} */
+				top: 4rem;
+				right: 0;
+
+				& > *:not(:last-child) {
+					border-bottom: 1px solid ${cssColors.greyLight};
+				}
+			`;
 		}
 	}}
 

@@ -5,11 +5,11 @@ import { StyledMoviesPage } from "./movies.styles";
 import { StyledTitle } from "../../styles/styles.generic";
 
 import { getURL } from "../../redux/api/api.info";
-import { fetchThePopulars } from "../../redux/api/api.actions";
-import { selectPopularMovies } from "../../redux/movies/movies.selectors";
+import { fetchMoviesOrTvShows } from "../../redux/api/api.actions";
+import { selectMovies } from "../../redux/movies/movies.selectors";
 import {
-	incrementPopularMoviesFetchPage,
-	fetchMorePopularMoviesStart,
+	incrementCurrentMoviesFetchPage,
+	fetchMoreMoviesStart,
 } from "../../redux/movies/movies.actions";
 
 import { renderGenericButton } from "../../components/utils/utils.components";
@@ -18,69 +18,96 @@ import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
+import FetchTypeMenu from "../../components/fetch-type-menu/fetch-type-menu";
 
 class MoviesPage extends React.Component {
 	handleButtonClick = () => {
 		const {
-			fetchMorePopularMoviesStart,
-			popularMoviesFetchPage,
-			fetchThePopulars,
-			incrementPopularMoviesFetchPage,
+			fetchMoreMoviesStart,
+			currentMoviesFetchPage,
+			fetchMoviesOrTvShows,
+			incrementCurrentMoviesFetchPage,
+			moviesFetchType,
 		} = this.props;
 
-		fetchMorePopularMoviesStart();
-		fetchThePopulars(
-			getURL("movie", popularMoviesFetchPage + 1, "popular"),
+		const url = getURL(
+			"movie",
+			currentMoviesFetchPage + 1,
+			moviesFetchType
+		);
+
+		fetchMoreMoviesStart();
+		fetchMoviesOrTvShows(url, "movies", true);
+		incrementCurrentMoviesFetchPage();
+	};
+
+	startAsyncOp = () => {
+		const {
+			fetchMoviesOrTvShows,
+			currentMoviesFetchPage,
+			moviesFetchType,
+		} = this.props;
+
+		fetchMoviesOrTvShows(
+			getURL("movie", currentMoviesFetchPage, moviesFetchType),
 			"movies"
 		);
-		incrementPopularMoviesFetchPage();
 	};
 
 	componentDidMount() {
-		const { fetchThePopulars, popularMoviesFetchPage } = this.props;
+		this.startAsyncOp();
+	}
 
-		fetchThePopulars(
-			getURL("movie", popularMoviesFetchPage, "popular"),
-			"movies"
-		);
+	componentDidUpdate(prevProps) {
+		if (prevProps.moviesFetchType !== this.props.moviesFetchType) {
+			console.log("pratiic");
+			this.startAsyncOp();
+		}
 	}
 
 	render() {
 		const {
-			popularMovies,
-			fetchingMorePopularMovies,
-			popularMoviesTotalPages,
-			popularMoviesFetchPage,
+			movies,
+			fetchingMovies,
+			fetchingMoreMovies,
+			moviesTotalPages,
+			currentMoviesFetchPage,
+			moviesFetchType,
 		} = this.props;
 
 		return (
 			<StyledMoviesPage>
-				<Featured featured={popularMovies[0]} />
-				{popularMovies.length > 0 ? (
-					<React.Fragment>
-						<StyledTitle>popular movies</StyledTitle>
-						<MainCardsList
-							marginsmall={fetchingMorePopularMovies}
-							list={popularMovies}
-							title="popular movies"
-						/>
-					</React.Fragment>
+				{fetchingMovies ? (
+					<Spinner height="105vh" />
 				) : (
-					<Spinner />
-				)}
-
-				{renderGenericButton(
-					popularMoviesFetchPage,
-					popularMoviesTotalPages,
-					<Spinner height="3.5rem" />,
-					<GenericButton
-						value="load more"
-						size="bigger"
-						marginbt
-						justify="center"
-						handleButtonClick={this.handleButtonClick}
-					/>,
-					fetchingMorePopularMovies
+					<React.Fragment>
+						<Featured featured={movies[0]} />
+						<React.Fragment>
+							<FetchTypeMenu
+								fetchType={moviesFetchType}
+								mode="movies"
+							/>
+							<StyledTitle>{moviesFetchType} movies</StyledTitle>
+							<MainCardsList
+								marginsmall={fetchingMoreMovies}
+								list={movies}
+								title="popular movies"
+							/>
+						</React.Fragment>
+						{renderGenericButton(
+							currentMoviesFetchPage,
+							moviesTotalPages,
+							<Spinner height="3.5rem" />,
+							<GenericButton
+								value="load more"
+								size="bigger"
+								marginbt
+								justify="center"
+								handleButtonClick={this.handleButtonClick}
+							/>,
+							fetchingMoreMovies
+						)}
+					</React.Fragment>
 				)}
 			</StyledMoviesPage>
 		);
@@ -89,23 +116,25 @@ class MoviesPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		popularMoviesFetchPage: state.movies.popularMoviesFetchPage,
-		popularMovies: selectPopularMovies(state),
-		fetchingMorePopularMovies: state.movies.fetchingMorePopularMovies,
-		popularMoviesTotalPages: state.movies.popularMoviesTotalPages,
+		currentMoviesFetchPage: state.movies.currentMoviesFetchPage,
+		movies: selectMovies(state),
+		fetchingMovies: state.movies.fetchingMovies,
+		fetchingMoreMovies: state.movies.fetchingMoreMovies,
+		moviesTotalPages: state.movies.moviesTotalPages,
+		moviesFetchType: state.movies.moviesFetchType,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchThePopulars: (url, mode) => {
-			dispatch(fetchThePopulars(url, mode));
+		fetchMoviesOrTvShows: (url, mode, fetchingMore) => {
+			dispatch(fetchMoviesOrTvShows(url, mode, fetchingMore));
 		},
-		incrementPopularMoviesFetchPage: () => {
-			dispatch(incrementPopularMoviesFetchPage());
+		incrementCurrentMoviesFetchPage: () => {
+			dispatch(incrementCurrentMoviesFetchPage());
 		},
-		fetchMorePopularMoviesStart: () => {
-			dispatch(fetchMorePopularMoviesStart());
+		fetchMoreMoviesStart: () => {
+			dispatch(fetchMoreMoviesStart());
 		},
 	};
 };

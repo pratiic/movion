@@ -1,10 +1,10 @@
 import { createSelector } from "reselect";
 
-export const selectTvShows = (state) => state.tvShows;
+export const selectTvShowsReducer = (state) => state.tvShows;
 
-export const selectPopularTvShows = createSelector(
-	[selectTvShows],
+export const selectTvShows = createSelector(
+	[selectTvShowsReducer],
 	(tvShows) => {
-		return tvShows.popularTvShows;
+		return tvShows.tvShows;
 	}
 );

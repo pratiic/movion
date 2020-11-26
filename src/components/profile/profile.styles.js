@@ -66,7 +66,7 @@ export const ProfileHeader = styled.div`
 	color: ${cssColors.greyLighter};
 
 	${ProfileLetter} {
-		background-color: ${cssColors.greyDark};
+		background-color: ${cssColors.greyLight};
 		margin-right: 1.4rem;
 		pointer-events: none;
 	}

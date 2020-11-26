@@ -1,6 +1,9 @@
-import { fetchPopularMoviesSuccess } from "../movies/movies.actions";
+import { fetchMoviesStart, fetchMoviesSuccess } from "../movies/movies.actions";
 
-import { fetchPopularTvShowsSuccess } from "../tv-shows/tv-shows.actions";
+import {
+	fetchTvShowsStart,
+	fetchTvShowsSuccess,
+} from "../tv-shows/tv-shows.actions";
 
 import {
 	fetchSearchResultsStart,
@@ -41,15 +44,17 @@ export const fetchData = (url, mode, dispatch, actionOne, actionTwo) => {
 		});
 };
 
-export const fetchThePopulars = (url, mode) => {
+export const fetchMoviesOrTvShows = (url, mode, fetchingMore) => {
 	return (dispatch) => {
-		fetchData(
-			url,
-			mode,
-			dispatch,
-			fetchPopularMoviesSuccess,
-			fetchPopularTvShowsSuccess
-		);
+		if (!fetchingMore) {
+			if (mode === "movies") {
+				dispatch(fetchMoviesStart());
+			} else {
+				dispatch(fetchTvShowsStart());
+			}
+		}
+
+		fetchData(url, mode, dispatch, fetchMoviesSuccess, fetchTvShowsSuccess);
 	};
 };
 

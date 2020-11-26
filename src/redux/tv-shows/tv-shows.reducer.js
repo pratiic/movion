@@ -3,34 +3,55 @@ import { tvShowsActionTypes } from "./tv-shows.types";
 import { validateForFreshness } from "../redux.utils";
 
 const INITIAL_STATE = {
-	popularTvShows: [],
-	popularTvShowsTotalPages: null,
-	popularTvShowsFetchPage: 1,
-	popularTvShowsTotalResults: null,
-	fetchingMorePopularTvShows: false,
+	// popularTvShows: [],
+	// popularTvShowsTotalPages: null,
+	// popularTvShowsFetchPage: 1,
+	// fetchingMorePopularTvShows: false,
+
+	tvShows: [],
+	fetchingTvShows: false,
+	tvShowsTotalPages: null,
+	currentTvShowsFetchPage: 1,
+	fetchingMoreTvShows: false,
+	tvShowsFetchType: "popular",
 };
 
 export const tvShowsReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case tvShowsActionTypes.FETCH_POPULAR_TV_SHOWS_SUCCESS:
+		case tvShowsActionTypes.FETCH_TV_SHOWS_START:
 			return {
 				...state,
-				popularTvShows: validateForFreshness(
-					state.popularTvShows,
-					action.payload.results
-				),
-				fetchingMorePopularTvShows: false,
-				popularTvShowsTotalPages: action.payload.total_pages,
+				fetchingTvShows: true,
 			};
-		case tvShowsActionTypes.INCREMENT_POPULAR_TV_SHOWS_FETCH_PAGE:
+		case tvShowsActionTypes.FETCH_TV_SHOWS_SUCCESS:
 			return {
 				...state,
-				popularTvShowsFetchPage: state.popularTvShowsFetchPage + 1,
+				tvShows:
+					state.currentTvShowsFetchPage === 1
+						? action.payload.results
+						: validateForFreshness(
+								state.tvShows,
+								action.payload.results
+						  ),
+				fetchingMoreTvShows: false,
+				fetchingTvShows: false,
+				tvShowsTotalPages: action.payload.total_pages,
 			};
-		case tvShowsActionTypes.FETCH_MORE_POPULAR_TV_SHOWS_START:
+		case tvShowsActionTypes.INCREMENT_CURRENT_TV_SHOWS_FETCH_PAGE:
 			return {
 				...state,
-				fetchingMorePopularTvShows: true,
+				currentTvShowsFetchPage: state.currentTvShowsFetchPage + 1,
+			};
+		case tvShowsActionTypes.FETCH_MORE_TV_SHOWS_START:
+			return {
+				...state,
+				fetchingMoreTvShows: true,
+			};
+		case tvShowsActionTypes.CHANGE_TV_SHOWS_FETCH_TYPE:
+			return {
+				...state,
+				tvShowsFetchType: action.payload,
+				currentTvShowsFetchPage: 1,
 			};
 		default:
 			return state;

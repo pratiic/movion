@@ -1,27 +1,40 @@
 import { tvShowsActionTypes } from "./tv-shows.types";
 
-export const fetchPopularTvShowsSuccess = (popularTvShows) => {
+export const fetchTvShowsStart = () => {
 	return {
-		type: tvShowsActionTypes.FETCH_POPULAR_TV_SHOWS_SUCCESS,
-		payload: popularTvShows,
+		type: tvShowsActionTypes.FETCH_TV_SHOWS_START,
 	};
 };
 
-export const fetchPopularTvShowsFailure = (error) => {
+export const fetchTvShowsSuccess = (tvShows) => {
 	return {
-		type: tvShowsActionTypes.FETCH_POPULAR_TV_SHOWS_FAILURE,
+		type: tvShowsActionTypes.FETCH_TV_SHOWS_SUCCESS,
+		payload: tvShows,
+	};
+};
+
+export const fetchTvShowsFailure = (error) => {
+	return {
+		type: tvShowsActionTypes.FETCH_TV_SHOWS_FAILURE,
 		payload: error,
 	};
 };
 
-export const incrementPopularTvShowsFetchPage = () => {
+export const incrementCurrentTvShowsFetchPage = () => {
 	return {
-		type: tvShowsActionTypes.INCREMENT_POPULAR_TV_SHOWS_FETCH_PAGE,
+		type: tvShowsActionTypes.INCREMENT_CURRENT_TV_SHOWS_FETCH_PAGE,
 	};
 };
 
-export const fetchMorePopularTvShowsStart = () => {
+export const fetchMoreTvShowsStart = () => {
 	return {
-		type: tvShowsActionTypes.FETCH_MORE_POPULAR_TV_SHOWS_START,
+		type: tvShowsActionTypes.FETCH_MORE_TV_SHOWS_START,
+	};
+};
+
+export const changeTvShowsFetchType = (newFetchType) => {
+	return {
+		type: tvShowsActionTypes.CHANGE_TV_SHOWS_FETCH_TYPE,
+		payload: newFetchType,
 	};
 };

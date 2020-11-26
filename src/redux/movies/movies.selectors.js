@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 
-const selectMovies = (state) => state.movies;
+const selectMoviesReducer = (state) => state.movies;
 
-export const selectPopularMovies = createSelector([selectMovies], (movies) => {
-	return movies.popularMovies;
+export const selectMovies = createSelector([selectMoviesReducer], (movies) => {
+	return movies.movies;
 });
