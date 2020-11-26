@@ -28,38 +28,38 @@ class FetchTypeMenu extends React.Component {
 
 		this.state = {
 			showDropdown: false,
+
+			fetchTypes: [
+				{
+					value: "popular",
+					movies: true,
+					"tv shows": true,
+				},
+				{
+					value: "now playing",
+					movies: true,
+					"tv shows": false,
+				},
+				{
+					value: "upcoming",
+					movies: true,
+					"tv shows": false,
+				},
+				{
+					value: "on the air",
+					movies: false,
+					"tv shows": true,
+				},
+				{
+					value: "top rated",
+					movies: true,
+					"tv shows": true,
+				},
+			],
 		};
 
 		this.toggleDropdown = toggleDropdown.bind(this);
 	}
-
-	fetchTypes = [
-		{
-			value: "popular",
-			movies: true,
-			"tv shows": true,
-		},
-		{
-			value: "now playing",
-			movies: true,
-			"tv shows": false,
-		},
-		{
-			value: "upcoming",
-			movies: true,
-			"tv shows": false,
-		},
-		{
-			value: "on the air",
-			movies: false,
-			"tv shows": true,
-		},
-		{
-			value: "top rated",
-			movies: true,
-			"tv shows": true,
-		},
-	];
 
 	getNewFetchType = (newFetchType) => {
 		const {
@@ -101,7 +101,7 @@ class FetchTypeMenu extends React.Component {
 						show={this.state.showDropdown}
 						forComponent="movieAndTv"
 					>
-						{this.fetchTypes.map((fetchType) => {
+						{this.state.fetchTypes.map((fetchType) => {
 							if (fetchType[mode]) {
 								return (
 									<DropdownItem

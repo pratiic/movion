@@ -4,6 +4,7 @@ import { StyledPersonCard } from "./person-card.styles";
 
 import { apiInfo } from "../../redux/api/api.info";
 
+//this component is used for cast and crew
 const PersonCard = ({ name, profilePath, character, job }) => {
 	return (
 		<StyledPersonCard>
@@ -15,7 +16,13 @@ const PersonCard = ({ name, profilePath, character, job }) => {
 			</div>
 			<div className="person-info">
 				<p className="person-name">{name}</p>
-				<p className="person-description">{character || job}</p>
+				<p className="person-description">
+					{
+						//the api gives character for cast
+						//job for crew
+						character || job
+					}
+				</p>
 			</div>
 		</StyledPersonCard>
 	);

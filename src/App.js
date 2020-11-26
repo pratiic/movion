@@ -27,13 +27,21 @@ import SignUpPage from "./pages/sign-up/sign-up";
 import Notification from "./components/notification/notification";
 import FavoritesPage from "./pages/favorites/favorites";
 
+//this is the top level component of the application
+//this is where other components are brought to be rendered
+//this is where we also define routes to various parts of the application
 class App extends React.Component {
+	//this is a placeholder for the function we get back from auth.onAuthStateChanged()
+	//it unsubscribes / closes all connection with the auth library
 	unSubscribeFromAuth = null;
 
 	componentDidMount() {
 		const { updateCurrentUser, toggleNotification } = this.props;
 
+		//whenever the authentication state in our application changes
 		this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+			//this userAuth is either an object representing the user that is currently sign in
+			//or null meaning that no one is signed in or a user has signed out
 			if (userAuth) {
 				const userRef = await createUserDocument(userAuth);
 
@@ -50,7 +58,10 @@ class App extends React.Component {
 	componentDidUpdate(prevProps) {
 		const { currentUser, fetchFavoritesSuccess } = this.props;
 
+		//if previously available current user is different from the currently available current user
+		//and also if it actually exists (not null)
 		if (prevProps.currentUser !== currentUser && currentUser) {
+			//here we are fetcing the favorites of the current user as soon as they sign in
 			getFavoritesCollectionRef(currentUser.id).then((collectionRef) => {
 				collectionRef.onSnapshot(async (snapShot) => {
 					const favorites = await getAllFavoriteDocuments(
@@ -64,6 +75,8 @@ class App extends React.Component {
 	}
 
 	componentWillUnmount() {
+		//whenever the application closes, we unsubscribe from the auth
+		//library, preventing any memory leaks
 		this.unSubscribeFromAuth();
 	}
 
@@ -106,6 +119,10 @@ class App extends React.Component {
 							<Route
 								path="/signin"
 								render={() => {
+									//if the user signs in
+									//they are redirected to the home
+									//same if they are currently signed in and
+									//navigated to the signin page
 									return currentUser ? (
 										<Redirect to="/movies" />
 									) : (
@@ -116,6 +133,7 @@ class App extends React.Component {
 							<Route
 								path="/signup"
 								render={() => {
+									//same logic as with the signin page
 									return currentUser ? (
 										<Redirect to="/movies" />
 									) : (
@@ -126,6 +144,7 @@ class App extends React.Component {
 							<Route
 								path="/favorites"
 								render={() => {
+									//same logic as with the signin page
 									return currentUser ? (
 										<FavoritesPage />
 									) : (

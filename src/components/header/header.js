@@ -11,12 +11,6 @@ import HeaderUtils from "../header-utils/header-utils";
 import HeaderLinks from "../header-links/header-links";
 
 class Header extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {};
-	}
-
 	getSearchInputRef = (inputRef) => {
 		this.searchInputRef = inputRef;
 	};
@@ -37,11 +31,7 @@ class Header extends React.Component {
 
 					<HeaderUtils focusSearchInput={this.focusSearchInput} />
 
-					<HeaderLinks
-						headerLinks={this.state.headerLinks}
-						toggleActive={this.toggleActive}
-						currentUser={this.props.currentUser}
-					/>
+					<HeaderLinks currentUser={this.props.currentUser} />
 				</HeaderContainer>
 			</StyledHeader>
 		);

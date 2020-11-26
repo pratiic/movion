@@ -65,8 +65,8 @@ const HeaderUtils = ({
 			{showSidebar ? (
 				<StyledDeleteIcon
 					$headerElement
-					onClick={toggleSidebar}
 					$sidebarToggler
+					onClick={toggleSidebar}
 				></StyledDeleteIcon>
 			) : (
 				<StyledHamburgerIcon

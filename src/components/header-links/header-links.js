@@ -65,6 +65,7 @@ class HeaderLinks extends React.Component {
 	handleLinkClick = (event) => {
 		const { toggleSidebar } = this.props;
 
+		//whenever a header link is clicked, we close the sidebar
 		toggleSidebar();
 	};
 
@@ -73,17 +74,25 @@ class HeaderLinks extends React.Component {
 		const pathname = location.pathname.toLowerCase();
 
 		this.state.headerLinks.forEach((headerLink) => {
+			//for each header link, all its pathnames are being checked to see
+			//if they appear in the current url
+			//whichever link matches here, becomes the active link
 			if (
 				pathname.includes(headerLink.pathnames.pathnameOne) ||
 				pathname.includes(headerLink.pathnames.pathnameTwo)
 			) {
 				this.setActiveLink(headerLink.pathnames.pathnameOne);
 			} else if (pathname.includes("favorites")) {
+				//since the link to favorites is not present inside the this component
+				//but is inside headerutils component
+				//whenever the user navigates to favorites
+				//all header links are set to be not active
 				this.setAllLinksInActive();
 			}
 		});
 	};
 
+	//this is the method that sets the active link
 	setActiveLink = (value) => {
 		this.setState({
 			headerLinks: this.state.headerLinks.map((headerLink) => {
@@ -95,6 +104,7 @@ class HeaderLinks extends React.Component {
 		});
 	};
 
+	//this is the method that makes all header links inactive
 	setAllLinksInActive = () => {
 		this.setState({
 			headerLinks: this.state.headerLinks.map((headerLink) => {
@@ -104,10 +114,12 @@ class HeaderLinks extends React.Component {
 	};
 
 	componentDidMount() {
+		//when this component first loads, the active header link gets set
 		this.toggleActiveLink();
 	}
 
 	componentDidUpdate(prevProps) {
+		//whenever the url changes, the active header link is also changed
 		if (prevProps.location !== this.props.location) {
 			this.toggleActiveLink();
 		}

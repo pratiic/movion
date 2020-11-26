@@ -9,6 +9,7 @@ import { getContentType } from "../utils/utils.components";
 
 import MainCard from "../main-card/main-card";
 
+//this component renders given cards that are used for movies and tv shows
 const MainCardsList = ({ list, forComponent }) => {
 	return (
 		<StyledMainCardsList>
@@ -26,7 +27,11 @@ const MainCardsList = ({ list, forComponent }) => {
 						if (poster_path) {
 							return (
 								<MainCard
+									//the api gives title for movies
+									//name for tv shows
 									title={title || name}
+									//release_date for movies
+									//first_air_date for tv shows
 									releaseDate={release_date || first_air_date}
 									posterPath={poster_path}
 									key={id}

@@ -18,6 +18,11 @@ export const searchModeMap = {
 	"tv shows": "tv",
 };
 
+export const modeMap = {
+	movie: "movies",
+	tv: "tv shows",
+};
+
 export const renderReleaseDate = (releaseDate) => {
 	const date = new Date(releaseDate);
 	return `${date.getDate()} ${

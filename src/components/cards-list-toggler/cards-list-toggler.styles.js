@@ -1,21 +1,6 @@
 import styled from "styled-components";
 
-import { ReactComponent as ChevronDownIcon } from "../../assets/icons/chevron-down.svg";
-
 import { cssColors } from "../../styles/styles.variables";
-
-export const StyledChevronDownIcon = styled(ChevronDownIcon)`
-	path {
-		fill: ${cssColors.greyLighter};
-	}
-
-	height: 2.5rem;
-	width: 2.5rem;
-
-	transition: transform 150ms ease-in;
-	transform: ${({ rotateIconUp }) =>
-		rotateIconUp ? `rotate(180deg)` : `rotate(0deg)`};
-`;
 
 export const StyledCardsListToggler = styled.div`
 	color: ${cssColors.greyLighter};
