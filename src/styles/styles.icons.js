@@ -14,6 +14,7 @@ import { ReactComponent as TickIcon } from "../assets/icons/tick.svg";
 import { ReactComponent as SunIcon } from "../assets/icons/sun.svg";
 import { ReactComponent as MoonIcon } from "../assets/icons/moon.svg";
 import { ReactComponent as GoogleSignInIcon } from "../assets/icons/google-sign-in.svg";
+import { ReactComponent as DotMenuIcon } from "../assets/icons/dot-menu.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -45,28 +46,32 @@ export const IconStyles = css`
 	cursor: pointer;
 	transition: transform 150ms ease-in;
 
-	path {
-		fill: ${cssColors.greyLighter};
-	}
+	${({ theme }) =>
+		theme &&
+		css`
+			path {
+				fill: ${theme.textIconBlur};
+			}
 
-	&:hover {
-		path {
-			fill: ${cssColors.bluePrimary};
-		}
-	}
+			&:hover {
+				path {
+					fill: ${cssColors.bluePrimary};
+				}
+			}
 
-	&:active {
-		path {
-			fill: ${cssColors.greyLighter};
-		}
-	}
+			&:active {
+				path {
+					fill: ${theme.textIconBlur};
+				}
+			}
+		`}
 
 	${({ $noColor }) =>
 		$noColor &&
 		css`
 			&:hover {
 				path {
-					fill: white;
+					fill: ${({ theme }) => theme.textFocused};
 				}
 			}
 		`}
@@ -114,10 +119,6 @@ export const IconStyles = css`
 		css`
 			margin-right: 1.7rem;
 			display: none;
-
-			path {
-				fill: ${cssColors.greyLighter};
-			}
 
 			${MediumIconStyles};
 
@@ -194,6 +195,23 @@ export const StyledMoonIcon = styled(MoonIcon)`
 
 export const StyledGoogleSignInIcon = styled(GoogleSignInIcon)`
 	${IconStyles};
+`;
+
+export const StyledDotMenuIcon = styled(DotMenuIcon)`
+	${IconStyles};
+
+	position: absolute;
+	background-color: ${({ theme }) => theme.bgFocused};
+	border-radius: 50%;
+	padding: 0.2rem;
+	bottom: 0.7rem;
+	right: 0.7rem;
+	opacity: 0.7;
+	cursor: pointer;
+
+	&:hover {
+		//background-color: white;
+	}
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`

@@ -2,9 +2,9 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { StyledMainCard, StyledDotMenuIcon } from "./main-card.styles";
+import { StyledMainCard } from "./main-card.styles";
 import { cssColors } from "../../styles/styles.variables";
-import { StyledDeleteIcon } from "../../styles/styles.icons";
+import { StyledDeleteIcon, StyledDotMenuIcon } from "../../styles/styles.icons";
 
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";

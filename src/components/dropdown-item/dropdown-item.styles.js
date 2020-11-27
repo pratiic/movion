@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
 import { SearchbarTextStyles } from "../search-bar/search-bar.styles";
-
-import { cssColors } from "../../styles/styles.variables";
+import { dropdownHeaderStyles } from "../dropdown/dropdown.styles";
 
 export const StyledDropdownItem = styled.div`
 	${SearchbarTextStyles};
 	padding: 0.7rem 1.55rem;
-	color: ${cssColors.greyLighter};
 	text-align: center;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	${dropdownHeaderStyles};
 
 	&:first-child {
 		border-top-left-radius: inherit;
@@ -25,8 +25,8 @@ export const StyledDropdownItem = styled.div`
 	}
 
 	&:hover {
-		background-color: ${cssColors.greyLight};
-		color: white;
+		background-color: ${({ theme }) => theme.bgFocused};
+		color: ${({ theme }) => theme.textFocused};
 	}
 
 	svg {

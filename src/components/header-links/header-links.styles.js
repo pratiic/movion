@@ -6,23 +6,27 @@ import { cssColors, cssFonts } from "../../styles/styles.variables";
 import { HeaderElementStyles } from "../header/header.styles";
 
 const ActiveLinkStyles = css`
-	color: white;
+	${({ theme }) =>
+		theme &&
+		css`
+			color: ${theme.textFocused};
 
-	@media screen and (max-width: 1150px) {
-		background-color: ${cssColors.greyLight};
+			@media screen and (max-width: 1150px) {
+				background-color: ${theme.bgFocused};
 
-		svg {
-			path {
-				fill: white;
+				svg {
+					path {
+						fill: ${theme.iconFocused};
+					}
+				}
 			}
-		}
-	}
+		`}
 `;
 
 export const StyledHeaderLinks = styled.ul`
 	display: flex;
 	align-items: center;
-	background-color: ${cssColors.blueSecondary};
+	background-color: ${({ theme }) => theme.headerBg};
 	font-size: 1.55rem;
 
 	@media screen and (max-width: 1150px) {
@@ -45,7 +49,7 @@ export const StyledLink = styled(Link)`
 	letter-spacing: 1px;
 	position: relative;
 	font-family: ${cssFonts.fontStackTertiary};
-	color: ${cssColors.greyLighter};
+	color: ${({ theme }) => theme.textIconBlur};
 	display: flex;
 	align-items: center;
 	${HeaderElementStyles};
@@ -92,7 +96,7 @@ export const StyledLink = styled(Link)`
 	}
 
 	&:hover {
-		color: white;
+		color: ${({ theme }) => theme.textFocused};
 
 		&::after {
 			transform: scaleX(1);
@@ -100,10 +104,10 @@ export const StyledLink = styled(Link)`
 	}
 
 	&:active {
-		color: ${cssColors.greyLighter};
+		color: ${({ theme }) => theme.textIconBlur};
 
 		&::after {
-			background-color: ${cssColors.greyLighter};
+			background-color: ${({ theme }) => theme.textIconBlur};
 		}
 	}
 
@@ -112,18 +116,10 @@ export const StyledLink = styled(Link)`
 		width: 100%;
 		padding: 1rem 5.5rem;
 		text-align: center;
-		border-bottom: 1px solid ${cssColors.greyLight};
+		border-bottom: 1px solid ${({ theme }) => theme.bgFocused};
 
 		&:hover {
 			${ActiveLinkStyles};
 		}
 	}
-
-	/* @media screen and (max-width: 450px) {
-		padding: 1rem 4.5rem;
-	}
-
-	@media screen and (max-width: 350px) {
-		padding: 1rem 4rem;
-	} */
 `;

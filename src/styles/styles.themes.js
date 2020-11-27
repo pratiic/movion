@@ -1,10 +1,21 @@
 import { cssColors } from "./styles.variables";
 
 export const darkTheme = {
-	headerBackground: cssColors.blueSecondary,
-	headerTextIconDefault: cssColors.greyLighter,
-	headerTextFocus: "white",
-	headerIconFocus: cssColors.bluePrimary,
+	bodyBg: cssColors.greyDark,
+	headerBg: cssColors.blueSecondary,
+	textIconBlur: cssColors.greyLighter,
+	textFocused: "white",
+	iconFocused: "white",
+	bgFocused: cssColors.greyLight,
+	textMuted: cssColors.greyText,
 };
 
-export const lightTheme = {};
+export const lightTheme = {
+	bodyBg: cssColors.greyLightestTwo,
+	headerBg: cssColors.greyLightestTwo,
+	textIconBlur: cssColors.greyTextDarker,
+	textFocused: "black",
+	iconFocused: "black",
+	bgFocused: cssColors.greyLightestOne,
+	textMuted: cssColors.greyText,
+};

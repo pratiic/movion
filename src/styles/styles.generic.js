@@ -55,6 +55,16 @@ export const CardStyles = css`
 
 		cursor: pointer;
 	}
+
+	.content-info {
+		border: 1px solid ${({ theme }) => theme.bgFocused};
+	}
+
+	.content-name {
+		color: ${({ theme }) => theme.textFocused};
+		font-size: 1.75rem;
+		margin-bottom: 0.5rem;
+	}
 `;
 
 export const CardsListStyles = css`
@@ -140,7 +150,7 @@ export const StyledTitle = styled.div`
 	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
 	text-transform: capitalize;
 	letter-spacing: 1px;
-	color: ${cssColors.greyLighter};
+	color: ${({ theme }) => theme.textIconBlur};
 
 	${({ size }) => {
 		if (size === "smaller") {

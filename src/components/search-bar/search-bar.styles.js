@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
 import { cssColors } from "../../styles/styles.variables";
-
 import { StyledArrowUpIcon } from "../../styles/styles.icons";
+import { dropdownHeaderStyles } from "../dropdown/dropdown.styles";
 
 const SearchbarLayoutStyles = css`
 	display: flex;
@@ -12,7 +12,7 @@ const SearchbarLayoutStyles = css`
 
 export const SearchbarTextStyles = css`
 	font-size: 1.55rem;
-	color: ${cssColors.greyLighter};
+	color: ${({ theme }) => theme.textIconBlur};
 `;
 
 export const SearchInputForm = styled.form`
@@ -53,7 +53,7 @@ export const SearchInputForm = styled.form`
 
 export const SearchInputGroup = styled.div`
 	${SearchbarLayoutStyles};
-	background-color: ${cssColors.greyLight};
+	background-color: ${({ theme }) => theme.bgFocused};
 	padding: 0.55rem 0.85rem;
 	border-radius: 3px;
 	position: relative;
@@ -86,22 +86,14 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchOptionDisplay = styled.p`
-	${SearchbarTextStyles};
+	font-size: 1.55rem;
 	margin-right: 1rem;
 	cursor: pointer;
 	${SearchbarLayoutStyles};
-	border-right: 1px solid ${cssColors.greyLighter};
+	border-right: 1px solid ${({ theme }) => theme.textIconBlur};
 	white-space: nowrap;
 
-	&:hover {
-		color: white;
-
-		svg {
-			path {
-				fill: white;
-			}
-		}
-	}
+	${dropdownHeaderStyles};
 `;
 
 export const SearchOptions = styled.div`

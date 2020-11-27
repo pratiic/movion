@@ -11,46 +11,34 @@ export const StyledDetailsController = styled.div`
 	width: fit-content;
 	padding: 0.5rem 0.75rem;
 	border-radius: 5px;
-	cursor: pointer;
+	cursor: ${({ jobDone }) => (jobDone ? "auto" : "pointer")};
 	margin-bottom: 1.7rem;
 	font-family: ${cssFonts.fontStackTertiary};
+
+	svg {
+		margin-right: 0.75rem;
+	}
 
 	${({ forComponent }) => {
 		if (forComponent === "card") {
 			return css`
 				margin-bottom: 0rem;
 				border: none;
+				color: ${({ theme }) => theme.textIconBlur};
 
 				&:hover {
-					background-color: ${cssColors.greyLight};
+					background-color: ${({ theme }) => theme.bgFocused};
+					color: ${({ theme }) => theme.textFocused};
 				}
 			`;
-		}
-	}}
-
-	svg {
-		margin-right: 0.75rem;
-	}
-
-	&:hover {
-		color: white;
-	}
-
-	&:active {
-		color: ${cssColors.greyLighter};
-	}
-
-	${({ jobDone }) =>
-		jobDone &&
-		css`
-			&:hover {
-				color: ${cssColors.greyLighter};
-
+		} else if (forComponent === "details main") {
+			return css`
 				svg {
 					path {
 						fill: ${cssColors.greyLighter};
 					}
 				}
-			}
-		`}
+			`;
+		}
+	}}
 `;

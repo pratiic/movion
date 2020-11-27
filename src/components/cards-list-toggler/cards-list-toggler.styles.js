@@ -1,38 +1,40 @@
-import styled from "styled-components";
-
-import { cssColors } from "../../styles/styles.variables";
+import styled, { css } from "styled-components";
 
 export const StyledCardsListToggler = styled.div`
-	color: ${cssColors.greyLighter};
+	color: ${({ theme }) => theme.textIconBlur};
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: 50%;
-	border-bottom: 1px solid ${cssColors.greyLighter};
+	border-bottom: 1px solid ${({ theme }) => theme.textIconBlur};
 	border-radius: 5px;
 	margin: 0 auto 2rem auto;
 	font-weight: 300;
 	cursor: pointer;
 
-	&:hover {
-		color: white;
+	${({ theme }) =>
+		theme &&
+		css`
+			&:hover {
+				color: ${theme.textFocused};
 
-		svg {
-			path {
-				fill: white;
+				svg {
+					path {
+						fill: ${theme.iconFocused};
+					}
+				}
 			}
-		}
-	}
 
-	&:active {
-		color: ${cssColors.greyLighter};
+			&:active {
+				color: ${theme.textIconBlur};
 
-		svg {
-			path {
-				fill: ${cssColors.greyLighter};
+				svg {
+					path {
+						fill: ${theme.textIconBlur};
+					}
+				}
 			}
-		}
-	}
+		`}
 
 	@media screen and (max-width: 1000px) {
 		width: 80%;

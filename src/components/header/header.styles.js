@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 
 import { ReactComponent as Logo } from "../../assets/logos/logo.svg";
 
-import { cssColors } from "../../styles/styles.variables";
 import { WrapperStyles } from "../../styles/styles.generic";
 
 export const HeaderElementStyles = css`
@@ -31,7 +30,7 @@ export const StyledHeader = styled.header`
 	left: 0;
 	top: 0;
 	width: 100%;
-	background-color: ${cssColors.blueSecondary};
+	background-color: ${({ theme }) => theme.headerBg};
 	z-index: 5;
 	transition: opacity 250ms ease-in;
 	height: 6.5rem;

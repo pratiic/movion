@@ -21,16 +21,20 @@ export const StyledFetchTypeMenu = styled.div`
 export const FetchTypeOptionDisplay = styled.div`
 	display: flex;
 	align-items: center;
-	color: ${cssColors.greyLighter};
 	cursor: pointer;
 	border: 1px solid ${cssColors.greyText};
 	width: fit-content;
 	padding: 0.2rem 0.85rem;
 	border-radius: 5px;
 	font-size: 1.65rem;
+	color: ${cssColors.greyLighter};
 
 	svg {
 		margin: 0 0 0 0.75rem;
+
+		path {
+			fill: ${cssColors.greyLighter};
+		}
 	}
 
 	&:hover {

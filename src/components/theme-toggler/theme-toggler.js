@@ -5,12 +5,40 @@ import { StyledSunIcon, StyledMoonIcon } from "../../styles/styles.icons";
 
 import { toggleTheme } from "../../redux/theme/theme.actions";
 
-let ThemeToggler = ({ toggleTheme, currentTheme }) => {
+import themeChangeSound from "../../assets/sounds/theme-change-sound.mp3";
+
+const ThemeToggler = ({ toggleTheme, currentTheme }) => {
+	const themeToggleSound = new Audio(themeChangeSound);
+
+	const handleThemeTogglerClick = () => {
+		toggleTheme();
+		playThemeToggleSound();
+	};
+
+	const playThemeToggleSound = () => {
+		themeToggleSound.play();
+	};
+
 	return currentTheme === "dark" ? (
-		<StyledSunIcon $smaller $headerElement onClick={toggleTheme} />
+		<StyledSunIcon
+			$smaller
+			$headerElement
+			onClick={handleThemeTogglerClick}
+		/>
 	) : (
-		<StyledMoonIcon $smaller $headerElement onClick={toggleTheme} />
+		<StyledMoonIcon
+			$smaller
+			$headerElement
+			onClick={handleThemeTogglerClick}
+		/>
 	);
+
+	// return (
+	// 	<React.Fragment>
+	// 		<StyledSunIcon $smaller $headerElement onClick={toggleTheme} />
+	// 		<StyledMoonIcon $smaller $headerElement onClick={toggleTheme} />
+	// 	</React.Fragment>
+	// );
 };
 
 const mapStateToProps = (state) => {

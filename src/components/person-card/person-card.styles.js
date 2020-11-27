@@ -15,21 +15,16 @@ export const StyledPersonCard = styled.div`
 		cursor: auto;
 	}
 
-	.person-info {
+	.content-info {
 		font-size: 1.6rem;
-		border: 1px solid ${cssColors.greyLight};
 		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;
 		border-top: none;
 		padding: 0.4rem 0.7rem;
+	}
 
-		.person-name {
-			margin-bottom: 0.7rem;
-		}
-
-		.person-description {
-			color: ${cssColors.greyLighter};
-			font-size: 1.5rem;
-		}
+	.content-description {
+		color: ${cssColors.greyText};
+		font-size: 1.6rem;
 	}
 `;

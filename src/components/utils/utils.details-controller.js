@@ -17,7 +17,7 @@ export function renderDetailsController(
 	if (existing) {
 		return (
 			<DetailsController
-				icon={<StyledTickIcon $smaller />}
+				icon={<StyledTickIcon $smaller $noColor />}
 				value="already in favorites"
 				jobDone
 				forComponent={forComponent}

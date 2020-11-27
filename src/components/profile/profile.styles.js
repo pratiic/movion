@@ -23,7 +23,7 @@ export const StyledProfile = styled.div`
 
 export const Username = styled.p`
 	display: none;
-	color: ${cssColors.greyLighter};
+	color: ${({ theme }) => theme.textIconBlur};
 
 	@media screen and (max-width: 1150px) {
 		display: block;
@@ -63,7 +63,7 @@ export const ProfileHeader = styled.div`
 	display: flex;
 	align-items: center;
 	text-transform: capitalize;
-	color: ${cssColors.greyLighter};
+	color: ${({ theme }) => theme.textIconBlur};
 
 	${ProfileLetter} {
 		background-color: ${cssColors.greyLight};

@@ -28,7 +28,7 @@ export const Input = styled.input`
 			: `2px solid ${cssColors.greyText}`};
 	width: 100%;
 	padding: 0.3rem 0.5rem;
-	color: ${cssColors.greyLighter};
+	color: ${({ theme }) => theme.textIconBlur};
 	font-size: inherit;
 	font-family: inherit;
 	position: relative;
@@ -48,7 +48,7 @@ export const Input = styled.input`
 export const Label = styled.label`
 	position: absolute;
 	font-size: 1.7rem;
-	color: ${cssColors.greyLighter};
+	color: ${({ theme }) => theme.textIconBlur};
 	text-transform: capitalize;
 	left: 0.5rem;
 	display: block;

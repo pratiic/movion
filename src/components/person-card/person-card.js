@@ -14,9 +14,9 @@ const PersonCard = ({ name, profilePath, character, job }) => {
 					alt="not available here"
 				/>
 			</div>
-			<div className="person-info">
-				<p className="person-name">{name}</p>
-				<p className="person-description">
+			<div className="content-info">
+				<p className="content-name">{name}</p>
+				<p className="content-description">
 					{
 						//the api gives character for cast
 						//job for crew

@@ -28,6 +28,7 @@ export const DetailsMainWrapper = styled.div`
 
 	display: flex;
 	justify-content: center;
+	color: white;
 
 	> * {
 		z-index: 3;

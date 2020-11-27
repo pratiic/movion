@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-import { cssColors, cssFonts } from "./styles.variables";
+import { cssFonts } from "./styles.variables";
 
 export const GlobalStyles = createGlobalStyle`
     *, *::before, *::after {
@@ -15,10 +15,10 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         min-height: 100vh;
-        font-size: 1.75rem;
+        font-size: 1.7rem;
         font-family: ${cssFonts.fontStackPrimary};
-        background-color: ${cssColors.greyDark};
-        color: white;
+        background-color: ${({ theme }) => theme.bodyBg};
+        color: ${({ theme }) => theme.greyText};
         line-height: 1.45;
     }
 

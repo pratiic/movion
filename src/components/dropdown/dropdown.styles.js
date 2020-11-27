@@ -1,11 +1,37 @@
 import styled, { css } from "styled-components";
 
-import { cssColors } from "../../styles/styles.variables";
+export const dropdownHeaderStyles = css`
+	${({ theme }) =>
+		theme &&
+		css`
+			color: ${theme.textIconBlur};
+
+			&:hover {
+				color: ${theme.textFocused};
+
+				svg {
+					path {
+						fill: ${theme.iconFocused};
+					}
+				}
+			}
+
+			&:active {
+				color: ${theme.textIconBlur};
+
+				svg {
+					path {
+						fill: ${theme.textIconBlur};
+					}
+				}
+			}
+		`}
+`;
 
 export const StyledDropdown = styled.div`
 	position: absolute;
 	z-index: 7;
-	background-color: ${cssColors.greyDark};
+	background-color: ${({ theme }) => theme.bodyBg};
 	border-radius: 5px;
 	text-transform: lowercase;
 	white-space: nowrap;
@@ -29,14 +55,11 @@ export const StyledDropdown = styled.div`
 			`;
 		} else if (forComponent === "movieAndTv") {
 			return css`
-				/* & > * {
-					border-bottom: 1px solid ${cssColors.greyLight};
-				} */
 				top: 4rem;
 				right: 0;
 
 				& > *:not(:last-child) {
-					border-bottom: 1px solid ${cssColors.greyLight};
+					border-bottom: 1px solid ${({ theme }) => theme.bgFocused};
 				}
 			`;
 		}

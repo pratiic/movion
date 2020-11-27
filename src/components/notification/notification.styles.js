@@ -24,6 +24,7 @@ export const StyledNotification = styled.div`
 	transform: translateX(-50%);
 	top: 8rem;
 	z-index: 10;
+	color: white;
 	padding: 0.5rem 0.9rem;
 	border-radius: 5px;
 	box-shadow: 0 0 0.8rem 0 rgba(0, 0, 0, 0.4);
