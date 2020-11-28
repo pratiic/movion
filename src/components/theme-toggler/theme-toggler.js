@@ -9,10 +9,16 @@ import themeChangeSound from "../../assets/sounds/theme-change-sound.mp3";
 
 const ThemeToggler = ({ toggleTheme, currentTheme }) => {
 	const themeToggleSound = new Audio(themeChangeSound);
+	const localStorage = window.localStorage;
 
 	const handleThemeTogglerClick = () => {
 		toggleTheme();
 		playThemeToggleSound();
+
+		localStorage.setItem(
+			"currentTheme",
+			currentTheme === "dark" ? "light" : "dark"
+		);
 	};
 
 	const playThemeToggleSound = () => {

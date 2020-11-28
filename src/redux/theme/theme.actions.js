@@ -5,3 +5,10 @@ export const toggleTheme = () => {
 		type: themeActionTypes.TOGGLE_THEME,
 	};
 };
+
+export const setTheme = (theme) => {
+	return {
+		type: themeActionTypes.SET_THEME,
+		payload: theme,
+	};
+};

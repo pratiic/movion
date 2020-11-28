@@ -9,6 +9,7 @@ import { darkTheme, lightTheme } from "./styles/styles.themes";
 import { updateCurrentUser } from "./redux/current-user/current-user.actions";
 import { toggleNotification } from "./redux/notification/notification.actions";
 import { fetchFavoritesSuccess } from "./redux/favorites/favorites.actions";
+import { setTheme } from "./redux/theme/theme.actions";
 
 import {
 	auth,
@@ -35,8 +36,20 @@ class App extends React.Component {
 	//it unsubscribes / closes all connection with the auth library
 	unSubscribeFromAuth = null;
 
+	setCurrentTheme = () => {
+		const { setTheme } = this.props;
+
+		const localStorage = window.localStorage;
+		const localStorageCurrentTheme = localStorage.getItem("currentTheme");
+		if (localStorageCurrentTheme) {
+			setTheme(localStorageCurrentTheme);
+		}
+	};
+
 	componentDidMount() {
 		const { updateCurrentUser, toggleNotification } = this.props;
+
+		this.setCurrentTheme();
 
 		//whenever the authentication state in our application changes
 		this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -179,6 +192,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		fetchFavoritesSuccess: (favorites) => {
 			dispatch(fetchFavoritesSuccess(favorites));
+		},
+		setTheme: (theme) => {
+			dispatch(setTheme(theme));
 		},
 	};
 };

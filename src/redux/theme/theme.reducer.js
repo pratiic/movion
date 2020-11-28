@@ -11,6 +11,11 @@ export const themeReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				currentTheme: state.currentTheme === "light" ? "dark" : "light",
 			};
+		case themeActionTypes.SET_THEME:
+			return {
+				...state,
+				currentTheme: action.payload,
+			};
 		default:
 			return state;
 	}
