@@ -19,7 +19,7 @@ export const StyledGenericButton = styled.button`
 	cursor: pointer;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	transition: color 100ms ease-in;
 
 	svg {
