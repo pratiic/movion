@@ -7,7 +7,6 @@ export function renderDetailsController(
 	favoriteTvShows,
 	type,
 	forComponent,
-	addToFavorites
 ) {
 	const listToBeFiltered =
 		type === "movie" ? favoriteMovies : favoriteTvShows;
@@ -33,7 +32,6 @@ export function renderDetailsController(
 				value="add to favorites"
 				forComponent={forComponent}
 				func="add to favorites"
-				addToFavorites={addToFavorites}
 				toggleDropdown={
 					forComponent === "card" ? this.toggleDropdown : null
 				}

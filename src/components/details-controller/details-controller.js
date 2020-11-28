@@ -38,7 +38,15 @@ const DetailsController = ({
 			jobDone={jobDone}
 			onClick={() => {
 				if (handleDetailsControllerClick) {
-					handleDetailsControllerClick();
+					if (!currentUser) {
+						history.push("/signin");
+						toggleNotification(
+							"you need to sign in first",
+							"failure"
+						);
+					} else {
+						handleDetailsControllerClick();
+					}
 				}
 				if (toggleDropdown) {
 					toggleDropdown();
