@@ -10,7 +10,10 @@ import {
 	StyledHamburgerIcon,
 } from "../../styles/styles.icons";
 
-import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
+import {
+	closeSidebar,
+	toggleSidebar,
+} from "../../redux/sidebar/sidebar.actions";
 import { toggleSearchbar } from "../../redux/searchbar/searchbar.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 
@@ -21,6 +24,7 @@ const HeaderUtils = ({
 	showSidebar,
 	toggleSearchbar,
 	toggleSidebar,
+	closeSidebar,
 	focusSearchInput,
 	history,
 	currentUser,
@@ -58,6 +62,10 @@ const HeaderUtils = ({
 					onClick={() => {
 						toggleSearchbar();
 						focusSearchInput();
+
+						if (showSidebar) {
+							closeSidebar();
+						}
 					}}
 				/>
 			)}
@@ -73,7 +81,13 @@ const HeaderUtils = ({
 					$headerElement
 					$bigger
 					$sidebarToggler
-					onClick={toggleSidebar}
+					onClick={() => {
+						toggleSidebar();
+
+						if (showSearchbarOnSmallScreens) {
+							toggleSearchbar();
+						}
+					}}
 				/>
 			)}
 		</StyledHeaderUtils>
@@ -93,6 +107,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		toggleSidebar: () => {
 			dispatch(toggleSidebar());
+		},
+		closeSidebar: () => {
+			dispatch(closeSidebar());
 		},
 		toggleSearchbar: () => {
 			dispatch(toggleSearchbar());

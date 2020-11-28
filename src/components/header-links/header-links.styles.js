@@ -36,7 +36,7 @@ export const StyledHeaderLinks = styled.ul`
 		top: 6.5rem;
 		flex-direction: column;
 		align-items: flex-start;
-		height: 100vh;
+		height: calc(100vh - 6.5rem);
 		transition: transform 200ms ease-in;
 		transform: ${({ show }) => {
 			return show ? `translateX(0)` : `translateX(100%)`;
