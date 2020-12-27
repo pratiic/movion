@@ -94,11 +94,11 @@ export const FormPageStyles = css`
 	${PageStyles};
 
 	@media screen and (max-width: 500px) {
-		padding: 1.5rem 0;
+		padding-top: 1.5rem;
 	}
 
 	@media screen and (max-width: 350px) {
-		padding: 1rem 0;
+		padding-top: 1rem;
 	}
 
 	button {

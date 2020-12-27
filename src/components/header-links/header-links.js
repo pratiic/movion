@@ -150,9 +150,13 @@ class HeaderLinks extends React.Component {
 				})}
 
 				{currentUser ? (
+					//if a user is signed in, their profile is rendered instead of a header link
 					<React.Fragment>
 						<Profile username={currentUser.username} />
 
+						{
+							//this link is rendered on smaller screens to sign out the user
+						}
 						<StyledLink
 							as="p"
 							onClick={() => {
