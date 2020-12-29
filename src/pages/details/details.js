@@ -69,9 +69,12 @@ const DetailsPage = (props) => {
 			fetchingMoreSimilar,
 			totalSimilarPages,
 			currentSimilarFetchPage,
+			fetchingSimilar,
 		} = props;
 
-		return (
+		console.log(fetchingSimilar);
+
+		return fetchingSimilar ? null : (
 			<React.Fragment>
 				<StyledTitle size="smaller">
 					similar {getSearchMode()}
@@ -107,15 +110,13 @@ const DetailsPage = (props) => {
 		startAsyncOp();
 	}, [id]);
 
-	const { fetchingSimilar } = props;
-
 	return (
 		<StyledDetails>
-			<DetailsMain />
-
-			<Credits />
-
-			{fetchingSimilar ? <Spinner height="7rem" /> : renderSimilar()}
+			<React.Fragment>
+				<DetailsMain />
+				<Credits />
+				{renderSimilar()}
+			</React.Fragment>
 		</StyledDetails>
 	);
 };
@@ -127,6 +128,7 @@ const mapStateToProps = (state) => {
 		currentSimilarFetchPage: state.details.currentSimilarFetchPage,
 		fetchingMoreSimilar: state.details.fetchingMoreSimilar,
 		totalSimilarPages: state.details.totalSimilarPages,
+		fetchingMainDetails: state.details.fetchingMainDetails,
 	};
 };
 

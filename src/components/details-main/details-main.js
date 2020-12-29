@@ -70,7 +70,7 @@ const DetailsMain = (props) => {
 	} = props;
 
 	if (!mainDetails || (mainDetails && fetchingMainDetails)) {
-		return <Spinner />;
+		return <Spinner height="95vh" />;
 	} else {
 		const {
 			backdrop_path,

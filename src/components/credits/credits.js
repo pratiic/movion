@@ -47,9 +47,7 @@ const Credits = (props) => {
 
 	return (
 		<div>
-			{fetchingCastAndCrew ? (
-				<Spinner height="5rem" />
-			) : (
+			{fetchingCastAndCrew ? null : (
 				<StyledCredits>
 					<CardsListToggler
 						title="cast"
