@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -21,62 +21,52 @@ import {
 	toggleSearchMode,
 } from "../../redux/searchbar/searchbar.actions";
 
-import { toggleDropdown } from "../utils/utils.components";
-
 import Dropdown from "../dropdown/dropdown";
 import DropdownItem from "../dropdown-item/dropdown-item";
 
-class Searchbar extends React.Component {
-	constructor() {
-		super();
+const Searchbar = (props) => {
+	const [searchValue, setSearchValue] = useState("");
+	const [searchbarFocused, setSearchbarFocused] = useState(false);
+	const [showDropdown, setShowDropdown] = useState(false);
 
-		this.state = {
-			searchValue: "",
-			SearchbarFocused: false,
-			showDropdown: false,
-		};
+	const searchInputRef = useRef(null);
 
-		this.searchInputRef = React.createRef();
-
-		this.toggleDropdown = toggleDropdown.bind(this);
-	}
-
-	handleInputChange = (event) => {
-		this.setState({ searchValue: event.target.value });
+	const handleInputChange = (event) => {
+		setSearchValue(event.target.value);
 	};
 
-	handleInputFocus = () => {
-		this.setState({ SearchbarFocused: true });
+	const handleInputFocus = () => {
+		setSearchbarFocused(true);
 	};
 
-	handleInputBlur = () => {
-		this.setState({ SearchbarFocused: false });
+	const handleInputBlur = () => {
+		setSearchbarFocused(false);
 	};
 
-	handleDeleteIconClick = () => {
-		this.searchInputRef.current.focus();
-		this.setState({ searchValue: "" });
+	const handleDeleteIconClick = () => {
+		searchInputRef.current.focus();
+		setSearchValue("");
 	};
 
-	handleSearchOptionClick = (newSearchMode) => {
-		const { toggleSearchMode } = this.props;
+	const handleSearchOptionClick = (newSearchMode) => {
+		const { toggleSearchMode } = props;
 
 		toggleSearchMode(newSearchMode);
 	};
 
-	handleFormSubmit = (event) => {
-		const {
-			toggleSearchbar,
-			showSearchbarOnSmallScreens,
-			history,
-		} = this.props;
+	const toggleDropdown = () => {
+		setShowDropdown(!showDropdown);
+	};
+
+	const handleFormSubmit = (event) => {
+		const { toggleSearchbar, showSearchbarOnSmallScreens, history } = props;
 
 		event.preventDefault();
 
-		this.searchInputRef.current.blur();
+		searchInputRef.current.blur();
 
-		if (this.state.searchValue !== "") {
-			history.push(`/search/${this.state.searchValue}`);
+		if (searchValue !== "") {
+			history.push(`/search/${searchValue}`);
 		}
 
 		if (showSearchbarOnSmallScreens) {
@@ -84,8 +74,8 @@ class Searchbar extends React.Component {
 		}
 	};
 
-	setSearchMode = () => {
-		const { location, toggleSearchMode } = this.props;
+	const setSearchMode = () => {
+		const { location, toggleSearchMode } = props;
 		const pathname = location.pathname.toLowerCase();
 
 		if (pathname.includes("movies") || pathname.includes("movie")) {
@@ -97,99 +87,88 @@ class Searchbar extends React.Component {
 		}
 	};
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.location !== this.props.location) {
-			this.setSearchMode();
-		}
-	}
+	useEffect(() => {
+		const { getSearchInputRef } = props;
 
-	componentDidMount() {
-		const { getSearchInputRef } = this.props;
+		setSearchMode();
 
-		this.setSearchMode();
+		getSearchInputRef(searchInputRef);
+	}, []);
 
-		getSearchInputRef(this.searchInputRef);
-	}
+	useEffect(() => {
+		setSearchMode();
+	}, [props.location]);
 
-	render() {
-		const {
-			searchMode,
-			showSearchbarOnSmallScreens,
-			toggleSearchbar,
-		} = this.props;
+	const { searchMode, showSearchbarOnSmallScreens, toggleSearchbar } = props;
 
-		return (
-			<SearchInputForm
-				showSearchbarOnSmallScreens={showSearchbarOnSmallScreens}
-				onSubmit={this.handleFormSubmit}
-			>
-				<SearchInputGroup focused={this.state.SearchbarFocused}>
-					<div>
-						<SearchOptionDisplay onClick={this.toggleDropdown}>
-							{searchMode}{" "}
-							<StyledChevronDownIcon
-								$smaller
-								$rotateIconUp={this.state.showDropdown}
-							/>
-						</SearchOptionDisplay>
-						<Dropdown
-							forComponent="searchbar"
-							show={this.state.showDropdown}
-						>
-							<DropdownItem
-								value="movies"
-								func="toggle search mode"
-								toggleDropdown={this.toggleDropdown}
-							/>
-							<DropdownItem
-								value="tv shows"
-								func="toggle search mode"
-								toggleDropdown={this.toggleDropdown}
-							/>
-						</Dropdown>
-					</div>
-
-					<SearchInput
-						type="text"
-						placeholder="search..."
-						value={this.state.searchValue}
-						onChange={this.handleInputChange}
-						ref={this.searchInputRef}
-						onFocus={this.handleInputFocus}
-						onBlur={this.handleInputBlur}
-					/>
-
-					<SearchInputControls>
-						{this.state.searchValue ? (
-							<StyledDeleteIcon
-								$searchbarControl
-								onClick={this.handleDeleteIconClick}
-							/>
-						) : null}
-						<button
-							type="submit"
-							style={{
-								backgroundColor: "transparent",
-								border: "none",
-								outline: "none",
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
-							}}
-						>
-							<StyledSearchIcon $searchbarControl />
-						</button>
-						<StyledArrowUpIcon
-							$searchbarControl
-							$searchbarToggler
-							onClick={toggleSearchbar}
+	return (
+		<SearchInputForm
+			showSearchbarOnSmallScreens={showSearchbarOnSmallScreens}
+			onSubmit={handleFormSubmit}
+		>
+			<SearchInputGroup focused={searchbarFocused}>
+				<div>
+					<SearchOptionDisplay onClick={toggleDropdown}>
+						{searchMode}{" "}
+						<StyledChevronDownIcon
+							$smaller
+							$rotateIconUp={showDropdown}
 						/>
-					</SearchInputControls>
-				</SearchInputGroup>
-			</SearchInputForm>
-		);
-	}
-}
+					</SearchOptionDisplay>
+					<Dropdown forComponent="searchbar" show={showDropdown}>
+						<DropdownItem
+							value="movies"
+							func="toggle search mode"
+							toggleDropdown={toggleDropdown}
+						/>
+						<DropdownItem
+							value="tv shows"
+							func="toggle search mode"
+							toggleDropdown={toggleDropdown}
+						/>
+					</Dropdown>
+				</div>
+
+				<SearchInput
+					type="text"
+					placeholder="search..."
+					value={searchValue}
+					onChange={handleInputChange}
+					ref={searchInputRef}
+					onFocus={handleInputFocus}
+					onBlur={handleInputBlur}
+				/>
+
+				<SearchInputControls>
+					{searchValue ? (
+						<StyledDeleteIcon
+							$searchbarControl
+							onClick={handleDeleteIconClick}
+						/>
+					) : null}
+					<button
+						type="submit"
+						style={{
+							backgroundColor: "transparent",
+							border: "none",
+							outline: "none",
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+						}}
+					>
+						<StyledSearchIcon $searchbarControl />
+					</button>
+					<StyledArrowUpIcon
+						$searchbarControl
+						$searchbarToggler
+						onClick={toggleSearchbar}
+					/>
+				</SearchInputControls>
+			</SearchInputGroup>
+		</SearchInputForm>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {

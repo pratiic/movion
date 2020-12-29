@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { StyledHeader, HeaderContainer, StyledLogo } from "./header.styles";
@@ -10,33 +10,33 @@ import Searchbar from "../search-bar/search-bar";
 import HeaderUtils from "../header-utils/header-utils";
 import HeaderLinks from "../header-links/header-links";
 
-class Header extends React.Component {
-	getSearchInputRef = (inputRef) => {
-		this.searchInputRef = inputRef;
+const Header = (props) => {
+	let searchInputRef;
+
+	const getSearchInputRef = (inputRef) => {
+		searchInputRef = inputRef;
 	};
 
-	focusSearchInput = () => {
-		this.searchInputRef.current.focus();
+	const focusSearchInput = () => {
+		searchInputRef.current.focus();
 	};
 
-	render() {
-		return (
-			<StyledHeader>
-				<HeaderContainer>
-					<Link to="/">
-						<StyledLogo />
-					</Link>
+	return (
+		<StyledHeader>
+			<HeaderContainer>
+				<Link to="/">
+					<StyledLogo />
+				</Link>
 
-					<Searchbar getSearchInputRef={this.getSearchInputRef} />
+				<Searchbar getSearchInputRef={getSearchInputRef} />
 
-					<HeaderUtils focusSearchInput={this.focusSearchInput} />
+				<HeaderUtils focusSearchInput={focusSearchInput} />
 
-					<HeaderLinks currentUser={this.props.currentUser} />
-				</HeaderContainer>
-			</StyledHeader>
-		);
-	}
-}
+				<HeaderLinks currentUser={props.currentUser} />
+			</HeaderContainer>
+		</StyledHeader>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -55,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

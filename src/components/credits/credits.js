@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { StyledCredits } from "./credits.styles";
 
@@ -12,93 +12,65 @@ import Spinner from "../../components/spinner/spinner";
 import PersonCardsList from "../../components/person-cards-list/person-cards-list";
 import CardsListToggler from "../../components/cards-list-toggler/cards-list-toggler";
 
-class Credits extends React.Component {
-	constructor() {
-		super();
+const Credits = (props) => {
+	const [showCast, setShowCast] = useState(false);
+	const [showCrew, setShowCrew] = useState(false);
 
-		this.state = {
-			showCast: false,
-			showCrew: false,
-		};
-	}
+	const { id, type } = useParams();
 
-	startAsyncOp = () => {
-		const { match, fetchCastAndCrew } = this.props;
-		const id = match.params.id;
-		const type = match.params.type;
+	const startAsyncOp = () => {
+		const { fetchCastAndCrew } = props;
 		const mode = type;
 		const castAndCrewURL = getURL(mode, null, "credits", null, id);
 		fetchCastAndCrew(castAndCrewURL);
 	};
 
-	handleTogglerClick = (trigger) => {
-		// this.setState((prevState) => {
+	const handleTogglerClick = (trigger) => {
+		// setState((prevState) => {
 		// 	return {
 		// 		[`show${trigger}`]: !prevState[`show${trigger}`],
 		// 	};
 		// });
 
 		if (trigger === "cast") {
-			this.setState((prevState) => {
-				return {
-					showCast: !prevState.showCast,
-				};
-			});
+			setShowCast(!showCast);
 		} else {
-			this.setState((prevState) => {
-				return {
-					showCrew: !prevState.showCrew,
-				};
-			});
+			setShowCrew(!showCrew);
 		}
 	};
 
-	componentDidMount() {
-		this.startAsyncOp();
-	}
+	useEffect(() => {
+		startAsyncOp();
+	}, [id]);
 
-	componentDidUpdate(prevProps) {
-		if (this.props.match.params.id !== prevProps.match.params.id) {
-			this.startAsyncOp();
-		}
-	}
+	const { fetchingCastAndCrew, cast, crew } = props;
 
-	render() {
-		const { fetchingCastAndCrew, cast, crew } = this.props;
+	return (
+		<div>
+			{fetchingCastAndCrew ? (
+				<Spinner height="5rem" />
+			) : (
+				<StyledCredits>
+					<CardsListToggler
+						title="cast"
+						trigger="cast"
+						rotateIconUp={showCast}
+						handleTogglerClick={handleTogglerClick}
+					/>
+					<PersonCardsList list={cast} show={showCast} />
 
-		return (
-			<div>
-				{fetchingCastAndCrew ? (
-					<Spinner height="5rem" />
-				) : (
-					<StyledCredits>
-						<CardsListToggler
-							title="cast"
-							trigger="cast"
-							rotateIconUp={this.state.showCast}
-							handleTogglerClick={this.handleTogglerClick}
-						/>
-						<PersonCardsList
-							list={cast}
-							show={this.state.showCast}
-						/>
-
-						<CardsListToggler
-							title="crew"
-							trigger="crew"
-							rotateIconUp={this.state.showCrew}
-							handleTogglerClick={this.handleTogglerClick}
-						/>
-						<PersonCardsList
-							list={crew}
-							show={this.state.showCrew}
-						/>
-					</StyledCredits>
-				)}
-			</div>
-		);
-	}
-}
+					<CardsListToggler
+						title="crew"
+						trigger="crew"
+						rotateIconUp={showCrew}
+						handleTogglerClick={handleTogglerClick}
+					/>
+					<PersonCardsList list={crew} show={showCrew} />
+				</StyledCredits>
+			)}
+		</div>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -116,6 +88,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(Credits)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(Credits);

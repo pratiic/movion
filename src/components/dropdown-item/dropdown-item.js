@@ -7,8 +7,8 @@ import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 import { currentUserSignout } from "../../redux/current-user/current-user.actions";
 
-class DropdownItem extends React.Component {
-	handleDropdownItemClick = () => {
+const DropdownItem = (props) => {
+	const handleDropdownItemClick = () => {
 		const {
 			value,
 			toggleDropdown,
@@ -16,7 +16,7 @@ class DropdownItem extends React.Component {
 			toggleSearchMode,
 			currentUserSignout,
 			getNewFetchType,
-		} = this.props;
+		} = props;
 
 		toggleDropdown();
 
@@ -29,16 +29,14 @@ class DropdownItem extends React.Component {
 		}
 	};
 
-	render() {
-		const { value, icon } = this.props;
+	const { value, icon } = props;
 
-		return (
-			<StyledDropdownItem onClick={this.handleDropdownItemClick}>
-				{icon ? icon : null} {value}
-			</StyledDropdownItem>
-		);
-	}
-}
+	return (
+		<StyledDropdownItem onClick={handleDropdownItemClick}>
+			{icon ? icon : null} {value}
+		</StyledDropdownItem>
+	);
+};
 
 const mapDispatchToProps = (dispatch) => {
 	return {

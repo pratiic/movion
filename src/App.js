@@ -111,57 +111,43 @@ const App = (props) => {
 						type={notificationType}
 					/>
 					<Switch>
-						<Route
-							exact
-							path="/"
-							render={() => <Redirect to="/movies" />}
-						/>
-						<Route path="/movies" component={MoviesPage} />
-						<Route path="/tvshows" component={TvShowsPage} />
-						<Route
-							path="/search/:query"
-							component={SearchResultsPage}
-						/>
-						<Route
-							path="/details/:type/:id"
-							component={DetailsPage}
-						/>
-						<Route
-							path="/signin"
-							render={() => {
+						<Route exact path="/">
+							<Redirect to="/movies" />
+						</Route>
+						<Route path="/movies">
+							<MoviesPage />
+						</Route>
+						<Route path="/tvshows">
+							<TvShowsPage />
+						</Route>
+						<Route path="/search/:query">
+							<SearchResultsPage />
+						</Route>
+						<Route path="/details/:type/:id">
+							<DetailsPage />
+						</Route>
+						<Route path="/signin">
+							{
 								//if the user signs in
 								//they are redirected to the home
 								//same if they are currently signed in and
 								//navigated to the signin page
-								return currentUser ? (
-									<Redirect to="/movies" />
+
+								currentUser ? (
+									<Redirect to="/mvoies" />
 								) : (
 									<SignInPage />
-								);
-							}}
-						/>
-						<Route
-							path="/signup"
-							render={() => {
-								//same logic as with the signin page
-								return currentUser ? (
-									<Redirect to="/movies" />
-								) : (
-									<SignUpPage />
-								);
-							}}
-						/>
-						<Route
-							path="/favorites"
-							render={() => {
-								//same logic as with the signin page
-								return currentUser ? (
-									<FavoritesPage />
-								) : (
-									<Redirect to="/signin" />
-								);
-							}}
-						/>
+								)
+							}
+						</Route>
+						<Route path="/signup">
+							currentUser ? <Redirect to="/movies" /> :{" "}
+							<SignUpPage />
+						</Route>
+						<Route path="/favorites">
+							currentUser ? <FavoritesPage /> :{" "}
+							<Redirect to="/signin" />
+						</Route>
 					</Switch>
 				</div>
 			</ThemeProvider>

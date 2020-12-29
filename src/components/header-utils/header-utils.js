@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { StyledHeaderUtils } from "./header-utils.styles";
 import {
@@ -26,10 +26,11 @@ const HeaderUtils = ({
 	toggleSidebar,
 	closeSidebar,
 	focusSearchInput,
-	history,
 	currentUser,
 	toggleNotification,
 }) => {
+	const history = useHistory();
+
 	return (
 		<StyledHeaderUtils>
 			<StyledHeartIcon
@@ -120,6 +121,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(HeaderUtils)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderUtils);

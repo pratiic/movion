@@ -33,9 +33,41 @@ export const StyledDetailsController = styled.div`
 			`;
 		} else if (forComponent === "details main") {
 			return css`
+				&:hover {
+					color: white;
+
+					svg {
+						path {
+							fill: white;
+						}
+					}
+				}
+
+				&:active {
+					color: ${cssColors.greyLighter};
+
+					svg {
+						path {
+							fill: ${cssColors.greyLighter};
+						}
+					}
+				}
+
 				svg {
 					path {
 						fill: ${cssColors.greyLighter};
+					}
+
+					&:hover {
+						path {
+							fill: ${cssColors.white};
+						}
+					}
+
+					&:active {
+						path {
+							fill: ${cssColors.greyLighter};
+						}
 					}
 				}
 			`;
