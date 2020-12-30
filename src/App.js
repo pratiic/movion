@@ -134,19 +134,25 @@ const App = (props) => {
 								//navigated to the signin page
 
 								currentUser ? (
-									<Redirect to="/mvoies" />
+									<Redirect to="/movies" />
 								) : (
 									<SignInPage />
 								)
 							}
 						</Route>
 						<Route path="/signup">
-							currentUser ? <Redirect to="/movies" /> :{" "}
-							<SignUpPage />
+							{currentUser ? (
+								<Redirect to="/movies" />
+							) : (
+								<SignUpPage />
+							)}
 						</Route>
 						<Route path="/favorites">
-							currentUser ? <FavoritesPage /> :{" "}
-							<Redirect to="/signin" />
+							{currentUser ? (
+								<FavoritesPage />
+							) : (
+								<Redirect to="/signin" />
+							)}
 						</Route>
 					</Switch>
 				</div>
