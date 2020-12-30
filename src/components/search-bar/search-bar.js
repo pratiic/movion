@@ -48,12 +48,6 @@ const Searchbar = (props) => {
 		setSearchValue("");
 	};
 
-	const handleSearchOptionClick = (newSearchMode) => {
-		const { toggleSearchMode } = props;
-
-		toggleSearchMode(newSearchMode);
-	};
-
 	const toggleDropdown = () => {
 		setShowDropdown(!showDropdown);
 	};
@@ -93,10 +87,12 @@ const Searchbar = (props) => {
 		setSearchMode();
 
 		getSearchInputRef(searchInputRef);
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
 		setSearchMode();
+		// eslint-disable-next-line
 	}, [props.location]);
 
 	const { searchMode, showSearchbarOnSmallScreens, toggleSearchbar } = props;

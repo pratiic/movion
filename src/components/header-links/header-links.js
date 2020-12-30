@@ -110,6 +110,7 @@ const HeaderLinks = (props) => {
 
 	useEffect(() => {
 		toggleActiveLink();
+		// eslint-disable-next-line
 	}, [location]);
 
 	const { showSidebar, currentUser, currentUserSignout } = props;

@@ -54,6 +54,7 @@ const TvShowsPage = (props) => {
 
 	useEffect(() => {
 		startAsyncOp();
+		// eslint-disable-next-line
 	}, [props.tvShowsFetchType]);
 
 	const {

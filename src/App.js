@@ -70,6 +70,7 @@ const App = (props) => {
 			//library, preventing any memory leaks
 			unSubscribeFromAuth();
 		};
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -89,6 +90,7 @@ const App = (props) => {
 				});
 			});
 		}
+		// eslint-disable-next-line
 	}, [props.currentUser]);
 
 	const {

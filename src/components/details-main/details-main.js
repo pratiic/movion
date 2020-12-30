@@ -60,6 +60,7 @@ const DetailsMain = (props) => {
 
 	useEffect(() => {
 		startAsyncOp();
+		// eslint-disable-next-line
 	}, [id]);
 
 	const {

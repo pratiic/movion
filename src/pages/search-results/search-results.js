@@ -59,6 +59,7 @@ const SearchResultsPage = (props) => {
 
 	useEffect(() => {
 		startTheSearch();
+		// eslint-disable-next-line
 	}, [query, props.searchMode]);
 
 	const { fetchingSearchResults } = props;

@@ -8,7 +8,6 @@ import { fetchCastAndCrew } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 import { selectCast, selectCrew } from "../../redux/details/details.selectors";
 
-import Spinner from "../../components/spinner/spinner";
 import PersonCardsList from "../../components/person-cards-list/person-cards-list";
 import CardsListToggler from "../../components/cards-list-toggler/cards-list-toggler";
 
@@ -41,6 +40,7 @@ const Credits = (props) => {
 
 	useEffect(() => {
 		startAsyncOp();
+		// eslint-disable-next-line
 	}, [id]);
 
 	const { fetchingCastAndCrew, cast, crew } = props;

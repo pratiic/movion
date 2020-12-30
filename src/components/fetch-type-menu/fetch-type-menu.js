@@ -22,7 +22,7 @@ import DropdownItem from "../dropdown-item/dropdown-item";
 
 const FetchTypeMenu = (props) => {
 	const [showDropdown, setShowDropdown] = useState(false);
-	const [fetchTypes, setFetchTypes] = useState([
+	const [fetchTypes] = useState([
 		{
 			value: "popular",
 			movies: true,

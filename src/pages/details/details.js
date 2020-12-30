@@ -49,11 +49,11 @@ const DetailsPage = (props) => {
 
 		fetchMoreSimilarStart();
 		const similarURL = getURL(
-			props.match.params.type,
+			type,
 			currentSimilarFetchPage + 1,
 			"similar",
 			null,
-			props.match.params.id
+			id
 		);
 		fetchSimilar(similarURL, true);
 		incrementSimilarFetchPage();
@@ -71,8 +71,6 @@ const DetailsPage = (props) => {
 			currentSimilarFetchPage,
 			fetchingSimilar,
 		} = props;
-
-		console.log(fetchingSimilar);
 
 		return fetchingSimilar ? null : (
 			<React.Fragment>
@@ -108,6 +106,7 @@ const DetailsPage = (props) => {
 
 	useEffect(() => {
 		startAsyncOp();
+		// eslint-disable-next-line
 	}, [id]);
 
 	return (

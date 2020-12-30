@@ -56,6 +56,7 @@ const MoviesPage = (props) => {
 
 	useEffect(() => {
 		startAsyncOp();
+		// eslint-disable-next-line
 	}, [props.moviesFetchType]);
 
 	const {
