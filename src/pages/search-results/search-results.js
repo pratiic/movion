@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { StyledError, StyledTitle } from "../../styles/styles.generic";
 import { cssColors } from "../../styles/styles.variables";
@@ -14,20 +15,21 @@ import { searchModeMap } from "../../components/utils/utils.components";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import Spinner from "../../components/spinner/spinner";
 
-class SearchResultsPage extends React.Component {
-	startTheSearch = () => {
-		const { match, searchMode, fetchSearchResults } = this.props;
+const SearchResultsPage = (props) => {
+	const { query } = useParams();
 
-		this.query = match.params.query;
+	const startTheSearch = () => {
+		const { searchMode, fetchSearchResults } = props;
+
 		const mode = searchModeMap[searchMode];
 
-		const url = getURL(mode, 1, "search", this.query);
+		const url = getURL(mode, 1, "search", query);
 
 		fetchSearchResults(url);
 	};
 
-	renderSearchResults = () => {
-		const { searchResults, searchMode } = this.props;
+	const renderSearchResults = () => {
+		const { searchResults, searchMode } = props;
 
 		const queryStyles = {
 			color: cssColors.orangePrimary,
@@ -39,7 +41,7 @@ class SearchResultsPage extends React.Component {
 				<React.Fragment>
 					<StyledTitle size="smaller">
 						search results for{" "}
-						<span style={queryStyles}>"{this.query}"</span>
+						<span style={queryStyles}>"{query}"</span>
 					</StyledTitle>
 
 					<MainCardsList list={searchResults} />
@@ -49,39 +51,25 @@ class SearchResultsPage extends React.Component {
 			return (
 				<StyledError>
 					Sorry, no {searchMode} found for{" "}
-					<span style={queryStyles}>"{this.query}"</span>
+					<span style={queryStyles}>"{query}"</span>
 				</StyledError>
 			);
 		}
 	};
 
-	componentDidMount() {
-		this.startTheSearch();
-	}
+	useEffect(() => {
+		startTheSearch();
+		// eslint-disable-next-line
+	}, [query, props.searchMode]);
 
-	componentDidUpdate(prevProps) {
-		if (
-			this.props.match.params.query !== prevProps.match.params.query ||
-			this.props.searchMode !== prevProps.searchMode
-		) {
-			this.startTheSearch();
-		}
-	}
+	const { fetchingSearchResults } = props;
 
-	render() {
-		const { fetchingSearchResults } = this.props;
-
-		return (
-			<StyledSearchResults>
-				{fetchingSearchResults ? (
-					<Spinner />
-				) : (
-					this.renderSearchResults()
-				)}
-			</StyledSearchResults>
-		);
-	}
-}
+	return (
+		<StyledSearchResults>
+			{fetchingSearchResults ? <Spinner /> : renderSearchResults()}
+		</StyledSearchResults>
+	);
+};
 
 const mapDispatchToProps = (dispatch) => {
 	return {

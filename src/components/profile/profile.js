@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
 	StyledProfile,
@@ -8,50 +8,38 @@ import {
 } from "./profile.styles";
 import { StyledLogoutIcon } from "../../styles/styles.icons";
 
-import { toggleDropdown } from "../utils/utils.components";
-
 import Dropdown from "../dropdown/dropdown";
 import DropdownItem from "../dropdown-item/dropdown-item";
 
-class Profile extends React.Component {
-	constructor() {
-		super();
+const Profile = (props) => {
+	const [showDropdown, setShowDropdown] = useState(false);
 
-		this.state = {
-			showDropdown: false,
-		};
-
-		this.toggleDropdown = toggleDropdown.bind(this);
-	}
-
-	handleProfileClick = () => {
-		this.toggleDropdown();
+	const toggleDropdown = () => {
+		setShowDropdown(!showDropdown);
 	};
 
-	render() {
-		const { username } = this.props;
+	const { username } = props;
 
-		return (
-			<StyledProfile>
-				<ProfileLetter onClick={this.handleProfileClick}>
-					{username && username[0]}
-				</ProfileLetter>
-				<Username>{username}</Username>
-				<Dropdown forComponent="profile" show={this.state.showDropdown}>
-					<ProfileHeader>
-						<ProfileLetter>{username && username[0]}</ProfileLetter>
-						{username}
-					</ProfileHeader>
-					<DropdownItem
-						value="sign out"
-						icon={<StyledLogoutIcon $headerLinkIcon />}
-						func="sign out"
-						toggleDropdown={this.toggleDropdown}
-					/>
-				</Dropdown>
-			</StyledProfile>
-		);
-	}
-}
+	return (
+		<StyledProfile>
+			<ProfileLetter onClick={toggleDropdown}>
+				{username && username[0]}
+			</ProfileLetter>
+			<Username>{username}</Username>
+			<Dropdown forComponent="profile" show={showDropdown}>
+				<ProfileHeader>
+					<ProfileLetter>{username && username[0]}</ProfileLetter>
+					{username}
+				</ProfileHeader>
+				<DropdownItem
+					value="sign out"
+					icon={<StyledLogoutIcon $headerLinkIcon />}
+					func="sign out"
+					toggleDropdown={toggleDropdown}
+				/>
+			</Dropdown>
+		</StyledProfile>
+	);
+};
 
 export default Profile;

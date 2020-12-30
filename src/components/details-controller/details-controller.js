@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { StyledDetailsController } from "./details-controller.styles";
 
@@ -10,27 +10,13 @@ const DetailsController = ({
 	icon,
 	value,
 	forComponent,
-	toggleDropdown,
 	currentUser,
-	history,
 	toggleNotification,
 	jobDone,
 	handleDetailsControllerClick,
+	toggleDropdown,
 }) => {
-	// const handleDetailsControllerClick = () => {
-	// 	if (toggleDropdown) {
-	// 		toggleDropdown();
-	// 	}
-
-	// 	if (func === "add to favorites") {
-	// 		if (!currentUser) {
-	// 			history.push("/signin");
-	// 			toggleNotification("you need to sign in first", "failure");
-	// 		} else {
-	// 			addToFavorites();
-	// 		}
-	// 	}
-	// };
+	const history = useHistory();
 
 	return (
 		<StyledDetailsController
@@ -48,6 +34,7 @@ const DetailsController = ({
 						handleDetailsControllerClick();
 					}
 				}
+
 				if (toggleDropdown) {
 					toggleDropdown();
 				}
@@ -72,6 +59,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(DetailsController)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsController);

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { StyledDetails } from "./details.styles";
 import { StyledError, StyledTitle } from "../../styles/styles.generic";
@@ -21,11 +22,11 @@ import DetailsMain from "../../components/details-main/details-main";
 import Credits from "../../components/credits/credits";
 import GenericButton from "../../components/generic-button/generic-button";
 
-class DetailsPage extends React.Component {
-	startAsyncOp = () => {
-		const { match, fetchSimilar, currentSimilarFetchPage } = this.props;
-		const id = match.params.id;
-		const type = match.params.type;
+const DetailsPage = (props) => {
+	const { id, type } = useParams();
+
+	const startAsyncOp = () => {
+		const { fetchSimilar, currentSimilarFetchPage } = props;
 		const mode = type;
 		const similarURL = getURL(
 			mode,
@@ -38,43 +39,43 @@ class DetailsPage extends React.Component {
 		fetchSimilar(similarURL);
 	};
 
-	handleButtonClick = () => {
+	const handleButtonClick = () => {
 		const {
 			fetchMoreSimilarStart,
 			currentSimilarFetchPage,
 			fetchSimilar,
 			incrementSimilarFetchPage,
-		} = this.props;
+		} = props;
 
 		fetchMoreSimilarStart();
 		const similarURL = getURL(
-			this.props.match.params.type,
+			type,
 			currentSimilarFetchPage + 1,
 			"similar",
 			null,
-			this.props.match.params.id
+			id
 		);
 		fetchSimilar(similarURL, true);
 		incrementSimilarFetchPage();
 	};
 
-	getSearchMode = () => {
-		const { match } = this.props;
-		return match.params.type === "movie" ? "movies" : "tv shows";
+	const getSearchMode = () => {
+		return type === "movie" ? "movies" : "tv shows";
 	};
 
-	renderSimilar = () => {
+	const renderSimilar = () => {
 		const {
 			similar,
 			fetchingMoreSimilar,
 			totalSimilarPages,
 			currentSimilarFetchPage,
-		} = this.props;
+			fetchingSimilar,
+		} = props;
 
-		return (
+		return fetchingSimilar ? null : (
 			<React.Fragment>
 				<StyledTitle size="smaller">
-					similar {this.getSearchMode()}
+					similar {getSearchMode()}
 				</StyledTitle>
 				{similar.length > 0 ? (
 					<React.Fragment>
@@ -89,49 +90,35 @@ class DetailsPage extends React.Component {
 								size="bigger"
 								marginbt
 								justify="center"
-								handleButtonClick={this.handleButtonClick}
+								handleButtonClick={handleButtonClick}
 							/>,
 							fetchingMoreSimilar
 						)}
 					</React.Fragment>
 				) : (
 					<StyledError align="left" marginbt>
-						Sorry, no similar {this.getSearchMode()} available right
-						now
+						Sorry, no similar {getSearchMode()} available right now
 					</StyledError>
 				)}
 			</React.Fragment>
 		);
 	};
 
-	componentDidMount() {
-		this.startAsyncOp();
-	}
+	useEffect(() => {
+		startAsyncOp();
+		// eslint-disable-next-line
+	}, [id]);
 
-	componentDidUpdate(prevProps) {
-		if (this.props.match.params.id !== prevProps.match.params.id) {
-			this.startAsyncOp();
-		}
-	}
-
-	render() {
-		const { fetchingSimilar } = this.props;
-
-		return (
-			<StyledDetails>
+	return (
+		<StyledDetails>
+			<React.Fragment>
 				<DetailsMain />
-
 				<Credits />
-
-				{fetchingSimilar ? (
-					<Spinner height="7rem" />
-				) : (
-					this.renderSimilar()
-				)}
-			</StyledDetails>
-		);
-	}
-}
+				{renderSimilar()}
+			</React.Fragment>
+		</StyledDetails>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -140,6 +127,7 @@ const mapStateToProps = (state) => {
 		currentSimilarFetchPage: state.details.currentSimilarFetchPage,
 		fetchingMoreSimilar: state.details.fetchingMoreSimilar,
 		totalSimilarPages: state.details.totalSimilarPages,
+		fetchingMainDetails: state.details.fetchingMainDetails,
 	};
 };
 

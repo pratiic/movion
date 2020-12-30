@@ -7,6 +7,8 @@ export function renderDetailsController(
 	favoriteTvShows,
 	type,
 	forComponent,
+	handleDetailsControllerClick,
+	toggleDropdown
 ) {
 	const listToBeFiltered =
 		type === "movie" ? favoriteMovies : favoriteTvShows;
@@ -20,9 +22,7 @@ export function renderDetailsController(
 				value="already in favorites"
 				jobDone
 				forComponent={forComponent}
-				toggleDropdown={
-					forComponent === "card" ? this.toggleDropdown : null
-				}
+				toggleDropdown={toggleDropdown}
 			/>
 		);
 	} else {
@@ -32,10 +32,8 @@ export function renderDetailsController(
 				value="add to favorites"
 				forComponent={forComponent}
 				func="add to favorites"
-				toggleDropdown={
-					forComponent === "card" ? this.toggleDropdown : null
-				}
-				handleDetailsControllerClick={this.handleDetailsControllerClick}
+				handleDetailsControllerClick={handleDetailsControllerClick}
+				toggleDropdown={toggleDropdown}
 			/>
 		);
 	}

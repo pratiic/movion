@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { StyledMoviesPage } from "./movies.styles";
@@ -20,15 +20,15 @@ import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
 import FetchTypeMenu from "../../components/fetch-type-menu/fetch-type-menu";
 
-class MoviesPage extends React.Component {
-	handleButtonClick = () => {
+const MoviesPage = (props) => {
+	const handleButtonClick = () => {
 		const {
 			fetchMoreMoviesStart,
 			currentMoviesFetchPage,
 			fetchMoviesOrTvShows,
 			incrementCurrentMoviesFetchPage,
 			moviesFetchType,
-		} = this.props;
+		} = props;
 
 		const url = getURL(
 			"movie",
@@ -41,12 +41,12 @@ class MoviesPage extends React.Component {
 		incrementCurrentMoviesFetchPage();
 	};
 
-	startAsyncOp = () => {
+	const startAsyncOp = () => {
 		const {
 			fetchMoviesOrTvShows,
 			currentMoviesFetchPage,
 			moviesFetchType,
-		} = this.props;
+		} = props;
 
 		fetchMoviesOrTvShows(
 			getURL("movie", currentMoviesFetchPage, moviesFetchType),
@@ -54,65 +54,57 @@ class MoviesPage extends React.Component {
 		);
 	};
 
-	componentDidMount() {
-		this.startAsyncOp();
-	}
+	useEffect(() => {
+		startAsyncOp();
+		// eslint-disable-next-line
+	}, [props.moviesFetchType]);
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.moviesFetchType !== this.props.moviesFetchType) {
-			console.log("pratiic");
-			this.startAsyncOp();
-		}
-	}
+	const {
+		movies,
+		fetchingMovies,
+		fetchingMoreMovies,
+		moviesTotalPages,
+		currentMoviesFetchPage,
+		moviesFetchType,
+	} = props;
 
-	render() {
-		const {
-			movies,
-			fetchingMovies,
-			fetchingMoreMovies,
-			moviesTotalPages,
-			currentMoviesFetchPage,
-			moviesFetchType,
-		} = this.props;
-
-		return (
-			<StyledMoviesPage>
-				{fetchingMovies ? (
-					<Spinner height="105vh" />
-				) : (
+	return (
+		<StyledMoviesPage>
+			{fetchingMovies ? (
+				<Spinner height="105vh" />
+			) : (
+				<React.Fragment>
+					<Featured featured={movies[0]} />
 					<React.Fragment>
-						<Featured featured={movies[0]} />
-						<React.Fragment>
-							<FetchTypeMenu
-								fetchType={moviesFetchType}
-								mode="movies"
-							/>
-							<StyledTitle>{moviesFetchType} movies</StyledTitle>
-							<MainCardsList
-								marginsmall={fetchingMoreMovies}
-								list={movies}
-								title="popular movies"
-							/>
-						</React.Fragment>
-						{renderGenericButton(
-							currentMoviesFetchPage,
-							moviesTotalPages,
-							<Spinner height="3.5rem" />,
-							<GenericButton
-								value="load more"
-								size="bigger"
-								marginbt
-								justify="center"
-								handleButtonClick={this.handleButtonClick}
-							/>,
-							fetchingMoreMovies
-						)}
+						<FetchTypeMenu
+							fetchType={moviesFetchType}
+							mode="movies"
+						/>
+						<StyledTitle>{moviesFetchType} movies</StyledTitle>
+						<MainCardsList
+							marginsmall={fetchingMoreMovies}
+							list={movies}
+							title="popular movies"
+						/>
 					</React.Fragment>
-				)}
-			</StyledMoviesPage>
-		);
-	}
-}
+					{renderGenericButton(
+						currentMoviesFetchPage,
+						moviesTotalPages,
+						<Spinner height="3.5rem" />,
+						<GenericButton
+							value="load more"
+							size="bigger"
+							marginbt
+							justify="center"
+							handleButtonClick={handleButtonClick}
+						/>,
+						fetchingMoreMovies
+					)}
+				</React.Fragment>
+			)}
+		</StyledMoviesPage>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {

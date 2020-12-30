@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { StyledTvShowsPage } from "./tv-shows.styles";
@@ -21,15 +21,15 @@ import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
 import FetchTypeMenu from "../../components/fetch-type-menu/fetch-type-menu";
 
-class TvShowsPage extends React.Component {
-	handleButtonClick = () => {
+const TvShowsPage = (props) => {
+	const handleButtonClick = () => {
 		const {
 			fetchMoreTvShowsStart,
 			currentTvShowsFetchPage,
 			fetchMoviesOrTvShows,
 			incrementCurrentTvShowsFetchPage,
 			tvShowsFetchType,
-		} = this.props;
+		} = props;
 
 		fetchMoreTvShowsStart();
 		fetchMoviesOrTvShows(
@@ -40,75 +40,66 @@ class TvShowsPage extends React.Component {
 		incrementCurrentTvShowsFetchPage();
 	};
 
-	startAsyncOp = () => {
+	const startAsyncOp = () => {
 		const {
 			fetchMoviesOrTvShows,
 			currentTvShowsFetchPage,
 			tvShowsFetchType,
-		} = this.props;
+		} = props;
 
 		const url = getURL("tv", currentTvShowsFetchPage, tvShowsFetchType);
 
 		fetchMoviesOrTvShows(url, "tv shows");
 	};
 
-	componentDidMount() {
-		this.startAsyncOp();
-	}
+	useEffect(() => {
+		startAsyncOp();
+		// eslint-disable-next-line
+	}, [props.tvShowsFetchType]);
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.tvShowsFetchType !== this.props.tvShowsFetchType) {
-			this.startAsyncOp();
-		}
-	}
+	const {
+		tvShows,
+		fetchingMoreTvShows,
+		currentTvShowsFetchPage,
+		tvShowsTotalPages,
+		tvShowsFetchType,
+		fetchingTvShows,
+	} = props;
 
-	render() {
-		const {
-			tvShows,
-			fetchingMoreTvShows,
-			currentTvShowsFetchPage,
-			tvShowsTotalPages,
-			tvShowsFetchType,
-			fetchingTvShows,
-		} = this.props;
-
-		return (
-			<StyledTvShowsPage>
-				{fetchingTvShows ? (
-					<Spinner height="105vh" />
-				) : (
+	return (
+		<StyledTvShowsPage>
+			{fetchingTvShows ? (
+				<Spinner height="105vh" />
+			) : (
+				<React.Fragment>
+					<Featured featured={tvShows[0]} />
 					<React.Fragment>
-						<Featured featured={tvShows[0]} />
-						<React.Fragment>
-							<FetchTypeMenu
-								fetchType={tvShowsFetchType}
-								mode="tv shows"
-							/>
-							<StyledTitle>
-								{tvShowsFetchType} tv shows
-							</StyledTitle>
-							<MainCardsList list={tvShows} />
-						</React.Fragment>
-
-						{renderGenericButton(
-							currentTvShowsFetchPage,
-							tvShowsTotalPages,
-							<Spinner height="3.5rem" />,
-							<GenericButton
-								value="load more"
-								size="bigger"
-								marginbt
-								justify="center"
-								handleButtonClick={this.handleButtonClick}
-							/>,
-							fetchingMoreTvShows
-						)}
+						<FetchTypeMenu
+							fetchType={tvShowsFetchType}
+							mode="tv shows"
+						/>
+						<StyledTitle>{tvShowsFetchType} tv shows</StyledTitle>
+						<MainCardsList list={tvShows} />
 					</React.Fragment>
-				)}
-			</StyledTvShowsPage>
-		);
-	}
-}
+
+					{renderGenericButton(
+						currentTvShowsFetchPage,
+						tvShowsTotalPages,
+						<Spinner height="3.5rem" />,
+						<GenericButton
+							value="load more"
+							size="bigger"
+							marginbt
+							justify="center"
+							handleButtonClick={handleButtonClick}
+						/>,
+						fetchingMoreTvShows
+					)}
+				</React.Fragment>
+			)}
+		</StyledTvShowsPage>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {

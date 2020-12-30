@@ -1,5 +1,5 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { StyledMainCard } from "./main-card.styles";
@@ -14,7 +14,7 @@ import {
 } from "../../redux/favorites/favorites.selectors";
 import { apiInfo } from "../../redux/api/api.info";
 
-import { renderReleaseDate, toggleDropdown } from "../utils/utils.components";
+import { renderReleaseDate } from "../utils/utils.components";
 import {
 	addToFavorites,
 	showAddedToFavoritesNotification,
@@ -27,25 +27,17 @@ import Dropdown from "../../components/dropdown/dropdown";
 import GenericButton from "../../components/generic-button/generic-button";
 
 //this is the card for movies and tv shows
-class MainCard extends React.Component {
-	constructor() {
-		super();
+const MainCard = (props) => {
+	const [showDropdown, setShowDropdown] = useState(false);
 
-		this.state = {
-			showDropdown: false,
-		};
+	const history = useHistory();
 
-		this.toggleDropdown = toggleDropdown.bind(this);
-
-		this.renderDetailsController = renderDetailsController.bind(this);
-	}
-
-	handleButtonClick = () => {
-		this.removeFromFavorites();
+	const handleButtonClick = () => {
+		removeFromFavorites();
 	};
 
-	handleCardImageClick = () => {
-		const { history, id, type, resetSimilarFetchPage } = this.props;
+	const handleCardImageClick = () => {
+		const { id, type, resetSimilarFetchPage } = props;
 
 		//this is called here to reset the current fetch page for similar movies or tv shows to 1
 		//before navigating to the details page
@@ -53,7 +45,7 @@ class MainCard extends React.Component {
 		history.push(`/details/${type}/${id}`);
 	};
 
-	handleDetailsControllerClick = async () => {
+	const handleDetailsControllerClick = async () => {
 		const {
 			id,
 			currentUser,
@@ -62,7 +54,7 @@ class MainCard extends React.Component {
 			posterPath,
 			type,
 			toggleNotification,
-		} = this.props;
+		} = props;
 
 		const status = await addToFavorites({
 			id,
@@ -76,8 +68,8 @@ class MainCard extends React.Component {
 		showAddedToFavoritesNotification(status, toggleNotification);
 	};
 
-	removeFromFavorites = async () => {
-		const { id, currentUser, toggleNotification } = this.props;
+	const removeFromFavorites = async () => {
+		const { id, currentUser, toggleNotification } = props;
 		const status = await deleteFavoriteDocument(id, currentUser.id);
 
 		if (status === "success") {
@@ -85,78 +77,79 @@ class MainCard extends React.Component {
 		}
 	};
 
-	render() {
-		const {
-			title,
-			id,
-			releaseDate,
-			posterPath,
-			favoriteMovies,
-			favoriteTvShows,
-			type,
-			forComponent,
-		} = this.props;
+	const toggleDropdown = () => {
+		setShowDropdown(!showDropdown);
+	};
 
-		return (
-			<StyledMainCard>
-				<div
-					className="card-image-container"
-					onClick={this.handleCardImageClick}
-				>
-					<img
-						src={`${apiInfo.baseURLs.images}/${posterPath}`}
-						alt="poster not available"
-					/>
-				</div>
+	const {
+		title,
+		id,
+		releaseDate,
+		posterPath,
+		favoriteMovies,
+		favoriteTvShows,
+		type,
+		forComponent,
+	} = props;
 
-				<div className="content-info">
-					{forComponent !== "favorites" ? (
-						<React.Fragment>
-							<StyledDotMenuIcon
-								onClick={() => {
-									this.toggleDropdown();
-								}}
-							/>
-							<Dropdown
-								show={this.state.showDropdown}
-								forComponent="card"
-							>
-								{this.renderDetailsController(
-									id,
-									favoriteMovies,
-									favoriteTvShows,
-									type,
-									"card"
-								)}
-							</Dropdown>
-						</React.Fragment>
-					) : null}
-					<p className="content-name">{title}</p>
-					<p className="content-release-date">
-						{releaseDate
-							? renderReleaseDate(releaseDate)
-							: "not available"}
-					</p>
-				</div>
+	return (
+		<StyledMainCard>
+			<div
+				className="card-image-container"
+				onClick={handleCardImageClick}
+			>
+				<img
+					src={`${apiInfo.baseURLs.images}/${posterPath}`}
+					alt="poster not available"
+				/>
+			</div>
 
-				{forComponent === "favorites" ? (
-					<GenericButton
-						value="remove"
-						btnType="outlined"
-						size="smaller"
-						width="full"
-						bg={cssColors.dangerRed}
-						darkBg={cssColors.dangerRedDark}
-						color={cssColors.dangerRed}
-						hoverColor="white"
-						icon={<StyledDeleteIcon $smallest />}
-						handleButtonClick={this.handleButtonClick}
-					/>
+			<div className="content-info">
+				{forComponent !== "favorites" ? (
+					<React.Fragment>
+						<StyledDotMenuIcon
+							onClick={() => {
+								toggleDropdown();
+							}}
+						/>
+						<Dropdown show={showDropdown} forComponent="card">
+							{renderDetailsController(
+								id,
+								favoriteMovies,
+								favoriteTvShows,
+								type,
+								"card",
+								handleDetailsControllerClick,
+								toggleDropdown
+							)}
+						</Dropdown>
+					</React.Fragment>
 				) : null}
-			</StyledMainCard>
-		);
-	}
-}
+				<p className="content-name">{title}</p>
+				<p className="content-release-date">
+					{releaseDate
+						? renderReleaseDate(releaseDate)
+						: "not available"}
+				</p>
+			</div>
+
+			{forComponent === "favorites" ? (
+				<GenericButton
+					value="remove"
+					btnType="outlined"
+					size="smaller"
+					width="full"
+					bg={cssColors.dangerRed}
+					darkBg={cssColors.dangerRedDark}
+					color={cssColors.dangerRed}
+					hoverColor="white"
+					icon={<StyledDeleteIcon $smallest />}
+					handleButtonClick={handleButtonClick}
+				/>
+			) : null}
+		</StyledMainCard>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -177,6 +170,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(MainCard)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(MainCard);
