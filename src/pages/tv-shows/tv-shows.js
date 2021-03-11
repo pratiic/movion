@@ -21,16 +21,18 @@ import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
 import FetchTypeMenu from "../../components/fetch-type-menu/fetch-type-menu";
 
-const TvShowsPage = (props) => {
+const TvShowsPage = ({
+	tvShows,
+	fetchingMoreTvShows,
+	fetchMoreTvShowsStart,
+	currentTvShowsFetchPage,
+	tvShowsTotalPages,
+	fetchMoviesOrTvShows,
+	incrementCurrentTvShowsFetchPage,
+	tvShowsFetchType,
+	fetchingTvShows,
+}) => {
 	const handleButtonClick = () => {
-		const {
-			fetchMoreTvShowsStart,
-			currentTvShowsFetchPage,
-			fetchMoviesOrTvShows,
-			incrementCurrentTvShowsFetchPage,
-			tvShowsFetchType,
-		} = props;
-
 		fetchMoreTvShowsStart();
 		fetchMoviesOrTvShows(
 			getURL("tv", currentTvShowsFetchPage + 1, tvShowsFetchType),
@@ -41,12 +43,6 @@ const TvShowsPage = (props) => {
 	};
 
 	const startAsyncOp = () => {
-		const {
-			fetchMoviesOrTvShows,
-			currentTvShowsFetchPage,
-			tvShowsFetchType,
-		} = props;
-
 		const url = getURL("tv", currentTvShowsFetchPage, tvShowsFetchType);
 
 		fetchMoviesOrTvShows(url, "tv shows");
@@ -55,16 +51,7 @@ const TvShowsPage = (props) => {
 	useEffect(() => {
 		startAsyncOp();
 		// eslint-disable-next-line
-	}, [props.tvShowsFetchType]);
-
-	const {
-		tvShows,
-		fetchingMoreTvShows,
-		currentTvShowsFetchPage,
-		tvShowsTotalPages,
-		tvShowsFetchType,
-		fetchingTvShows,
-	} = props;
+	}, [tvShowsFetchType]);
 
 	return (
 		<StyledTvShowsPage>

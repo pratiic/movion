@@ -11,14 +11,13 @@ import { selectCast, selectCrew } from "../../redux/details/details.selectors";
 import PersonCardsList from "../../components/person-cards-list/person-cards-list";
 import CardsListToggler from "../../components/cards-list-toggler/cards-list-toggler";
 
-const Credits = (props) => {
+const Credits = ({ fetchCastAndCrew, fetchingCastAndCrew, cast, crew }) => {
 	const [showCast, setShowCast] = useState(false);
 	const [showCrew, setShowCrew] = useState(false);
 
 	const { id, type } = useParams();
 
 	const startAsyncOp = () => {
-		const { fetchCastAndCrew } = props;
 		const mode = type;
 		const castAndCrewURL = getURL(mode, null, "credits", null, id);
 		fetchCastAndCrew(castAndCrewURL);
@@ -42,8 +41,6 @@ const Credits = (props) => {
 		startAsyncOp();
 		// eslint-disable-next-line
 	}, [id]);
-
-	const { fetchingCastAndCrew, cast, crew } = props;
 
 	return (
 		<div>

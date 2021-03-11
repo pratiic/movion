@@ -20,16 +20,18 @@ import GenericButton from "../../components/generic-button/generic-button";
 import Spinner from "../../components/spinner/spinner";
 import FetchTypeMenu from "../../components/fetch-type-menu/fetch-type-menu";
 
-const MoviesPage = (props) => {
+const MoviesPage = ({
+	movies,
+	fetchingMovies,
+	moviesTotalPages,
+	fetchingMoreMovies,
+	fetchMoreMoviesStart,
+	currentMoviesFetchPage,
+	fetchMoviesOrTvShows,
+	incrementCurrentMoviesFetchPage,
+	moviesFetchType,
+}) => {
 	const handleButtonClick = () => {
-		const {
-			fetchMoreMoviesStart,
-			currentMoviesFetchPage,
-			fetchMoviesOrTvShows,
-			incrementCurrentMoviesFetchPage,
-			moviesFetchType,
-		} = props;
-
 		const url = getURL(
 			"movie",
 			currentMoviesFetchPage + 1,
@@ -42,12 +44,6 @@ const MoviesPage = (props) => {
 	};
 
 	const startAsyncOp = () => {
-		const {
-			fetchMoviesOrTvShows,
-			currentMoviesFetchPage,
-			moviesFetchType,
-		} = props;
-
 		fetchMoviesOrTvShows(
 			getURL("movie", currentMoviesFetchPage, moviesFetchType),
 			"movies"
@@ -57,16 +53,7 @@ const MoviesPage = (props) => {
 	useEffect(() => {
 		startAsyncOp();
 		// eslint-disable-next-line
-	}, [props.moviesFetchType]);
-
-	const {
-		movies,
-		fetchingMovies,
-		fetchingMoreMovies,
-		moviesTotalPages,
-		currentMoviesFetchPage,
-		moviesFetchType,
-	} = props;
+	}, [moviesFetchType]);
 
 	return (
 		<StyledMoviesPage>

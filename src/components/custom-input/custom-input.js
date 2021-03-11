@@ -2,17 +2,15 @@ import React from "react";
 
 import { InputGroup, Label, FormError, Input } from "./custom-input.styles";
 
-const CustomInput = (props) => {
-	const {
-		label,
-		type,
-		handleInputChange,
-		value,
-		name,
-		errorMsg,
-		inputRef,
-	} = props;
-
+const CustomInput = ({
+	label,
+	type,
+	handleInputChange,
+	value,
+	name,
+	errorMsg,
+	inputRef,
+}) => {
 	return (
 		<InputGroup>
 			<Input
