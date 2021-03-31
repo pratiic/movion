@@ -17,7 +17,12 @@ import { currentUserSignout } from "../../redux/current-user/current-user.action
 
 import Profile from "../profile/profile";
 
-const HeaderLinks = (props) => {
+const HeaderLinks = ({
+	toggleSidebar,
+	showSidebar,
+	currentUser,
+	currentUserSignout,
+}) => {
 	const [headerLinks, setHeaderLinks] = useState([
 		{
 			value: "movies",
@@ -59,8 +64,6 @@ const HeaderLinks = (props) => {
 	const location = useLocation();
 
 	const handleLinkClick = (event) => {
-		const { toggleSidebar } = props;
-
 		//whenever a header link is clicked, we close the sidebar
 		toggleSidebar();
 	};
@@ -112,8 +115,6 @@ const HeaderLinks = (props) => {
 		toggleActiveLink();
 		// eslint-disable-next-line
 	}, [location]);
-
-	const { showSidebar, currentUser, currentUserSignout } = props;
 
 	return (
 		<StyledHeaderLinks show={showSidebar}>

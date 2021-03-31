@@ -6,11 +6,16 @@ export const StyledCardsListToggler = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	width: 50%;
-	border-bottom: 1px solid ${({ theme }) => theme.textIconBlur};
+	border: 1px solid ${({ theme }) => theme.textIconBlur};
 	border-radius: 5px;
-	margin: 0 auto 2rem auto;
-	font-weight: 300;
+	margin: 0 auto 0 auto;
+	font-weight: 400;
 	cursor: pointer;
+	padding: 0.2rem 1rem;
+
+	svg {
+		margin: 0;
+	}
 
 	${({ theme }) =>
 		theme &&
@@ -46,6 +51,6 @@ export const StyledCardsListToggler = styled.div`
 `;
 
 export const Title = styled.p`
-	font-size: 2.5rem;
-	text-transform: capitalize;
+	font-size: 1.7rem;
+	text-transform: uppercase;
 `;

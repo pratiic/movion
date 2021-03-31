@@ -2,10 +2,10 @@ import React from "react";
 
 import { StyledGenericButton } from "./generic-button.styles";
 
-const GenericButton = ({ value, icon, handleButtonClick, ...otherProps }) => {
+const GenericButton = ({ children, handleButtonClick, ...otherProps }) => {
 	return (
 		<StyledGenericButton {...otherProps} onClick={handleButtonClick}>
-			{icon && icon} {value}
+			{children}
 		</StyledGenericButton>
 	);
 };

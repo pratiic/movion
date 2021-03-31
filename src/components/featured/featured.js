@@ -30,10 +30,11 @@ const Featured = ({ featured, resetSimilarFetchPage }) => {
 					<p className="featured-title">{title || name}</p>
 					<p className="featured-overview">{overview}</p>
 					<GenericButton
-						value="view more"
 						btnType="outlined"
 						handleButtonClick={handleButtonClick}
-					/>
+					>
+						view more
+					</GenericButton>
 				</FeaturedWrapper>
 			</StyledFeatured>
 		);

@@ -25,7 +25,7 @@ const PersonCard = ({ name, profilePath, character, job }) => {
 				</p>
 			</div>
 		</StyledPersonCard>
-	);
+	);													
 };
 
 export default PersonCard;

@@ -7,12 +7,17 @@ export const StyledPersonCard = styled.div`
 	${CardStyles};
 
 	.card-image-container {
+		height: 15rem;
+
 		img {
 			border-top-left-radius: 5px;
 			border-top-right-radius: 5px;
 		}
 
 		cursor: auto;
+		border: 1px solid ${({ theme }) => theme.bgFocused};
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
 	}
 
 	.content-info {

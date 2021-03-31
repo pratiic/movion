@@ -20,7 +20,16 @@ import {
 import Dropdown from "../dropdown/dropdown";
 import DropdownItem from "../dropdown-item/dropdown-item";
 
-const FetchTypeMenu = (props) => {
+const FetchTypeMenu = ({
+	mode,
+	moviesFetchType,
+	changeMoviesFetchType,
+	fetchMoviesStart,
+	tvShowsFetchType,
+	changeTvShowsFetchType,
+	fetchTvShowsStart,
+	fetchType,
+}) => {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [fetchTypes] = useState([
 		{
@@ -51,16 +60,6 @@ const FetchTypeMenu = (props) => {
 	]);
 
 	const getNewFetchType = (newFetchType) => {
-		const {
-			mode,
-			moviesFetchType,
-			changeMoviesFetchType,
-			fetchMoviesStart,
-			tvShowsFetchType,
-			changeTvShowsFetchType,
-			fetchTvShowsStart,
-		} = props;
-
 		if (mode === "movies" && moviesFetchType !== newFetchType) {
 			changeMoviesFetchType(newFetchType);
 			fetchMoviesStart();
@@ -75,8 +74,6 @@ const FetchTypeMenu = (props) => {
 	const toggleDropdown = () => {
 		setShowDropdown(!showDropdown);
 	};
-
-	const { fetchType, mode } = props;
 
 	return (
 		<FetchTypeMenuWrapper>

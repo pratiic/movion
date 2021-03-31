@@ -105,7 +105,7 @@ const MainCard = (props) => {
 			</div>
 
 			<div className="content-info">
-				{forComponent !== "favorites" ? (
+				{/* {forComponent !== "favorites" ? (
 					<React.Fragment>
 						<StyledDotMenuIcon
 							onClick={() => {
@@ -124,7 +124,7 @@ const MainCard = (props) => {
 							)}
 						</Dropdown>
 					</React.Fragment>
-				) : null}
+				) : null} */}
 				<p className="content-name">{title}</p>
 				<p className="content-release-date">
 					{releaseDate
@@ -135,7 +135,6 @@ const MainCard = (props) => {
 
 			{forComponent === "favorites" ? (
 				<GenericButton
-					value="remove"
 					btnType="outlined"
 					size="smaller"
 					width="full"
@@ -143,9 +142,10 @@ const MainCard = (props) => {
 					darkBg={cssColors.dangerRedDark}
 					color={cssColors.dangerRed}
 					hoverColor="white"
-					icon={<StyledDeleteIcon $smallest />}
 					handleButtonClick={handleButtonClick}
-				/>
+				>
+					<StyledDeleteIcon $smallest /> remove
+				</GenericButton>
 			) : null}
 		</StyledMainCard>
 	);

@@ -27,11 +27,7 @@ const CardsListToggler = ({
 					{optionalValue && { optionalValue }}
 				</span>{" "}
 			</Title>
-			<StyledChevronDownIcon
-				$noColor
-				$bigger
-				$rotateIconUp={rotateIconUp}
-			/>
+			<StyledChevronDownIcon $noColor $rotateIconUp={rotateIconUp} />
 		</StyledCardsListToggler>
 	);
 };

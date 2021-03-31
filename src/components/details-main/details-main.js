@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -12,6 +12,8 @@ import {
 	selectFavoriteTvShows,
 } from "../../redux/favorites/favorites.selectors";
 
+import { firestore } from "../../firebase/firebase.utils";
+
 import {
 	renderReleaseDate,
 	getWithCommas,
@@ -21,9 +23,9 @@ import {
 	addToFavorites,
 	showAddedToFavoritesNotification,
 } from "../../components/utils/utils.favorites";
-import { renderDetailsController } from "../../components/utils/utils.details-controller";
 
 import Spinner from "../spinner/spinner";
+import DetailsControl from "../details-control/details-control";
 
 const DetailsMain = (props) => {
 	const { id, type } = useParams();
@@ -35,40 +37,12 @@ const DetailsMain = (props) => {
 		fetchMainDetails(detailsURL);
 	};
 
-	const handleDetailsControllerClick = async () => {
-		const { currentUser, mainDetails, toggleNotification } = props;
-		const {
-			title,
-			name,
-			poster_path,
-			release_date,
-			first_air_date,
-			id,
-		} = mainDetails;
-
-		const status = await addToFavorites({
-			id,
-			currentUserId: currentUser.id,
-			title: title || name,
-			poster_path,
-			release_date: release_date || first_air_date,
-			type: getContentType(title, name),
-		});
-
-		showAddedToFavoritesNotification(status, toggleNotification);
-	};
-
 	useEffect(() => {
 		startAsyncOp();
 		// eslint-disable-next-line
 	}, [id]);
 
-	const {
-		mainDetails,
-		fetchingMainDetails,
-		favoriteMovies,
-		favoriteTvShows,
-	} = props;
+	const { mainDetails, fetchingMainDetails } = props;
 
 	if (!mainDetails || (mainDetails && fetchingMainDetails)) {
 		return <Spinner height="95vh" />;
@@ -87,7 +61,6 @@ const DetailsMain = (props) => {
 			name,
 			created_by,
 			vote_average,
-			id,
 		} = mainDetails;
 
 		return (
@@ -145,14 +118,10 @@ const DetailsMain = (props) => {
 							</p>
 						) : null}
 
-						{renderDetailsController(
-							id,
-							favoriteMovies,
-							favoriteTvShows,
-							title ? "movie" : "tv",
-							"details main",
-							handleDetailsControllerClick
-						)}
+						<DetailsControl
+							contentId={id}
+							contentMainDetails={mainDetails}
+						/>
 
 						<div className="overview margin-bt-large">
 							<p className="overview-title margin-bt-small">

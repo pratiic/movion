@@ -7,6 +7,7 @@ import { StyledDetailsController } from "./details-controller.styles";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 
 const DetailsController = ({
+	children,
 	icon,
 	value,
 	forComponent,
@@ -40,7 +41,7 @@ const DetailsController = ({
 				}
 			}}
 		>
-			{icon} {value}
+			{children}
 		</StyledDetailsController>
 	);
 };

@@ -161,21 +161,20 @@ class SignInPage extends React.Component {
 					) : null}
 
 					<ButtonCollection>
+						<GenericButton type="submit" btnType="outlined">
+							sign in
+						</GenericButton>
 						<GenericButton
-							type="submit"
-							value="sign in"
-							btnType="outlined"
-						/>
-						<GenericButton
-							value="sign in with google"
 							btnType="outlined"
 							bg={cssColors.googleRed}
 							color={cssColors.googleRed}
 							darkBg="#d03325"
 							hoverColor="white"
-							icon={<StyledGoogleSignInIcon $smaller />}
 							handleButtonClick={this.handleButtonClick}
-						/>
+						>
+							<StyledGoogleSignInIcon $smaller /> sign in with
+							google
+						</GenericButton>
 					</ButtonCollection>
 				</form>
 			</StyledSignInPage>

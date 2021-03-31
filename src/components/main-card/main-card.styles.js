@@ -10,6 +10,7 @@ export const StyledMainCard = styled.div`
 	${CardStyles};
 
 	.card-image-container {
+		height: 30rem;
 		box-shadow: 0 0 0.75rem 0 rgba(0, 0, 0, 0.35);
 	}
 

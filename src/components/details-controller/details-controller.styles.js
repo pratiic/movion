@@ -17,6 +17,10 @@ export const StyledDetailsController = styled.div`
 
 	svg {
 		margin-right: 0.75rem;
+
+		path {
+			fill: ${cssColors.greyLighter};
+		}
 	}
 
 	${({ forComponent }) => {
@@ -73,4 +77,42 @@ export const StyledDetailsController = styled.div`
 			`;
 		}
 	}}
+
+	${({ jobDone }) =>
+		jobDone &&
+		css`
+			color: ${cssColors.bluePrimary};
+			border: 1px solid ${cssColors.bluePrimary};
+
+			svg {
+				path {
+					fill: ${cssColors.bluePrimary};
+				}
+			}
+		`}
+
+	&:hover {
+		${({ jobDone }) =>
+			!jobDone
+				? css`
+						color: white;
+
+						svg {
+							path {
+								fill: white;
+							}
+						}
+				  `
+				: null}
+	}
+
+	&:active {
+		color: ${cssColors.greyLighter};
+
+		svg {
+			path {
+				fill: ${cssColors.greyLighter};
+			}
+		}
+	}
 `;

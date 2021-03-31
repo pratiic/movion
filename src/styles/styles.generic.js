@@ -46,6 +46,7 @@ export const CardStyles = css`
 
 	.card-image-container {
 		width: 100%;
+		background-color: ${({ theme }) => theme.bodyBg};
 
 		img {
 			width: 100%;

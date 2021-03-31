@@ -79,12 +79,13 @@ const MoviesPage = ({
 						moviesTotalPages,
 						<Spinner height="3.5rem" />,
 						<GenericButton
-							value="load more"
 							size="bigger"
 							marginbt
 							justify="center"
 							handleButtonClick={handleButtonClick}
-						/>,
+						>
+							load more
+						</GenericButton>,
 						fetchingMoreMovies
 					)}
 				</React.Fragment>

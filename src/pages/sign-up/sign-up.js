@@ -194,11 +194,9 @@ class SignUpPage extends React.Component {
 						<Spinner height="4rem" smaller />
 					) : null}
 
-					<GenericButton
-						type="submit"
-						value="sign up"
-						btnType="outlined"
-					/>
+					<GenericButton type="submit" btnType="outlined">
+						sign up
+					</GenericButton>
 				</form>
 			</StyledSignUpPage>
 		);

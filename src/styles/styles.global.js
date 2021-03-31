@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-import { cssFonts } from "./styles.variables";
+import { cssFonts, cssColors } from "./styles.variables";
 
 export const GlobalStyles = createGlobalStyle`
     *, *::before, *::after {
@@ -20,6 +20,14 @@ export const GlobalStyles = createGlobalStyle`
         background-color: ${({ theme }) => theme.bodyBg};
         color: ${({ theme }) => theme.greyText};
         line-height: 1.45;
+
+        &::-webkit-scrollbar {
+            width: 1rem;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: ${cssColors.greyText};
+        }
     }
 
     a {

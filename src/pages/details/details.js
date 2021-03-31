@@ -86,12 +86,13 @@ const DetailsPage = (props) => {
 							totalSimilarPages,
 							<Spinner height="3.5rem" />,
 							<GenericButton
-								value="load more"
 								size="bigger"
 								marginbt
 								justify="center"
 								handleButtonClick={handleButtonClick}
-							/>,
+							>
+								load more
+							</GenericButton>,
 							fetchingMoreSimilar
 						)}
 					</React.Fragment>

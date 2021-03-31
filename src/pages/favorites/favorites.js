@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { StyledFavoritesPage } from "./favorites.styles";
@@ -10,52 +10,88 @@ import {
 	selectFavoriteTvShows,
 } from "../../redux/favorites/favorites.selectors";
 
-import MainCardsList from "../../components/main-cards-list/main-cards-list";
+import {
+	getFavoritesCollectionRef,
+	getAllFavoriteDocuments,
+} from "../../firebase/firebase.utils";
 
-class FavoritesPage extends React.Component {
-	mutedTextStyles = {
+import MainCardsList from "../../components/main-cards-list/main-cards-list";
+import Spinner from "../../components/spinner/spinner";
+
+const FavoritesPage = ({ currentUser }) => {
+	const [fetchingFavorites, setFetchingFavorites] = useState(false);
+	const [favoriteMovies, setFavoriteMovies] = useState([]);
+	const [favoriteTvShows, setFavoriteTvShows] = useState([]);
+
+	useEffect(() => {
+		setFetchingFavorites(true);
+
+		getFavoritesCollectionRef(currentUser.id).then((collectionRef) => {
+			collectionRef.onSnapshot(async (snapShot) => {
+				const favorites = await getAllFavoriteDocuments(currentUser.id);
+
+				setFavoriteMovies(separateIntoTwo(favorites, "movie"));
+				setFavoriteTvShows(separateIntoTwo(favorites, "tv"));
+			});
+		});
+		setFetchingFavorites(false);
+		//eslint-disable-next-line
+	}, []);
+
+	const separateIntoTwo = (list, label) => {
+		const requiredList = list.filter((listItem) => listItem.type === label);
+		return requiredList;
+	};
+
+	const mutedTextStyles = {
 		color: cssColors.greyLighter,
 	};
 
-	renderList = (list, errorMessage) => {
+	const renderList = (list, errorMessage) => {
 		return list.length > 0 ? (
 			<MainCardsList list={list} forComponent="favorites" />
 		) : null;
 	};
 
-	render() {
-		const { favoriteMovies, favoriteTvShows } = this.props;
+	return (
+		<StyledFavoritesPage>
+			{/* <StyledTitle marginbt="2.5rem">your favorites</StyledTitle> */}
+			{!fetchingFavorites ? (
+				<React.Fragment>
+					<StyledTitle size="smaller" align="center">
+						favorite movies{" "}
+						<span style={mutedTextStyles}>
+							({favoriteMovies.length})
+						</span>
+					</StyledTitle>
+					{/* rendering favorite movies */}
+					{renderList(
+						favoriteMovies,
+						"you do not have any favorite movies"
+					)}
 
-		return (
-			<StyledFavoritesPage>
-				{/* <StyledTitle marginbt="2.5rem">your favorites</StyledTitle> */}
-				<StyledTitle size="smaller" align="center">
-					favorite movies{" "}
-					<span style={this.mutedTextStyles}>
-						({favoriteMovies.length})
-					</span>
-				</StyledTitle>
-				{this.renderList(
-					favoriteMovies,
-					"you do not have any favorite movies"
-				)}
-				<StyledTitle size="smaller" align="center">
-					favorite tv shows{" "}
-					<span style={this.mutedTextStyles}>
-						({favoriteTvShows.length})
-					</span>
-				</StyledTitle>
-				{this.renderList(
-					favoriteTvShows,
-					"you do not have any favorite tv shows"
-				)}
-			</StyledFavoritesPage>
-		);
-	}
-}
+					<StyledTitle size="smaller" align="center">
+						favorite tv shows{" "}
+						<span style={mutedTextStyles}>
+							({favoriteTvShows.length})
+						</span>
+					</StyledTitle>
+					{/* rendering favorite tv shows */}
+					{renderList(
+						favoriteTvShows,
+						"you do not have any favorite tv shows"
+					)}
+				</React.Fragment>
+			) : (
+				<Spinner height="80vh" />
+			)}
+		</StyledFavoritesPage>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {
+		currentUser: state.currentUser.currentUser,
 		favoriteMovies: selectFavoriteMovies(state),
 		favoriteTvShows: selectFavoriteTvShows(state),
 	};

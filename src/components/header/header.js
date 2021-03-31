@@ -10,7 +10,7 @@ import Searchbar from "../search-bar/search-bar";
 import HeaderUtils from "../header-utils/header-utils";
 import HeaderLinks from "../header-links/header-links";
 
-const Header = (props) => {
+const Header = ({ currentUser }) => {
 	let searchInputRef;
 
 	const getSearchInputRef = (inputRef) => {
@@ -32,7 +32,7 @@ const Header = (props) => {
 
 				<HeaderUtils focusSearchInput={focusSearchInput} />
 
-				<HeaderLinks currentUser={props.currentUser} />
+				<HeaderLinks currentUser={currentUser} />
 			</HeaderContainer>
 		</StyledHeader>
 	);

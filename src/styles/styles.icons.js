@@ -15,6 +15,8 @@ import { ReactComponent as SunIcon } from "../assets/icons/sun.svg";
 import { ReactComponent as MoonIcon } from "../assets/icons/moon.svg";
 import { ReactComponent as GoogleSignInIcon } from "../assets/icons/google-sign-in.svg";
 import { ReactComponent as DotMenuIcon } from "../assets/icons/dot-menu.svg";
+import { ReactComponent as ThumbsUpIcon } from "../assets/icons/thumbs-up.svg";
+import { ReactComponent as ThumbsDownIcon } from "../assets/icons/thumbs-down.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -236,4 +238,12 @@ export const StyledHeartIcon = styled(HeartIcon)`
 				}
 			}
 		`}
+`;
+
+export const StyledThumbsUpIcon = styled(ThumbsUpIcon)`
+	${IconStyles};
+`;
+
+export const StyledThumbsDownIcon = styled(ThumbsDownIcon)`
+	${IconStyles};
 `;

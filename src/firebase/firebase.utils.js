@@ -63,12 +63,10 @@ export const createFavoriteDocument = async (favoriteToCreate) => {
 		release_date = "";
 	}
 
-	const favoritesRef = firestore.collection(
-		`users/${currentUserId}/favorites`
-	);
+	const favoriteRef = firestore.doc(`users/${currentUserId}/favorites/${id}`);
 
 	try {
-		await favoritesRef.add({
+		await favoriteRef.set({
 			id,
 			title,
 			release_date,
