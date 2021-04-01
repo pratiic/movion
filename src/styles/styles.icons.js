@@ -19,6 +19,7 @@ import { ReactComponent as ThumbsUpIcon } from "../assets/icons/thumbs-up.svg";
 import { ReactComponent as ThumbsDownIcon } from "../assets/icons/thumbs-down.svg";
 import { ReactComponent as SendIcon } from "../assets/icons/send.svg";
 import { ReactComponent as ReplyIcon } from "../assets/icons/reply.svg";
+import { ReactComponent as TrashCanIcon } from "../assets/icons/trash-can.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -265,5 +266,9 @@ export const StyledSendIcon = styled(SendIcon)`
 `;
 
 export const StyledReplyIcon = styled(ReplyIcon)`
+	${IconStyles};
+`;
+
+export const StyledTrashCanIcon = styled(TrashCanIcon)`
 	${IconStyles};
 `;

@@ -12,6 +12,8 @@ import {
 	Info,
 } from "./review.styles";
 
+import { toggleNotification } from "../../redux/notification/notification.actions";
+
 import { getDateAndTime } from "../utils/utils.components";
 import { firestore } from "../../firebase/firebase.utils";
 
@@ -19,6 +21,7 @@ import {
 	StyledThumbsUpIcon,
 	StyledThumbsDownIcon,
 	StyledReplyIcon,
+	StyledTrashCanIcon,
 } from "../../styles/styles.icons";
 
 import ProfilePicture from "../profile-picture/profile-picture";
@@ -34,6 +37,7 @@ const Review = ({
 	id,
 	contentID,
 	currentUser,
+	toggleNotification,
 }) => {
 	const [liked, setLiked] = useState(false);
 	const [disliked, setDisliked] = useState(false);
@@ -94,6 +98,11 @@ const Review = ({
 		reviewRef.collection("disliked-by").doc(currentUser.id).set({});
 	};
 
+	const handleTrashCanIconClick = async () => {
+		await reviewRef.delete();
+		toggleNotification("review removed successfully", "success");
+	};
+
 	return (
 		<StyledReview>
 			<ReviewHeader>
@@ -127,6 +136,16 @@ const Review = ({
 					<StyledReplyIcon $smallest />
 					<Info></Info>
 				</IconContainer> */}
+				{currentUser ? (
+					currentUser.id === userID ? (
+						<IconContainer>
+							<StyledTrashCanIcon
+								$smaller
+								onClick={handleTrashCanIconClick}
+							/>
+						</IconContainer>
+					) : null
+				) : null}
 			</ReviewFooter>
 		</StyledReview>
 	);
@@ -138,4 +157,12 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(Review);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleNotification: (message, status) => {
+			dispatch(toggleNotification(message, status));
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Review);

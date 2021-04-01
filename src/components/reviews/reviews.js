@@ -41,6 +41,7 @@ const Reviews = () => {
 					setReviews(snapshot.docs);
 				} else {
 					setReviewsMessage("no reviews yet");
+					setReviews([]);
 				}
 
 				setFetchingMoreReviews(false);
