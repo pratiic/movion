@@ -21,6 +21,7 @@ import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import DetailsMain from "../../components/details-main/details-main";
 import Credits from "../../components/credits/credits";
 import GenericButton from "../../components/generic-button/generic-button";
+import ReviewsContainer from "../../components/reviews-container/reviews-container";
 
 const DetailsPage = (props) => {
 	const { id, type } = useParams();
@@ -74,7 +75,7 @@ const DetailsPage = (props) => {
 
 		return fetchingSimilar ? null : (
 			<React.Fragment>
-				<StyledTitle size="smaller">
+				<StyledTitle size="smaller" marginbt="1rem">
 					similar {getSearchMode()}
 				</StyledTitle>
 				{similar.length > 0 ? (
@@ -97,7 +98,7 @@ const DetailsPage = (props) => {
 						)}
 					</React.Fragment>
 				) : (
-					<StyledError align="left" marginbt>
+					<StyledError align="center" marginbt>
 						Sorry, no similar {getSearchMode()} available right now
 					</StyledError>
 				)}
@@ -115,6 +116,7 @@ const DetailsPage = (props) => {
 			<React.Fragment>
 				<DetailsMain />
 				<Credits />
+				<ReviewsContainer />
 				{renderSimilar()}
 			</React.Fragment>
 		</StyledDetails>

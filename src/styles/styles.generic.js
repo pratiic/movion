@@ -168,9 +168,10 @@ export const StyledTitle = styled.div`
 
 export const StyledError = styled.div`
 	${TextStyles};
-	font-size: 2.2rem;
+	font-size: 2rem;
 	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
 	text-align: ${({ align }) => align || "center"};
+	color: ${({ theme }) => theme.textMuted};
 `;
 
 export const StyledSubtitle = styled.div`

@@ -17,6 +17,7 @@ import { ReactComponent as GoogleSignInIcon } from "../assets/icons/google-sign-
 import { ReactComponent as DotMenuIcon } from "../assets/icons/dot-menu.svg";
 import { ReactComponent as ThumbsUpIcon } from "../assets/icons/thumbs-up.svg";
 import { ReactComponent as ThumbsDownIcon } from "../assets/icons/thumbs-down.svg";
+import { ReactComponent as SendIcon } from "../assets/icons/send.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -245,5 +246,9 @@ export const StyledThumbsUpIcon = styled(ThumbsUpIcon)`
 `;
 
 export const StyledThumbsDownIcon = styled(ThumbsDownIcon)`
+	${IconStyles};
+`;
+
+export const StyledSendIcon = styled(SendIcon)`
 	${IconStyles};
 `;

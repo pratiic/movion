@@ -111,3 +111,12 @@ export const getContentType = (title, name, type) => {
 		}
 	}
 };
+
+export const getDateAndTime = (milliseconds) => {
+	const date = new Date(milliseconds);
+	return `${
+		numToStrMonthMap[date.getMonth()]
+	} ${date.getDate()}, ${date.getFullYear()} ${
+		date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
+	}:${date.getMinutes()} ${date.getHours() > 12 ? "pm" : "am"}`;
+};
