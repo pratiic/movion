@@ -32,13 +32,15 @@ const ReviewArea = ({ currentUser, toggleNotification }) => {
 				.doc(id)
 				.collection("reviews");
 
-			await reviewsCollectionRef.add({
+			const reviewID = `${currentUser.id}${new Date().getTime()}`;
+
+			await reviewsCollectionRef.doc(reviewID).set({
 				text: review,
 				username: currentUser.username,
 				userID: currentUser.id,
 				userEmail: currentUser.email,
 				createdAt: new Date().getTime(),
-				id: `${currentUser.id}${new Date().getTime()}`,
+				id: reviewID,
 				userPhotoURL: currentUser.photoURL,
 			});
 

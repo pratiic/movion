@@ -61,7 +61,7 @@ const Reviews = () => {
 				<React.Fragment>
 					{reviews.map((review) => {
 						const data = review.data();
-						return <Review {...data} />;
+						return <Review {...data} contentID={id} key={id} />;
 					})}
 					<div ref={divToScrollToRef}></div>
 					{reviewsFetchNumber < totalReviews ? (

@@ -24,7 +24,6 @@ export const ReviewHeader = styled.div`
 
 export const Username = styled.p`
 	margin-right: 2rem;
-	font-size: 1.8rem;
 	color: ${({ theme }) => theme.textMuted};
 `;
 
@@ -45,4 +44,27 @@ export const CreatedAt = styled.p`
 export const ReviewMain = styled.div`
 	padding: 0.5rem 1rem;
 	white-space: pre-wrap;
+`;
+
+export const ReviewFooter = styled.div`
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0.3rem 1rem;
+	border-top: 1px solid ${({ theme }) => theme.bgFocused};
+
+	svg {
+		margin-right: 0.45rem;
+	}
+`;
+
+export const IconContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 3rem;
+`;
+
+export const Info = styled.div`
+	font-size: 1.5rem;
 `;
