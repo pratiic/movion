@@ -10,9 +10,15 @@ import {
 	ReviewFooter,
 	IconContainer,
 	Info,
+	EditedOrNot,
 } from "./review.styles";
 
 import { toggleNotification } from "../../redux/notification/notification.actions";
+import {
+	setEditing,
+	setEditedReviewID,
+	setEditedReviewText,
+} from "../../redux/reviews/reviews.actions";
 
 import { getDateAndTime } from "../utils/utils.components";
 import { firestore } from "../../firebase/firebase.utils";
@@ -22,6 +28,7 @@ import {
 	StyledThumbsDownIcon,
 	StyledReplyIcon,
 	StyledTrashCanIcon,
+	StyledEditIcon,
 } from "../../styles/styles.icons";
 
 import ProfilePicture from "../profile-picture/profile-picture";
@@ -38,6 +45,11 @@ const Review = ({
 	contentID,
 	currentUser,
 	toggleNotification,
+	setEditing,
+	setEditedReviewID,
+	setEditedReviewText,
+	editing,
+	edited,
 }) => {
 	const [liked, setLiked] = useState(false);
 	const [disliked, setDisliked] = useState(false);
@@ -103,6 +115,12 @@ const Review = ({
 		toggleNotification("review removed successfully", "success");
 	};
 
+	const handleEditIconClick = () => {
+		setEditing(true);
+		setEditedReviewID(id);
+		setEditedReviewText(text);
+	};
+
 	return (
 		<StyledReview>
 			<ReviewHeader>
@@ -113,21 +131,22 @@ const Review = ({
 				/>
 				<Username>{username}</Username>
 				<CreatedAt>({getDateAndTime(createdAt)})</CreatedAt>
+				{edited ? <EditedOrNot>(edited)</EditedOrNot> : null}
 			</ReviewHeader>
 			<ReviewMain>{text}</ReviewMain>
-			<ReviewFooter liked={liked} disliked={disliked}>
-				<IconContainer>
+			<ReviewFooter>
+				<IconContainer liked={liked}>
 					<StyledThumbsUpIcon
 						$smaller
-						liked={liked ? "true" : "false"}
+						// liked={liked ? "true" : "false"}
 						onClick={handleThumbsUpIconClick}
 					/>
 					<Info>{likes}</Info>
 				</IconContainer>
-				<IconContainer>
+				<IconContainer disliked={disliked}>
 					<StyledThumbsDownIcon
 						$smaller
-						disliked={disliked ? "true" : "false"}
+						// disliked={disliked ? "true" : "false"}
 						onClick={handleThumbsDownIconClick}
 					/>
 					<Info>{dislikes}</Info>
@@ -138,12 +157,22 @@ const Review = ({
 				</IconContainer> */}
 				{currentUser ? (
 					currentUser.id === userID ? (
-						<IconContainer>
-							<StyledTrashCanIcon
-								$smaller
-								onClick={handleTrashCanIconClick}
-							/>
-						</IconContainer>
+						<React.Fragment>
+							<IconContainer>
+								<StyledTrashCanIcon
+									$smaller
+									onClick={handleTrashCanIconClick}
+								/>
+							</IconContainer>
+							{!editing ? (
+								<IconContainer>
+									<StyledEditIcon
+										$smallest
+										onClick={handleEditIconClick}
+									/>
+								</IconContainer>
+							) : null}
+						</React.Fragment>
 					) : null
 				) : null}
 			</ReviewFooter>
@@ -154,6 +183,7 @@ const Review = ({
 const mapStateToProps = (state) => {
 	return {
 		currentUser: state.currentUser.currentUser,
+		editing: state.reviews.editing,
 	};
 };
 
@@ -161,6 +191,15 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		toggleNotification: (message, status) => {
 			dispatch(toggleNotification(message, status));
+		},
+		setEditing: (editing) => {
+			dispatch(setEditing(editing));
+		},
+		setEditedReviewID: (editedReviewID) => {
+			dispatch(setEditedReviewID(editedReviewID));
+		},
+		setEditedReviewText: (editedReviewText) => {
+			dispatch(setEditedReviewText(editedReviewText));
 		},
 	};
 };

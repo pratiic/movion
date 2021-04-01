@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-import { cssFonts } from "../../styles/styles.variables";
+import { cssColors, cssFonts } from "../../styles/styles.variables";
+import {
+	StyledThumbsUpIcon,
+	StyledThumbsDownIcon,
+} from "../../styles/styles.icons";
 
 export const StyledReview = styled.div`
 	color: ${({ theme }) => theme.textIconBlur};
@@ -20,16 +24,20 @@ export const ReviewHeader = styled.div`
 	& > *:first-child {
 		margin-right: 0.75rem;
 	}
+
+	& > * {
+		color: ${({ theme }) => theme.textMuted};
+	}
+
+	& > *:not(:first-child):not(:last-child) {
+		margin-right: 2rem;
+	}
 `;
 
-export const Username = styled.p`
-	margin-right: 2rem;
-	color: ${({ theme }) => theme.textMuted};
-`;
+export const Username = styled.p``;
 
 export const CreatedAt = styled.p`
 	font-size: 1.55rem;
-	color: ${({ theme }) => theme.textMuted};
 	font-family: ${cssFonts.fontStackSecondary};
 
 	&::first-letter {
@@ -39,6 +47,10 @@ export const CreatedAt = styled.p`
 	@media screen and (max-width: 500px) {
 		display: none;
 	}
+`;
+
+export const EditedOrNot = styled.p`
+	font-size: 1.55rem;
 `;
 
 export const ReviewMain = styled.div`
@@ -55,6 +67,10 @@ export const ReviewFooter = styled.div`
 
 	svg {
 		margin-right: 0.45rem;
+
+		path {
+			fill: ${({ theme }) => theme.textMuted};
+		}
 	}
 `;
 
@@ -63,6 +79,20 @@ export const IconContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin-right: 3rem;
+
+	${StyledThumbsUpIcon} {
+		path {
+			fill: ${({ liked, theme }) =>
+				liked ? cssColors.bluePrimary : theme.textMuted};
+		}
+	}
+
+	${StyledThumbsDownIcon} {
+		path {
+			fill: ${({ disliked, theme }) =>
+				disliked ? cssColors.bluePrimary : theme.textMuted};
+		}
+	}
 `;
 
 export const Info = styled.div`

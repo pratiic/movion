@@ -10,6 +10,7 @@ import { detailsReducer } from "./details/details.reducer";
 import { currentUserReducer } from "./current-user/current-user.reducer";
 import { notificationReducer } from "./notification/notification.reducer";
 import { favoritesReducer } from "./favorites/favorites.reducer";
+import { reviewsReducer } from "./reviews/reviews.reducer";
 
 export default combineReducers({
 	sidebar: sidebarReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
 	currentUser: currentUserReducer,
 	notification: notificationReducer,
 	favorites: favoritesReducer,
+	reviews: reviewsReducer,
 });
