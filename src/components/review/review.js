@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import {
 	StyledReview,
@@ -65,6 +66,8 @@ const Review = ({
 
 	console.log(reviewRef);
 
+	const history = useHistory();
+
 	useEffect(() => {
 		const likedByCollectionRef = reviewRef.collection("liked-by");
 		const dislikedByCollectionRef = reviewRef.collection("disliked-by");
@@ -101,11 +104,19 @@ const Review = ({
 	});
 
 	const handleThumbsUpIconClick = () => {
+		if (!currentUser) {
+			showSignInFirstNotification();
+			return;
+		}
 		reviewRef.collection("disliked-by").doc(currentUser.id).delete();
 		reviewRef.collection("liked-by").doc(currentUser.id).set({});
 	};
 
 	const handleThumbsDownIconClick = () => {
+		if (!currentUser) {
+			showSignInFirstNotification();
+			return;
+		}
 		reviewRef.collection("liked-by").doc(currentUser.id).delete();
 		reviewRef.collection("disliked-by").doc(currentUser.id).set({});
 	};
@@ -119,6 +130,11 @@ const Review = ({
 		setEditing(true);
 		setEditedReviewID(id);
 		setEditedReviewText(text);
+	};
+
+	const showSignInFirstNotification = () => {
+		toggleNotification("you need to sign in first", "failure");
+		history.push("/signin");
 	};
 
 	return (
