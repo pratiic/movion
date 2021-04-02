@@ -27,6 +27,11 @@ export const WrapperStyles = css`
 	}
 `;
 
+export const WrapperSmallestStyles = css`
+	${WrapperStyles};
+	max-width: 650px;
+`;
+
 export const OverlayStyles = css`
 	&::after {
 		content: "";
@@ -151,6 +156,7 @@ export const StyledTitle = styled.div`
 	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
 	text-transform: capitalize;
 	letter-spacing: 1px;
+	font-weight: ${({ fontWeight }) => fontWeight || 300};
 	color: ${({ theme }) => theme.textIconBlur};
 
 	${({ size }) => {
@@ -164,6 +170,12 @@ export const StyledTitle = styled.div`
 			`;
 		}
 	}}
+
+	${({ transform }) =>
+		transform === "uppercase" &&
+		css`
+			text-transform: uppercase;
+		`}
 `;
 
 export const StyledError = styled.div`
@@ -183,4 +195,10 @@ export const StyledSubtitle = styled.div`
 	@media screen and (max-width: 500px) {
 		margin-bottom: 3rem;
 	}
+`;
+
+export const StyledMessage = styled.p`
+	font-size: 2rem;
+	text-align: center;
+	color: ${({ theme }) => theme.textMuted};
 `;

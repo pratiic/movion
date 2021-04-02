@@ -23,7 +23,11 @@ const Profile = (props) => {
 
 	return (
 		<StyledProfile>
-			<ProfilePicture username={username} photoURL={photoURL} />
+			<ProfilePicture
+				username={username}
+				photoURL={photoURL}
+				profilePictureClickHandler={toggleDropdown}
+			/>
 			<Username>{username}</Username>
 			<Dropdown forComponent="profile" show={showDropdown}>
 				<ProfileHeader>

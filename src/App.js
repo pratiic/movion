@@ -27,6 +27,8 @@ import SignInPage from "./pages/sign-in/sign-in";
 import SignUpPage from "./pages/sign-up/sign-up";
 import Notification from "./components/notification/notification";
 import FavoritesPage from "./pages/favorites/favorites";
+import ChatPage from "./pages/chat/chat";
+import FindFriendsPage from "./pages/find-friends/find-friends";
 
 //this is the top level component of the application
 //this is where other components are brought to be rendered
@@ -152,6 +154,20 @@ const App = (props) => {
 						<Route path="/favorites">
 							{currentUser ? (
 								<FavoritesPage />
+							) : (
+								<Redirect to="/signin" />
+							)}
+						</Route>
+						<Route path="/chat">
+							{currentUser ? (
+								<ChatPage />
+							) : (
+								<Redirect to="/signin" />
+							)}
+						</Route>
+						<Route path="/find-friends">
+							{currentUser ? (
+								<FindFriendsPage />
 							) : (
 								<Redirect to="/signin" />
 							)}

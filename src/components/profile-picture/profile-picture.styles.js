@@ -21,13 +21,22 @@ export const StyledProfilePicture = styled.div`
 		border-radius: 50%;
 	}
 
-	${({ size }) =>
-		size === "smaller" &&
-		css`
-			height: 2.4rem;
-			width: 2.4rem;
-			font-size: 1.55rem;
-		`}
+	${({ size }) => {
+		if (size === "smaller") {
+			return css`
+				height: 2.4rem;
+				width: 2.4rem;
+				font-size: 1.55rem;
+			`;
+		}
+
+		if (size === "bigger") {
+			return css`
+				height: 2.9rem;
+				width: 2.9rem;
+			`;
+		}
+	}}
 
 	&:hover {
 		color: white;

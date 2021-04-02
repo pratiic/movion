@@ -7,6 +7,7 @@ import {
 	StyledTvIcon,
 	StyledLoginIcon,
 	StyledLogoutIcon,
+	StyledChatIcon,
 } from "../../styles/styles.icons";
 import { StyledHeaderLinks, StyledLink } from "./header-links.styles";
 
@@ -44,6 +45,17 @@ const HeaderLinks = ({
 				pathnameTwo: "tv",
 			},
 			to: "/tvshows",
+			active: false,
+			hideOnCurrentUser: false,
+		},
+
+		{
+			value: "chat",
+			icon: <StyledChatIcon $headerLinkIcon />,
+			pathnames: {
+				pathnameOne: "chat",
+			},
+			to: "/chat",
 			active: false,
 			hideOnCurrentUser: false,
 		},

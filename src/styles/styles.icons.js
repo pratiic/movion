@@ -21,6 +21,7 @@ import { ReactComponent as SendIcon } from "../assets/icons/send.svg";
 import { ReactComponent as ReplyIcon } from "../assets/icons/reply.svg";
 import { ReactComponent as TrashCanIcon } from "../assets/icons/trash-can.svg";
 import { ReactComponent as EditIcon } from "../assets/icons/edit.svg";
+import { ReactComponent as ChatIcon } from "../assets/icons/chat.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -265,5 +266,9 @@ export const StyledTrashCanIcon = styled(TrashCanIcon)`
 `;
 
 export const StyledEditIcon = styled(EditIcon)`
+	${IconStyles};
+`;
+
+export const StyledChatIcon = styled(ChatIcon)`
 	${IconStyles};
 `;

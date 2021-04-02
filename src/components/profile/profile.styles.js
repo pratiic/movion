@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { HeaderElementStyles } from "../header/header.styles";
+import { StyledProfilePicture } from "../profile-picture/profile-picture.styles";
 
 import { cssColors } from "../../styles/styles.variables";
 
@@ -65,8 +66,7 @@ export const ProfileHeader = styled.div`
 	text-transform: capitalize;
 	color: ${({ theme }) => theme.textIconBlur};
 
-	${ProfileLetter} {
-		background-color: ${cssColors.greyLight};
+	${StyledProfilePicture} {
 		margin-right: 1.4rem;
 		pointer-events: none;
 	}
