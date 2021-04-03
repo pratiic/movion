@@ -23,7 +23,7 @@ export const WrapperStyles = css`
 	}
 
 	@media screen and (max-width: 450px) {
-		padding: 0rem 1.75rem;
+		padding: 0rem 1.3rem;
 	}
 `;
 

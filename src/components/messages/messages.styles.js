@@ -23,6 +23,10 @@ export const StyledMessages = styled.div`
 		top: 50%;
 		transform: translate(-50%, -50%);
 	}
+
+	@media screen and (max-width: 500px) {
+		padding: 0.7rem 0;
+	}
 `;
 
 export const DivAtBottom = styled.div``;

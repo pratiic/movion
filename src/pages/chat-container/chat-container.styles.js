@@ -16,4 +16,9 @@ export const Chat = styled.div`
 	flex-direction: column;
 	border-left: 1px solid ${({ theme }) => theme.bgFocused};
 	border-right: 1px solid ${({ theme }) => theme.bgFocused};
+
+	@media screen and (max-width: 500px) {
+		border-left: none;
+		border-right: none;
+	}
 `;

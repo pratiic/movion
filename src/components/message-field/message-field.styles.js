@@ -11,6 +11,10 @@ export const Form = styled.form`
 	padding: 0 1.5rem;
 	position: relative;
 	margin: 0 1.7rem 0.75rem 1.7rem;
+
+	@media screen and (max-width: 500px) {
+		margin: 0 0.8rem 0.75rem 0.8rem;
+	}
 `;
 
 export const Input = styled.input`
