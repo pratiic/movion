@@ -2,17 +2,21 @@ import styled from "styled-components";
 
 import {
 	PageStyles,
-	WrapperSmallestStyles,
+	WrapperStyles,
 	StyledTitle,
 } from "../../styles/styles.generic";
 
 export const StyledFindFriends = styled.div`
-	${WrapperSmallestStyles};
+	${WrapperStyles};
 	${PageStyles};
 	padding-top: 0;
-	max-width: 650px;
 
 	${StyledTitle} {
 		padding-top: 1.7rem;
 	}
+`;
+
+export const FindFriendsMain = styled.div`
+	max-width: 600px;
+	margin: auto;
 `;

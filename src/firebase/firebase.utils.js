@@ -119,4 +119,22 @@ export const deleteFavoriteDocument = async (id, currentUserId) => {
 	}
 };
 
+export const addUserToChats = async (
+	currentUser,
+	{ id, username, email, photoURL, createdAt }
+) => {
+	const chatsCollectionRef = await firestore
+		.collection("users")
+		.doc(currentUser.id)
+		.collection("chats");
+
+	const chatDocRef = await chatsCollectionRef.doc(id).get();
+
+	if (!chatDocRef.exists) {
+		chatsCollectionRef
+			.doc(id)
+			.set({ id, username, email, photoURL, createdAt });
+	}
+};
+
 export default firebase;

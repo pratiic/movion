@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { StyledChat, ChatsMessage } from "./chat.styles";
+import { StyledChat, ChatsMessage, ChatMain } from "./chat.styles";
 import { StyledTitle, StyledMessage } from "../../styles/styles.generic";
 
 import { firestore } from "../../firebase/firebase.utils";
@@ -36,25 +36,39 @@ const ChatPage = ({ currentUser }) => {
 
 	return (
 		<StyledChat>
-			<StyledTitle size="smaller" transform="uppercase" fontWeight="400">
-				your chats
-			</StyledTitle>
-			{chats.length > 0 ? (
-				<React.Fragment>
-					<UserSearch
-						searchValue={searchValue}
-						inputChangeHandler={handleInputChange}
-					/>
-					<UsersContainer />
-				</React.Fragment>
-			) : (
-				<StyledMessage>
-					{chatsMessage}
-					{chatsMessage === "you dont have any chats" ? (
-						<Link to="/find-friends"> find friends here</Link>
-					) : null}
-				</StyledMessage>
-			)}
+			<ChatMain>
+				<StyledTitle
+					size="smaller"
+					transform="uppercase"
+					fontWeight="400"
+					marginbt={chats.length > 0 ? "0.5rem" : "2.5rem"}
+				>
+					your chats
+				</StyledTitle>
+				{chats.length > 0 ? (
+					<StyledMessage size="smaller">
+						{" "}
+						you can find friends{" "}
+						<Link to="/find-friends"> here</Link>{" "}
+					</StyledMessage>
+				) : null}
+				{chats.length > 0 ? (
+					<React.Fragment>
+						<UserSearch
+							searchValue={searchValue}
+							inputChangeHandler={handleInputChange}
+						/>
+						<UsersContainer users={chats} />
+					</React.Fragment>
+				) : (
+					<StyledMessage>
+						{chatsMessage}
+						{chatsMessage === "you dont have any chats" ? (
+							<Link to="/find-friends"> find friends here</Link>
+						) : null}
+					</StyledMessage>
+				)}
+			</ChatMain>
 		</StyledChat>
 	);
 };

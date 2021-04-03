@@ -14,6 +14,13 @@ export const StyledProfile = styled.div`
 	display: flex;
 	align-items: center;
 
+	${StyledProfilePicture} {
+		@media screen and (max-width: 1150px) {
+			pointer-events: none;
+			margin-right: 1.3rem;
+		}
+	}
+
 	@media screen and (max-width: 1150px) {
 		order: -1;
 		margin-left: 0;

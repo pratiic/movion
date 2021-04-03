@@ -120,3 +120,11 @@ export const getDateAndTime = (milliseconds) => {
 		date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
 	}:${date.getMinutes()} ${date.getHours() > 12 ? "pm" : "am"}`;
 };
+
+export const getCreatedTime = (milliseconds) => {
+	const date = new Date(milliseconds);
+	const hours = date.getHours();
+	const minutes = date.getMinutes();
+	const amPm = hours > 12 ? "pm" : "am";
+	return `${hours > 12 ? hours - 12 : hours}:${minutes} ${amPm}`;
+};

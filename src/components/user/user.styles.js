@@ -19,6 +19,7 @@ export const StyledUser = styled.div`
 
 export const UserInfo = styled.div`
 	flex: 1 1 auto;
+	margin-left: 1rem;
 `;
 
 export const Username = styled.div`

@@ -45,9 +45,4 @@ export const StyledProfilePicture = styled.div`
 	&:active {
 		color: ${cssColors.greyLighter};
 	}
-
-	@media screen and (max-width: 1150px) {
-		pointer-events: none;
-		margin-right: 1.3rem;
-	}
 `;

@@ -33,7 +33,7 @@ export const StyledHeader = styled.header`
 	background-color: ${({ theme }) => theme.headerBg};
 	z-index: 5;
 	transition: opacity 250ms ease-in;
-	height: 6.5rem;
+	height: 5rem;
 	display: flex;
 	align-items: center;
 `;
@@ -48,8 +48,8 @@ export const HeaderContainer = styled.div`
 `;
 
 export const StyledLogo = styled(Logo)`
-	width: 15rem;
-	height: 5rem;
+	width: 13rem;
+	height: 4rem;
 	cursor: pointer;
 
 	@media screen and (max-width: 850px) {

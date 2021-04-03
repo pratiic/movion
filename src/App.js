@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-import { GlobalStyles } from "./styles/styles.global";
+import { GlobalStyles, StyledApp } from "./styles/styles.global";
 import { darkTheme, lightTheme } from "./styles/styles.themes";
 
 import { updateCurrentUser } from "./redux/current-user/current-user.actions";
@@ -29,6 +29,8 @@ import Notification from "./components/notification/notification";
 import FavoritesPage from "./pages/favorites/favorites";
 import ChatPage from "./pages/chat/chat";
 import FindFriendsPage from "./pages/find-friends/find-friends";
+import ChatContainerPage from "./pages/chat-container/chat-container";
+import Main from "./components/main/main";
 
 //this is the top level component of the application
 //this is where other components are brought to be rendered
@@ -107,7 +109,7 @@ const App = (props) => {
 			<ThemeProvider
 				theme={currentTheme === "dark" ? darkTheme : lightTheme}
 			>
-				<div className="app">
+				<StyledApp>
 					<GlobalStyles />
 					<Header />
 					<Notification
@@ -158,7 +160,14 @@ const App = (props) => {
 								<Redirect to="/signin" />
 							)}
 						</Route>
-						<Route path="/chat">
+						<Route path="/chat/:id">
+							{currentUser ? (
+								<ChatContainerPage />
+							) : (
+								<Redirect to="/signin" />
+							)}
+						</Route>
+						<Route path="/chat" exact>
 							{currentUser ? (
 								<ChatPage />
 							) : (
@@ -173,7 +182,7 @@ const App = (props) => {
 							)}
 						</Route>
 					</Switch>
-				</div>
+				</StyledApp>
 			</ThemeProvider>
 		</BrowserRouter>
 	);

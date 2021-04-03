@@ -62,6 +62,11 @@ export const StyledDropdown = styled.div`
 					border-bottom: 1px solid ${({ theme }) => theme.bgFocused};
 				}
 			`;
+		} else if (forComponent === "review") {
+			return css`
+				top: 3rem;
+				right: 1rem;
+			`;
 		}
 	}}
 

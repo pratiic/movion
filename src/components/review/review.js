@@ -20,9 +20,10 @@ import {
 	setEditedReviewID,
 	setEditedReviewText,
 } from "../../redux/reviews/reviews.actions";
+import { setChatUser } from "../../redux/chat-user/chat-user.actions";
 
 import { getDateAndTime } from "../utils/utils.components";
-import { firestore } from "../../firebase/firebase.utils";
+import { firestore, addUserToChats } from "../../firebase/firebase.utils";
 
 import {
 	StyledThumbsUpIcon,
@@ -30,10 +31,12 @@ import {
 	StyledReplyIcon,
 	StyledTrashCanIcon,
 	StyledEditIcon,
+	StyledDotMenuIcon,
 } from "../../styles/styles.icons";
 
 import ProfilePicture from "../profile-picture/profile-picture";
-import { cssColors } from "../../styles/styles.variables";
+import Dropdown from "../dropdown/dropdown";
+import DropdownItem from "../dropdown-item/dropdown-item";
 
 const Review = ({
 	text,
@@ -51,6 +54,7 @@ const Review = ({
 	setEditedReviewText,
 	editing,
 	edited,
+	setChatUser,
 }) => {
 	const [liked, setLiked] = useState(false);
 	const [disliked, setDisliked] = useState(false);
@@ -63,6 +67,7 @@ const Review = ({
 			.collection("reviews")
 			.doc(id)
 	);
+	const [showDropdown, setShowDropdown] = useState(false);
 
 	console.log(reviewRef);
 
@@ -137,6 +142,10 @@ const Review = ({
 		history.push("/signin");
 	};
 
+	const toggleDropdown = () => {
+		setShowDropdown(!showDropdown);
+	};
+
 	return (
 		<StyledReview>
 			<ReviewHeader>
@@ -148,6 +157,36 @@ const Review = ({
 				<Username>{username}</Username>
 				<CreatedAt>({getDateAndTime(createdAt)})</CreatedAt>
 				{edited ? <EditedOrNot>(edited)</EditedOrNot> : null}
+				{currentUser ? (
+					currentUser.id !== userID ? (
+						<React.Fragment>
+							<Dropdown show={showDropdown} forComponent="review">
+								<DropdownItem
+									value="start chat"
+									toggleDropdown={toggleDropdown}
+									func="start chat"
+									clickHandler={() => {
+										const user = {
+											id: userID,
+											username: username,
+											email: userEmail,
+											photoURL: userPhotoURL,
+											createdAt: createdAt,
+										};
+										setChatUser(user);
+										history.push(`/chat/${userID}`);
+										addUserToChats(currentUser, user);
+									}}
+								/>
+							</Dropdown>
+							<StyledDotMenuIcon
+								$smaller
+								$menuToggleIcon
+								onClick={toggleDropdown}
+							/>
+						</React.Fragment>
+					) : null
+				) : null}
 			</ReviewHeader>
 			<ReviewMain>{text}</ReviewMain>
 			<ReviewFooter>
@@ -216,6 +255,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setEditedReviewText: (editedReviewText) => {
 			dispatch(setEditedReviewText(editedReviewText));
+		},
+		setChatUser: (chatUser) => {
+			dispatch(setChatUser(chatUser));
 		},
 	};
 };

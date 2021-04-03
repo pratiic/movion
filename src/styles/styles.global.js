@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
 import { cssFonts, cssColors } from "./styles.variables";
@@ -14,7 +15,6 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        min-height: 100vh;
         font-size: 1.7rem;
         font-family: ${cssFonts.fontStackPrimary};
         background-color: ${({ theme }) => theme.bodyBg};
@@ -38,4 +38,9 @@ export const GlobalStyles = createGlobalStyle`
     li {
         list-style-type: none;
     }
+`;
+
+export const StyledApp = styled.div`
+	/* display: grid;
+	grid-template-rows: auto 1fr; */
 `;

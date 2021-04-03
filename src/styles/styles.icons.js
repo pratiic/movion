@@ -22,14 +22,15 @@ import { ReactComponent as ReplyIcon } from "../assets/icons/reply.svg";
 import { ReactComponent as TrashCanIcon } from "../assets/icons/trash-can.svg";
 import { ReactComponent as EditIcon } from "../assets/icons/edit.svg";
 import { ReactComponent as ChatIcon } from "../assets/icons/chat.svg";
+import { ReactComponent as VerticalDotIcon } from "../assets/icons/vertical-dot-menu.svg";
 
 import { cssColors } from "./styles.variables";
 
 import { HeaderElementStyles } from "../components/header/header.styles";
 
 export const SmallerIconStyles = css`
-	height: 1.75rem;
-	width: 1.75rem;
+	height: 1.6rem;
+	width: 1.6rem;
 `;
 
 export const SmallestIconStyles = css`
@@ -43,8 +44,8 @@ export const MediumIconStyles = css`
 `;
 
 export const BiggerIconStyles = css`
-	height: 2.5rem;
-	width: 2.5rem;
+	height: 2.2rem;
+	width: 2.2rem;
 `;
 
 export const IconStyles = css`
@@ -148,6 +149,32 @@ export const IconStyles = css`
 		css`
 			transform: rotate(180deg);
 		`}
+
+	${({ $menuToggleIcon }) =>
+		$menuToggleIcon &&
+		css`
+			box-sizing: content-box;
+			padding: 0.3rem;
+			border-radius: 50%;
+
+			path {
+				fill: ${({ theme }) => theme.textMuted};
+			}
+
+			&:hover {
+				background-color: ${({ theme }) => theme.bgFocused};
+
+				path {
+					fill: ${cssColors.bluePrimary};
+				}
+			}
+
+			&:active {
+				path {
+					fill: ${({ theme }) => theme.textMuted};
+				}
+			}
+		`}
 `;
 
 export const StyledMovieIcon = styled(MovieIcon)`
@@ -207,7 +234,7 @@ export const StyledGoogleSignInIcon = styled(GoogleSignInIcon)`
 export const StyledDotMenuIcon = styled(DotMenuIcon)`
 	${IconStyles};
 
-	position: absolute;
+	/* position: absolute;
 	background-color: ${({ theme }) => theme.bgFocused};
 	border-radius: 50%;
 	padding: 0.2rem;
@@ -218,7 +245,7 @@ export const StyledDotMenuIcon = styled(DotMenuIcon)`
 
 	&:hover {
 		//background-color: white;
-	}
+	} */
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`
@@ -270,5 +297,9 @@ export const StyledEditIcon = styled(EditIcon)`
 `;
 
 export const StyledChatIcon = styled(ChatIcon)`
+	${IconStyles};
+`;
+
+export const StyledVerticalDotIcon = styled(VerticalDotIcon)`
 	${IconStyles};
 `;

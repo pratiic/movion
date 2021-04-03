@@ -8,7 +8,7 @@ import {
 
 export const StyledReviewsContainer = styled.div`
 	${WrapperStyles}
-	width: 80rem;
+	max-width: 750px;
 	padding: 0;
 	margin-bottom: 3rem;
 
@@ -20,7 +20,7 @@ export const StyledReviewsContainer = styled.div`
 		}
 	}
 
-	@media screen and (max-width: 1000px) {
+	/* @media screen and (max-width: 1000px) {
 		width: 70rem;
 	}
 
@@ -30,7 +30,7 @@ export const StyledReviewsContainer = styled.div`
 
 	@media screen and (max-width: 700px) {
 		width: 100%;
-	}
+	} */
 `;
 
 export const ReviewsTitle = styled.p`

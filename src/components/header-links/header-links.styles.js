@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { cssColors, cssFonts } from "../../styles/styles.variables";
+import { StyledProfilePicture } from "../profile-picture/profile-picture.styles";
 
 import { HeaderElementStyles } from "../header/header.styles";
 
@@ -33,10 +34,10 @@ export const StyledHeaderLinks = styled.ul`
 		position: fixed;
 		z-index: 10;
 		right: 0;
-		top: 6.5rem;
+		top: 5rem;
 		flex-direction: column;
 		align-items: flex-start;
-		height: calc(100vh - 6.5rem);
+		height: calc(100vh - 5rem);
 		transition: transform 200ms ease-in;
 		transform: ${({ show }) => {
 			return show ? `translateX(0)` : `translateX(100%)`;

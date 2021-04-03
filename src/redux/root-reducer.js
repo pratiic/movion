@@ -11,6 +11,7 @@ import { currentUserReducer } from "./current-user/current-user.reducer";
 import { notificationReducer } from "./notification/notification.reducer";
 import { favoritesReducer } from "./favorites/favorites.reducer";
 import { reviewsReducer } from "./reviews/reviews.reducer";
+import { chatUserReducer } from "./chat-user/chat-user.reducer";
 
 export default combineReducers({
 	sidebar: sidebarReducer,
@@ -24,4 +25,5 @@ export default combineReducers({
 	notification: notificationReducer,
 	favorites: favoritesReducer,
 	reviews: reviewsReducer,
+	chatUser: chatUserReducer,
 });

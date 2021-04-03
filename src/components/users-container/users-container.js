@@ -9,7 +9,7 @@ const UsersContainer = ({ users }) => {
 		<StyledUsersContainer>
 			{users.map((user) => {
 				const data = user.data();
-				return <User {...data} />;
+				return <User {...data} key={data.id} />;
 			})}
 		</StyledUsersContainer>
 	);

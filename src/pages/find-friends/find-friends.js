@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { StyledFindFriends } from "./find-friends.styles";
+import { StyledFindFriends, FindFriendsMain } from "./find-friends.styles";
 import { StyledTitle, StyledMessage } from "../../styles/styles.generic";
 
 import { firestore } from "../../firebase/firebase.utils";
@@ -30,25 +30,27 @@ const FindFriendsPage = ({ currentUser }) => {
 
 	return (
 		<StyledFindFriends>
-			<StyledTitle
-				size="smaller"
-				marginbt="2.5rem"
-				transform="uppercase"
-				fontWeight="400"
-			>
-				find your friends here
-			</StyledTitle>
-			{users.length > 0 ? (
-				<React.Fragment>
-					<UserSearch
-						searchValue={searchValue}
-						inputChangeHandler={handleInputChange}
-					/>
-					<UsersContainer users={users} />
-				</React.Fragment>
-			) : (
-				<StyledMessage>{usersMessage}</StyledMessage>
-			)}
+			<FindFriendsMain>
+				<StyledTitle
+					size="smaller"
+					marginbt="2.5rem"
+					transform="uppercase"
+					fontWeight="400"
+				>
+					find your friends here
+				</StyledTitle>
+				{users.length > 0 ? (
+					<React.Fragment>
+						<UserSearch
+							searchValue={searchValue}
+							inputChangeHandler={handleInputChange}
+						/>
+						<UsersContainer users={users} />
+					</React.Fragment>
+				) : (
+					<StyledMessage>{usersMessage}</StyledMessage>
+				)}
+			</FindFriendsMain>
 		</StyledFindFriends>
 	);
 };

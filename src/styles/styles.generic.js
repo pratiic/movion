@@ -27,10 +27,15 @@ export const WrapperStyles = css`
 	}
 `;
 
-export const WrapperSmallestStyles = css`
-	${WrapperStyles};
-	max-width: 650px;
-`;
+// export const WrapperSmallestStyles = css`
+// 	${WrapperStyles};
+// 	max-width: 650px;
+// `;
+
+// export const WrapperSmallerStyles = css`
+// 	${WrapperStyles};
+// 	max-width: 800px;
+// `;
 
 export const OverlayStyles = css`
 	&::after {
@@ -92,7 +97,7 @@ export const TextStyles = css`
 `;
 
 export const PageStyles = css`
-	margin-top: 6.5rem;
+	margin-top: 5rem;
 	padding-top: 3rem;
 `;
 
@@ -201,4 +206,10 @@ export const StyledMessage = styled.p`
 	font-size: 2rem;
 	text-align: center;
 	color: ${({ theme }) => theme.textMuted};
+
+	${({ size }) =>
+		size === "smaller" &&
+		css`
+			font-size: 1.7rem;
+		`}
 `;

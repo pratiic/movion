@@ -15,6 +15,7 @@ const DropdownItem = ({
 	currentUserSignout,
 	getNewFetchType,
 	icon,
+	clickHandler,
 }) => {
 	const handleDropdownItemClick = () => {
 		toggleDropdown();
@@ -25,7 +26,10 @@ const DropdownItem = ({
 			toggleSearchMode(value);
 		} else if (func === "change fetch type") {
 			getNewFetchType(value);
+		} else if (func === "start") {
 		}
+
+		clickHandler();
 	};
 
 	return (

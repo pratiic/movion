@@ -54,12 +54,14 @@ const HeaderUtils = ({
 				<StyledDeleteIcon
 					$headerElement
 					$searchbarToggler
+					$smaller
 					onClick={toggleSearchbar}
 				/>
 			) : (
 				<StyledSearchIcon
 					$headerElement
 					$searchbarToggler
+					$smaller
 					onClick={() => {
 						toggleSearchbar();
 						focusSearchInput();
@@ -75,6 +77,7 @@ const HeaderUtils = ({
 				<StyledDeleteIcon
 					$headerElement
 					$sidebarToggler
+					$smaller
 					onClick={toggleSidebar}
 				></StyledDeleteIcon>
 			) : (
