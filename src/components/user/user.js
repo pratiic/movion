@@ -25,13 +25,13 @@ const User = ({
 
 		history.push(`/chat/${id}`);
 
-		addUserToChats(currentUser, {
-			id,
-			username,
-			email,
-			photoURL,
-			createdAt,
-		});
+		// addUserToChats(currentUser, {
+		// 	id,
+		// 	username,
+		// 	email,
+		// 	photoURL,
+		// 	createdAt,
+		// });
 	};
 
 	return (

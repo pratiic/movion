@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
 
-import { firestore } from "../../firebase/firebase.utils";
+import { firestore, addUserToChats } from "../../firebase/firebase.utils";
 
 import { StyledMessages, DivAtBottom, LoadMore } from "./messages.styles";
 import { StyledMessage } from "../../styles/styles.generic";
 
 import Message from "../message/message";
 
-const Messages = ({ messagesDocID }) => {
+const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 	const [messages, setMessages] = useState([]);
 	const [totalMessages, setTotalMessages] = useState(0);
 	const [top, setTop] = useState(0);
@@ -48,6 +49,11 @@ const Messages = ({ messagesDocID }) => {
 
 				if (snapshot.docs.length === 0) {
 					setMessagesMessage("no messages");
+				}
+
+				if (snapshot.docs.length === 1) {
+					addUserToChats(currentUser, chatUser);
+					addUserToChats(chatUser, currentUser);
 				}
 
 				messagesCollectionRef.get().then((collectionRef) => {
@@ -96,4 +102,11 @@ const Messages = ({ messagesDocID }) => {
 	);
 };
 
-export default Messages;
+const mapStateToProps = (state) => {
+	return {
+		currentUser: state.currentUser.currentUser,
+		chatUser: state.chatUser.chatUser,
+	};
+};
+
+export default connect(mapStateToProps)(Messages);

@@ -175,7 +175,7 @@ const Review = ({
 										};
 										setChatUser(user);
 										history.push(`/chat/${userID}`);
-										addUserToChats(currentUser, user);
+										// addUserToChats(currentUser, user);
 									}}
 								/>
 							</Dropdown>
