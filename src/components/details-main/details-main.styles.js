@@ -8,7 +8,7 @@ export const StyledDetailsMain = styled.div`
 	background-size: cover;
 	background-position: center;
 	position: relative;
-	margin-top: 6.5rem;
+	margin-top: 5rem;
 	margin-bottom: 2.5rem;
 	padding: 10rem 0;
 

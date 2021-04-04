@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
 import {
 	StyledProfile,
@@ -7,6 +8,8 @@ import {
 	ProfileHeader,
 } from "./profile.styles";
 import { StyledLogoutIcon } from "../../styles/styles.icons";
+
+import { currentUserSignout } from "../../redux/current-user/current-user.actions";
 
 import Dropdown from "../dropdown/dropdown";
 import DropdownItem from "../dropdown-item/dropdown-item";
@@ -19,7 +22,7 @@ const Profile = (props) => {
 		setShowDropdown(!showDropdown);
 	};
 
-	const { username, photoURL } = props;
+	const { username, photoURL, currentUserSignout } = props;
 
 	return (
 		<StyledProfile>
@@ -29,7 +32,11 @@ const Profile = (props) => {
 				profilePictureClickHandler={toggleDropdown}
 			/>
 			<Username>{username}</Username>
-			<Dropdown forComponent="profile" show={showDropdown}>
+			<Dropdown
+				forComponent="profile"
+				show={showDropdown}
+				indicator="right"
+			>
 				<ProfileHeader>
 					{" "}
 					<ProfilePicture username={username} photoURL={photoURL} />
@@ -37,13 +44,25 @@ const Profile = (props) => {
 				</ProfileHeader>
 				<DropdownItem
 					value="sign out"
-					icon={<StyledLogoutIcon $headerLinkIcon />}
 					func="sign out"
 					toggleDropdown={toggleDropdown}
-				/>
+					clickHandler={() => {
+						currentUserSignout();
+					}}
+				>
+					<StyledLogoutIcon $headerLinkIcon /> sign out
+				</DropdownItem>
 			</Dropdown>
 		</StyledProfile>
 	);
 };
 
-export default Profile;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		currentUserSignout: () => {
+			dispatch(currentUserSignout());
+		},
+	};
+};
+
+export default connect(null, mapDispatchToProps)(Profile);

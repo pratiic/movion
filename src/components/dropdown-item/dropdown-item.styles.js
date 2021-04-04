@@ -11,10 +11,12 @@ export const StyledDropdownItem = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	position: relative;
+	z-index: 4;
 
 	${dropdownHeaderStyles};
 
-	&:first-child {
+	&:nth-child(2) {
 		border-top-left-radius: inherit;
 		border-top-right-radius: inherit;
 	}

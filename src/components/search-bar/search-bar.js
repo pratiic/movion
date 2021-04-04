@@ -95,7 +95,12 @@ const Searchbar = (props) => {
 		// eslint-disable-next-line
 	}, [props.location]);
 
-	const { searchMode, showSearchbarOnSmallScreens, toggleSearchbar } = props;
+	const {
+		searchMode,
+		showSearchbarOnSmallScreens,
+		toggleSearchbar,
+		toggleSearchMode,
+	} = props;
 
 	return (
 		<SearchInputForm
@@ -111,17 +116,31 @@ const Searchbar = (props) => {
 							$rotateIconUp={showDropdown}
 						/>
 					</SearchOptionDisplay>
-					<Dropdown forComponent="searchbar" show={showDropdown}>
+					<Dropdown
+						forComponent="searchbar"
+						show={showDropdown}
+						indicator="center"
+					>
 						<DropdownItem
 							value="movies"
 							func="toggle search mode"
 							toggleDropdown={toggleDropdown}
-						/>
+							clickHandler={() => {
+								toggleSearchMode("movies");
+							}}
+						>
+							movies
+						</DropdownItem>
 						<DropdownItem
 							value="tv shows"
 							func="toggle search mode"
 							toggleDropdown={toggleDropdown}
-						/>
+							clickHandler={() => {
+								toggleSearchMode("tv shows");
+							}}
+						>
+							tv shows
+						</DropdownItem>
 					</Dropdown>
 				</div>
 

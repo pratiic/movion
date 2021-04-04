@@ -28,6 +28,37 @@ export const dropdownHeaderStyles = css`
 		`}
 `;
 
+export const Indicator = styled.div`
+	position: absolute;
+	background-color: ${({ theme }) => theme.bodyBg};
+	height: 2rem;
+	width: 2rem;
+	top: -0.35rem;
+	z-index: 1;
+	pointer-events: none;
+	border: none;
+
+	${({ indicator }) => {
+		if (indicator === "left") {
+			console.log("pratiic");
+			return css`
+				left: 1rem;
+				transform: rotate(45deg);
+			`;
+		} else if (indicator === "right") {
+			return css`
+				right: 1rem;
+				transform: rotate(45deg);
+			`;
+		} else if (indicator === "center") {
+			return css`
+				left: 50%;
+				transform: translate(-50%, 0) rotate(45deg);
+			`;
+		}
+	}}
+`;
+
 export const StyledDropdown = styled.div`
 	position: absolute;
 	z-index: 7;
@@ -46,7 +77,7 @@ export const StyledDropdown = styled.div`
 		} else if (forComponent === "searchbar") {
 			return css`
 				left: 0.2rem;
-				bottom: -8rem;
+				bottom: -8.5rem;
 			`;
 		} else if (forComponent === "card") {
 			return css`
@@ -64,8 +95,8 @@ export const StyledDropdown = styled.div`
 			`;
 		} else if (forComponent === "review") {
 			return css`
-				top: 3rem;
-				right: 1rem;
+				top: 3.5rem;
+				right: -1rem;
 			`;
 		}
 	}}

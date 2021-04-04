@@ -13,6 +13,7 @@ import {
 	Info,
 	EditedOrNot,
 } from "./review.styles";
+import { StyledChatIcon } from "../../styles/styles.icons";
 
 import { toggleNotification } from "../../redux/notification/notification.actions";
 import {
@@ -160,9 +161,12 @@ const Review = ({
 				{currentUser ? (
 					currentUser.id !== userID ? (
 						<React.Fragment>
-							<Dropdown show={showDropdown} forComponent="review">
+							<Dropdown
+								show={showDropdown}
+								forComponent="review"
+								indicator="right"
+							>
 								<DropdownItem
-									value="start chat"
 									toggleDropdown={toggleDropdown}
 									func="start chat"
 									clickHandler={() => {
@@ -177,7 +181,9 @@ const Review = ({
 										history.push(`/chat/${userID}`);
 										// addUserToChats(currentUser, user);
 									}}
-								/>
+								>
+									<StyledChatIcon $smaller /> start chat
+								</DropdownItem>
 							</Dropdown>
 							<StyledDotMenuIcon
 								$smaller

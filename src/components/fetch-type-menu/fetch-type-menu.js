@@ -86,7 +86,11 @@ const FetchTypeMenu = ({
 						$smaller
 					/>
 				</FetchTypeOptionDisplay>
-				<Dropdown show={showDropdown} forComponent="movieAndTv">
+				<Dropdown
+					show={showDropdown}
+					forComponent="movieAndTv"
+					indicator="center"
+				>
 					{fetchTypes.map((fetchType) => {
 						if (fetchType[mode]) {
 							return (
@@ -96,7 +100,12 @@ const FetchTypeMenu = ({
 									getNewFetchType={getNewFetchType}
 									toggleDropdown={toggleDropdown}
 									func="change fetch type"
-								/>
+									clickHandler={() => {
+										getNewFetchType(fetchType.value);
+									}}
+								>
+									{fetchType.value}
+								</DropdownItem>
 							);
 						} else {
 							return null;

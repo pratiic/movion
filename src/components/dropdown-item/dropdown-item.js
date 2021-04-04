@@ -7,36 +7,16 @@ import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 import { currentUserSignout } from "../../redux/current-user/current-user.actions";
 
-const DropdownItem = ({
-	value,
-	toggleDropdown,
-	func,
-	toggleSearchMode,
-	currentUserSignout,
-	getNewFetchType,
-	icon,
-	clickHandler,
-}) => {
+const DropdownItem = ({ children, toggleDropdown, clickHandler }) => {
 	const handleDropdownItemClick = () => {
 		toggleDropdown();
 
-		if (func === "sign out") {
-			currentUserSignout();
-		} else if (func === "toggle search mode") {
-			toggleSearchMode(value);
-		} else if (func === "change fetch type") {
-			getNewFetchType(value);
-		} else if (func === "start") {
-		}
-
-		if (clickHandler) {
-			clickHandler();
-		}
+		clickHandler();
 	};
 
 	return (
 		<StyledDropdownItem onClick={handleDropdownItemClick}>
-			{icon ? icon : null} {value}
+			{children}
 		</StyledDropdownItem>
 	);
 };
