@@ -29,7 +29,9 @@ const DropdownItem = ({
 		} else if (func === "start") {
 		}
 
-		clickHandler();
+		if (clickHandler) {
+			clickHandler();
+		}
 	};
 
 	return (
