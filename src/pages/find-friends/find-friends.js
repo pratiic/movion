@@ -14,15 +14,39 @@ const FindFriendsPage = ({ currentUser }) => {
 	const [searchValue, setSearchValue] = useState("");
 	const [usersMessage, setUsersMessage] = useState("loading users...");
 
+	// useEffect(() => {
+	// 	firestore
+	// 		.collection("users")
+	// 		.limit(5)
+	// 		.onSnapshot((snapshot) => {
+	// 			setUsers(
+	// 				snapshot.docs.filter((doc) => {
+	// 					return doc.data().id !== currentUser.id;
+	// 				})
+	// 			);
+	// 		});
+	// }, []);
+
 	useEffect(() => {
-		firestore.collection("users").onSnapshot((snapshot) => {
-			setUsers(
-				snapshot.docs.filter((doc) => {
-					return doc.data().id !== currentUser.id;
-				})
-			);
-		});
-	}, []);
+		firestore
+			.collection("users")
+			.get()
+			.then((usersCollectionRef) => {
+				const usersToRender = usersCollectionRef.docs.filter((doc) => {
+					const data = doc.data();
+					return (
+						data.username.toLowerCase().includes(searchValue) ||
+						data.email.toLowerCase().includes(searchValue)
+					);
+				});
+
+				setUsers(usersToRender);
+
+				if (usersToRender.length <= 0) {
+					setUsersMessage("no user found");
+				}
+			});
+	}, [searchValue]);
 
 	const handleInputChange = (searchValue) => {
 		setSearchValue(searchValue);
@@ -39,12 +63,12 @@ const FindFriendsPage = ({ currentUser }) => {
 				>
 					find your friends here
 				</StyledTitle>
+				<UserSearch
+					searchValue={searchValue}
+					inputChangeHandler={handleInputChange}
+				/>
 				{users.length > 0 ? (
 					<React.Fragment>
-						<UserSearch
-							searchValue={searchValue}
-							inputChangeHandler={handleInputChange}
-						/>
 						<UsersContainer users={users} />
 					</React.Fragment>
 				) : (

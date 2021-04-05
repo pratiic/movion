@@ -14,6 +14,7 @@ const ChatPage = ({ currentUser }) => {
 	const [chats, setChats] = useState([]);
 	const [chatsMessage, setChatsMessage] = useState("loading chats...");
 	const [searchValue, setSearchValue] = useState("");
+	const [chatsToRender, setChatsToRender] = useState([]);
 
 	useEffect(() => {
 		const currentUserChatsCollectionRef = firestore
@@ -28,7 +29,21 @@ const ChatPage = ({ currentUser }) => {
 				setChatsMessage("you dont have any chats");
 			}
 		});
-	});
+	}, []);
+
+	useEffect(() => {
+		console.log(chats);
+
+		setChatsToRender(
+			chats.filter((chat) => {
+				const data = chat.data();
+				return (
+					data.username.toLowerCase().includes(searchValue) ||
+					data.email.toLowerCase().includes(searchValue)
+				);
+			})
+		);
+	}, [searchValue, chats]);
 
 	const handleInputChange = (searchValue) => {
 		setSearchValue(searchValue);
@@ -52,13 +67,13 @@ const ChatPage = ({ currentUser }) => {
 						<Link to="/find-friends"> here</Link>{" "}
 					</StyledMessage>
 				) : null}
+				<UserSearch
+					searchValue={searchValue}
+					inputChangeHandler={handleInputChange}
+				/>
 				{chats.length > 0 ? (
 					<React.Fragment>
-						<UserSearch
-							searchValue={searchValue}
-							inputChangeHandler={handleInputChange}
-						/>
-						<UsersContainer users={chats} />
+						<UsersContainer users={chatsToRender} />
 					</React.Fragment>
 				) : (
 					<StyledMessage>
