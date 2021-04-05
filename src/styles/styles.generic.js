@@ -206,10 +206,10 @@ export const StyledMessage = styled.p`
 	font-size: 2rem;
 	text-align: center;
 	color: ${({ theme }) => theme.textMuted};
-
+	margin-top: ${({ marginTop }) => marginTop && marginTop};
 	${({ size }) =>
 		size === "smaller" &&
 		css`
 			font-size: 1.7rem;
-		`}
+		`};
 `;

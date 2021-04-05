@@ -28,6 +28,8 @@ const FindFriendsPage = ({ currentUser }) => {
 	// }, []);
 
 	useEffect(() => {
+		setUsersMessage("loading users...");
+
 		firestore
 			.collection("users")
 			.get()
@@ -72,7 +74,9 @@ const FindFriendsPage = ({ currentUser }) => {
 						<UsersContainer users={users} />
 					</React.Fragment>
 				) : (
-					<StyledMessage>{usersMessage}</StyledMessage>
+					<StyledMessage marginTop="2.5rem">
+						{usersMessage}
+					</StyledMessage>
 				)}
 			</FindFriendsMain>
 		</StyledFindFriends>
