@@ -76,7 +76,7 @@ const ChatPage = ({ currentUser }) => {
 						<UsersContainer users={chatsToRender} />
 					</React.Fragment>
 				) : (
-					<StyledMessage>
+					<StyledMessage marginTop = "2.5rem">
 						{chatsMessage}
 						{chatsMessage === "you dont have any chats" ? (
 							<Link to="/find-friends"> find friends here</Link>
