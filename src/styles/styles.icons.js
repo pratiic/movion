@@ -23,6 +23,7 @@ import { ReactComponent as TrashCanIcon } from "../assets/icons/trash-can.svg";
 import { ReactComponent as EditIcon } from "../assets/icons/edit.svg";
 import { ReactComponent as ChatIcon } from "../assets/icons/chat.svg";
 import { ReactComponent as VerticalDotIcon } from "../assets/icons/vertical-dot-menu.svg";
+import { ReactComponent as SmileyIcon } from "../assets/icons/smiley.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -301,5 +302,9 @@ export const StyledChatIcon = styled(ChatIcon)`
 `;
 
 export const StyledVerticalDotIcon = styled(VerticalDotIcon)`
+	${IconStyles};
+`;
+
+export const StyledSmileyIcon = styled(SmileyIcon)`
 	${IconStyles};
 `;

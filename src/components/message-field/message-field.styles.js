@@ -12,6 +12,65 @@ export const Form = styled.form`
 	position: relative;
 	margin: 0 1.7rem 0.75rem 1.7rem;
 
+	.emoji-picker-react {
+		height: 100%;
+		width: 100%;
+		box-shadow: none;
+		background-color: ${({ theme }) => theme.bgFocused};
+		border: none;
+		border-radius: 5px;
+
+		.emoji-categories {
+			button {
+				opacity: 1;
+			}
+		}
+
+		.emoji-scroll-wrapper {
+			&::-webkit-scrollbar {
+				width: 0.75rem;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: ${({ theme }) => theme.bodyBg};
+			}
+
+			.emoji-group {
+				&::before {
+					background-color: ${({ theme }) => theme.bgFocused};
+					color: ${({ theme }) => theme.textIconBlur};
+					font-family: ${cssFonts.fontStackPrimary};
+				}
+			}
+		}
+
+		.emoji-search {
+			background-color: ${({ theme }) => theme.bgFocused};
+			border: 1px solid ${({ theme }) => theme.textMuted};
+			color: ${({ theme }) => theme.textIconBlur};
+			border-radius: 5px;
+			margin-top: 0.75rem;
+			height: 3rem;
+			font-size: 1.5rem;
+			font-family: ${cssFonts.fontStackPrimary};
+
+			&:focus {
+				border: 1px solid ${({ theme }) => theme.textMuted};
+			}
+		}
+
+		/* .active-category-indicator-wrapper {
+			.active-category-indicator {
+				background-color: ${({ theme }) => theme.textMuted};
+				opacity: 1;
+			}
+		} */
+
+		.skin-tones-list {
+			display: none;
+		}
+	}
+
 	@media screen and (max-width: 500px) {
 		margin: 0 0.8rem 0.75rem 0.8rem;
 	}

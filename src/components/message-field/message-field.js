@@ -5,9 +5,13 @@ import { firestore } from "../../firebase/firebase.utils";
 
 import { Form, Input, Icons, SendButton } from "./message-field.styles";
 import { StyledDeleteIcon, StyledSendIcon } from "../../styles/styles.icons";
+import { StyledSmileyIcon } from "../../styles/styles.icons";
+
+import EmojiPicker from "../emoji-picker/emoji-picker";
 
 const MessageField = ({ messagesDocID, currentUser }) => {
 	const [message, setMessage] = useState("");
+	const [showEmojiBox, setShowEmojiBox] = useState(false);
 
 	const inputRef = useRef();
 
@@ -52,8 +56,19 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 		setMessage("");
 	};
 
+	const insertEmoji = (emoji) => {
+		setMessage(`${message}${emoji}`);
+		inputRef.current.focus();
+	};
+
+	const handleEmojiButtonClick = () => {
+		setShowEmojiBox(!showEmojiBox);
+	};
+
 	return (
 		<Form onSubmit={handleFormSubmit}>
+			<EmojiPicker show={showEmojiBox} insertEmoji={insertEmoji} />
+
 			<Input
 				type="text"
 				placeholder="type your message..."
@@ -67,6 +82,7 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 					onClick={handleEmojiButtonClick}
 				/> */}
 				<StyledDeleteIcon $smaller onClick={handleClearButtonClick} />
+				<StyledSmileyIcon onClick={handleEmojiButtonClick} />
 				<SendButton type="submit">
 					<StyledSendIcon className="icon" $smaller />
 				</SendButton>
