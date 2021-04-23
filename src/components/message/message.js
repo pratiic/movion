@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { StyledMessage, Text, Info } from "./message.styles";
-import { StyledVerticalDotIcon } from "../../styles/styles.icons";
+import { StyledMessage, Text, Time } from "./message.styles";
+import { StyledHorizontalDotMenuIcon } from "../../styles/styles.icons";
 
 import { getCreatedTime } from "../utils/utils.components";
 
 import ProfilePicture from "../profile-picture/profile-picture";
 
-const Message = ({ text, createdBy, createdAt, currentUser }) => {
+const Message = ({ text, createdBy, createdAt, currentUser, mid }) => {
 	return (
 		<StyledMessage self={currentUser.id === createdBy.id ? true : false}>
 			<ProfilePicture
@@ -16,9 +16,10 @@ const Message = ({ text, createdBy, createdAt, currentUser }) => {
 				photoURL={createdBy.photoURL}
 				size="smaller"
 			/>
-			<Text>{text}</Text>
-			<Info> {getCreatedTime(createdAt)} </Info>
-			<StyledVerticalDotIcon $smaller />
+			<Text>
+				{text} <Time> {getCreatedTime(createdAt)} </Time>
+			</Text>
+			<StyledHorizontalDotMenuIcon $smaller />
 		</StyledMessage>
 	);
 };

@@ -32,7 +32,7 @@ import {
 	StyledReplyIcon,
 	StyledTrashCanIcon,
 	StyledEditIcon,
-	StyledDotMenuIcon,
+	StyledHorizontalDotMenuIcon,
 } from "../../styles/styles.icons";
 
 import ProfilePicture from "../profile-picture/profile-picture";
@@ -185,7 +185,7 @@ const Review = ({
 									<StyledChatIcon $smaller /> start chat
 								</DropdownItem>
 							</Dropdown>
-							<StyledDotMenuIcon
+							<StyledHorizontalDotMenuIcon
 								$smaller
 								$menuToggleIcon
 								onClick={toggleDropdown}

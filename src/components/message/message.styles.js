@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 import { cssColors } from "../../styles/styles.variables";
-import { StyledVerticalDotIcon } from "../../styles/styles.icons";
+import { StyledHorizontalDotMenuIcon } from "../../styles/styles.icons";
 import { StyledProfilePicture } from "../profile-picture/profile-picture.styles";
 
 export const Text = styled.p`
@@ -10,11 +10,15 @@ export const Text = styled.p`
 	border-radius: 5px;
 	width: fit-content;
 	max-width: 70%;
+	line-height: 1.2;
 `;
 
-export const Info = styled.p`
-	color: ${({ theme }) => theme.textMuted};
-	font-size: 1.4rem;
+export const Time = styled.p`
+	color: ${({ theme }) => theme.headerBg};
+	font-size: 1.3rem;
+	width: fit-content;
+	margin-left: auto;
+	margin-top: 0.5rem;
 `;
 
 export const StyledMessage = styled.div`
@@ -48,16 +52,16 @@ export const StyledMessage = styled.div`
 				order: 4;
 			}
 
-			${StyledVerticalDotIcon} {
+			${StyledHorizontalDotMenuIcon} {
 				order: 1;
 			}
 
-			${Info} {
+			${Time} {
 				order: 2;
 			}
 		`}
 
-	${StyledVerticalDotIcon} {
+	${StyledHorizontalDotMenuIcon} {
 		box-sizing: content-box;
 		padding: 0.3rem;
 		border-radius: 50%;

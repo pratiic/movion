@@ -23,6 +23,8 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 		event.preventDefault();
 
 		if (message.length !== 0) {
+			inputRef.current.focus();
+
 			const createdAt = new Date().getTime();
 
 			firestore
@@ -63,6 +65,7 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 
 	const handleEmojiButtonClick = () => {
 		setShowEmojiBox(!showEmojiBox);
+		inputRef.current.focus();
 	};
 
 	return (

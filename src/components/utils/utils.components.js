@@ -126,5 +126,7 @@ export const getCreatedTime = (milliseconds) => {
 	const hours = date.getHours();
 	const minutes = date.getMinutes();
 	const amPm = hours > 12 ? "pm" : "am";
-	return `${hours > 12 ? hours - 12 : hours}:${minutes} ${amPm}`;
+	return `${hours > 12 ? hours - 12 : hours}:${
+		minutes >= 10 ? minutes : `0${minutes}`
+	} ${amPm}`;
 };

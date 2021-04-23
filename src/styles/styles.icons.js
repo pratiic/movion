@@ -14,7 +14,7 @@ import { ReactComponent as TickIcon } from "../assets/icons/tick.svg";
 import { ReactComponent as SunIcon } from "../assets/icons/sun.svg";
 import { ReactComponent as MoonIcon } from "../assets/icons/moon.svg";
 import { ReactComponent as GoogleSignInIcon } from "../assets/icons/google-sign-in.svg";
-import { ReactComponent as DotMenuIcon } from "../assets/icons/dot-menu.svg";
+import { ReactComponent as HorizontalDotMenuIcon } from "../assets/icons/horizontal-dot-menu.svg";
 import { ReactComponent as ThumbsUpIcon } from "../assets/icons/thumbs-up.svg";
 import { ReactComponent as ThumbsDownIcon } from "../assets/icons/thumbs-down.svg";
 import { ReactComponent as SendIcon } from "../assets/icons/send.svg";
@@ -22,7 +22,7 @@ import { ReactComponent as ReplyIcon } from "../assets/icons/reply.svg";
 import { ReactComponent as TrashCanIcon } from "../assets/icons/trash-can.svg";
 import { ReactComponent as EditIcon } from "../assets/icons/edit.svg";
 import { ReactComponent as ChatIcon } from "../assets/icons/chat.svg";
-import { ReactComponent as VerticalDotIcon } from "../assets/icons/vertical-dot-menu.svg";
+// import { ReactComponent as VerticalDotIcon } from "../assets/icons/vertical-dot-menu.svg";
 import { ReactComponent as SmileyIcon } from "../assets/icons/smiley.svg";
 
 import { cssColors } from "./styles.variables";
@@ -232,7 +232,7 @@ export const StyledGoogleSignInIcon = styled(GoogleSignInIcon)`
 	${IconStyles};
 `;
 
-export const StyledDotMenuIcon = styled(DotMenuIcon)`
+export const StyledHorizontalDotMenuIcon = styled(HorizontalDotMenuIcon)`
 	${IconStyles};
 
 	/* position: absolute;
@@ -301,9 +301,9 @@ export const StyledChatIcon = styled(ChatIcon)`
 	${IconStyles};
 `;
 
-export const StyledVerticalDotIcon = styled(VerticalDotIcon)`
-	${IconStyles};
-`;
+// export const StyledVerticalDotIcon = styled(VerticalDotIcon)`
+// 	${IconStyles};
+// `;
 
 export const StyledSmileyIcon = styled(SmileyIcon)`
 	${IconStyles};

@@ -91,7 +91,7 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 					) : null}
 					{messages.map((message) => {
 						const data = message.data();
-						return <Message {...data} />;
+						return <Message {...data} key={data.mid} />;
 					})}
 					<DivAtBottom ref={bottomDivRef}></DivAtBottom>
 				</React.Fragment>

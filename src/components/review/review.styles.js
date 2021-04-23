@@ -4,7 +4,7 @@ import { cssColors, cssFonts } from "../../styles/styles.variables";
 import {
 	StyledThumbsUpIcon,
 	StyledThumbsDownIcon,
-	StyledDotMenuIcon,
+	StyledHorizontalDotMenuIcon,
 } from "../../styles/styles.icons";
 
 export const StyledReview = styled.div`
@@ -23,7 +23,7 @@ export const ReviewHeader = styled.div`
 	border-bottom: 1px solid ${({ theme }) => theme.bgFocused};
 	position: relative;
 
-	${StyledDotMenuIcon} {
+	${StyledHorizontalDotMenuIcon} {
 		position: absolute;
 		top: 50%;
 		right: 1rem;
