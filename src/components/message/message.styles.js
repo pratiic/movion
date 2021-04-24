@@ -1,10 +1,13 @@
 import styled, { css } from "styled-components";
 
 import { cssColors } from "../../styles/styles.variables";
-import { StyledHorizontalDotMenuIcon } from "../../styles/styles.icons";
+import {
+	StyledHorizontalDotMenuIcon,
+	StyledDoubleTickIcon,
+} from "../../styles/styles.icons";
 import { StyledProfilePicture } from "../profile-picture/profile-picture.styles";
 
-export const Text = styled.p`
+export const Text = styled.div`
 	background-color: ${({ theme }) => theme.textMuted};
 	padding: 0.3rem 0.7rem;
 	border-radius: 5px;

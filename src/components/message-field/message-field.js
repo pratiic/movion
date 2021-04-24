@@ -52,6 +52,9 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 					mid: `${currentUser.id}${createdAt}`,
 					messagesDocID: messagesDocID,
 					removedForEveryone: false,
+				})
+				.then((result) => {
+					console.log(result);
 				});
 		}
 
@@ -89,9 +92,10 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 
 	const handleInputChange = (event) => {
 		setMessage(event.target.value);
-		if (event.target.value) {
+		if (event.target.value.length === 1) {
 			addToTyping();
-		} else {
+		}
+		if (event.target.value.length === 0) {
 			removeFromTyping();
 		}
 	};

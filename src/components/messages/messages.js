@@ -34,8 +34,6 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 	}, [messagesDocID]);
 
 	useEffect(() => {
-		console.log(top);
-
 		if (top <= 0 && bottomDivRef.current) {
 			bottomDivRef.current.scrollIntoView();
 		}
@@ -125,15 +123,11 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 	};
 
 	const renderMessages = () => {
-		console.log(messages);
-
 		return messages.map((message) => {
 			const data = message.data();
 			return <Message {...data} key={data.mid} />;
 		});
 	};
-
-	console.log(fetchingMoreMessages);
 
 	return (
 		<StyledMessages>
