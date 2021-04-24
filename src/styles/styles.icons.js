@@ -24,6 +24,7 @@ import { ReactComponent as EditIcon } from "../assets/icons/edit.svg";
 import { ReactComponent as ChatIcon } from "../assets/icons/chat.svg";
 // import { ReactComponent as VerticalDotIcon } from "../assets/icons/vertical-dot-menu.svg";
 import { ReactComponent as SmileyIcon } from "../assets/icons/smiley.svg";
+import { ReactComponent as DoubleTickIcon } from "../assets/icons/double-tick.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -306,5 +307,9 @@ export const StyledChatIcon = styled(ChatIcon)`
 // `;
 
 export const StyledSmileyIcon = styled(SmileyIcon)`
+	${IconStyles};
+`;
+
+export const StyledDoubleTickIcon = styled(DoubleTickIcon)`
 	${IconStyles};
 `;

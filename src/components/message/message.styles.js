@@ -14,11 +14,31 @@ export const Text = styled.p`
 `;
 
 export const Time = styled.p`
-	color: ${({ theme }) => theme.headerBg};
+	color: ${cssColors.blueSecondary};
 	font-size: 1.3rem;
 	width: fit-content;
-	margin-left: auto;
+`;
+
+export const MessageInfo = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	margin-top: 0.5rem;
+
+	svg {
+		margin-left: 1.5rem;
+
+		path {
+			fill: ${cssColors.blueSecondary};
+		}
+
+		&:hover,
+		&:active {
+			path {
+				fill: ${cssColors.blueSecondary};
+			}
+		}
+	}
 `;
 
 export const StyledMessage = styled.div`
@@ -56,9 +76,9 @@ export const StyledMessage = styled.div`
 				order: 1;
 			}
 
-			${Time} {
+			/* ${Time} {
 				order: 2;
-			}
+			} */
 		`}
 
 	${StyledHorizontalDotMenuIcon} {

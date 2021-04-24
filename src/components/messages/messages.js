@@ -78,6 +78,36 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 		setTop(top + 1);
 	};
 
+	const setMessagesAsSeen = () => {
+		const messagesCollectionRef = firestore
+			.collection("chats")
+			.doc(messagesDocID)
+			.collection("messages");
+
+		const batch = firestore.batch();
+
+		messages.forEach((message) => {
+			const data = message.data();
+			if (data.createdBy.id !== currentUser.id) {
+				batch.update(message.ref, { seen: true });
+			}
+		});
+
+		batch.commit().then((result) => {
+			console.log(result);
+		});
+	};
+
+	const renderMessages = () => {
+		setMessagesAsSeen();
+		console.log(messages);
+
+		return messages.map((message) => {
+			const data = message.data();
+			return <Message {...data} key={data.mid} />;
+		});
+	};
+
 	console.log(fetchingMoreMessages);
 
 	return (
@@ -89,10 +119,7 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 							{fetchingMoreMessages ? "loading..." : "load more"}
 						</LoadMore>
 					) : null}
-					{messages.map((message) => {
-						const data = message.data();
-						return <Message {...data} key={data.mid} />;
-					})}
+					{renderMessages()}
 					<DivAtBottom ref={bottomDivRef}></DivAtBottom>
 				</React.Fragment>
 			) : (
