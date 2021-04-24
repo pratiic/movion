@@ -3,10 +3,16 @@ import { connect } from "react-redux";
 
 import { firestore, addUserToChats } from "../../firebase/firebase.utils";
 
-import { StyledMessages, DivAtBottom, LoadMore } from "./messages.styles";
+import {
+	StyledMessages,
+	DivAtBottom,
+	LoadMore,
+	Typing,
+} from "./messages.styles";
 import { StyledMessage } from "../../styles/styles.generic";
 
 import Message from "../message/message";
+import ProfilePicture from "../profile-picture/profile-picture";
 
 const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 	const [messages, setMessages] = useState([]);
@@ -16,6 +22,7 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 	const [messagesMessage, setMessagesMessage] = useState(
 		"loading the messages..."
 	);
+	const [typing, setTyping] = useState(false);
 
 	const bottomDivRef = useRef();
 	const messagesToFetch = 25;
@@ -33,6 +40,25 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 			bottomDivRef.current.scrollIntoView();
 		}
 	}, [messages]);
+
+	useEffect(() => {
+		if (messagesDocID) {
+			const typingCollectionRef = firestore
+				.collection("chats")
+				.doc(messagesDocID)
+				.collection("typing");
+			typingCollectionRef.onSnapshot((snapshot) => {
+				const chatUserTyping = snapshot.docs.filter(
+					(doc) => doc.id !== currentUser.id
+				);
+				if (chatUserTyping.length > 0) {
+					setTyping(true);
+				} else {
+					setTyping(false);
+				}
+			});
+		}
+	}, [messagesDocID]);
 
 	const fetchMessages = (totalMessagesToFetch) => {
 		const messagesCollectionRef = firestore
@@ -99,7 +125,6 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 	};
 
 	const renderMessages = () => {
-		setMessagesAsSeen();
 		console.log(messages);
 
 		return messages.map((message) => {
@@ -120,6 +145,18 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 						</LoadMore>
 					) : null}
 					{renderMessages()}
+					{setMessagesAsSeen()}
+					{typing ? (
+						<Typing>
+							{" "}
+							<ProfilePicture
+								username={chatUser.username}
+								photoURL={chatUser.photoURL}
+								size="smaller"
+							/>{" "}
+							<p>typing...</p>
+						</Typing>
+					) : null}
 					<DivAtBottom ref={bottomDivRef}></DivAtBottom>
 				</React.Fragment>
 			) : (

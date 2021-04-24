@@ -12,12 +12,25 @@ import EmojiPicker from "../emoji-picker/emoji-picker";
 const MessageField = ({ messagesDocID, currentUser }) => {
 	const [message, setMessage] = useState("");
 	const [showEmojiBox, setShowEmojiBox] = useState(false);
+	const [currentUserTypingDocRef, setCurrentUserTypingDocRef] = useState("");
 
 	const inputRef = useRef();
 
 	useEffect(() => {
 		inputRef.current.focus();
 	}, []);
+
+	useEffect(() => {
+		if (messagesDocID) {
+			setCurrentUserTypingDocRef(
+				firestore
+					.collection("chats")
+					.doc(messagesDocID)
+					.collection("typing")
+					.doc(currentUser.id)
+			);
+		}
+	}, [messagesDocID]);
 
 	const handleFormSubmit = (event) => {
 		event.preventDefault();
@@ -43,6 +56,8 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 		}
 
 		clearMessage();
+
+		removeFromTyping();
 	};
 
 	const handleClearButtonClick = () => {
@@ -50,8 +65,35 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 		inputRef.current.focus();
 	};
 
+	const addToTyping = () => {
+		console.log(messagesDocID);
+		firestore
+			.collection("chats")
+			.doc(messagesDocID)
+			.collection("typing")
+			.doc(currentUser.id)
+			.set({ user: currentUser.id })
+			.then((documentRef) => {
+				console.log(documentRef);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const removeFromTyping = () => {
+		currentUserTypingDocRef.delete({}).then((documentRef) => {
+			console.log(documentRef);
+		});
+	};
+
 	const handleInputChange = (event) => {
 		setMessage(event.target.value);
+		if (event.target.value) {
+			addToTyping();
+		} else {
+			removeFromTyping();
+		}
 	};
 
 	const clearMessage = () => {

@@ -47,3 +47,16 @@ export const LoadMore = styled.button`
 		color: ${({ theme }) => theme.bgFocused};
 	}
 `;
+
+export const Typing = styled.div`
+	color: ${({ theme }) => theme.textMuted};
+	width: fit-content;
+	display: flex;
+
+	p {
+		border: 1px solid ${({ theme }) => theme.textMuted};
+		border-radius: 5px;
+		margin-left: 0.8rem;
+		padding: 0 0.3rem;
+	}
+`;
