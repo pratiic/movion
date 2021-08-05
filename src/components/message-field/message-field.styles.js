@@ -10,7 +10,7 @@ export const Form = styled.form`
 	border-radius: 7px;
 	padding: 0 1.5rem;
 	position: relative;
-	margin: 0 1.7rem 0.75rem 1.7rem;
+	margin: 1rem 1.7rem 1rem 1.7rem;
 
 	.emoji-picker-react {
 		height: 100%;

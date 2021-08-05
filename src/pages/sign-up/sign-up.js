@@ -14,7 +14,7 @@ import {
 	clearNonEmptyFieldErrorMessage,
 	validateEmail,
 	clearAllFields,
-} from "../../components/utils/utils.form-validation";
+} from "../../utils/utils.form-validation";
 
 import { createUserDocument, auth } from "../../firebase/firebase.utils";
 
@@ -60,9 +60,8 @@ class SignUpPage extends React.Component {
 
 		this.returnFieldObjects = returnFieldObjects.bind(this);
 		this.setFieldErrorMessage = setFieldErrorMessage.bind(this);
-		this.clearNonEmptyFieldErrorMessage = clearNonEmptyFieldErrorMessage.bind(
-			this
-		);
+		this.clearNonEmptyFieldErrorMessage =
+			clearNonEmptyFieldErrorMessage.bind(this);
 		this.clearAllFields = clearAllFields.bind(this);
 	}
 
@@ -140,6 +139,8 @@ class SignUpPage extends React.Component {
 	};
 
 	componentDidMount() {
+		document.title = "Sign up with movion";
+
 		this.inputRef.current.focus();
 	}
 

@@ -10,7 +10,7 @@ import { fetchSearchResults } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
 import { selectSearchResults } from "../../redux/search/search.selectors";
 
-import { searchModeMap } from "../../components/utils/utils.components";
+import { searchModeMap } from "../../utils/utils.components";
 
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
 import Spinner from "../../components/spinner/spinner";
@@ -56,6 +56,10 @@ const SearchResultsPage = (props) => {
 			);
 		}
 	};
+
+	useEffect(() => {
+		document.title = `Search results for ${query}`;
+	}, [query]);
 
 	useEffect(() => {
 		startTheSearch();

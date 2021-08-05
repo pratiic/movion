@@ -6,7 +6,7 @@ export const StyledMessages = styled.div`
 	flex: 1;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	padding: 0.7rem 0.8rem;
+	padding: 0.7rem 0.8rem 0rem 0.7rem;
 	position: relative;
 
 	&::-webkit-scrollbar {
@@ -22,6 +22,7 @@ export const StyledMessages = styled.div`
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
+		white-space: nowrap;
 	}
 
 	@media screen and (max-width: 500px) {

@@ -14,12 +14,12 @@ import {
 } from "../../redux/favorites/favorites.selectors";
 import { apiInfo } from "../../redux/api/api.info";
 
-import { renderReleaseDate } from "../utils/utils.components";
+import { renderReleaseDate } from "../../utils/utils.components";
 import {
 	addToFavorites,
 	showAddedToFavoritesNotification,
-} from "../utils/utils.favorites";
-import { renderDetailsController } from "../utils/utils.details-controller";
+} from "../../utils/utils.favorites";
+import { renderDetailsController } from "../../utils/utils.details-controller";
 
 import { deleteFavoriteDocument } from "../../firebase/firebase.utils";
 

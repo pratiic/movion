@@ -24,6 +24,10 @@ const FavoritesPage = ({ currentUser }) => {
 	const [favoriteTvShows, setFavoriteTvShows] = useState([]);
 
 	useEffect(() => {
+		document.title = "Favorites";
+	}, []);
+
+	useEffect(() => {
 		setFetchingFavorites(true);
 
 		getFavoritesCollectionRef(currentUser.id).then((collectionRef) => {

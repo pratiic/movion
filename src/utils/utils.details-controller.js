@@ -1,5 +1,5 @@
-import { StyledTickIcon, StyledHeartIcon } from "../../styles/styles.icons";
-import DetailsController from "../../components/details-controller/details-controller";
+import { StyledTickIcon, StyledHeartIcon } from "../styles/styles.icons";
+import DetailsController from "../components/details-controller/details-controller";
 
 export function renderDetailsController(
 	id,

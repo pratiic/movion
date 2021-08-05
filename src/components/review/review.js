@@ -23,7 +23,7 @@ import {
 } from "../../redux/reviews/reviews.actions";
 import { setChatUser } from "../../redux/chat-user/chat-user.actions";
 
-import { getDateAndTime } from "../utils/utils.components";
+import { getDateAndTime } from "../../utils/utils.components";
 import { firestore, addUserToChats } from "../../firebase/firebase.utils";
 
 import {

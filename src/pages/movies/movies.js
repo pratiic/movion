@@ -12,7 +12,8 @@ import {
 	fetchMoreMoviesStart,
 } from "../../redux/movies/movies.actions";
 
-import { renderGenericButton } from "../../components/utils/utils.components";
+import { renderGenericButton } from "../../utils/utils.components";
+import { capitalizeFirstLetter } from "../../utils/utils.strings";
 
 import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
@@ -49,6 +50,10 @@ const MoviesPage = ({
 			"movies"
 		);
 	};
+
+	useEffect(() => {
+		document.title = capitalizeFirstLetter(`${moviesFetchType} movies`);
+	}, [moviesFetchType]);
 
 	useEffect(() => {
 		startAsyncOp();

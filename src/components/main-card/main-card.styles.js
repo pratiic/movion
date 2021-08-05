@@ -9,19 +9,21 @@ export const StyledMainCard = styled.div`
 
 	${CardStyles};
 
+	height: fit-content;
+	/* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+		rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; */
+
 	.card-image-container {
 		height: 30rem;
-		box-shadow: 0 0 0.75rem 0 rgba(0, 0, 0, 0.35);
+		/* box-shadow: 0 0 0.75rem 0 rgba(0, 0, 0, 0.35); */
 	}
 
 	.content-info {
 		position: relative;
-		border-top: none;
 		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;
 		padding: 0.55rem 0.8rem;
-		box-shadow: 0 0.3rem 0.45rem 0 rgba(0, 0, 0, 0.35);
-		margin-bottom: 0.7rem;
+		/* box-shadow: 0 0.3rem 0.45rem 0 rgba(0, 0, 0, 0.35); */
 	}
 
 	.content-release-date {

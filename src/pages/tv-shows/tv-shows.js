@@ -13,7 +13,8 @@ import {
 	fetchMoreTvShowsStart,
 } from "../../redux/tv-shows/tv-shows.actions";
 
-import { renderGenericButton } from "../../components/utils/utils.components";
+import { renderGenericButton } from "../../utils/utils.components";
+import { capitalizeFirstLetter } from "../../utils/utils.strings";
 
 import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
@@ -47,6 +48,10 @@ const TvShowsPage = ({
 
 		fetchMoviesOrTvShows(url, "tv shows");
 	};
+
+	useEffect(() => {
+		document.title = capitalizeFirstLetter(`${tvShowsFetchType} tv shows`);
+	}, [tvShowsFetchType]);
 
 	useEffect(() => {
 		startAsyncOp();

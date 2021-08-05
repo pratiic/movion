@@ -5,7 +5,7 @@ import {
 	MainCardsListWrapper,
 } from "./main-cards-list.styles";
 
-import { getContentType } from "../utils/utils.components";
+import { getContentType } from "../../utils/utils.components";
 
 import MainCard from "../main-card/main-card";
 

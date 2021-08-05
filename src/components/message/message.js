@@ -8,7 +8,7 @@ import {
 	StyledDoubleTickIcon,
 } from "../../styles/styles.icons";
 
-import { getCreatedTime } from "../utils/utils.components";
+import { getCreatedTime } from "../../utils/utils.components";
 
 import ProfilePicture from "../profile-picture/profile-picture";
 

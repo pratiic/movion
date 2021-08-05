@@ -18,31 +18,38 @@ import {
 	renderReleaseDate,
 	getWithCommas,
 	getContentType,
-} from "../../components/utils/utils.components";
-import {
-	addToFavorites,
-	showAddedToFavoritesNotification,
-} from "../../components/utils/utils.favorites";
+} from "../../utils/utils.components";
+// import {
+// 	addToFavorites,
+// 	showAddedToFavoritesNotification,
+// } from "../../utils/utils.favorites";
 
 import Spinner from "../spinner/spinner";
 import DetailsControl from "../details-control/details-control";
 
-const DetailsMain = (props) => {
+const DetailsMain = ({
+	mainDetails,
+	fetchingMainDetails,
+	fetchMainDetails,
+}) => {
 	const { id, type } = useParams();
 
 	const startAsyncOp = () => {
-		const { fetchMainDetails } = props;
 		const mode = type;
 		const detailsURL = getURL(mode, null, "details", null, id);
 		fetchMainDetails(detailsURL);
 	};
 
 	useEffect(() => {
+		if (mainDetails) {
+			document.title = mainDetails.title || mainDetails.name;
+		}
+	}, [mainDetails]);
+
+	useEffect(() => {
 		startAsyncOp();
 		// eslint-disable-next-line
 	}, [id]);
-
-	const { mainDetails, fetchingMainDetails } = props;
 
 	if (!mainDetails || (mainDetails && fetchingMainDetails)) {
 		return <Spinner height="95vh" />;

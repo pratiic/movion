@@ -54,7 +54,7 @@ export const SearchInputForm = styled.form`
 export const SearchInputGroup = styled.div`
 	${SearchbarLayoutStyles};
 	background-color: ${({ theme }) => theme.bgFocused};
-	padding: 0.3rem 0.85rem;
+	padding: 0.5rem 0.85rem;
 	border-radius: 3px;
 	position: relative;
 	border: ${({ focused }) => {

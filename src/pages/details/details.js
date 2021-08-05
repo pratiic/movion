@@ -14,7 +14,7 @@ import {
 	resetSimilarFetchPage,
 } from "../../redux/details/details.actions";
 
-import { renderGenericButton } from "../../components/utils/utils.components";
+import { renderGenericButton } from "../../utils/utils.components";
 
 import Spinner from "../../components/spinner/spinner";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
@@ -36,7 +36,6 @@ const DetailsPage = (props) => {
 			null,
 			id
 		);
-		console.log(similarURL);
 		fetchSimilar(similarURL);
 	};
 

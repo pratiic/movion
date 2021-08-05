@@ -16,8 +16,8 @@ import { firestore } from "../../firebase/firebase.utils";
 import {
 	addToFavorites,
 	showAddedToFavoritesNotification,
-} from "../../components/utils/utils.favorites";
-import { getContentType } from "../../components/utils/utils.components";
+} from "../../utils/utils.favorites";
+import { getContentType } from "../../utils/utils.components";
 
 import DetailsController from "../details-controller/details-controller";
 
@@ -49,9 +49,8 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 
 		//checking if the content is already liked
 
-		const likesDislikesCollectionRef = firestore.collection(
-			"likesdislikes"
-		);
+		const likesDislikesCollectionRef =
+			firestore.collection("likesdislikes");
 
 		const likedByCollectionRef = likesDislikesCollectionRef
 			.doc(contentId)
@@ -101,14 +100,8 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 	});
 
 	const addContentToFavorites = async () => {
-		const {
-			title,
-			name,
-			poster_path,
-			release_date,
-			first_air_date,
-			id,
-		} = contentMainDetails;
+		const { title, name, poster_path, release_date, first_air_date, id } =
+			contentMainDetails;
 
 		const status = await addToFavorites({
 			id,
