@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { StyledDetails } from "./details.styles";
-import { StyledError, StyledTitle } from "../../styles/styles.generic";
+import { StyledError } from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.title";
+import { WrapperSmall } from "../../styles/styles.wrapper";
 
 import { fetchSimilar } from "../../redux/api/api.actions";
 import { getURL } from "../../redux/api/api.info";
@@ -114,8 +116,10 @@ const DetailsPage = (props) => {
 		<StyledDetails>
 			<React.Fragment>
 				<DetailsMain />
-				<Credits />
-				<ReviewsContainer />
+				<WrapperSmall>
+					<Credits />
+					<ReviewsContainer />
+				</WrapperSmall>
 				{renderSimilar()}
 			</React.Fragment>
 		</StyledDetails>

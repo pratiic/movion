@@ -1,21 +1,19 @@
 import styled from "styled-components";
 
+import { CardStyles } from "../../styles/styles.cards";
 import { cssColors, cssFonts } from "../../styles/styles.variables";
-import { CardStyles } from "../../styles/styles.generic";
+import { StyledGenericButton } from "../generic-button/generic-button.styles";
 
 export const StyledMainCard = styled.div`
-	font-family: ${cssFonts.fontStackTertiary};
-	font-weight: 300;
-
 	${CardStyles};
 
+	font-family: ${cssFonts.fontStackTertiary};
+	font-weight: 300;
 	height: fit-content;
-	/* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-		rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; */
+	position: relative;
 
 	.card-image-container {
 		height: 30rem;
-		/* box-shadow: 0 0 0.75rem 0 rgba(0, 0, 0, 0.35); */
 	}
 
 	.content-info {
@@ -23,11 +21,15 @@ export const StyledMainCard = styled.div`
 		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;
 		padding: 0.55rem 0.8rem;
-		/* box-shadow: 0 0.3rem 0.45rem 0 rgba(0, 0, 0, 0.35); */
 	}
 
 	.content-release-date {
 		color: ${cssColors.greyText};
 		font-size: 1.6rem;
+	}
+
+	${StyledGenericButton} {
+		position: absolute;
+		bottom: -4rem;
 	}
 `;

@@ -34,21 +34,18 @@ export const Indicator = styled.div`
 	height: 2rem;
 	width: 2rem;
 	top: -0.35rem;
-	z-index: 1;
 	pointer-events: none;
-	border: none;
 
 	${({ indicator }) => {
 		if (indicator === "left") {
-			console.log("pratiic");
 			return css`
 				left: 1rem;
-				transform: rotate(45deg);
+				transform: rotate(-45deg);
 			`;
 		} else if (indicator === "right") {
 			return css`
 				right: 1rem;
-				transform: rotate(45deg);
+				transform: rotate(-45deg);
 			`;
 		} else if (indicator === "center") {
 			return css`
@@ -67,6 +64,10 @@ export const StyledDropdown = styled.div`
 	text-transform: lowercase;
 	white-space: nowrap;
 	box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.5);
+
+	& > *:not(:last-child) {
+		border-bottom: 1px solid ${({ theme }) => theme.bgFocused};
+	}
 
 	${({ forComponent }) => {
 		if (forComponent === "profile") {
@@ -88,10 +89,6 @@ export const StyledDropdown = styled.div`
 			return css`
 				top: 4rem;
 				right: 0;
-
-				& > *:not(:last-child) {
-					border-bottom: 1px solid ${({ theme }) => theme.bgFocused};
-				}
 			`;
 		} else if (forComponent === "review") {
 			return css`

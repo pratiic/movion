@@ -12,14 +12,15 @@ export const StyledReview = styled.div`
 	border: 1px solid ${({ theme }) => theme.bgFocused};
 	border-radius: 5px;
 	margin-bottom: 2rem;
-	box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.5);
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+		rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 `;
 
 export const ReviewHeader = styled.div`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	padding: 0.3rem 1rem;
+	padding: 0.75rem 1rem;
 	border-bottom: 1px solid ${({ theme }) => theme.bgFocused};
 	position: relative;
 
@@ -63,7 +64,7 @@ export const EditedOrNot = styled.p`
 `;
 
 export const ReviewMain = styled.div`
-	padding: 0.5rem 1rem;
+	padding: 1rem;
 	white-space: pre-wrap;
 `;
 
@@ -71,7 +72,7 @@ export const ReviewFooter = styled.div`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	padding: 0.3rem 1rem;
+	padding: 0.75rem 1rem;
 	border-top: 1px solid ${({ theme }) => theme.bgFocused};
 
 	svg {

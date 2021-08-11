@@ -1,11 +1,8 @@
 import React, { createRef } from "react";
 
 import { StyledSignUpPage } from "./sign-up.styles";
-import {
-	StyledTitle,
-	StyledSubtitle,
-	StyledFormLink,
-} from "../../styles/styles.generic";
+import { StyledTitle, StyledSubtitle } from "../../styles/styles.title";
+import { StyledFormLink } from "../../styles/styles.form";
 
 import {
 	getEmptyFieldNames,

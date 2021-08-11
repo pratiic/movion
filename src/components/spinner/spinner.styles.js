@@ -5,6 +5,7 @@ import { cssColors } from "../../styles/styles.variables";
 export const SpinnerOverlay = styled.div`
 	height: ${({ height }) => height || "60vh"};
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 `;
@@ -16,6 +17,8 @@ export const StyledSpinner = styled.div`
 	border: 3px solid ${cssColors.bluePrimary};
 	border-left-color: transparent;
 	animation: spinner-anim 350ms linear infinite;
+	margin-bottom: 0.75rem;
+
 	${({ smaller }) =>
 		smaller &&
 		css`

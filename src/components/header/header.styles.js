@@ -1,28 +1,16 @@
 import styled, { css } from "styled-components";
 
-import { ReactComponent as Logo } from "../../assets/logos/logo.svg";
+import { WrapperStyles } from "../../styles/styles.wrapper";
 
-import { WrapperStyles } from "../../styles/styles.generic";
+export const HeaderContainer = styled.div`
+	${WrapperStyles};
 
-export const HeaderElementStyles = css`
-	margin-left: 3rem;
-	cursor: pointer;
-
-	@media screen and (max-width: 850px) {
-		margin-left: 3.4rem;
-	}
-
-	@media screen and (max-width: 400px) {
-		margin-left: 2.4rem;
-	}
-
-	@media screen and (max-width: 350px) {
-		margin-left: 1.75rem;
-	}
-
-	&:first-child {
-		margin-left: 0;
-	}
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	border-bottom: ${({ theme }) =>
+		theme.bodyBg === "#e5e4e2" ? `1px solid ${theme.bgFocused}` : "none"};
 `;
 
 export const StyledHeader = styled.header`
@@ -38,21 +26,23 @@ export const StyledHeader = styled.header`
 	align-items: center;
 `;
 
-export const HeaderContainer = styled.div`
-	${WrapperStyles};
-
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-`;
-
-export const StyledLogo = styled(Logo)`
-	width: 13rem;
-	height: 4rem;
+export const HeaderElementStyles = css`
+	margin-left: 3rem;
 	cursor: pointer;
 
+	&:first-child {
+		margin-left: 0;
+	}
+
 	@media screen and (max-width: 850px) {
-		width: 13rem;
+		margin-left: 3.4rem;
+	}
+
+	@media screen and (max-width: 400px) {
+		margin-left: 2.4rem;
+	}
+
+	@media screen and (max-width: 350px) {
+		margin-left: 1.75rem;
 	}
 `;

@@ -1,16 +1,13 @@
 import styled from "styled-components";
 
-import {
-	WrapperStyles,
-	TextStyles,
-	StyledTitle,
-} from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.title";
+import { WrapperStyles } from "../../styles/styles.wrapper";
 
 export const StyledReviewsContainer = styled.div`
-	${WrapperStyles}
-	max-width: 750px;
+	/* ${WrapperStyles} */
 	padding: 0;
-	margin-bottom: 3rem;
+	max-width: 50rem;
+	margin: 0 auto 3rem auto;
 
 	${StyledTitle} {
 		text-transform: lowercase;

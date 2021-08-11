@@ -1,19 +1,42 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-import { StyledChatHeader, Username } from "./chat-header.styles";
+import {
+	StyledChatHeader,
+	Username,
+	HeaderControls,
+	UserProfilePreview,
+} from "./chat-header.styles";
+import { StyledArrowLeftIcon } from "../../styles/styles.icons";
 
 import ProfilePicture from "../profile-picture/profile-picture";
+import Logo from "../logo/logo";
 
 const ChatHeader = ({ chatUser }) => {
+	const history = useHistory();
+
+	const handleArrowLeftClick = () => {
+		history.push("/chats");
+	};
+
 	return (
 		<StyledChatHeader>
-			<ProfilePicture
-				username={chatUser.username}
-				photoURL={chatUser.photoURL}
-				size="smaller"
-			/>
-			<Username> {chatUser.username} </Username>
+			<HeaderControls>
+				<StyledArrowLeftIcon
+					$showBackground
+					$medium
+					onClick={handleArrowLeftClick}
+				/>
+				<Logo size="smaller" />
+			</HeaderControls>
+			<UserProfilePreview>
+				<ProfilePicture
+					username={chatUser.username}
+					photoURL={chatUser.photoURL}
+				/>
+				<Username> {chatUser.username} </Username>
+			</UserProfilePreview>
 		</StyledChatHeader>
 	);
 };

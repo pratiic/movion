@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-import { WrapperStyles, OverlayStyles } from "../../styles/styles.generic";
-//import { cssColors } from "../../styles/styles.variables";
+import { OverlayStyles } from "../../styles/styles.generic";
+import { WrapperStyles } from "../../styles/styles.wrapper";
 
 export const FeaturedWrapper = styled.div`
 	${WrapperStyles};
+
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -28,26 +29,23 @@ export const StyledFeatured = styled.div`
 	align-items: center;
 
 	${OverlayStyles};
+`;
 
-	p {
-		margin-bottom: 1.5rem;
+export const Title = styled.p`
+	font-size: 2.75rem;
+	font-weight: 300;
+	margin-bottom: 1.5rem;
+`;
+
+export const Overview = styled.p`
+	max-width: 70%;
+	margin-bottom: 2.5rem;
+
+	@media screen and (max-width: 800px) {
+		max-width: 85%;
 	}
 
-	.featured-title {
-		font-size: 2.8rem;
-		font-weight: 300;
-	}
-
-	.featured-overview {
-		max-width: 70%;
-		margin-bottom: 2.4rem;
-
-		@media screen and (max-width: 800px) {
-			max-width: 85%;
-		}
-
-		@media screen and (max-width: 600px) {
-			width: 100%;
-		}
+	@media screen and (max-width: 600px) {
+		width: 100%;
 	}
 `;

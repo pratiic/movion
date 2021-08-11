@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { StyledHeader, HeaderContainer, StyledLogo } from "./header.styles";
@@ -9,24 +9,29 @@ import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import Searchbar from "../search-bar/search-bar";
 import HeaderUtils from "../header-utils/header-utils";
 import HeaderLinks from "../header-links/header-links";
+import Logo from "../logo/logo";
 
 const Header = ({ currentUser }) => {
-	let searchInputRef;
+	const [searchInputRef, setSearchInputRef] = useState(null);
+
+	const location = useLocation();
 
 	const getSearchInputRef = (inputRef) => {
-		searchInputRef = inputRef;
+		setSearchInputRef(inputRef);
 	};
 
 	const focusSearchInput = () => {
 		searchInputRef.current.focus();
 	};
 
+	if (location.pathname.includes("/chat/")) {
+		return null;
+	}
+
 	return (
 		<StyledHeader>
 			<HeaderContainer>
-				<Link to="/">
-					<StyledLogo />
-				</Link>
+				<Logo />
 
 				<Searchbar getSearchInputRef={getSearchInputRef} />
 

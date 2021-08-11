@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { StyledMoviesPage } from "./movies.styles";
-import { StyledTitle } from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.title";
 
 import { getURL } from "../../redux/api/api.info";
 import { fetchMoviesOrTvShows } from "../../redux/api/api.actions";
@@ -32,7 +32,23 @@ const MoviesPage = ({
 	incrementCurrentMoviesFetchPage,
 	moviesFetchType,
 }) => {
-	const handleButtonClick = () => {
+	useEffect(() => {
+		document.title = capitalizeFirstLetter(`${moviesFetchType} movies`);
+	}, [moviesFetchType]);
+
+	useEffect(() => {
+		fetchMovies();
+		// eslint-disable-next-line
+	}, [moviesFetchType]);
+
+	const fetchMovies = () => {
+		fetchMoviesOrTvShows(
+			getURL("movie", currentMoviesFetchPage, moviesFetchType),
+			"movies"
+		);
+	};
+
+	const handleLoadMoreButtonClick = () => {
 		const url = getURL(
 			"movie",
 			currentMoviesFetchPage + 1,
@@ -44,26 +60,13 @@ const MoviesPage = ({
 		incrementCurrentMoviesFetchPage();
 	};
 
-	const startAsyncOp = () => {
-		fetchMoviesOrTvShows(
-			getURL("movie", currentMoviesFetchPage, moviesFetchType),
-			"movies"
-		);
-	};
-
-	useEffect(() => {
-		document.title = capitalizeFirstLetter(`${moviesFetchType} movies`);
-	}, [moviesFetchType]);
-
-	useEffect(() => {
-		startAsyncOp();
-		// eslint-disable-next-line
-	}, [moviesFetchType]);
-
 	return (
 		<StyledMoviesPage>
 			{fetchingMovies ? (
-				<Spinner height="105vh" />
+				<Spinner
+					height="105vh"
+					message={`loading ${moviesFetchType} movies`}
+				/>
 			) : (
 				<React.Fragment>
 					<Featured featured={movies[0]} />
@@ -87,7 +90,7 @@ const MoviesPage = ({
 							size="bigger"
 							marginbt
 							justify="center"
-							handleButtonClick={handleButtonClick}
+							handleButtonClick={handleLoadMoreButtonClick}
 						>
 							load more
 						</GenericButton>,

@@ -27,13 +27,18 @@ export const getURL = (mode, page, fetchType, query, id) => {
 		fetchType === "on the air"
 	) {
 		return `${baseURL}/${mode}/${fetchTypeApiMap[fetchType]}?${unChangingPart}&page=${page}`;
-	} else if (fetchType === "search") {
-		return `${baseURL}/search/${mode}?${unChangingPart}&page=${page}&include_adult=false&query=${query}`;
-	} else if (fetchType === "details") {
-		return `${baseURL}/${mode}/${id}?${unChangingPart}`;
-	} else if (fetchType === "similar") {
-		return `${baseURL}/${mode}/${id}/similar?${unChangingPart}&page=${page}`;
-	} else if (fetchType === "credits") {
-		return `${baseURL}/${mode}/${id}/credits?${unChangingPart}`;
+	}
+
+	switch (fetchType) {
+		case "search":
+			return `${baseURL}/search/${mode}?${unChangingPart}&page=${page}&include_adult=false&query=${query}`;
+		case "details":
+			return `${baseURL}/${mode}/${id}?${unChangingPart}`;
+		case "similar":
+			return `${baseURL}/${mode}/${id}/similar?${unChangingPart}&page=${page}`;
+		case "credits":
+			return `${baseURL}/${mode}/${id}/credits?${unChangingPart}`;
+		default:
+			return;
 	}
 };

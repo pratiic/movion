@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import {
 	StyledDeleteIcon,
 	StyledSearchIcon,
 	StyledHamburgerIcon,
+	StyledNotificationIcon,
 } from "../../styles/styles.icons";
 
 import {
@@ -18,6 +19,7 @@ import { toggleSearchbar } from "../../redux/searchbar/searchbar.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 
 import ThemeToggler from "../theme-toggler/theme-toggler";
+import HeaderUtil from "../header-util/header-util";
 
 const HeaderUtils = ({
 	showSearchbarOnSmallScreens,
@@ -28,72 +30,93 @@ const HeaderUtils = ({
 	focusSearchInput,
 	currentUser,
 	toggleNotification,
+	userNotifications,
 }) => {
+	const [unseenNotifications, setUnseenNotifications] = useState(0);
+
 	const history = useHistory();
+
+	useEffect(() => {
+		setUnseenNotifications(
+			userNotifications.filter(
+				(userNotification) => !userNotification.seen
+			).length
+		);
+	}, [userNotifications]);
 
 	return (
 		<StyledHeaderUtils>
-			<StyledHeartIcon
-				$headerElement
-				$smaller
-				onClick={() => {
-					history.push("/favorites");
-
-					if (!currentUser) {
-						toggleNotification(
-							"you need to sign in first",
-							"failure"
-						);
-					}
-				}}
-			/>
-
-			<ThemeToggler />
-
-			{showSearchbarOnSmallScreens ? (
-				<StyledDeleteIcon
+			<HeaderUtil>
+				<StyledHeartIcon
 					$headerElement
-					$searchbarToggler
-					$smaller
-					onClick={toggleSearchbar}
-				/>
-			) : (
-				<StyledSearchIcon
-					$headerElement
-					$searchbarToggler
 					$smaller
 					onClick={() => {
-						toggleSearchbar();
-						focusSearchInput();
-
-						if (showSidebar) {
-							closeSidebar();
-						}
+						history.push("/favorites");
 					}}
 				/>
-			)}
+			</HeaderUtil>
 
-			{showSidebar ? (
-				<StyledDeleteIcon
+			<HeaderUtil>
+				<ThemeToggler />
+			</HeaderUtil>
+
+			<HeaderUtil text={unseenNotifications}>
+				<StyledNotificationIcon
 					$headerElement
-					$sidebarToggler
-					$smaller
-					onClick={toggleSidebar}
-				></StyledDeleteIcon>
-			) : (
-				<StyledHamburgerIcon
-					$headerElement
-					$bigger
-					$sidebarToggler
 					onClick={() => {
-						toggleSidebar();
+						history.push("/notifications");
+					}}
+				/>
+			</HeaderUtil>
 
-						if (showSearchbarOnSmallScreens) {
+			<HeaderUtil>
+				{showSearchbarOnSmallScreens ? (
+					<StyledDeleteIcon
+						$headerElement
+						$searchbarToggler
+						$smaller
+						onClick={toggleSearchbar}
+					/>
+				) : (
+					<StyledSearchIcon
+						$headerElement
+						$searchbarToggler
+						$smaller
+						onClick={() => {
 							toggleSearchbar();
-						}
-					}}
-				/>
-			)}
+							focusSearchInput();
+
+							if (showSidebar) {
+								closeSidebar();
+							}
+						}}
+					/>
+				)}
+			</HeaderUtil>
+
+			<HeaderUtil>
+				{showSidebar ? (
+					<StyledDeleteIcon
+						$headerElement
+						$sidebarToggler
+						$smaller
+						onClick={toggleSidebar}
+					/>
+				) : (
+					<StyledHamburgerIcon
+						$headerElement
+						$bigger
+						$sidebarToggler
+						onClick={() => {
+							toggleSidebar();
+
+							if (showSearchbarOnSmallScreens) {
+								toggleSearchbar();
+							}
+						}}
+					/>
+				)}
+			</HeaderUtil>
 		</StyledHeaderUtils>
 	);
 };
@@ -104,6 +127,7 @@ const mapStateToProps = (state) => {
 			state.searchbar.showSearchbarOnSmallScreens,
 		showSidebar: state.sidebar.showSidebar,
 		currentUser: state.currentUser.currentUser,
+		userNotifications: state.userNotifications.userNotifications,
 	};
 };
 

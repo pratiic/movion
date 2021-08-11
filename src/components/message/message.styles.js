@@ -85,26 +85,8 @@ export const StyledMessage = styled.div`
 		`}
 
 	${StyledHorizontalDotMenuIcon} {
-		box-sizing: content-box;
-		padding: 0.3rem;
-		border-radius: 50%;
-
 		path {
 			fill: ${({ theme }) => theme.textMuted};
-		}
-
-		&:hover {
-			background-color: ${({ theme }) => theme.bgFocused};
-
-			path {
-				fill: ${cssColors.bluePrimary};
-			}
-		}
-
-		&:active {
-			path {
-				fill: ${({ theme }) => theme.textMuted};
-			}
 		}
 	}
 `;

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-import { WrapperStyles, OverlayStyles } from "../../styles/styles.generic";
+import { OverlayStyles } from "../../styles/styles.generic";
 import { cssColors } from "../../styles/styles.variables";
+import { WrapperStyles } from "../../styles/styles.wrapper";
 
 export const StyledDetailsMain = styled.div`
 	background-image: ${({ backdropPath }) => `url(${backdropPath})`};

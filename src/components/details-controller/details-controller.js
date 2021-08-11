@@ -27,13 +27,12 @@ const DetailsController = ({
 				if (handleDetailsControllerClick) {
 					if (!currentUser) {
 						history.push("/signin");
-						toggleNotification(
+						return toggleNotification(
 							"you need to sign in first",
-							"failure"
+							false
 						);
-					} else {
-						handleDetailsControllerClick();
 					}
+					handleDetailsControllerClick();
 				}
 
 				if (toggleDropdown) {

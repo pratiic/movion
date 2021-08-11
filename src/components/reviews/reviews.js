@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
-import { StyledReviews, ReviewsMessage } from "./reviews.styles";
+import { StyledReviews } from "./reviews.styles";
+import { StyledMessage } from "../../styles/styles.generic";
 
 import { firestore } from "../../firebase/firebase.utils";
 
@@ -15,15 +16,13 @@ const Reviews = () => {
 	const [totalReviews, setTotalReviews] = useState(0);
 	const [fetchingMoreReviews, setFetchingMoreReviews] = useState(false);
 
-	console.log(reviewsFetchNumber, totalReviews);
+	const { id, type } = useParams();
 
-	const { id } = useParams();
 	const divToScrollToRef = useRef();
 
 	useEffect(() => {
 		fetchReviews();
-		console.log(reviewsFetchNumber);
-	}, [reviewsFetchNumber]);
+	}, [reviewsFetchNumber, id]);
 
 	const fetchReviews = async () => {
 		setFetchingMoreReviews(true);
@@ -63,7 +62,12 @@ const Reviews = () => {
 					{reviews.map((review) => {
 						const data = review.data();
 						return (
-							<Review {...data} contentID={id} key={data.id} />
+							<Review
+								{...data}
+								contentID={id}
+								contentType={type}
+								key={data.id}
+							/>
 						);
 					})}
 					<div ref={divToScrollToRef}></div>
@@ -79,7 +83,7 @@ const Reviews = () => {
 					) : null}
 				</React.Fragment>
 			) : (
-				<ReviewsMessage>{reviewsMessage}</ReviewsMessage>
+				<StyledMessage>{reviewsMessage}</StyledMessage>
 			)}
 		</StyledReviews>
 	);

@@ -3,14 +3,13 @@ import styled, { css } from "styled-components";
 import {
 	CardsListWrapperStyles,
 	CardsListStyles,
-} from "../../styles/styles.generic";
+} from "../../styles/styles.cards";
 
 export const StyledPersonCardsList = styled.div`
 	${CardsListStyles}
 
 	transform: scaleY(0);
 	height: 0;
-	//transition: transform 150ms ease-in, height 150ms ease-in;
 	transform-origin: top;
 	${({ show }) =>
 		show &&
@@ -21,7 +20,9 @@ export const StyledPersonCardsList = styled.div`
 `;
 
 export const PersonCardsListWrapper = styled.div`
-	${CardsListWrapperStyles};
+	display: grid;
+	justify-content: center;
 	grid-template-columns: repeat(auto-fill, 13rem);
 	grid-gap: 2rem;
+	margin-bottom: 1.5rem;
 `;

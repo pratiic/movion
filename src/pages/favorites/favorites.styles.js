@@ -1,14 +1,11 @@
 import styled, { css } from "styled-components";
 
-import {
-	StyledTitle,
-	PageStyles,
-	StyledError,
-} from "../../styles/styles.generic";
+import { StyledError } from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.title";
+import { PageStyles } from "../../styles/styles.page";
+import { cssColors } from "../../styles/styles.variables";
 
 import { StyledMainCardsList } from "../../components/main-cards-list/main-cards-list.styles";
-
-import { cssColors } from "../../styles/styles.variables";
 
 export const StyledFavoritesPage = styled.div`
 	${PageStyles};
@@ -28,6 +25,10 @@ export const StyledFavoritesPage = styled.div`
 	}
 
 	${StyledMainCardsList} {
-		margin-bottom: 5rem;
+		margin-bottom: 7rem;
 	}
 `;
+
+export const VerticalDivider = styled.div`
+	margin-top: 1.5rem;
+`

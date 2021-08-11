@@ -53,9 +53,9 @@ const HeaderLinks = ({
 			value: "chat",
 			icon: <StyledChatIcon $headerLinkIcon />,
 			pathnames: {
-				pathnameOne: "chat",
+				pathnameOne: "chats",
 			},
-			to: "/chat",
+			to: "/chats",
 			active: false,
 			hideOnCurrentUser: false,
 		},
@@ -75,6 +75,11 @@ const HeaderLinks = ({
 
 	const location = useLocation();
 
+	useEffect(() => {
+		toggleActiveLink();
+		// eslint-disable-next-line
+	}, [location]);
+
 	const handleLinkClick = (event) => {
 		//whenever a header link is clicked, we close the sidebar
 		toggleSidebar();
@@ -91,13 +96,9 @@ const HeaderLinks = ({
 				pathname.includes(headerLink.pathnames.pathnameOne) ||
 				pathname.includes(headerLink.pathnames.pathnameTwo)
 			) {
-				setActiveLink(headerLink.pathnames.pathnameOne);
-			} else if (pathname.includes("favorites")) {
-				//since the link to favorites is not present inside the this component
-				//but is inside headerutils component
-				//whenever the user navigates to favorites
-				//all header links are set to be not active
-				setAllLinksInActive();
+				return setActiveLink(headerLink.pathnames.pathnameOne);
+			} else {
+				return setAllLinksInActive();
 			}
 		});
 	};
@@ -122,11 +123,6 @@ const HeaderLinks = ({
 			})
 		);
 	};
-
-	useEffect(() => {
-		toggleActiveLink();
-		// eslint-disable-next-line
-	}, [location]);
 
 	return (
 		<StyledHeaderLinks show={showSidebar}>

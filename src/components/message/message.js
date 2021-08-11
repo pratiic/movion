@@ -34,7 +34,7 @@ const Message = ({ text, createdBy, createdAt, currentUser, mid, seen }) => {
 					) : null}
 				</MessageInfo>
 			</Text>
-			<StyledHorizontalDotMenuIcon $smaller />
+			<StyledHorizontalDotMenuIcon $smaller $showBackground />
 		</StyledMessage>
 	);
 };

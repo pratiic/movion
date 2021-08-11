@@ -1,17 +1,16 @@
 import styled from "styled-components";
 
-import { PageStyles, WrapperStyles } from "../../styles/styles.generic";
+import { WrapperStyles } from "../../styles/styles.wrapper";
 
 export const StyledChatContainer = styled.div`
 	${WrapperStyles};
-	${PageStyles};
 	padding-top: 0;
 `;
 
 export const Chat = styled.div`
 	max-width: 850px;
 	margin: auto;
-	height: calc(100vh - 5rem);
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	border-left: 1px solid ${({ theme }) => theme.bgFocused};

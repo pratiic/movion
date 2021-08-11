@@ -27,6 +27,7 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 	const [dislikes, setDislikes] = useState(0);
 	const [liked, setLiked] = useState(false);
 	const [disliked, setDisliked] = useState(false);
+	const [addingToFavorites, setAddingToFavorites] = useState(false);
 
 	useEffect(() => {
 		if (currentUser) {
@@ -103,6 +104,8 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 		const { title, name, poster_path, release_date, first_air_date, id } =
 			contentMainDetails;
 
+		setAddingToFavorites(true);
+
 		const status = await addToFavorites({
 			id,
 			currentUserId: currentUser.id,
@@ -111,6 +114,8 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 			release_date: release_date || first_air_date,
 			type: getContentType(title, name),
 		});
+
+		setAddingToFavorites(false);
 
 		showAddedToFavoritesNotification(status, toggleNotification);
 	};
@@ -149,13 +154,19 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 		<StyledDetailsControl>
 			{addedToFavorites ? (
 				<DetailsController jobDone>
-					<StyledTickIcon /> already in favorites
+					<StyledTickIcon /> added to favorites
 				</DetailsController>
 			) : (
 				<DetailsController
 					handleDetailsControllerClick={addContentToFavorites}
 				>
-					<StyledHeartIcon $medium /> add to favorites
+					{addingToFavorites ? (
+						"adding to favorites..."
+					) : (
+						<React.Fragment>
+							<StyledHeartIcon $medium /> add to favorites
+						</React.Fragment>
+					)}
 				</DetailsController>
 			)}
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { cssColors } from "../../styles/styles.variables";
-import { CardStyles } from "../../styles/styles.generic";
+import { CardStyles } from "../../styles/styles.cards";
 
 export const StyledPersonCard = styled.div`
 	${CardStyles};

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
 	CardsListWrapperStyles,
 	CardsListStyles,
-} from "../../styles/styles.generic";
+} from "../../styles/styles.cards";
 
 export const StyledMainCardsList = styled.div`
 	${CardsListStyles}

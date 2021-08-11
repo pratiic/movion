@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import { WrapperStyles } from "../../styles/styles.generic";
+import { WrapperStyles } from "../../styles/styles.wrapper";
 
 export const StyledCredits = styled.div`
-	${WrapperStyles};
+	/* ${WrapperStyles}; */
 
 	& > *:nth-child(2n) {
 		margin-bottom: 0;

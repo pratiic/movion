@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { StyledError, StyledTitle } from "../../styles/styles.generic";
+import { StyledError } from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.title";
 import { cssColors } from "../../styles/styles.variables";
 import { StyledSearchResults } from "./search-results.styles";
 
@@ -70,7 +71,11 @@ const SearchResultsPage = (props) => {
 
 	return (
 		<StyledSearchResults>
-			{fetchingSearchResults ? <Spinner /> : renderSearchResults()}
+			{fetchingSearchResults ? (
+				<Spinner message={`loading results for ${query}`} />
+			) : (
+				renderSearchResults()
+			)}
 		</StyledSearchResults>
 	);
 };

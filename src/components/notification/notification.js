@@ -1,21 +1,34 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import { StyledNotification } from "./notification.styles";
 import { StyledTickIcon, StyledDeleteIcon } from "../../styles/styles.icons";
 
 //this component is for showing notifications for different activities
-const Notification = ({ message, type }) => {
-	return message ? (
-		<StyledNotification type={type}>
-			{" "}
-			{type === "success" ? (
+const Notification = ({ notificationMessage, success }) => {
+	if (!notificationMessage) {
+		return null;
+	}
+
+	console.log(success);
+
+	return (
+		<StyledNotification success={success}>
+			{success ? (
 				<StyledTickIcon $notificationIcon />
 			) : (
 				<StyledDeleteIcon $notificationIcon $smaller />
 			)}
-			{message}
+			{notificationMessage}
 		</StyledNotification>
-	) : null;
+	);
 };
 
-export default Notification;
+const mapStateToProps = (state) => {
+	return {
+		notificationMessage: state.notification.notificationMessage,
+		success: state.notification.success,
+	};
+};
+
+export default connect(mapStateToProps)(Notification);

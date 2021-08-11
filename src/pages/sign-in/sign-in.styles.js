@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { FormPageStyles, FormStyles } from "../../styles/styles.generic";
+import { FormPageStyles, FormStyles } from "../../styles/styles.form";
 
 export const StyledSignInPage = styled.div`
 	${FormPageStyles};
@@ -16,12 +16,24 @@ export const StyledSignInPage = styled.div`
 	}
 `;
 
-export const ButtonCollection = styled.div`
+export const Buttons = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 
+	& > * {
+		flex: 1 1 auto;
+	}
+
+	& > *:last-child {
+		margin-left: 0.75rem;
+	}
+
 	@media screen and (max-width: 450px) {
 		flex-direction: column;
+
+		& > *:last-child {
+			margin-left: 0;
+		}
 	}
 `;

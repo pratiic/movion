@@ -4,6 +4,7 @@ export const cssColors = {
 	orangePrimary: "#e86d1a",
 	greyDark: "#181818",
 	greyLight: "#323739",
+	greyLightDarker: "#2c3133",
 	greyLighter: "lightgrey",
 	greyLightestOne: "#cdcdcd",
 	greyLightestTwo: "#e5e4e2",

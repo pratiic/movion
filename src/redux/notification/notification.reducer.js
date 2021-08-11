@@ -2,7 +2,7 @@ import { notificationActionTypes } from "./notification.types";
 
 const INITIAL_STATE = {
 	notificationMessage: "",
-	notificationType: "",
+	success: true,
 };
 
 export const notificationReducer = (state = INITIAL_STATE, action) => {
@@ -11,13 +11,12 @@ export const notificationReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				notificationMessage: action.payload.notificationMessage,
-				notificationType: action.payload.notificationType,
+				success: action.payload.success,
 			};
 		case notificationActionTypes.CLEAR_NOTIFICATION:
 			return {
 				...state,
 				notificationMessage: "",
-				notificationType: "",
 			};
 		default:
 			return state;

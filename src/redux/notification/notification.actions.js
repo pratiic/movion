@@ -1,9 +1,9 @@
 import { notificationActionTypes } from "./notification.types";
 
-export const showNotification = (notificationMessage) => {
+export const showNotification = (notificationMessage, success) => {
 	return {
 		type: notificationActionTypes.SHOW_NOTIFICATION,
-		payload: notificationMessage,
+		payload: { notificationMessage, success },
 	};
 };
 
@@ -13,9 +13,9 @@ export const clearNotification = () => {
 	};
 };
 
-export const toggleNotification = (notificationMessage, notificationType) => {
+export const toggleNotification = (notificationMessage, success = true) => {
 	return (dispatch) => {
-		dispatch(showNotification({ notificationMessage, notificationType }));
+		dispatch(showNotification(notificationMessage, success));
 
 		setTimeout(() => {
 			dispatch(clearNotification());

@@ -23,16 +23,17 @@ import {
 } from "../../redux/reviews/reviews.actions";
 import { setChatUser } from "../../redux/chat-user/chat-user.actions";
 
-import { getDateAndTime } from "../../utils/utils.components";
-import { firestore, addUserToChats } from "../../firebase/firebase.utils";
+import { firestore } from "../../firebase/firebase.utils";
+import { getHowLongAgo } from "../../utils/utils.date-time";
+import { setUserNotification } from "../../firebase/firebase.user-notifications.utils";
 
 import {
 	StyledThumbsUpIcon,
 	StyledThumbsDownIcon,
-	StyledReplyIcon,
 	StyledTrashCanIcon,
 	StyledEditIcon,
 	StyledHorizontalDotMenuIcon,
+	StyledReplyIcon,
 } from "../../styles/styles.icons";
 
 import ProfilePicture from "../profile-picture/profile-picture";
@@ -48,6 +49,7 @@ const Review = ({
 	userPhotoURL,
 	id,
 	contentID,
+	contentType,
 	currentUser,
 	toggleNotification,
 	setEditing,
@@ -69,8 +71,6 @@ const Review = ({
 			.doc(id)
 	);
 	const [showDropdown, setShowDropdown] = useState(false);
-
-	console.log(reviewRef);
 
 	const history = useHistory();
 
@@ -107,29 +107,57 @@ const Review = ({
 				}
 			}
 		});
-	});
+	}, []);
 
 	const handleThumbsUpIconClick = () => {
 		if (!currentUser) {
-			showSignInFirstNotification();
-			return;
+			return showSignInFirstNotification();
 		}
-		reviewRef.collection("disliked-by").doc(currentUser.id).delete();
-		reviewRef.collection("liked-by").doc(currentUser.id).set({});
+
+		if (!liked) {
+			reviewRef.collection("disliked-by").doc(currentUser.id).delete();
+			reviewRef.collection("liked-by").doc(currentUser.id).set({});
+
+			passNotificationInfo("like");
+		}
 	};
 
 	const handleThumbsDownIconClick = () => {
 		if (!currentUser) {
-			showSignInFirstNotification();
+			return showSignInFirstNotification();
+		}
+
+		if (!disliked) {
+			reviewRef.collection("liked-by").doc(currentUser.id).delete();
+			reviewRef.collection("disliked-by").doc(currentUser.id).set({});
+
+			passNotificationInfo("dislike");
+		}
+	};
+
+	const passNotificationInfo = (action) => {
+		if (currentUser.id === userID) {
 			return;
 		}
-		reviewRef.collection("liked-by").doc(currentUser.id).delete();
-		reviewRef.collection("disliked-by").doc(currentUser.id).set({});
+
+		setUserNotification({
+			destUserID: userID,
+			sourceUser: {
+				userID: currentUser.id,
+				username: currentUser.username,
+				photoURL: currentUser.photoURL,
+			},
+			type: "review",
+			action,
+			reviewID: id,
+			contentID,
+			contentType,
+		});
 	};
 
 	const handleTrashCanIconClick = async () => {
 		await reviewRef.delete();
-		toggleNotification("review removed successfully", "success");
+		toggleNotification("review removed successfully");
 	};
 
 	const handleEditIconClick = () => {
@@ -139,7 +167,7 @@ const Review = ({
 	};
 
 	const showSignInFirstNotification = () => {
-		toggleNotification("you need to sign in first", "failure");
+		toggleNotification("you need to sign in first", false);
 		history.push("/signin");
 	};
 
@@ -156,7 +184,7 @@ const Review = ({
 					size="smaller"
 				/>
 				<Username>{username}</Username>
-				<CreatedAt>({getDateAndTime(createdAt)})</CreatedAt>
+				<CreatedAt>{getHowLongAgo(createdAt)} ago</CreatedAt>
 				{edited ? <EditedOrNot>(edited)</EditedOrNot> : null}
 				{currentUser ? (
 					currentUser.id !== userID ? (
@@ -168,7 +196,6 @@ const Review = ({
 							>
 								<DropdownItem
 									toggleDropdown={toggleDropdown}
-									func="start chat"
 									clickHandler={() => {
 										const user = {
 											id: userID,
@@ -194,41 +221,36 @@ const Review = ({
 					) : null
 				) : null}
 			</ReviewHeader>
+
 			<ReviewMain>{text}</ReviewMain>
+
 			<ReviewFooter>
 				<IconContainer liked={liked}>
-					<StyledThumbsUpIcon
-						$smaller
-						// liked={liked ? "true" : "false"}
-						onClick={handleThumbsUpIconClick}
-					/>
+					<StyledThumbsUpIcon onClick={handleThumbsUpIconClick} />
 					<Info>{likes}</Info>
 				</IconContainer>
+
 				<IconContainer disliked={disliked}>
-					<StyledThumbsDownIcon
-						$smaller
-						// disliked={disliked ? "true" : "false"}
-						onClick={handleThumbsDownIconClick}
-					/>
+					<StyledThumbsDownIcon onClick={handleThumbsDownIconClick} />
 					<Info>{dislikes}</Info>
 				</IconContainer>
-				{/* <IconContainer>
-					<StyledReplyIcon $smallest />
-					<Info></Info>
-				</IconContainer> */}
+
+				{currentUser && currentUser.id !== userID && (
+					<StyledReplyIcon />
+				)}
+
 				{currentUser ? (
 					currentUser.id === userID ? (
 						<React.Fragment>
 							<IconContainer>
 								<StyledTrashCanIcon
-									$smaller
 									onClick={handleTrashCanIconClick}
 								/>
 							</IconContainer>
 							{!editing ? (
 								<IconContainer>
 									<StyledEditIcon
-										$smallest
+										$smaller
 										onClick={handleEditIconClick}
 									/>
 								</IconContainer>

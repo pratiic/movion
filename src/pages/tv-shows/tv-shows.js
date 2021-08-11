@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { StyledTvShowsPage } from "./tv-shows.styles";
-import { StyledTitle } from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.title";
 
 import { getURL } from "../../redux/api/api.info";
 import { fetchMoviesOrTvShows } from "../../redux/api/api.actions";
@@ -33,6 +33,21 @@ const TvShowsPage = ({
 	tvShowsFetchType,
 	fetchingTvShows,
 }) => {
+	useEffect(() => {
+		document.title = capitalizeFirstLetter(`${tvShowsFetchType} tv shows`);
+	}, [tvShowsFetchType]);
+
+	useEffect(() => {
+		fetchTvShows();
+		// eslint-disable-next-line
+	}, [tvShowsFetchType]);
+
+	const fetchTvShows = () => {
+		const url = getURL("tv", currentTvShowsFetchPage, tvShowsFetchType);
+
+		fetchMoviesOrTvShows(url, "tv shows");
+	};
+
 	const handleButtonClick = () => {
 		fetchMoreTvShowsStart();
 		fetchMoviesOrTvShows(
@@ -43,25 +58,13 @@ const TvShowsPage = ({
 		incrementCurrentTvShowsFetchPage();
 	};
 
-	const startAsyncOp = () => {
-		const url = getURL("tv", currentTvShowsFetchPage, tvShowsFetchType);
-
-		fetchMoviesOrTvShows(url, "tv shows");
-	};
-
-	useEffect(() => {
-		document.title = capitalizeFirstLetter(`${tvShowsFetchType} tv shows`);
-	}, [tvShowsFetchType]);
-
-	useEffect(() => {
-		startAsyncOp();
-		// eslint-disable-next-line
-	}, [tvShowsFetchType]);
-
 	return (
 		<StyledTvShowsPage>
 			{fetchingTvShows ? (
-				<Spinner height="105vh" />
+				<Spinner
+					height="105vh"
+					message={`loading ${tvShowsFetchType} tv shows`}
+				/>
 			) : (
 				<React.Fragment>
 					<Featured featured={tvShows[0]} />

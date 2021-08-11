@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { cssColors } from "../../styles/styles.variables";
 import { StyledArrowUpIcon } from "../../styles/styles.icons";
 import { dropdownHeaderStyles } from "../dropdown/dropdown.styles";
+import { OverlayStyles } from "../../styles/styles.generic";
 
 const SearchbarLayoutStyles = css`
 	display: flex;
@@ -30,14 +31,7 @@ export const SearchInputForm = styled.form`
 		opacity: 0;
 		pointer-events: none;
 		transition: top 250ms ease-in, opacity 300ms ease-in;
-		${({ showSearchbarOnSmallScreens }) =>
-			showSearchbarOnSmallScreens &&
-			css`
-				top: 6.7rem;
-				z-index: 7;
-				opacity: 1;
-				pointer-events: all;
-			`}
+		box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
 	}
 
 	@media screen and (max-width: 500px) {
@@ -119,4 +113,26 @@ export const SearchOption = styled.p`
 
 export const SearchInputControls = styled.div`
 	${SearchbarLayoutStyles};
+`;
+
+export const SearchOverlay = styled.div`
+	@media screen and (max-width: 850px) {
+		${({ showSearchbarOnSmallScreens }) =>
+			showSearchbarOnSmallScreens &&
+			css`
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.5);
+
+				${SearchInputForm} {
+					top: 6.7rem;
+					z-index: 7;
+					opacity: 1;
+					pointer-events: all;
+				}
+			`}
+	}
 `;

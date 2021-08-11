@@ -5,13 +5,13 @@ export const StyledCardsListToggler = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 50%;
 	border: 1px solid ${({ theme }) => theme.textIconBlur};
 	border-radius: 5px;
 	margin: 0 auto 0 auto;
 	font-weight: 400;
 	cursor: pointer;
 	padding: 0.2rem 1rem;
+	/* width: 50%; */
 
 	svg {
 		margin: 0;
@@ -39,15 +39,13 @@ export const StyledCardsListToggler = styled.div`
 					}
 				}
 			}
-		`}
-
-	@media screen and (max-width: 1000px) {
+		`}/* @media screen and (max-width: 1000px) {
 		width: 80%;
 	}
 
 	@media screen and (max-width: 500px) {
 		width: 85%;
-	}
+	} */
 `;
 
 export const Title = styled.p`

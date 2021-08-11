@@ -12,7 +12,6 @@ import { firestore } from "../../firebase/firebase.utils";
 import { StyledSendIcon } from "../../styles/styles.icons";
 
 import GenericButton from "../generic-button/generic-button";
-import Spinner from "../spinner/spinner";
 
 const ReviewArea = ({
 	currentUser,
@@ -31,7 +30,6 @@ const ReviewArea = ({
 	const textAreaRef = useRef();
 
 	useEffect(() => {
-		console.log(editedReviewText);
 		setReview(editing ? editedReviewText : "");
 
 		if (editing) {
@@ -46,43 +44,45 @@ const ReviewArea = ({
 	};
 
 	const handleSendButtonClick = async () => {
-		if (review.length !== 0) {
-			setCreatingReview(true);
-
-			const reviewsCollectionRef = firestore
-				.collection("content-reviews")
-				.doc(id)
-				.collection("reviews");
-
-			if (!editing) {
-				const reviewID = `${currentUser.id}${new Date().getTime()}`;
-
-				await reviewsCollectionRef.doc(reviewID).set({
-					text: review,
-					username: currentUser.username,
-					userID: currentUser.id,
-					userEmail: currentUser.email,
-					createdAt: new Date().getTime(),
-					id: reviewID,
-					userPhotoURL: currentUser.photoURL,
-				});
-			} else {
-				await reviewsCollectionRef
-					.doc(editedReviewID)
-					.update({ text: review, edited: true });
-				toggleNotification("edited successfully", "success");
-			}
-
-			setEditing(false);
-			setReview("");
-			setCreatingReview(false);
+		if (!review) {
+			return;
 		}
+
+		setCreatingReview(true);
+
+		const reviewsCollectionRef = firestore
+			.collection("content-reviews")
+			.doc(id)
+			.collection("reviews");
+
+		if (!editing) {
+			const reviewID = `${currentUser.id}${new Date().getTime()}`;
+
+			await reviewsCollectionRef.doc(reviewID).set({
+				text: review,
+				username: currentUser.username,
+				userID: currentUser.id,
+				userEmail: currentUser.email,
+				createdAt: new Date().getTime(),
+				id: reviewID,
+				userPhotoURL: currentUser.photoURL,
+			});
+		} else {
+			await reviewsCollectionRef
+				.doc(editedReviewID)
+				.update({ text: review, edited: true });
+			toggleNotification("edited successfully", "success");
+		}
+
+		setEditing(false);
+		setReview("");
+		setCreatingReview(false);
 	};
 
 	const handleTextAreaFocus = () => {
 		if (!currentUser) {
 			history.push("/signin");
-			toggleNotification("you need to sign in first", "failure");
+			toggleNotification("you need to sign in first", false);
 		}
 	};
 
@@ -101,7 +101,7 @@ const ReviewArea = ({
 					<StyledSendIcon $smallest />
 				</GenericButton>
 			) : (
-				<GenericButton>adding review</GenericButton>
+				<GenericButton>Adding review...</GenericButton>
 			)}
 		</TextAreaContainer>
 	);

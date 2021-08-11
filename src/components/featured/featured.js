@@ -2,7 +2,12 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { StyledFeatured, FeaturedWrapper } from "./featured.styles";
+import {
+	StyledFeatured,
+	FeaturedWrapper,
+	Title,
+	Overview,
+} from "./featured.styles";
 
 import { apiInfo } from "../../redux/api/api.info";
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
@@ -27,8 +32,8 @@ const Featured = ({ featured, resetSimilarFetchPage }) => {
 				backdropPath={`${apiInfo.baseURLs.images}/${backdrop_path}`}
 			>
 				<FeaturedWrapper>
-					<p className="featured-title">{title || name}</p>
-					<p className="featured-overview">{overview}</p>
+					<Title>{title || name}</Title>
+					<Overview>{overview}</Overview>
 					<GenericButton
 						btnType="outlined"
 						handleButtonClick={handleButtonClick}

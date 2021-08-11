@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { StyledFindFriends, FindFriendsMain } from "./find-friends.styles";
-import { StyledTitle, StyledMessage } from "../../styles/styles.generic";
+import { StyledFindFriends } from "./find-friends.styles";
+import { StyledMessage } from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.title";
 
 import { firestore } from "../../firebase/firebase.utils";
 
@@ -56,29 +58,28 @@ const FindFriendsPage = ({ currentUser }) => {
 
 	return (
 		<StyledFindFriends>
-			<FindFriendsMain>
-				<StyledTitle
-					size="smaller"
-					marginbt="2.5rem"
-					transform="uppercase"
-					fontWeight="400"
-				>
-					find your friends here
-				</StyledTitle>
-				<UserSearch
-					searchValue={searchValue}
-					inputChangeHandler={handleInputChange}
-				/>
-				{users.length > 0 ? (
-					<React.Fragment>
-						<UsersContainer users={users} />
-					</React.Fragment>
-				) : (
-					<StyledMessage marginTop="2.5rem">
-						{usersMessage}
-					</StyledMessage>
-				)}
-			</FindFriendsMain>
+			<StyledTitle
+				size="smaller"
+				marginbt="0.5rem"
+				transform="uppercase"
+				fontWeight="400"
+			>
+				find your friends here
+			</StyledTitle>
+			<StyledMessage size="smaller">
+				go back to chats <Link to="/chats">here</Link>
+			</StyledMessage>
+			<UserSearch
+				searchValue={searchValue}
+				inputChangeHandler={handleInputChange}
+			/>
+			{users.length > 0 ? (
+				<React.Fragment>
+					<UsersContainer users={users} />
+				</React.Fragment>
+			) : (
+				<StyledMessage marginTop="2.5rem">{usersMessage}</StyledMessage>
+			)}
 		</StyledFindFriends>
 	);
 };

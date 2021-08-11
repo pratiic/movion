@@ -12,17 +12,7 @@ import {
 	selectFavoriteTvShows,
 } from "../../redux/favorites/favorites.selectors";
 
-import { firestore } from "../../firebase/firebase.utils";
-
-import {
-	renderReleaseDate,
-	getWithCommas,
-	getContentType,
-} from "../../utils/utils.components";
-// import {
-// 	addToFavorites,
-// 	showAddedToFavoritesNotification,
-// } from "../../utils/utils.favorites";
+import { renderReleaseDate, getWithCommas } from "../../utils/utils.components";
 
 import Spinner from "../spinner/spinner";
 import DetailsControl from "../details-control/details-control";
@@ -52,7 +42,7 @@ const DetailsMain = ({
 	}, [id]);
 
 	if (!mainDetails || (mainDetails && fetchingMainDetails)) {
-		return <Spinner height="95vh" />;
+		return <Spinner height="95vh" message="loading details" />;
 	} else {
 		const {
 			backdrop_path,

@@ -7,6 +7,7 @@ export const darkTheme = {
 	textFocused: "white",
 	iconFocused: "white",
 	bgFocused: cssColors.greyLight,
+	bgFocusedDark: cssColors.greyLightDarker,
 	textMuted: cssColors.greyText,
 };
 

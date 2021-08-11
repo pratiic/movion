@@ -59,7 +59,7 @@ export const Label = styled.label`
 
 export const FormError = styled.p`
 	position: absolute;
-	font-size: 1.3rem;
+	font-size: 1.5rem;
 	left: 0.5rem;
 	color: ${cssColors.googleRed};
 `;

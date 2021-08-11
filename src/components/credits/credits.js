@@ -24,12 +24,6 @@ const Credits = ({ fetchCastAndCrew, fetchingCastAndCrew, cast, crew }) => {
 	};
 
 	const handleTogglerClick = (trigger) => {
-		// setState((prevState) => {
-		// 	return {
-		// 		[`show${trigger}`]: !prevState[`show${trigger}`],
-		// 	};
-		// });
-
 		if (trigger === "cast") {
 			setShowCast(!showCast);
 		} else {

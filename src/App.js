@@ -1,22 +1,34 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { connect, useDispatch } from "react-redux";
+import {
+	Route,
+	Redirect,
+	Switch,
+	useLocation,
+	useHistory,
+} from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-import { GlobalStyles, StyledApp } from "./styles/styles.global";
+import { GlobalStyles } from "./styles/styles.global";
 import { darkTheme, lightTheme } from "./styles/styles.themes";
 
 import { updateCurrentUser } from "./redux/current-user/current-user.actions";
 import { toggleNotification } from "./redux/notification/notification.actions";
 import { fetchFavoritesSuccess } from "./redux/favorites/favorites.actions";
 import { setTheme } from "./redux/theme/theme.actions";
+import {
+	setUserNotifications,
+	setUserNotificationsMessage,
+} from "./redux/user-notifications/user-notifications.actions";
 
 import {
 	auth,
 	createUserDocument,
 	getFavoritesCollectionRef,
 	getAllFavoriteDocuments,
+	firestore,
 } from "./firebase/firebase.utils";
+import { setCurrentTheme } from "./utils/utils.theme";
 
 import Header from "./components/header/header";
 import MoviesPage from "./pages/movies/movies";
@@ -27,29 +39,28 @@ import SignInPage from "./pages/sign-in/sign-in";
 import SignUpPage from "./pages/sign-up/sign-up";
 import Notification from "./components/notification/notification";
 import FavoritesPage from "./pages/favorites/favorites";
-import ChatPage from "./pages/chat/chat";
+import ChatsContainerPage from "./pages/chats-container/chats-container";
 import FindFriendsPage from "./pages/find-friends/find-friends";
 import ChatContainerPage from "./pages/chat-container/chat-container";
-import Main from "./components/main/main";
+import UserNotifications from "./pages/user-notifications/user-notifications";
 
 //this is the top level component of the application
 //this is where other components are brought to be rendered
 //this is where we also define routes to various parts of the application
-const App = (props) => {
-	const setCurrentTheme = () => {
-		const { setTheme } = props;
+const App = ({
+	setTheme,
+	updateCurrentUser,
+	toggleNotification,
+	currentTheme,
+	currentUser,
+}) => {
+	const location = useLocation();
+	const history = useHistory();
 
-		const localStorage = window.localStorage;
-		const localStorageCurrentTheme = localStorage.getItem("currentTheme");
-		if (localStorageCurrentTheme) {
-			setTheme(localStorageCurrentTheme);
-		}
-	};
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const { updateCurrentUser, toggleNotification } = props;
-
-		setCurrentTheme();
+		setCurrentTheme(setTheme);
 
 		//whenever the authentication state in our application changes
 		const unSubscribeFromAuth = auth.onAuthStateChanged(
@@ -61,7 +72,7 @@ const App = (props) => {
 
 					userRef.onSnapshot((snapShot) => {
 						updateCurrentUser({ ...snapShot.data() });
-						toggleNotification("signed in successfully", "success");
+						toggleNotification("signed in successfully");
 					});
 				} else {
 					updateCurrentUser(userAuth);
@@ -78,8 +89,6 @@ const App = (props) => {
 	}, []);
 
 	useEffect(() => {
-		const { currentUser, fetchFavoritesSuccess } = props;
-
 		//if previously available current user is different from the currently available current user
 		//and also if it actually exists (not null)
 		if (currentUser) {
@@ -95,96 +104,127 @@ const App = (props) => {
 			});
 		}
 		// eslint-disable-next-line
-	}, [props.currentUser]);
+	}, [currentUser]);
 
-	const {
-		currentTheme,
-		currentUser,
-		notificationMessage,
-		notificationType,
-	} = props;
+	useEffect(() => {
+		if (!currentUser) {
+			return;
+		}
+		fetchUserNotifications();
+	}, [currentUser]);
+
+	useEffect(() => {
+		if (
+			location.pathname.includes("favorites") ||
+			location.pathname.includes("chat") ||
+			location.pathname.includes("find-friends")
+		) {
+			if (!currentUser) {
+				// history.push("/signin");
+			}
+		}
+
+		if (
+			location.pathname.includes("signin") ||
+			location.pathname.includes("signup")
+		) {
+			if (currentUser) {
+				history.push("/movies");
+			}
+		}
+	}, [location, currentUser]);
+
+	const fetchUserNotifications = () => {
+		const userNotificationsCollection = firestore
+			.collection("user-notifications")
+			.doc(currentUser.id)
+			.collection("notifications");
+
+		dispatch(setUserNotificationsMessage("loading your notifications..."));
+
+		userNotificationsCollection.onSnapshot((snapshot) => {
+			const notifications = snapshot.docs.map((doc) => {
+				return { ...doc.data(), notificationID: doc.id };
+			});
+
+			if (notifications.length > 0) {
+				return dispatch(setUserNotifications(notifications));
+			}
+
+			dispatch(setUserNotificationsMessage("you have no notifications"));
+		});
+	};
 
 	return (
-		<BrowserRouter>
-			<ThemeProvider
-				theme={currentTheme === "dark" ? darkTheme : lightTheme}
-			>
-				<StyledApp>
-					<GlobalStyles />
-					<Header />
-					<Notification
-						message={notificationMessage}
-						type={notificationType}
-					/>
-					<Switch>
-						<Route exact path="/">
-							<Redirect to="/movies" />
-						</Route>
-						<Route path="/movies">
-							<MoviesPage />
-						</Route>
-						<Route path="/tvshows">
-							<TvShowsPage />
-						</Route>
-						<Route path="/search/:query">
-							<SearchResultsPage />
-						</Route>
-						<Route path="/details/:type/:id">
-							<DetailsPage />
-						</Route>
-						<Route path="/signin">
-							{
-								//if the user signs in
-								//they are redirected to the home
-								//same if they are currently signed in and
-								//navigated to the signin page
-
-								currentUser ? (
-									<Redirect to="/movies" />
-								) : (
-									<SignInPage />
-								)
-							}
-						</Route>
-						<Route path="/signup">
-							{currentUser ? (
-								<Redirect to="/movies" />
-							) : (
-								<SignUpPage />
-							)}
-						</Route>
-						<Route path="/favorites">
-							{currentUser ? (
-								<FavoritesPage />
-							) : (
-								<Redirect to="/signin" />
-							)}
-						</Route>
-						<Route path="/chat/:id">
-							{currentUser ? (
-								<ChatContainerPage />
-							) : (
-								<Redirect to="/signin" />
-							)}
-						</Route>
-						<Route path="/chat" exact>
-							{currentUser ? (
-								<ChatPage />
-							) : (
-								<Redirect to="/signin" />
-							)}
-						</Route>
-						<Route path="/find-friends">
-							{currentUser ? (
-								<FindFriendsPage />
-							) : (
-								<Redirect to="/signin" />
-							)}
-						</Route>
-					</Switch>
-				</StyledApp>
-			</ThemeProvider>
-		</BrowserRouter>
+		<ThemeProvider theme={currentTheme === "dark" ? darkTheme : lightTheme}>
+			<GlobalStyles />
+			<Notification />
+			<Header />
+			<Switch>
+				<Route exact path="/">
+					<Redirect to="/movies" />
+				</Route>
+				<Route path="/movies">
+					<MoviesPage />
+				</Route>
+				<Route path="/tvshows">
+					<TvShowsPage />
+				</Route>
+				<Route path="/search/:query">
+					<SearchResultsPage />
+				</Route>
+				<Route path="/details/:type/:id">
+					<DetailsPage />
+				</Route>
+				<Route path="/signin">
+					{
+						//if the user signs in
+						//they are redirected to the home
+						//same if they are currently signed in and
+						//navigated to the signin page
+						<SignInPage />
+					}
+				</Route>
+				<Route path="/signup">
+					<SignUpPage />
+				</Route>
+				<Route path="/favorites">
+					{currentUser ? (
+						<FavoritesPage />
+					) : (
+						<Redirect to="/signin" />
+					)}
+				</Route>
+				<Route path="/chat/:id">
+					{currentUser ? (
+						<ChatContainerPage />
+					) : (
+						<Redirect to="/signin" />
+					)}
+				</Route>
+				<Route path="/chats" exact>
+					{currentUser ? (
+						<ChatsContainerPage />
+					) : (
+						<Redirect to="/signin" />
+					)}
+				</Route>
+				<Route path="/find-friends">
+					{currentUser ? (
+						<FindFriendsPage />
+					) : (
+						<Redirect to="/signin" />
+					)}
+				</Route>
+				<Route path="/notifications">
+					{currentUser ? (
+						<UserNotifications />
+					) : (
+						<Redirect to="/signin" />
+					)}
+				</Route>
+			</Switch>
+		</ThemeProvider>
 	);
 };
 
@@ -192,8 +232,6 @@ const mapStateToProps = (state) => {
 	return {
 		currentTheme: state.theme.currentTheme,
 		currentUser: state.currentUser.currentUser,
-		notificationMessage: state.notification.notificationMessage,
-		notificationType: state.notification.notificationType,
 	};
 };
 

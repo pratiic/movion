@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { cssColors } from "../../styles/styles.variables";
-import { WrapperStyles } from "../../styles/styles.generic";
+import { WrapperStyles } from "../../styles/styles.wrapper";
 
 export const FetchTypeMenuWrapper = styled.div`
 	${WrapperStyles};

@@ -25,6 +25,8 @@ import { ReactComponent as ChatIcon } from "../assets/icons/chat.svg";
 // import { ReactComponent as VerticalDotIcon } from "../assets/icons/vertical-dot-menu.svg";
 import { ReactComponent as SmileyIcon } from "../assets/icons/smiley.svg";
 import { ReactComponent as DoubleTickIcon } from "../assets/icons/double-tick.svg";
+import { ReactComponent as ArrowLeftIcon } from "../assets/icons/arrow-left.svg";
+import { ReactComponent as NotificationIcon } from "../assets/icons/notification.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -152,7 +154,7 @@ export const IconStyles = css`
 			transform: rotate(180deg);
 		`}
 
-	${({ $menuToggleIcon }) =>
+	/* ${({ $menuToggleIcon }) =>
 		$menuToggleIcon &&
 		css`
 			box-sizing: content-box;
@@ -172,6 +174,34 @@ export const IconStyles = css`
 			}
 
 			&:active {
+				path {
+					fill: ${({ theme }) => theme.textMuted};
+				}
+			}
+		`} */
+
+		${({ $showBackground }) =>
+		$showBackground &&
+		css`
+			box-sizing: content-box;
+			padding: 0.5rem;
+			border-radius: 50%;
+
+			/* path {
+				fill: ${({ theme }) => theme.textMuted};
+			} */
+
+			&:hover {
+				background-color: ${({ theme }) => theme.bgFocused};
+
+				path {
+					fill: ${cssColors.bluePrimary};
+				}
+			}
+
+			&:active {
+				background-color: ${({ theme }) => theme.bgFocusedDark};
+
 				path {
 					fill: ${({ theme }) => theme.textMuted};
 				}
@@ -311,5 +341,13 @@ export const StyledSmileyIcon = styled(SmileyIcon)`
 `;
 
 export const StyledDoubleTickIcon = styled(DoubleTickIcon)`
+	${IconStyles};
+`;
+
+export const StyledArrowLeftIcon = styled(ArrowLeftIcon)`
+	${IconStyles};
+`;
+
+export const StyledNotificationIcon = styled(NotificationIcon)`
 	${IconStyles};
 `;

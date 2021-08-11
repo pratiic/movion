@@ -1,13 +1,10 @@
 import React, { createRef } from "react";
 
-import { StyledSignInPage, ButtonCollection } from "./sign-in.styles";
+import { StyledSignInPage, Buttons } from "./sign-in.styles";
 import { StyledGoogleSignInIcon } from "../../styles/styles.icons";
 import { cssColors } from "../../styles/styles.variables";
-import {
-	StyledTitle,
-	StyledSubtitle,
-	StyledFormLink,
-} from "../../styles/styles.generic";
+import { StyledTitle, StyledSubtitle } from "../../styles/styles.title";
+import { StyledFormLink } from "../../styles/styles.form";
 
 import {
 	getEmptyFieldNames,
@@ -54,7 +51,9 @@ class SignInPage extends React.Component {
 		this.clearAllFields = clearAllFields.bind(this);
 	}
 
-	handleButtonClick = () => {
+	handleButtonClick = (event) => {
+		event.preventDefault();
+
 		signInWithGoogle();
 	};
 
@@ -161,7 +160,7 @@ class SignInPage extends React.Component {
 						<Spinner height="4rem" smaller />
 					) : null}
 
-					<ButtonCollection>
+					<Buttons>
 						<GenericButton type="submit" btnType="outlined">
 							sign in
 						</GenericButton>
@@ -176,7 +175,7 @@ class SignInPage extends React.Component {
 							<StyledGoogleSignInIcon $smaller /> sign in with
 							google
 						</GenericButton>
-					</ButtonCollection>
+					</Buttons>
 				</form>
 			</StyledSignInPage>
 		);

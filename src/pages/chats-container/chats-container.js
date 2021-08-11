@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { StyledChat, ChatsMessage, ChatMain } from "./chat.styles";
-import { StyledTitle, StyledMessage } from "../../styles/styles.generic";
+import { StyledChatsContainer } from "./chats-container.styles";
+import { StyledMessage } from "../../styles/styles.generic";
+import { StyledTitle } from "../../styles/styles.title";
 
 import { firestore } from "../../firebase/firebase.utils";
 
 import UsersContainer from "../../components/users-container/users-container";
 import UserSearch from "../../components/user-search/user-search";
 
-const ChatPage = ({ currentUser }) => {
+const ChatsContainerPage = ({ currentUser }) => {
 	const [chats, setChats] = useState([]);
 	const [chatsMessage, setChatsMessage] = useState("loading chats...");
 	const [searchValue, setSearchValue] = useState("");
@@ -32,8 +33,6 @@ const ChatPage = ({ currentUser }) => {
 	}, []);
 
 	useEffect(() => {
-		console.log(chats);
-
 		setChatsToRender(
 			chats.filter((chat) => {
 				const data = chat.data();
@@ -50,41 +49,37 @@ const ChatPage = ({ currentUser }) => {
 	};
 
 	return (
-		<StyledChat>
-			<ChatMain>
-				<StyledTitle
-					size="smaller"
-					transform="uppercase"
-					fontWeight="400"
-					marginbt={chats.length > 0 ? "0.5rem" : "2.5rem"}
-				>
-					your chats
-				</StyledTitle>
-				{chats.length > 0 ? (
-					<StyledMessage size="smaller">
-						{" "}
-						you can find friends{" "}
-						<Link to="/find-friends"> here</Link>{" "}
-					</StyledMessage>
-				) : null}
-				<UserSearch
-					searchValue={searchValue}
-					inputChangeHandler={handleInputChange}
-				/>
-				{chats.length > 0 ? (
-					<React.Fragment>
-						<UsersContainer users={chatsToRender} />
-					</React.Fragment>
-				) : (
-					<StyledMessage marginTop = "2.5rem">
-						{chatsMessage}
-						{chatsMessage === "you dont have any chats" ? (
-							<Link to="/find-friends"> find friends here</Link>
-						) : null}
-					</StyledMessage>
-				)}
-			</ChatMain>
-		</StyledChat>
+		<StyledChatsContainer>
+			<StyledTitle
+				size="smaller"
+				transform="uppercase"
+				fontWeight="400"
+				marginbt={chats.length > 0 ? "0.5rem" : "2.5rem"}
+			>
+				your chats
+			</StyledTitle>
+			{chats.length > 0 ? (
+				<StyledMessage size="smaller">
+					you can find friends <Link to="/find-friends">here</Link>
+				</StyledMessage>
+			) : null}
+			<UserSearch
+				searchValue={searchValue}
+				inputChangeHandler={handleInputChange}
+			/>
+			{chats.length > 0 ? (
+				<React.Fragment>
+					<UsersContainer users={chatsToRender} />
+				</React.Fragment>
+			) : (
+				<StyledMessage marginTop="2.5rem">
+					{chatsMessage}
+					{chatsMessage === "you dont have any chats" ? (
+						<Link to="/find-friends"> find friends here</Link>
+					) : null}
+				</StyledMessage>
+			)}
+		</StyledChatsContainer>
 	);
 };
 
@@ -94,4 +89,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(ChatPage);
+export default connect(mapStateToProps)(ChatsContainerPage);

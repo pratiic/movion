@@ -1,0 +1,106 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import {
+	StyledUserNotification,
+	StyledMessage,
+	StyledNotificationTime,
+} from "./user-notification.styles";
+import { StyledDeleteIcon } from "../../styles/styles.icons";
+
+import { setUserNotificationSeen as setUserNotificationSeenRedux } from "../../redux/user-notifications/user-notifications.actions";
+import { toggleNotification } from "../../redux/notification/notification.actions";
+
+import { getNotificationMessage } from "./user-notification.utils";
+import {
+	setUserNotificationSeen,
+	deleteUserNotification,
+} from "../../firebase/firebase.user-notifications.utils";
+import { getHowLongAgo } from "../../utils/utils.date-time";
+
+import ProfilePicture from "../profile-picture/profile-picture";
+
+const UserNotification = ({
+	sourceUser,
+	type,
+	action,
+	notificationID,
+	seen,
+	contentType,
+	contentID,
+	createdAt,
+	currentUser,
+}) => {
+	const [deleting, setDeleting] = useState(false);
+
+	const dispatch = useDispatch();
+
+	const history = useHistory();
+
+	useEffect(() => {
+		if (!seen) {
+			dispatch(setUserNotificationSeenRedux(notificationID));
+			setUserNotificationSeen(notificationID, currentUser.id);
+		}
+	}, []);
+
+	const handleDeleteIconClick = async () => {
+		setDeleting(true);
+
+		const result = await deleteUserNotification(
+			notificationID,
+			currentUser.id
+		);
+
+		if (result.error) {
+			return setDeleting(false);
+		}
+
+		dispatch(toggleNotification("notification deleted"));
+	};
+
+	const handleMessageClick = () => {
+		if (contentID) {
+			history.push(`/details/${contentType}/${contentID}`);
+		}
+	};
+
+	return (
+		<StyledUserNotification seen={seen}>
+			<ProfilePicture
+				username={sourceUser.username}
+				photoURL={sourceUser.photoURL}
+			/>
+			<StyledMessage onClick={handleMessageClick}>
+				{deleting ? (
+					"deleting notification..."
+				) : (
+					<React.Fragment>
+						{getNotificationMessage(
+							type,
+							action,
+							sourceUser.username
+						)}
+						<StyledNotificationTime>
+							{getHowLongAgo(createdAt)}
+						</StyledNotificationTime>
+					</React.Fragment>
+				)}
+			</StyledMessage>
+			<StyledDeleteIcon
+				$smaller
+				$showBackground
+				onClick={handleDeleteIconClick}
+			/>
+		</StyledUserNotification>
+	);
+};
+
+const mapStateToProps = (state) => {
+	return {
+		currentUser: state.currentUser.currentUser,
+	};
+};
+
+export default connect(mapStateToProps)(UserNotification);

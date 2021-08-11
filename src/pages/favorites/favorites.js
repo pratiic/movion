@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { StyledFavoritesPage } from "./favorites.styles";
-import { StyledTitle } from "../../styles/styles.generic";
-import { cssColors } from "../../styles/styles.variables";
+import { StyledFavoritesPage, VerticalDivider } from "./favorites.styles";
+import { StyledTitle } from "../../styles/styles.title";
+import { StyledMessage } from "../../styles/styles.generic";
 
 import {
 	selectFavoriteMovies,
@@ -47,26 +47,24 @@ const FavoritesPage = ({ currentUser }) => {
 		return requiredList;
 	};
 
-	const mutedTextStyles = {
-		color: cssColors.greyLighter,
-	};
-
 	const renderList = (list, errorMessage) => {
 		return list.length > 0 ? (
 			<MainCardsList list={list} forComponent="favorites" />
-		) : null;
+		) : (
+			<StyledMessage> {errorMessage} </StyledMessage>
+		);
 	};
 
 	return (
 		<StyledFavoritesPage>
-			{/* <StyledTitle marginbt="2.5rem">your favorites</StyledTitle> */}
 			{!fetchingFavorites ? (
 				<React.Fragment>
-					<StyledTitle size="smaller" align="center">
-						favorite movies{" "}
-						<span style={mutedTextStyles}>
-							({favoriteMovies.length})
-						</span>
+					<StyledTitle
+						size="smaller"
+						align="center"
+						marginbt="1.5rem"
+					>
+						favorite movies <span>({favoriteMovies.length})</span>
 					</StyledTitle>
 					{/* rendering favorite movies */}
 					{renderList(
@@ -74,11 +72,15 @@ const FavoritesPage = ({ currentUser }) => {
 						"you do not have any favorite movies"
 					)}
 
-					<StyledTitle size="smaller" align="center">
+					<VerticalDivider></VerticalDivider>
+
+					<StyledTitle
+						size="smaller"
+						align="center"
+						marginbt="1.5rem"
+					>
 						favorite tv shows{" "}
-						<span style={mutedTextStyles}>
-							({favoriteTvShows.length})
-						</span>
+						<span>({favoriteTvShows.length})</span>
 					</StyledTitle>
 					{/* rendering favorite tv shows */}
 					{renderList(
