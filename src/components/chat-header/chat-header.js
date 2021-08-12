@@ -2,16 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import {
-	StyledChatHeader,
-	Username,
-	HeaderControls,
-	UserProfilePreview,
-} from "./chat-header.styles";
+import { StyledChatHeader, HeaderControls } from "./chat-header.styles";
 import { StyledArrowLeftIcon } from "../../styles/styles.icons";
 
-import ProfilePicture from "../profile-picture/profile-picture";
 import Logo from "../logo/logo";
+import ProfilePreview from "../profile-preview/profile-preview";
 
 const ChatHeader = ({ chatUser }) => {
 	const history = useHistory();
@@ -30,13 +25,11 @@ const ChatHeader = ({ chatUser }) => {
 				/>
 				<Logo size="smaller" />
 			</HeaderControls>
-			<UserProfilePreview>
-				<ProfilePicture
-					username={chatUser.username}
-					photoURL={chatUser.photoURL}
-				/>
-				<Username> {chatUser.username} </Username>
-			</UserProfilePreview>
+			<ProfilePreview
+				username={chatUser.username}
+				photoURL={chatUser.photoURL}
+				size="bigger"
+			/>
 		</StyledChatHeader>
 	);
 };

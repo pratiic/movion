@@ -4,6 +4,7 @@ import { auth } from "../../firebase/firebase.utils";
 
 import { toggleNotification } from "../notification/notification.actions";
 import { closeSidebar } from "../sidebar/sidebar.actions";
+import { setUserNotifications } from "../user-notifications/user-notifications.actions";
 
 export const updateCurrentUser = (user) => {
 	return {
@@ -17,5 +18,6 @@ export const currentUserSignout = () => {
 		auth.signOut();
 		dispatch(toggleNotification("signed out successfully", "success"));
 		dispatch(closeSidebar());
+		dispatch(setUserNotifications([]));
 	};
 };

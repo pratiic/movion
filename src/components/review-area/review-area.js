@@ -1,17 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { StyledTextArea, TextAreaContainer } from "./review-area.styles";
+import { TextAreaContainer } from "./review-area.styles";
 
 import { toggleNotification } from "../../redux/notification/notification.actions";
 import { setEditing } from "../../redux/reviews/reviews.actions";
 
 import { firestore } from "../../firebase/firebase.utils";
 
-import { StyledSendIcon } from "../../styles/styles.icons";
-
-import GenericButton from "../generic-button/generic-button";
+import CustomTextarea from "../custom-textarea/custom-textarea";
 
 const ReviewArea = ({
 	currentUser,
@@ -23,11 +21,10 @@ const ReviewArea = ({
 }) => {
 	const [review, setReview] = useState("");
 	const [creatingReview, setCreatingReview] = useState(false);
+	const [textAreaRef, setTextAreaRef] = useState(useRef());
 
 	const { id } = useParams();
-	const history = useHistory();
 	const divToScrollToRef = useRef();
-	const textAreaRef = useRef();
 
 	useEffect(() => {
 		setReview(editing ? editedReviewText : "");
@@ -43,7 +40,9 @@ const ReviewArea = ({
 		setReview(event.target.value);
 	};
 
-	const handleSendButtonClick = async () => {
+	const handleFormSubmit = async (event) => {
+		event.preventDefault();
+
 		if (!review) {
 			return;
 		}
@@ -79,30 +78,18 @@ const ReviewArea = ({
 		setCreatingReview(false);
 	};
 
-	const handleTextAreaFocus = () => {
-		if (!currentUser) {
-			history.push("/signin");
-			toggleNotification("you need to sign in first", false);
-		}
-	};
-
 	return (
 		<TextAreaContainer>
 			<div ref={divToScrollToRef}></div>
-			<StyledTextArea
-				placeholder="write something..."
+			<CustomTextarea
+				placeholder="Write something..."
 				value={review}
-				ref={textAreaRef}
-				onChange={handleTextAreaChange}
-				onFocus={handleTextAreaFocus}
-			></StyledTextArea>
-			{!creatingReview ? (
-				<GenericButton handleButtonClick={handleSendButtonClick}>
-					<StyledSendIcon $smallest />
-				</GenericButton>
-			) : (
-				<GenericButton>Adding review...</GenericButton>
-			)}
+				reference={textAreaRef}
+				changeHandler={handleTextAreaChange}
+				submitHandler={handleFormSubmit}
+				showSubmitButton={review.length > 0}
+				submitButtonValue={creatingReview ? "adding review..." : "add"}
+			/>
 		</TextAreaContainer>
 	);
 };

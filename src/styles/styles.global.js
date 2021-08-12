@@ -38,6 +38,16 @@ export const GlobalStyles = createGlobalStyle`
     li {
         list-style-type: none;
     }
+
+    textarea {
+        &::-webkit-scrollbar {
+		    width: 0.3rem;
+	    }
+
+	    &::-webkit-scrollbar-thumb {
+		    background-color: ${cssColors.greyText};
+	    }      
+    }
 `;
 
 export const StyledApp = styled.div`

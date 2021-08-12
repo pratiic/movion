@@ -18,11 +18,3 @@ export const HeaderControls = styled.div`
 		margin-left: 1.5rem;
 	}
 `;
-
-export const UserProfilePreview = styled.div``;
-
-export const Username = styled.div`
-	color: ${({ theme }) => theme.textMuted};
-	font-size: 1.85rem;
-	margin-left: 0.75rem;
-`;

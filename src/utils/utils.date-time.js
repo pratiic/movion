@@ -6,7 +6,7 @@ export const getHowLongAgo = (fullDate) => {
 	const differenceInSeconds = Math.round(difference / 1000);
 
 	if (differenceInSeconds < 60) {
-		return "few moments ago";
+		return "few moments";
 	} else if (differenceInSeconds < 3600) {
 		return `${Math.round(differenceInSeconds / 60)} min`;
 	} else if (differenceInSeconds < 86400) {

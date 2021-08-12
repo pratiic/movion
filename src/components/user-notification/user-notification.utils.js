@@ -6,6 +6,17 @@ export const getNotificationMessage = (type, action, sourceUsername) => {
 					return `${sourceUsername} liked your review on a content`;
 				case "dislike":
 					return `${sourceUsername} disliked your review on a content`;
+				case "reply":
+					return `${sourceUsername} replied to your review on a content`;
+				default:
+					return;
+			}
+		case "reply":
+			switch (action) {
+				case "like":
+					return `${sourceUsername} liked your reply on a review`;
+				case "dislike":
+					return `${sourceUsername} disliked your reply on a review`;
 				default:
 					return;
 			}

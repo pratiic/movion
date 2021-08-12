@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import {
@@ -16,6 +16,10 @@ const UserNotifications = ({
 	userNotifications,
 	userNotificationsMessage,
 }) => {
+	useEffect(() => {
+		document.title = "Notifications";
+	}, []);
+
 	return (
 		<StyledUserNotifications>
 			<Header>

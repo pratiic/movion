@@ -28,10 +28,7 @@ const HeaderLinks = ({
 		{
 			value: "movies",
 			icon: <StyledMovieIcon $headerLinkIcon />,
-			pathnames: {
-				pathnameOne: "movies",
-				pathnameTwo: "movie",
-			},
+			pathnames: ["movie"],
 			to: "/movies",
 			active: false,
 			hideOnCurrentUser: false,
@@ -40,10 +37,7 @@ const HeaderLinks = ({
 		{
 			value: "tv shows",
 			icon: <StyledTvIcon $headerLinkIcon />,
-			pathnames: {
-				pathnameOne: "tvshows",
-				pathnameTwo: "tv",
-			},
+			pathnames: ["tv"],
 			to: "/tvshows",
 			active: false,
 			hideOnCurrentUser: false,
@@ -52,9 +46,7 @@ const HeaderLinks = ({
 		{
 			value: "chat",
 			icon: <StyledChatIcon $headerLinkIcon />,
-			pathnames: {
-				pathnameOne: "chats",
-			},
+			pathnames: ["chat", "find-friends"],
 			to: "/chats",
 			active: false,
 			hideOnCurrentUser: false,
@@ -63,10 +55,7 @@ const HeaderLinks = ({
 		{
 			value: "sign in",
 			icon: <StyledLoginIcon $headerLinkIcon />,
-			pathnames: {
-				pathnameOne: "signin",
-				pathnameTwo: "signup",
-			},
+			pathnames: ["signin"],
 			to: "/signin",
 			active: false,
 			hideOnCurrentUser: true,
@@ -76,7 +65,7 @@ const HeaderLinks = ({
 	const location = useLocation();
 
 	useEffect(() => {
-		toggleActiveLink();
+		setActiveLink();
 		// eslint-disable-next-line
 	}, [location]);
 
@@ -85,40 +74,18 @@ const HeaderLinks = ({
 		toggleSidebar();
 	};
 
-	const toggleActiveLink = () => {
-		const pathname = location.pathname.toLowerCase();
+	const setActiveLink = () => {
+		console.log(location.pathname);
 
-		headerLinks.forEach((headerLink) => {
-			//for each header link, all its pathnames are being checked to see
-			//if they appear in the current url
-			//whichever link matches here, becomes the active link
-			if (
-				pathname.includes(headerLink.pathnames.pathnameOne) ||
-				pathname.includes(headerLink.pathnames.pathnameTwo)
-			) {
-				return setActiveLink(headerLink.pathnames.pathnameOne);
-			} else {
-				return setAllLinksInActive();
-			}
-		});
-	};
-
-	//this is the method that sets the active link
-	const setActiveLink = (value) => {
 		setHeaderLinks(
 			headerLinks.map((headerLink) => {
-				if (headerLink.pathnames.pathnameOne === value) {
+				if (
+					location.pathname.includes(headerLink.pathnames[0]) ||
+					location.pathname.includes(headerLink.pathnames[1])
+				) {
 					return { ...headerLink, active: true };
 				}
-				return { ...headerLink, active: false };
-			})
-		);
-	};
 
-	//this is the method that makes all header links inactive
-	const setAllLinksInActive = () => {
-		setHeaderLinks(
-			headerLinks.map((headerLink) => {
 				return { ...headerLink, active: false };
 			})
 		);

@@ -110,6 +110,7 @@ const App = ({
 		if (!currentUser) {
 			return;
 		}
+
 		fetchUserNotifications();
 	}, [currentUser]);
 
@@ -129,7 +130,7 @@ const App = ({
 			location.pathname.includes("signup")
 		) {
 			if (currentUser) {
-				history.push("/movies");
+				history.goBack();
 			}
 		}
 	}, [location, currentUser]);
@@ -142,17 +143,21 @@ const App = ({
 
 		dispatch(setUserNotificationsMessage("loading your notifications..."));
 
-		userNotificationsCollection.onSnapshot((snapshot) => {
-			const notifications = snapshot.docs.map((doc) => {
-				return { ...doc.data(), notificationID: doc.id };
+		userNotificationsCollection
+			.orderBy("createdAt", "desc")
+			.onSnapshot((snapshot) => {
+				const notifications = snapshot.docs.map((doc) => {
+					return { ...doc.data(), notificationID: doc.id };
+				});
+
+				if (notifications.length > 0) {
+					return dispatch(setUserNotifications(notifications));
+				}
+
+				dispatch(
+					setUserNotificationsMessage("you have no notifications")
+				);
 			});
-
-			if (notifications.length > 0) {
-				return dispatch(setUserNotifications(notifications));
-			}
-
-			dispatch(setUserNotificationsMessage("you have no notifications"));
-		});
 	};
 
 	return (
