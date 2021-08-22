@@ -5,6 +5,7 @@ import {
 	StyledUserNotifications,
 	Header,
 	ClearNotifications,
+	HeaderTitle,
 } from "./user-notifications.styles";
 import { StyledTitle } from "../../styles/styles.title";
 import { StyledMessage } from "../../styles/styles.generic";
@@ -23,7 +24,7 @@ const UserNotifications = ({
 	return (
 		<StyledUserNotifications>
 			<Header>
-				<StyledTitle marginbt="0rem">your notifications</StyledTitle>
+				<HeaderTitle>your notifications</HeaderTitle>
 				<ClearNotifications>clear all notifications</ClearNotifications>
 			</Header>
 

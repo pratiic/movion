@@ -27,6 +27,7 @@ import { ReactComponent as SmileyIcon } from "../assets/icons/smiley.svg";
 import { ReactComponent as DoubleTickIcon } from "../assets/icons/double-tick.svg";
 import { ReactComponent as ArrowLeftIcon } from "../assets/icons/arrow-left.svg";
 import { ReactComponent as NotificationIcon } from "../assets/icons/notification.svg";
+import { ReactComponent as StaticIndicatorIcon } from "../assets/icons/reload.svg";
 
 import { cssColors } from "./styles.variables";
 
@@ -350,4 +351,8 @@ export const StyledArrowLeftIcon = styled(ArrowLeftIcon)`
 
 export const StyledNotificationIcon = styled(NotificationIcon)`
 	${IconStyles};
+`;
+
+export const StyledStaticIndicatorIcon = styled(StaticIndicatorIcon)`
+	${IconStyles}
 `;

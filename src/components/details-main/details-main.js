@@ -127,7 +127,7 @@ const DetailsMain = ({
 							<p className="overview-content">{overview}</p>
 						</div>
 
-						{created_by ? (
+						{created_by && created_by[0] ? (
 							<p className="created-by">
 								<span className="muted margin-rt-small margin-bt-small">
 									{"Created by"}

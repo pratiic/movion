@@ -12,7 +12,7 @@ const ChatHeader = ({ chatUser }) => {
 	const history = useHistory();
 
 	const handleArrowLeftClick = () => {
-		history.push("/chats");
+		history.goBack();
 	};
 
 	return (

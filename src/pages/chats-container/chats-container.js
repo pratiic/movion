@@ -1,91 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
-import { StyledChatsContainer } from "./chats-container.styles";
-import { StyledMessage } from "../../styles/styles.generic";
-import { StyledTitle } from "../../styles/styles.title";
+import ChatsGeneric from "../chats-generic/chats-generic";
 
-import { firestore } from "../../firebase/firebase.utils";
-
-import UsersContainer from "../../components/users-container/users-container";
-import UserSearch from "../../components/user-search/user-search";
-
-const ChatsContainerPage = ({ currentUser }) => {
-	const [chats, setChats] = useState([]);
+const ChatsContainerPage = ({ currentUser, chats }) => {
 	const [chatsMessage, setChatsMessage] = useState("loading chats...");
 	const [searchValue, setSearchValue] = useState("");
 	const [chatsToRender, setChatsToRender] = useState([]);
 
 	useEffect(() => {
-		const currentUserChatsCollectionRef = firestore
-			.collection("users")
-			.doc(currentUser.id)
-			.collection("chats");
+		document.title = "Chats";
+	});
 
-		currentUserChatsCollectionRef.onSnapshot((snapshot) => {
-			setChats(snapshot.docs);
+	// useEffect(() => {
+	// 	setChatsToRender(
+	// 		chats.filter((chat) => {
+	// 			const data = chat.data();
+	// 			return (
+	// 				data.username.toLowerCase().includes(searchValue) ||
+	// 				data.email.toLowerCase().includes(searchValue)
+	// 			);
+	// 		})
+	// 	);
+	// }, [searchValue, chats]);
 
-			if (snapshot.docs.length === 0) {
-				setChatsMessage("you dont have any chats");
-			}
-		});
-	}, []);
-
-	useEffect(() => {
-		setChatsToRender(
-			chats.filter((chat) => {
-				const data = chat.data();
-				return (
-					data.username.toLowerCase().includes(searchValue) ||
-					data.email.toLowerCase().includes(searchValue)
-				);
-			})
-		);
-	}, [searchValue, chats]);
-
-	const handleInputChange = (searchValue) => {
-		setSearchValue(searchValue);
-	};
+	// const handleInputChange = (searchValue) => {
+	// 	setSearchValue(searchValue);
+	// };
 
 	return (
-		<StyledChatsContainer>
-			<StyledTitle
-				size="smaller"
-				transform="uppercase"
-				fontWeight="400"
-				marginbt={chats.length > 0 ? "0.5rem" : "2.5rem"}
-			>
-				your chats
-			</StyledTitle>
-			{chats.length > 0 ? (
-				<StyledMessage size="smaller">
-					you can find friends <Link to="/find-friends">here</Link>
-				</StyledMessage>
-			) : null}
-			<UserSearch
-				searchValue={searchValue}
-				inputChangeHandler={handleInputChange}
-			/>
-			{chats.length > 0 ? (
-				<React.Fragment>
-					<UsersContainer users={chatsToRender} />
-				</React.Fragment>
-			) : (
-				<StyledMessage marginTop="2.5rem">
-					{chatsMessage}
-					{chatsMessage === "you dont have any chats" ? (
-						<Link to="/find-friends"> find friends here</Link>
-					) : null}
-				</StyledMessage>
-			)}
-		</StyledChatsContainer>
+		<ChatsGeneric
+			displayList={chats.map((chat) => chat.user)}
+			title="your chats"
+			message={chatsMessage}
+		/>
 	);
 };
 
 const mapStateToProps = (state) => {
 	return {
 		currentUser: state.currentUser.currentUser,
+		chats: state.chats.chats,
 	};
 };
 

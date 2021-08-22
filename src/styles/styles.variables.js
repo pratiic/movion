@@ -7,6 +7,7 @@ export const cssColors = {
 	greyLightDarker: "#2c3133",
 	greyLighter: "lightgrey",
 	greyLightestOne: "#cdcdcd",
+	greyLightestOneDarker: "#bebebe",
 	greyLightestTwo: "#e5e4e2",
 	greyText: "#757575",
 	greyTextDarker: "#424242",

@@ -53,6 +53,18 @@ export const StyledGenericButton = styled.button`
 		}
 	}}
 
+	${({ color }) => {
+		if (color === "red") {
+			return css`
+				background-color: ${cssColors.googleRed}
+
+				&:active {
+					background-color: ${cssColors.dangerRedDark}
+				}
+			`;
+		}
+	}}
+
 	${({ size }) => {
 		if (size === "smaller") {
 			return css`

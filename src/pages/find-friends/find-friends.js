@@ -10,11 +10,16 @@ import { firestore } from "../../firebase/firebase.utils";
 
 import UsersContainer from "../../components/users-container/users-container";
 import UserSearch from "../../components/user-search/user-search";
+import ChatsGeneric from "../chats-generic/chats-generic";
 
 const FindFriendsPage = ({ currentUser }) => {
 	const [users, setUsers] = useState([]);
 	const [searchValue, setSearchValue] = useState("");
 	const [usersMessage, setUsersMessage] = useState("loading users...");
+
+	useEffect(() => {
+		document.title = "Find friends";
+	});
 
 	// useEffect(() => {
 	// 	firestore
@@ -36,19 +41,25 @@ const FindFriendsPage = ({ currentUser }) => {
 			.collection("users")
 			.get()
 			.then((usersCollectionRef) => {
-				const usersToRender = usersCollectionRef.docs.filter((doc) => {
-					const data = doc.data();
-					return (
-						data.username.toLowerCase().includes(searchValue) ||
-						data.email.toLowerCase().includes(searchValue)
-					);
-				});
+				// const usersToRender = usersCollectionRef.docs.filter((doc) => {
+				// 	const data = doc.data();
+				// 	return (
+				// 		data.username.toLowerCase().includes(searchValue) ||
+				// 		data.email.toLowerCase().includes(searchValue)
+				// 	);
+				// });
 
-				setUsers(usersToRender);
+				// setUsers(usersToRender);
+				setUsers(
+					usersCollectionRef.docs.map((doc) => {
+						const data = doc.data();
+						return { ...data, userID: data.id };
+					})
+				);
 
-				if (usersToRender.length <= 0) {
-					setUsersMessage("no user found");
-				}
+				// if (usersToRender.length <= 0) {
+				// 	setUsersMessage("no user found");
+				// }
 			});
 	}, [searchValue]);
 
@@ -57,30 +68,11 @@ const FindFriendsPage = ({ currentUser }) => {
 	};
 
 	return (
-		<StyledFindFriends>
-			<StyledTitle
-				size="smaller"
-				marginbt="0.5rem"
-				transform="uppercase"
-				fontWeight="400"
-			>
-				find your friends here
-			</StyledTitle>
-			<StyledMessage size="smaller">
-				go back to chats <Link to="/chats">here</Link>
-			</StyledMessage>
-			<UserSearch
-				searchValue={searchValue}
-				inputChangeHandler={handleInputChange}
-			/>
-			{users.length > 0 ? (
-				<React.Fragment>
-					<UsersContainer users={users} />
-				</React.Fragment>
-			) : (
-				<StyledMessage marginTop="2.5rem">{usersMessage}</StyledMessage>
-			)}
-		</StyledFindFriends>
+		<ChatsGeneric
+			displayList={users}
+			title="find your friends here"
+			message={usersMessage}
+		/>
 	);
 };
 

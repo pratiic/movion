@@ -20,6 +20,15 @@ export const getNotificationMessage = (type, action, sourceUsername) => {
 				default:
 					return;
 			}
+		case "chat-request":
+			switch (action) {
+				case "accept":
+					return `${sourceUsername} accepted your chat request`;
+				case "reject":
+					return `${sourceUsername} rejected your chat request`;
+				default:
+					return;
+			}
 		default:
 			return;
 	}

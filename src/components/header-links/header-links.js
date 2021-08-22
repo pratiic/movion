@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 import {
 	StyledMovieIcon,
@@ -9,7 +9,11 @@ import {
 	StyledLogoutIcon,
 	StyledChatIcon,
 } from "../../styles/styles.icons";
-import { StyledHeaderLinks, StyledLink } from "./header-links.styles";
+import {
+	HeaderLinksOverlay,
+	StyledHeaderLinks,
+	StyledLink,
+} from "./header-links.styles";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
@@ -24,6 +28,8 @@ const HeaderLinks = ({
 	currentUser,
 	currentUserSignout,
 }) => {
+	const history = useHistory();
+
 	const [headerLinks, setHeaderLinks] = useState([
 		{
 			value: "movies",
@@ -75,8 +81,6 @@ const HeaderLinks = ({
 	};
 
 	const setActiveLink = () => {
-		console.log(location.pathname);
-
 		setHeaderLinks(
 			headerLinks.map((headerLink) => {
 				if (
@@ -105,14 +109,13 @@ const HeaderLinks = ({
 						$currentUser={currentUser}
 						$hideOnCurrentUser={headerLink.hideOnCurrentUser}
 					>
-						{" "}
-						{showSidebar ? headerLink.icon : null}
+						{showSidebar && headerLink.icon}
 						{headerLink.value}
 					</StyledLink>
 				);
 			})}
 
-			{currentUser ? (
+			{currentUser && (
 				<React.Fragment>
 					<Profile
 						username={currentUser.username}
@@ -123,14 +126,17 @@ const HeaderLinks = ({
 						as="p"
 						onClick={() => {
 							currentUserSignout();
+							history.push("./movies");
 						}}
 						forSmallerScreens
 					>
 						<StyledLogoutIcon $headerLinkIcon /> sign out
 					</StyledLink>
 				</React.Fragment>
-			) : null}
+			)}
 		</StyledHeaderLinks>
+		// <HeaderLinksOverlay show={showSidebar}>
+		// </HeaderLinksOverlay>
 	);
 };
 

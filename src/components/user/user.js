@@ -1,30 +1,36 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { StyledUser, UserInfo, Username, UserEmail } from "./user.styles";
+import { NumberTag } from "../chats-toggler/chats-toggler.styles";
 
 import { setChatUser } from "../../redux/chat-user/chat-user.actions";
-import { firestore, addUserToChats } from "../../firebase/firebase.utils";
 
 import ProfilePicture from "../profile-picture/profile-picture";
 
 const User = ({
-	id,
+	userID,
 	username,
 	email,
 	photoURL,
 	createdAt,
 	currentUser,
 	setChatUser,
+	takeToChats = true,
+	userChats,
 }) => {
 	const history = useHistory();
+	const location = useLocation();
 
 	const handleUserClick = async () => {
-		setChatUser({ id, username, email, photoURL, createdAt });
+		if (!takeToChats) {
+			return;
+		}
 
-		history.push(`/chat/${id}`);
+		setChatUser({ userID, username, email, photoURL, createdAt });
 
+		history.push(`/chat/${userID}`);
 		// addUserToChats(currentUser, {
 		// 	id,
 		// 	username,
@@ -32,6 +38,13 @@ const User = ({
 		// 	photoURL,
 		// 	createdAt,
 		// });
+	};
+
+	const getChatMessages = () => {
+		if (!location.pathname.includes("chats")) {
+			return;
+		}
+		return userChats.find((chat) => chat.chatID === userID).newMessages;
 	};
 
 	return (
@@ -44,6 +57,9 @@ const User = ({
 			<UserInfo>
 				<Username>{username}</Username>
 				<UserEmail>{email}</UserEmail>
+				{getChatMessages() > 0 && (
+					<NumberTag>{getChatMessages()}</NumberTag>
+				)}
 			</UserInfo>
 		</StyledUser>
 	);
@@ -52,6 +68,7 @@ const User = ({
 const mapStateToProps = (state) => {
 	return {
 		currentUser: state.currentUser.currentUser,
+		userChats: state.chats.chats,
 	};
 };
 

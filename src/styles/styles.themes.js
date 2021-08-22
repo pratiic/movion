@@ -18,5 +18,6 @@ export const lightTheme = {
 	textFocused: "black",
 	iconFocused: "black",
 	bgFocused: cssColors.greyLightestOne,
+	bgFocusedDark: cssColors.greyLightestOneDarker,
 	textMuted: cssColors.greyText,
 };

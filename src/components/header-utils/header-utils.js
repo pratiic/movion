@@ -9,6 +9,7 @@ import {
 	StyledSearchIcon,
 	StyledHamburgerIcon,
 	StyledNotificationIcon,
+	StyledChatIcon,
 } from "../../styles/styles.icons";
 
 import {
@@ -17,6 +18,12 @@ import {
 } from "../../redux/sidebar/sidebar.actions";
 import { toggleSearchbar } from "../../redux/searchbar/searchbar.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
+
+import {
+	getNewMessageChats,
+	getNewMessages,
+	getUnacknowledgedChats,
+} from "../../utils/utils.chats";
 
 import ThemeToggler from "../theme-toggler/theme-toggler";
 import HeaderUtil from "../header-util/header-util";
@@ -31,8 +38,12 @@ const HeaderUtils = ({
 	currentUser,
 	toggleNotification,
 	userNotifications,
+	userChats,
+	chatRequests,
 }) => {
 	const [unseenNotifications, setUnseenNotifications] = useState(0);
+	const [unacknowledgedChats, setUnacknowledgedChats] = useState(0);
+	const [messagesPlusRequests, setMessagesPlusRequests] = useState(0);
 
 	const history = useHistory();
 
@@ -44,79 +55,96 @@ const HeaderUtils = ({
 		);
 	}, [userNotifications]);
 
+	useEffect(() => {
+		setUnacknowledgedChats(getUnacknowledgedChats(userChats));
+	}, [userChats]);
+
+	useEffect(() => {
+		setMessagesPlusRequests(
+			getNewMessageChats(userChats) + chatRequests.length
+		);
+	}, [userChats, chatRequests]);
+
 	return (
 		<StyledHeaderUtils>
-			<HeaderUtil>
-				<StyledHeartIcon
-					$headerElement
-					$smaller
-					onClick={() => {
-						history.push("/favorites");
-					}}
-				/>
+			<HeaderUtil
+				clickHandler={() => {
+					history.push("/favorites");
+				}}
+			>
+				<StyledHeartIcon $headerElement $smaller />
 			</HeaderUtil>
 
 			<HeaderUtil>
 				<ThemeToggler />
 			</HeaderUtil>
 
-			<HeaderUtil text={unseenNotifications}>
-				<StyledNotificationIcon
-					$headerElement
-					onClick={() => {
-						history.push("/notifications");
-					}}
-				/>
+			<HeaderUtil
+				text={unseenNotifications}
+				clickHandler={() => {
+					history.push("/notifications");
+				}}
+			>
+				<StyledNotificationIcon $headerElement />
 			</HeaderUtil>
 
-			<HeaderUtil>
-				{showSearchbarOnSmallScreens ? (
+			<HeaderUtil
+				text={messagesPlusRequests}
+				clickHandler={() => {
+					history.push("/chats");
+				}}
+			>
+				<StyledChatIcon $headerElement $smaller />
+			</HeaderUtil>
+
+			{showSearchbarOnSmallScreens ? (
+				<HeaderUtil clickHandler={toggleSearchbar}>
 					<StyledDeleteIcon
 						$headerElement
 						$searchbarToggler
 						$smaller
-						onClick={toggleSearchbar}
 					/>
-				) : (
+				</HeaderUtil>
+			) : (
+				<HeaderUtil
+					clickHandler={() => {
+						toggleSearchbar();
+						focusSearchInput();
+
+						if (showSidebar) {
+							closeSidebar();
+						}
+					}}
+				>
 					<StyledSearchIcon
 						$headerElement
 						$searchbarToggler
 						$smaller
-						onClick={() => {
+					/>
+				</HeaderUtil>
+			)}
+
+			{showSidebar ? (
+				<HeaderUtil clickHandler={toggleSidebar}>
+					<StyledDeleteIcon $headerElement $sidebarToggler $smaller />
+				</HeaderUtil>
+			) : (
+				<HeaderUtil
+					clickHandler={() => {
+						toggleSidebar();
+
+						if (showSearchbarOnSmallScreens) {
 							toggleSearchbar();
-							focusSearchInput();
-
-							if (showSidebar) {
-								closeSidebar();
-							}
-						}}
-					/>
-				)}
-			</HeaderUtil>
-
-			<HeaderUtil>
-				{showSidebar ? (
-					<StyledDeleteIcon
-						$headerElement
-						$sidebarToggler
-						$smaller
-						onClick={toggleSidebar}
-					/>
-				) : (
+						}
+					}}
+				>
 					<StyledHamburgerIcon
 						$headerElement
 						$bigger
 						$sidebarToggler
-						onClick={() => {
-							toggleSidebar();
-
-							if (showSearchbarOnSmallScreens) {
-								toggleSearchbar();
-							}
-						}}
 					/>
-				)}
-			</HeaderUtil>
+				</HeaderUtil>
+			)}
 		</StyledHeaderUtils>
 	);
 };
@@ -128,6 +156,8 @@ const mapStateToProps = (state) => {
 		showSidebar: state.sidebar.showSidebar,
 		currentUser: state.currentUser.currentUser,
 		userNotifications: state.userNotifications.userNotifications,
+		userChats: state.chats.chats,
+		chatRequests: state.chats.chatRequests,
 	};
 };
 

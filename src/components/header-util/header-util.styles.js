@@ -31,11 +31,15 @@ export const StyledText = styled.span`
 	position: absolute;
 	right: -1rem;
 	top: -0.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	color: ${({ theme }) => theme.textIconBlur};
 	background-color: ${({ theme }) => theme.bgFocused};
-	border-radius: 5px;
-	padding: 0 0.5rem;
-	font-size: 1.4rem;
+	border-radius: 50%;
+	height: 2rem;
+	width: 2rem;
+	font-size: 1.3rem;
 	margin-left: 0.3rem;
 	font-weight: 500;
 `;

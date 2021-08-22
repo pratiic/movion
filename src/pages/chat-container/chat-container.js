@@ -19,7 +19,7 @@ const ChatContainerPage = ({ currentUser }) => {
 
 	useEffect(() => {
 		firestore
-			.collection("chats")
+			.collection("chat-messages")
 			.doc(`${id}${currentUser.id}`)
 			.collection("messages")
 			.get()

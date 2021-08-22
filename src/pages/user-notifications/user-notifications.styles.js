@@ -16,6 +16,13 @@ export const Header = styled.div`
 	margin-bottom: 2rem;
 `;
 
+export const HeaderTitle = styled.p`
+	font-size: 3rem;
+	color: ${({ theme }) => theme.textIconBlur};
+	text-transform: capitalize;
+	margin-right: 1.5rem;
+`;
+
 export const ClearNotifications = styled.p`
 	color: ${cssColors.googleRed};
 	font-size: 1.75rem;

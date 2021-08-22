@@ -1,107 +1,98 @@
 import React, { useState, useRef, useEffect } from "react";
-import { connect } from "react-redux";
-
-import { firestore } from "../../firebase/firebase.utils";
+import { connect, useDispatch } from "react-redux";
 
 import { Form, Input, Icons, SendButton } from "./message-field.styles";
 import { StyledDeleteIcon, StyledSendIcon } from "../../styles/styles.icons";
 import { StyledSmileyIcon } from "../../styles/styles.icons";
 
+import { setChatToTop } from "../../redux/chats/chats.actions";
+
+import { sendChatMessage } from "../../firebase/firebase.chats.utils";
+
 import EmojiPicker from "../emoji-picker/emoji-picker";
 
-const MessageField = ({ messagesDocID, currentUser }) => {
+const MessageField = ({ messagesDocID, currentUser, chatUser, userChats }) => {
 	const [message, setMessage] = useState("");
 	const [showEmojiBox, setShowEmojiBox] = useState(false);
 	const [currentUserTypingDocRef, setCurrentUserTypingDocRef] = useState("");
+	const [chatAtTop, setChatAtTop] = useState(false);
 
 	const inputRef = useRef();
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		inputRef.current.focus();
 	}, []);
 
-	useEffect(() => {
-		if (messagesDocID) {
-			setCurrentUserTypingDocRef(
-				firestore
-					.collection("chats")
-					.doc(messagesDocID)
-					.collection("typing")
-					.doc(currentUser.id)
-			);
-		}
-	}, [messagesDocID]);
+	// useEffect(() => {
+	// 	if (messagesDocID) {
+	// 		setCurrentUserTypingDocRef(
+	// 			firestore
+	// 				.collection("chats")
+	// 				.doc(messagesDocID)
+	// 				.collection("typing")
+	// 				.doc(currentUser.id)
+	// 		);
+	// 	}
+	// }, [messagesDocID]);
 
 	const handleFormSubmit = (event) => {
 		event.preventDefault();
 
-		if (message.length !== 0) {
-			inputRef.current.focus();
-
-			const createdAt = new Date().getTime();
-
-			firestore
-				.collection("chats")
-				.doc(messagesDocID)
-				.collection("messages")
-				.doc(`${currentUser.id}${createdAt}`)
-				.set({
-					text: message,
-					createdBy: currentUser,
-					createdAt: createdAt,
-					mid: `${currentUser.id}${createdAt}`,
-					messagesDocID: messagesDocID,
-					removedForEveryone: false,
-				})
-				.then((result) => {
-					console.log(result);
-				});
+		if (!message) {
+			return;
 		}
 
-		clearMessage();
+		inputRef.current.focus();
 
-		removeFromTyping();
+		sendChatMessage(message, messagesDocID, currentUser, chatUser);
+
+		setMessage("");
+
+		// if (!chatAtTop) {
+		// 	dispatch(setChatToTop(chatUser.userID, userChats));
+		// 	setChatAtTop(true);
+		// }
+
+		// removeFromTyping();
 	};
 
 	const handleClearButtonClick = () => {
-		clearMessage();
+		setMessage("");
 		inputRef.current.focus();
 	};
 
-	const addToTyping = () => {
-		console.log(messagesDocID);
-		firestore
-			.collection("chats")
-			.doc(messagesDocID)
-			.collection("typing")
-			.doc(currentUser.id)
-			.set({ user: currentUser.id })
-			.then((documentRef) => {
-				console.log(documentRef);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
+	// const addToTyping = () => {
+	// 	console.log(messagesDocID);
+	// 	firestore
+	// 		.collection("chats")
+	// 		.doc(messagesDocID)
+	// 		.collection("typing")
+	// 		.doc(currentUser.id)
+	// 		.set({ user: currentUser.id })
+	// 		.then((documentRef) => {
+	// 			console.log(documentRef);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error);
+	// 		});
+	// };
 
-	const removeFromTyping = () => {
-		currentUserTypingDocRef.delete({}).then((documentRef) => {
-			console.log(documentRef);
-		});
-	};
+	// const removeFromTyping = () => {
+	// 	currentUserTypingDocRef.delete({}).then((documentRef) => {
+	// 		console.log(documentRef);
+	// 	});
+	// };
 
 	const handleInputChange = (event) => {
 		setMessage(event.target.value);
-		if (event.target.value.length === 1) {
-			addToTyping();
-		}
-		if (event.target.value.length === 0) {
-			removeFromTyping();
-		}
-	};
-
-	const clearMessage = () => {
-		setMessage("");
+		// if (event.target.value.length === 1) {
+		// 	addToTyping();
+		// }
+		// if (event.target.value.length === 0) {
+		// 	removeFromTyping();
+		// }
 	};
 
 	const insertEmoji = (emoji) => {
@@ -143,6 +134,8 @@ const MessageField = ({ messagesDocID, currentUser }) => {
 const mapStateToProps = (state) => {
 	return {
 		currentUser: state.currentUser.currentUser,
+		chatUser: state.chatUser.chatUser,
+		userChats: state.chats.chats,
 	};
 };
 

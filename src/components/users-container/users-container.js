@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { StyledUsersContainer } from "./users-container.styles";
-import { StyledMessage } from "../../styles/styles.generic";
 
 import User from "../user/user";
+import ChatRequest from "../chat-request/chat-request";
 
-const UsersContainer = ({ users, currentUser }) => {
-	return (
-		<StyledUsersContainer>
-			{users.length > 0 ? (
-				users
-					.filter((user) => {
-						return user.id !== currentUser.id;
-					})
-					.map((user) => {
-						const data = user.data();
-						return <User {...data} key={data.id} />;
-					})
-			) : (
-				<StyledMessage marginTop="2.5rem">
-					no users to show here
-				</StyledMessage>
-			)}
-		</StyledUsersContainer>
-	);
+const UsersContainer = ({ list, currentUser, type = "user" }) => {
+	const renderList = () => {
+		if (type === "user") {
+			return list
+				.filter((user) => {
+					return user.userID !== currentUser.id;
+				})
+				.map((user) => {
+					// const data = user.data();
+					return <User {...user} key={user.userID} />;
+				});
+		}
+
+		return list.map((request) => {
+			return <ChatRequest {...request} key={request.requestID} />;
+		});
+	};
+
+	return <StyledUsersContainer>{renderList()}</StyledUsersContainer>;
 };
 
 const mapStateToProps = (state) => {

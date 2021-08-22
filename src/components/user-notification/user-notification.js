@@ -11,6 +11,7 @@ import { StyledDeleteIcon } from "../../styles/styles.icons";
 
 import { setUserNotificationSeen as setUserNotificationSeenRedux } from "../../redux/user-notifications/user-notifications.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
+import { setChatUser } from "../../redux/chat-user/chat-user.actions";
 
 import { getNotificationMessage } from "./user-notification.utils";
 import {
@@ -63,6 +64,13 @@ const UserNotification = ({
 	const handleMessageClick = () => {
 		if (contentID) {
 			history.push(`/details/${contentType}/${contentID}`);
+		}
+
+		if (type === "chat-request") {
+			if (action === "accept") {
+				dispatch(setChatUser(sourceUser));
+				history.push(`/chat/${sourceUser.userID}`);
+			}
 		}
 	};
 

@@ -20,6 +20,7 @@ import {
 	setUserNotifications,
 	setUserNotificationsMessage,
 } from "./redux/user-notifications/user-notifications.actions";
+import { setChatRequests, setChats } from "./redux/chats/chats.actions";
 
 import {
 	auth,
@@ -43,6 +44,7 @@ import ChatsContainerPage from "./pages/chats-container/chats-container";
 import FindFriendsPage from "./pages/find-friends/find-friends";
 import ChatContainerPage from "./pages/chat-container/chat-container";
 import UserNotifications from "./pages/user-notifications/user-notifications";
+import ChatRequests from "./pages/chat-requests/chat-requests";
 
 //this is the top level component of the application
 //this is where other components are brought to be rendered
@@ -112,6 +114,8 @@ const App = ({
 		}
 
 		fetchUserNotifications();
+		fetchUserChats();
+		fetchChatRequests();
 	}, [currentUser]);
 
 	useEffect(() => {
@@ -156,6 +160,48 @@ const App = ({
 
 				dispatch(
 					setUserNotificationsMessage("you have no notifications")
+				);
+			});
+	};
+
+	const fetchUserChats = () => {
+		const currentUserChatsCollectionRef = firestore
+			.collection("chats")
+			.doc(currentUser.id)
+			.collection("chats");
+		// .orderBy("updatedAt", "desc");
+
+		currentUserChatsCollectionRef.onSnapshot((snapshot) => {
+			dispatch(
+				setChats(
+					snapshot.docs.map((doc) => {
+						return { ...doc.data(), chatID: doc.id };
+					})
+				)
+			);
+
+			// if (snapshot.docs.length === 0) {
+			// 	setChatsMessage("you dont have any chats");
+			// }
+		});
+	};
+
+	const fetchChatRequests = () => {
+		firestore
+			.collection("chat-requests")
+			.doc(currentUser.id)
+			.collection("requests")
+			.onSnapshot((snapshot) => {
+				// if (snapshot.docs.length === 0) {
+				// 	return setChatRequestsMessage("you have no chat requests");
+				// }
+
+				dispatch(
+					setChatRequests(
+						snapshot.docs.map((doc) => {
+							return { ...doc.data(), requestID: doc.id };
+						})
+					)
 				);
 			});
 	};
@@ -227,6 +273,9 @@ const App = ({
 					) : (
 						<Redirect to="/signin" />
 					)}
+				</Route>
+				<Route path="/chat-requests">
+					{currentUser ? <ChatRequests /> : <Redirect to="/signin" />}
 				</Route>
 			</Switch>
 		</ThemeProvider>

@@ -24,6 +24,17 @@ const ActiveLinkStyles = css`
 		`}
 `;
 
+export const HeaderLinksOverlay = styled.div`
+	display: ${({ show }) => (show ? "block" : "none")};
+
+	position: absolute;
+	left: 0;
+	top: 5rem;
+	width: 100%;
+	height: calc(100vh - 5rem);
+	background-color: rgba(0, 0, 0, 0.5);
+`;
+
 export const StyledHeaderLinks = styled.ul`
 	display: flex;
 	align-items: center;

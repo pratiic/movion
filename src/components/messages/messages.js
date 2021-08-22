@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
-import { firestore, addUserToChats } from "../../firebase/firebase.utils";
+import { firestore } from "../../firebase/firebase.utils";
+import {
+	addUserToChats,
+	sendChatRequest,
+	setMessagesAsSeen,
+} from "../../firebase/firebase.chats.utils";
 
 import {
 	StyledMessages,
@@ -20,7 +25,7 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 	const [top, setTop] = useState(0);
 	const [fetchingMoreMessages, setFetchingMoreMessages] = useState(false);
 	const [messagesMessage, setMessagesMessage] = useState(
-		"loading the messages..."
+		"loading chat messages..."
 	);
 	const [typing, setTyping] = useState(false);
 
@@ -37,6 +42,10 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 		if (top <= 0 && bottomDivRef.current) {
 			bottomDivRef.current.scrollIntoView();
 		}
+
+		if (messages.length > 0) {
+			setMessagesAsSeen(messages, currentUser, chatUser);
+		}
 	}, [messages]);
 
 	useEffect(() => {
@@ -49,18 +58,18 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 				const chatUserTyping = snapshot.docs.filter(
 					(doc) => doc.id !== currentUser.id
 				);
-				if (chatUserTyping.length > 0) {
-					setTyping(true);
-				} else {
-					setTyping(false);
-				}
+				// if (chatUserTyping.length > 0) {
+				// 	setTyping(true);
+				// } else {
+				// 	setTyping(false);
+				// }
 			});
 		}
 	}, [messagesDocID]);
 
 	const fetchMessages = (totalMessagesToFetch) => {
 		const messagesCollectionRef = firestore
-			.collection("chats")
+			.collection("chat-messages")
 			.doc(messagesDocID)
 			.collection("messages");
 
@@ -72,12 +81,13 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 				setMessages(reverseArray(snapshot.docs));
 
 				if (snapshot.docs.length === 0) {
-					setMessagesMessage("no messages");
+					return setMessagesMessage("no messages");
 				}
 
 				if (snapshot.docs.length === 1) {
-					addUserToChats(currentUser, chatUser);
 					addUserToChats(chatUser, currentUser);
+					// addUserToChats(chatUser, currentUser);
+					sendChatRequest(chatUser.userID, currentUser);
 				}
 
 				messagesCollectionRef.get().then((collectionRef) => {
@@ -102,25 +112,20 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 		setTop(top + 1);
 	};
 
-	const setMessagesAsSeen = () => {
-		const messagesCollectionRef = firestore
-			.collection("chats")
-			.doc(messagesDocID)
-			.collection("messages");
+	// const setMessagesAsSeen = () => {
+	// 	const batch = firestore.batch();
 
-		const batch = firestore.batch();
+	// 	messages.forEach((message) => {
+	// 		const data = message.data();
+	// 		if (data.createdBy.id !== currentUser.id) {
+	// 			batch.update(message.ref, { seen: true });
+	// 		}
+	// 	});
 
-		messages.forEach((message) => {
-			const data = message.data();
-			if (data.createdBy.id !== currentUser.id) {
-				batch.update(message.ref, { seen: true });
-			}
-		});
-
-		batch.commit().then((result) => {
-			console.log(result);
-		});
-	};
+	// 	batch.commit().then((result) => {
+	// 		console.log(result);
+	// 	});
+	// };
 
 	const renderMessages = () => {
 		return messages.map((message) => {
@@ -139,7 +144,6 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 						</LoadMore>
 					) : null}
 					{renderMessages()}
-					{setMessagesAsSeen()}
 					{typing ? (
 						<Typing>
 							{" "}

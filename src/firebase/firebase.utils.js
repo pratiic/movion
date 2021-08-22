@@ -51,14 +51,8 @@ export const createUserDocument = async (userAuth) => {
 };
 
 export const createFavoriteDocument = async (favoriteToCreate) => {
-	let {
-		id,
-		currentUserId,
-		title,
-		release_date,
-		poster_path,
-		type,
-	} = favoriteToCreate;
+	let { id, currentUserId, title, release_date, poster_path, type } =
+		favoriteToCreate;
 
 	if (!release_date) {
 		release_date = "";
@@ -116,24 +110,6 @@ export const deleteFavoriteDocument = async (id, currentUserId) => {
 		return "success";
 	} catch (error) {
 		console.log(error);
-	}
-};
-
-export const addUserToChats = async (
-	currentUser,
-	{ id, username, email, photoURL, createdAt }
-) => {
-	const chatsCollectionRef = await firestore
-		.collection("users")
-		.doc(currentUser.id)
-		.collection("chats");
-
-	const chatDocRef = await chatsCollectionRef.doc(id).get();
-
-	if (!chatDocRef.exists) {
-		chatsCollectionRef
-			.doc(id)
-			.set({ id, username, email, photoURL, createdAt });
 	}
 };
 
