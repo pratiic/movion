@@ -20,7 +20,11 @@ import {
 	setUserNotifications,
 	setUserNotificationsMessage,
 } from "./redux/user-notifications/user-notifications.actions";
-import { setChatRequests, setChats } from "./redux/chats/chats.actions";
+import {
+	setChatRequests,
+	setChats,
+	setChatsMessage,
+} from "./redux/chats/chats.actions";
 
 import {
 	auth,
@@ -165,6 +169,8 @@ const App = ({
 	};
 
 	const fetchUserChats = () => {
+		dispatch(setChatsMessage("loading your chats..."));
+
 		const currentUserChatsCollectionRef = firestore
 			.collection("chats")
 			.doc(currentUser.id)
@@ -172,6 +178,10 @@ const App = ({
 		// .orderBy("updatedAt", "desc");
 
 		currentUserChatsCollectionRef.onSnapshot((snapshot) => {
+			if (snapshot.docs.length === 0) {
+				dispatch(setChatsMessage("you have no chats"));
+			}
+
 			dispatch(
 				setChats(
 					snapshot.docs.map((doc) => {

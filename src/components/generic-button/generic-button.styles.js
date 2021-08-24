@@ -23,8 +23,7 @@ export const StyledGenericButton = styled.button`
 	transition: color 100ms ease-in;
 
 	svg {
-		margin-right: 0.8rem;
-
+		margin-right: ${({ iconOnly }) => (iconOnly ? "0rem" : "0.8rem")};
 		path {
 			fill: ${({ color }) => color || cssColors.greyLighter};
 		}

@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 
 import ChatsGeneric from "../chats-generic/chats-generic";
 
-const ChatsContainerPage = ({ currentUser, chats }) => {
-	const [chatsMessage, setChatsMessage] = useState("loading chats...");
+const ChatsContainerPage = ({ currentUser, chats, chatsMessage }) => {
 	const [searchValue, setSearchValue] = useState("");
 	const [chatsToRender, setChatsToRender] = useState([]);
 
@@ -41,6 +40,7 @@ const mapStateToProps = (state) => {
 	return {
 		currentUser: state.currentUser.currentUser,
 		chats: state.chats.chats,
+		chatsMessage: state.chats.chatsMessage,
 	};
 };
 

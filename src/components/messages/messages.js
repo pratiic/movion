@@ -2,11 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 import { firestore } from "../../firebase/firebase.utils";
-import {
-	addUserToChats,
-	sendChatRequest,
-	setMessagesAsSeen,
-} from "../../firebase/firebase.chats.utils";
+import { setMessagesAsSeen } from "../../firebase/firebase.chats.utils";
 
 import {
 	StyledMessages,
@@ -84,11 +80,11 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 					return setMessagesMessage("no messages");
 				}
 
-				if (snapshot.docs.length === 1) {
-					addUserToChats(chatUser, currentUser);
-					// addUserToChats(chatUser, currentUser);
-					sendChatRequest(chatUser.userID, currentUser);
-				}
+				// if (snapshot.docs.length === 1) {
+				// 	addUserToChats(chatUser, currentUser);
+				// 	// addUserToChats(chatUser, currentUser);
+				// 	sendChatRequest(chatUser.userID, currentUser);
+				// }
 
 				messagesCollectionRef.get().then((collectionRef) => {
 					setTotalMessages(collectionRef.docs.length);

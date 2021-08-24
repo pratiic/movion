@@ -20,3 +20,10 @@ export const setChatToTop = (chatID, chats) => {
 		dispatch(setChats([chat, ...filteredChats]));
 	};
 };
+
+export const setChatsMessage = (chatsMessage) => {
+	return {
+		type: "SET_CHATS_MESSAGE",
+		payload: chatsMessage,
+	};
+};

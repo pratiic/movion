@@ -67,10 +67,8 @@ const UserNotification = ({
 		}
 
 		if (type === "chat-request") {
-			if (action === "accept") {
-				dispatch(setChatUser(sourceUser));
-				history.push(`/chat/${sourceUser.userID}`);
-			}
+			dispatch(setChatUser(sourceUser));
+			history.push(`/chat/${sourceUser.userID}`);
 		}
 	};
 

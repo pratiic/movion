@@ -21,3 +21,15 @@ export const Chat = styled.div`
 		border-right: none;
 	}
 `;
+
+export const IndicatorContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1.5rem 0;
+
+	svg {
+		height: 2.5rem;
+		width: 2.5rem;
+	}
+`;

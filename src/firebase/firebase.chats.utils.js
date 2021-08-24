@@ -37,20 +37,26 @@ export const sendChatRequest = async (userID, currentUser) => {
 		.doc(currentUser.id)
 		.collection("chats");
 
-	const [requestRef, chatRef] = await Promise.all([
-		chatRequestsCollectionRef.doc(id).get(),
-		chatsCollectionRef.doc(userID).get(),
-	]);
+	try {
+		const [requestRef, chatRef] = await Promise.all([
+			chatRequestsCollectionRef.doc(id).get(),
+			chatsCollectionRef.doc(userID).get(),
+		]);
 
-	if (requestRef.exists || chatRef.exists) {
-		return;
+		if (requestRef.exists || chatRef.exists) {
+			return;
+		}
+
+		chatRequestsCollectionRef.doc(id).set({
+			user: { userID: id, username, email, photoURL },
+			createdAt: Date.now(),
+			acknowledged: false,
+		});
+
+		return { message: "requested" };
+	} catch (error) {
+		return { error: error.message };
 	}
-
-	chatRequestsCollectionRef.doc(id).set({
-		user: { userID: id, username, email, photoURL },
-		createdAt: Date.now(),
-		acknowledged: false,
-	});
 };
 
 export const acceptChatRequest = async (chatUser, currentUser, requestID) => {
@@ -145,4 +151,33 @@ export const setMessagesAsSeen = async (messages, currentUser, chatUser) => {
 	});
 
 	await Promise.all([batch.commit(), chatRef.update({ newMessages: 0 })]);
+};
+
+export const getChatInfo = async (chatUserID, currentUser) => {
+	try {
+		const [chatRef, requestRef] = await Promise.all([
+			firestore
+				.collection("chats")
+				.doc(chatUserID)
+				.collection("chats")
+				.doc(currentUser.id)
+				.get(),
+			firestore
+				.collection("chat-requests")
+				.doc(chatUserID)
+				.collection("requests")
+				.doc(currentUser.id)
+				.get(),
+		]);
+
+		if (chatRef.exists) {
+			return "exists";
+		}
+
+		if (requestRef.exists) {
+			return "requested";
+		}
+	} catch (error) {
+		return { error: error.message };
+	}
 };
