@@ -118,9 +118,9 @@ export const sendChatMessage = async (
 				.doc(`${currentUser.id}${currentTime}`)
 				.set({
 					text: message,
-					createdBy: currentUser,
+					user: { ...currentUser, userID: currentUser.id },
 					createdAt: currentTime,
-					mid: `${currentUser.id}${currentTime}`,
+					messageID: `${currentUser.id}${currentTime}`,
 					messagesDocID: messagesDocID,
 					removedForEveryone: false,
 				}),
@@ -145,7 +145,7 @@ export const setMessagesAsSeen = async (messages, currentUser, chatUser) => {
 
 	messages.forEach((message) => {
 		const data = message.data();
-		if (data.createdBy.id !== currentUser.id) {
+		if (data.user.id !== currentUser.id) {
 			batch.update(message.ref, { seen: true });
 		}
 	});
@@ -155,12 +155,23 @@ export const setMessagesAsSeen = async (messages, currentUser, chatUser) => {
 
 export const getChatInfo = async (chatUserID, currentUser) => {
 	try {
-		const [chatRef, requestRef] = await Promise.all([
+		const [
+			chatUserChatRef,
+			currentUserChatRef,
+			chatUserRequestRef,
+			currentUserRequestRef,
+		] = await Promise.all([
 			firestore
 				.collection("chats")
 				.doc(chatUserID)
 				.collection("chats")
 				.doc(currentUser.id)
+				.get(),
+			firestore
+				.collection("chats")
+				.doc(currentUser.id)
+				.collection("chats")
+				.doc(chatUserID)
 				.get(),
 			firestore
 				.collection("chat-requests")
@@ -168,14 +179,26 @@ export const getChatInfo = async (chatUserID, currentUser) => {
 				.collection("requests")
 				.doc(currentUser.id)
 				.get(),
+			firestore
+				.collection("chat-requests")
+				.doc(currentUser.id)
+				.collection("requests")
+				.doc(chatUserID)
+				.get(),
 		]);
 
-		if (chatRef.exists) {
+		if (chatUserChatRef.exists && currentUserChatRef.exists) {
 			return "exists";
 		}
 
-		if (requestRef.exists) {
+		if (chatUserRequestRef.exists) {
+			//current user has sent a chat request to chat user
 			return "requested";
+		}
+
+		if (currentUserRequestRef.exists) {
+			//current user has received a chat request from chat user
+			return "been requested";
 		}
 	} catch (error) {
 		return { error: error.message };

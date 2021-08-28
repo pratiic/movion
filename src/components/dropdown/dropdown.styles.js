@@ -65,36 +65,44 @@ export const StyledDropdown = styled.div`
 	white-space: nowrap;
 	box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.5);
 
-	& > *:not(:last-child) {
+	& > *:not(:last-child):not(:first-child) {
 		border-bottom: 1px solid ${({ theme }) => theme.bgFocused};
 	}
 
 	${({ forComponent }) => {
-		if (forComponent === "profile") {
-			return css`
-				right: 0;
-				top: 4rem;
-			`;
-		} else if (forComponent === "searchbar") {
-			return css`
-				left: 0.2rem;
-				bottom: -8.5rem;
-			`;
-		} else if (forComponent === "card") {
-			return css`
-				bottom: 3.75rem;
-				right: 0.7rem;
-			`;
-		} else if (forComponent === "movieAndTv") {
-			return css`
-				top: 4rem;
-				right: 0;
-			`;
-		} else if (forComponent === "review") {
-			return css`
-				top: 3.5rem;
-				right: -1rem;
-			`;
+		switch (forComponent) {
+			case "profile":
+				return css`
+					right: 0;
+					top: 4rem;
+				`;
+			case "searchbar":
+				return css`
+					left: 0.2rem;
+					bottom: -8.5rem;
+				`;
+			case "card":
+				return css`
+					bottom: 3.75rem;
+					right: 0.7rem;
+				`;
+			case "movieAndTv":
+				return css`
+					top: 4rem;
+					right: 0;
+				`;
+			case "review":
+				return css`
+					top: 3.5rem;
+					right: -1rem;
+				`;
+			case "message":
+				return css`
+					bottom: -7rem;
+					right: 0;
+				`;
+			default:
+				return;
 		}
 	}}
 

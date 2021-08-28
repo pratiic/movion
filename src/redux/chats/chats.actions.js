@@ -27,3 +27,15 @@ export const setChatsMessage = (chatsMessage) => {
 		payload: chatsMessage,
 	};
 };
+
+export const setMessageEditInfo = (
+	messageEditMode,
+	messageID = "",
+	messagesDocID = "",
+	messageText = ""
+) => {
+	return {
+		type: "SET_MESSAGE_EDIT_INFO",
+		payload: { messageEditMode, messageID, messagesDocID, messageText },
+	};
+};

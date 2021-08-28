@@ -1,19 +1,60 @@
 import React from "react";
 
-import { SendRequest, StyledChatStatus } from "./chat-status.styles";
+import {
+	SendRequest,
+	StyledChatStatus,
+	HandleRequest,
+	Buttons,
+} from "./chat-status.styles";
 import { StyledMessage } from "../../styles/styles.generic";
-import { StyledStaticIndicatorIcon } from "../../styles/styles.icons";
+import {
+	StyledStaticIndicatorIcon,
+	StyledTickIcon,
+} from "../../styles/styles.icons";
 
 import GenericButton from "../generic-button/generic-button";
 
-const ChatStatus = ({ requested, requesting, requestClickHandler }) => {
+const ChatStatus = ({
+	requested,
+	beenRequested,
+	requesting,
+	requestClickHandler,
+	acceptHandler,
+	rejectHandler,
+	accepting,
+	rejecting,
+}) => {
 	return (
 		<StyledChatStatus>
 			{requested ? (
-				<StyledMessage>
-					Chat request sent. You will get a notification when the user
-					accepts or rejects the request
+				<StyledMessage requestSent={true}>
+					<StyledTickIcon $noColor /> Chat request sent
 				</StyledMessage>
+			) : beenRequested ? (
+				<HandleRequest>
+					<StyledMessage>
+						this user has sent you a chat request
+					</StyledMessage>
+					<Buttons>
+						<GenericButton
+							btnType="outlined"
+							handleButtonClick={acceptHandler}
+						>
+							{accepting ? (
+								<StyledStaticIndicatorIcon />
+							) : (
+								"accept"
+							)}
+						</GenericButton>
+						<GenericButton handleButtonClick={rejectHandler}>
+							{rejecting ? (
+								<StyledStaticIndicatorIcon />
+							) : (
+								"reject"
+							)}
+						</GenericButton>
+					</Buttons>
+				</HandleRequest>
 			) : (
 				<SendRequest>
 					<StyledMessage>send a chat request</StyledMessage>

@@ -14,9 +14,24 @@ export const Text = styled.div`
 	width: fit-content;
 	max-width: 70%;
 	line-height: 1.2;
+
+	${({ self }) =>
+		self &&
+		css`
+			background-color: ${cssColors.bluePrimary};
+			order: 3;
+		`}
+
+	${({ deleted }) =>
+		deleted &&
+		css`
+			background-color: transparent;
+			border: 1px solid ${cssColors.googleRed};
+			color: ${cssColors.googleRed};
+		`}
 `;
 
-export const Time = styled.p`
+export const Info = styled.p`
 	color: ${cssColors.blueSecondary};
 	font-size: 1.3rem;
 	width: fit-content;
@@ -44,6 +59,10 @@ export const MessageInfo = styled.div`
 	}
 `;
 
+export const MessageControls = styled.div`
+	position: relative;
+`;
+
 export const StyledMessage = styled.div`
 	color: ${({ theme }) => theme.textIconBlur};
 	margin-bottom: 0.85rem;
@@ -62,11 +81,6 @@ export const StyledMessage = styled.div`
 			justify-content: flex-end;
 			margin-left: auto;
 
-			${Text} {
-				background-color: ${cssColors.bluePrimary};
-				order: 3;
-			}
-
 			& > *:not(:last-child) {
 				margin: 0 0 0 0.7rem;
 			}
@@ -75,11 +89,11 @@ export const StyledMessage = styled.div`
 				order: 4;
 			}
 
-			${StyledHorizontalDotMenuIcon} {
+			${MessageControls} {
 				order: 1;
 			}
 
-			/* ${Time} {
+			/* ${Info} {
 				order: 2;
 			} */
 		`}

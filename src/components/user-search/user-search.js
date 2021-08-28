@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import { StyledForm, Input } from "./user-search.styles";
 import { StyledSearchIcon } from "../../styles/styles.icons";
 
-const UserSearch = ({ inputChangeHandler, searchValue }) => {
+const UserSearch = ({ submitHandler, clearSearch }) => {
+	const [searchValue, setSearchValue] = useState("");
+
 	const inputRef = useRef();
 
 	const handleSearchIconClick = () => {
@@ -11,11 +13,23 @@ const UserSearch = ({ inputChangeHandler, searchValue }) => {
 	};
 
 	const handleInputChange = (event) => {
-		inputChangeHandler(event.target.value);
+		setSearchValue(event.target.value);
+	};
+
+	const handleFormSubmit = (event) => {
+		event.preventDefault();
+
+		if (submitHandler) {
+			if (!searchValue) {
+				return;
+			}
+
+			submitHandler(searchValue);
+		}
 	};
 
 	return (
-		<StyledForm>
+		<StyledForm onSubmit={handleFormSubmit}>
 			<StyledSearchIcon onClick={handleSearchIconClick} $smaller />
 			<Input
 				type="text"

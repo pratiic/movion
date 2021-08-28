@@ -26,6 +26,7 @@ export const IndicatorContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex: 1;
 	padding: 1.5rem 0;
 
 	svg {

@@ -5,13 +5,23 @@ import { Form, Input, Icons, SendButton } from "./message-field.styles";
 import { StyledDeleteIcon, StyledSendIcon } from "../../styles/styles.icons";
 import { StyledSmileyIcon } from "../../styles/styles.icons";
 
-import { setChatToTop } from "../../redux/chats/chats.actions";
+import {
+	setChatToTop,
+	setMessageEditInfo,
+} from "../../redux/chats/chats.actions";
 
 import { sendChatMessage } from "../../firebase/firebase.chats.utils";
+import { editMessage } from "../../firebase/firebase.messages.utils";
 
 import EmojiPicker from "../emoji-picker/emoji-picker";
 
-const MessageField = ({ messagesDocID, currentUser, chatUser, userChats }) => {
+const MessageField = ({
+	messagesDocID,
+	currentUser,
+	chatUser,
+	userChats,
+	messageEditInfo,
+}) => {
 	const [message, setMessage] = useState("");
 	const [showEmojiBox, setShowEmojiBox] = useState(false);
 	const [currentUserTypingDocRef, setCurrentUserTypingDocRef] = useState("");
@@ -25,6 +35,14 @@ const MessageField = ({ messagesDocID, currentUser, chatUser, userChats }) => {
 		inputRef.current.focus();
 	}, []);
 
+	useEffect(() => {
+		setMessage(messageEditInfo.messageText);
+
+		if (messageEditInfo.messageEditMode) {
+			inputRef.current.focus();
+		}
+	}, [messageEditInfo]);
+
 	// useEffect(() => {
 	// 	if (messagesDocID) {
 	// 		setCurrentUserTypingDocRef(
@@ -37,18 +55,25 @@ const MessageField = ({ messagesDocID, currentUser, chatUser, userChats }) => {
 	// 	}
 	// }, [messagesDocID]);
 
-	const handleFormSubmit = (event) => {
+	const handleFormSubmit = async (event) => {
 		event.preventDefault();
+
+		const { messageEditMode, messageID } = messageEditInfo;
 
 		if (!message) {
 			return;
 		}
 
-		inputRef.current.focus();
+		if (messageEditMode) {
+			const result = await editMessage(messageID, messagesDocID, message);
 
-		sendChatMessage(message, messagesDocID, currentUser, chatUser);
+			dispatch(setMessageEditInfo(false));
+		} else {
+			sendChatMessage(message, messagesDocID, currentUser, chatUser);
+		}
 
 		setMessage("");
+		inputRef.current.focus();
 
 		// if (!chatAtTop) {
 		// 	dispatch(setChatToTop(chatUser.userID, userChats));
@@ -136,6 +161,7 @@ const mapStateToProps = (state) => {
 		currentUser: state.currentUser.currentUser,
 		chatUser: state.chatUser.chatUser,
 		userChats: state.chats.chats,
+		messageEditInfo: state.chats.messageEditInfo,
 	};
 };
 

@@ -15,7 +15,13 @@ import { StyledMessage } from "../../styles/styles.generic";
 import Message from "../message/message";
 import ProfilePicture from "../profile-picture/profile-picture";
 
-const Messages = ({ messagesDocID, currentUser, chatUser }) => {
+const Messages = ({
+	messagesDocID,
+	currentUser,
+	chatUser,
+	loadingChatInfo,
+	chatExists,
+}) => {
 	const [messages, setMessages] = useState([]);
 	const [totalMessages, setTotalMessages] = useState(0);
 	const [top, setTop] = useState(0);
@@ -126,9 +132,13 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 	const renderMessages = () => {
 		return messages.map((message) => {
 			const data = message.data();
-			return <Message {...data} key={data.mid} />;
+			return <Message {...data} key={data.messageID} />;
 		});
 	};
+
+	if (loadingChatInfo || !chatExists) {
+		return <div></div>;
+	}
 
 	return (
 		<StyledMessages>
@@ -142,12 +152,11 @@ const Messages = ({ messagesDocID, currentUser, chatUser }) => {
 					{renderMessages()}
 					{typing ? (
 						<Typing>
-							{" "}
 							<ProfilePicture
 								username={chatUser.username}
 								photoURL={chatUser.photoURL}
 								size="smaller"
-							/>{" "}
+							/>
 							<p>typing...</p>
 						</Typing>
 					) : null}

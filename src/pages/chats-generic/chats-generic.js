@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
 
-import { StyledChatsGeneric } from "./chats-generic.styles";
+import { StyledChatsGeneric, ClearSearch } from "./chats-generic.styles";
 
 import { StyledMessage } from "../../styles/styles.generic";
 import { StyledTitle } from "../../styles/styles.title";
@@ -9,8 +10,27 @@ import { StyledTitle } from "../../styles/styles.title";
 import UsersContainer from "../../components/users-container/users-container";
 import UserSearch from "../../components/user-search/user-search";
 import ChatsToggler from "../../components/chats-toggler/chats-toggler";
+import { searchUser } from "../../firebase/firebase.utils.users";
 
-const ChatsGeneric = ({ displayList, title, message }) => {
+const ChatsGeneric = ({ displayList, title, message, currentUser }) => {
+	const [searching, setSearching] = useState(false);
+	const [searchActive, setSearchActive] = useState(false);
+	const [searchMessage, setSearchMessage] = useState("");
+	//setting searchResults to [""] as the searchResult's length has to be > 0 for list to render
+	const [searchResults, setSearchResults] = useState([""]);
+
+	const searchingMessages = {
+		chat: "searching chat...",
+		user: "searching user...",
+		chatRequest: "searching chat request...",
+	};
+
+	const notFoundMessages = {
+		chat: "no chat found",
+		user: "no user found",
+		chatRequest: "no chat request found",
+	};
+
 	const location = useLocation();
 
 	const renderChatsToggler = () => {
@@ -37,6 +57,45 @@ const ChatsGeneric = ({ displayList, title, message }) => {
 		);
 	};
 
+	const handleSearch = async (searchValue) => {
+		const searchType = location.pathname.includes("chats")
+			? "chat"
+			: location.pathname.includes("find-friends")
+			? "user"
+			: "chatRequest";
+
+		setSearching(true);
+		setSearchActive(true);
+		setSearchMessage(searchingMessages[searchType]);
+
+		setSearchResults([]);
+
+		const result = await searchUser(
+			searchValue,
+			searchType,
+			currentUser.id
+		);
+
+		setSearching(false);
+
+		if (result.users?.length > 0) {
+			const users = result.users.map((doc) =>
+				searchType === "chat"
+					? doc.data().user
+					: { ...doc.data(), userID: doc.data().id }
+			);
+			setSearchResults(users);
+			return;
+		}
+
+		setSearchMessage(notFoundMessages[searchType]);
+	};
+
+	const handleClearSearchClick = () => {
+		setSearchResults([""]);
+		setSearchActive(false);
+	};
+
 	return (
 		<StyledChatsGeneric>
 			<StyledTitle
@@ -52,16 +111,21 @@ const ChatsGeneric = ({ displayList, title, message }) => {
 
 			{renderChatsToggler()}
 
-			{displayList.length > 0 && (
-				<UserSearch
-				// searchValue={searchValue}
-				// inputChangeHandler={handleInputChange}
-				/>
+			{(displayList.length > 0 || searchActive) && (
+				<UserSearch submitHandler={handleSearch} />
 			)}
 
-			{displayList.length > 0 ? (
+			{searchActive && (
+				<ClearSearch onClick={handleClearSearchClick}>
+					clear search
+				</ClearSearch>
+			)}
+
+			{displayList.length > 0 &&
+			!searching &&
+			searchResults.length > 0 ? (
 				<UsersContainer
-					list={displayList}
+					list={searchActive ? searchResults : displayList}
 					type={
 						location.pathname.includes("chat-requests")
 							? "request"
@@ -69,10 +133,18 @@ const ChatsGeneric = ({ displayList, title, message }) => {
 					}
 				/>
 			) : (
-				<StyledMessage marginTop="2.5rem">{message}</StyledMessage>
+				<StyledMessage marginTop="2.5rem">
+					{searchActive ? searchMessage : message}
+				</StyledMessage>
 			)}
 		</StyledChatsGeneric>
 	);
 };
 
-export default ChatsGeneric;
+const mapStateToProps = (state) => {
+	return {
+		currentUser: state.currentUser.currentUser,
+	};
+};
+
+export default connect(mapStateToProps)(ChatsGeneric);

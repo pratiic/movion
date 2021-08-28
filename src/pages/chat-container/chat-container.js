@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -11,7 +11,9 @@ import { StyledStaticIndicatorIcon } from "../../styles/styles.icons";
 
 import { firestore } from "../../firebase/firebase.utils";
 import {
+	acceptChatRequest,
 	addUserToChats,
+	deleteChatRequest,
 	getChatInfo,
 	sendChatRequest,
 } from "../../firebase/firebase.chats.utils";
@@ -25,10 +27,14 @@ const ChatContainerPage = ({ currentUser, chatUser }) => {
 	const [messagesDocID, setMessagesDocID] = useState("");
 	const [chatExists, setChatExists] = useState(false);
 	const [requested, setRequested] = useState(false);
+	const [beenRequested, setBeenRequested] = useState(false);
 	const [requesting, setRequesting] = useState(false);
 	const [loadingChatInfo, setLoadingChatInfo] = useState(false);
+	const [accepting, setAccepting] = useState(false);
+	const [rejecting, setRejecting] = useState(false);
 
 	const { id } = useParams();
+	const history = useHistory();
 
 	useEffect(() => {
 		firestore
@@ -63,6 +69,10 @@ const ChatContainerPage = ({ currentUser, chatUser }) => {
 		if (chatInfo === "requested") {
 			return setRequested(true);
 		}
+
+		if (chatInfo === "been requested") {
+			return setBeenRequested(true);
+		}
 	};
 
 	const handleRequestClick = async () => {
@@ -80,11 +90,43 @@ const ChatContainerPage = ({ currentUser, chatUser }) => {
 		}
 	};
 
+	const handleAcceptClick = async () => {
+		setAccepting(true);
+
+		const result = await acceptChatRequest(
+			chatUser,
+			currentUser,
+			chatUser.userID
+		);
+
+		setAccepting(false);
+
+		if (result.message) {
+			setChatExists(true);
+		}
+	};
+
+	const handleRejectClick = async () => {
+		setRejecting(true);
+
+		const result = await deleteChatRequest(chatUser.userID, currentUser);
+
+		setRejecting(false);
+
+		if (result.message) {
+			history.push("/chats");
+		}
+	};
+
 	return (
 		<StyledChatContainer>
 			<Chat>
 				<ChatHeader />
-				<Messages messagesDocID={messagesDocID} />
+				<Messages
+					messagesDocID={messagesDocID}
+					loadingChatInfo={loadingChatInfo}
+					chatExists={chatExists}
+				/>
 				{loadingChatInfo ? (
 					<IndicatorContainer>
 						<StyledStaticIndicatorIcon />
@@ -94,8 +136,13 @@ const ChatContainerPage = ({ currentUser, chatUser }) => {
 				) : (
 					<ChatStatus
 						requested={requested}
+						beenRequested={beenRequested}
 						requesting={requesting}
 						requestClickHandler={handleRequestClick}
+						acceptHandler={handleAcceptClick}
+						rejectHandler={handleRejectClick}
+						accepting={accepting}
+						rejecting={rejecting}
 					/>
 				)}
 			</Chat>
