@@ -7,6 +7,8 @@ import { toggleTheme } from "../../redux/theme/theme.actions";
 
 import themeChangeSound from "../../assets/sounds/theme-change-sound.mp3";
 
+import HeaderUtil from "../header-util/header-util";
+
 const ThemeToggler = ({ toggleTheme, currentTheme }) => {
 	const themeToggleSound = new Audio(themeChangeSound);
 	const localStorage = window.localStorage;
@@ -25,26 +27,15 @@ const ThemeToggler = ({ toggleTheme, currentTheme }) => {
 		themeToggleSound.play();
 	};
 
-	return currentTheme === "dark" ? (
-		<StyledSunIcon
-			$smaller
-			$headerElement
-			onClick={handleThemeTogglerClick}
-		/>
-	) : (
-		<StyledMoonIcon
-			$smaller
-			$headerElement
-			onClick={handleThemeTogglerClick}
-		/>
+	return (
+		<HeaderUtil clickHandler={handleThemeTogglerClick}>
+			{currentTheme === "dark" ? (
+				<StyledSunIcon $smaller $headerElement />
+			) : (
+				<StyledMoonIcon $smaller $headerElement />
+			)}
+		</HeaderUtil>
 	);
-
-	// return (
-	// 	<React.Fragment>
-	// 		<StyledSunIcon $smaller $headerElement onClick={toggleTheme} />
-	// 		<StyledMoonIcon $smaller $headerElement onClick={toggleTheme} />
-	// 	</React.Fragment>
-	// );
 };
 
 const mapStateToProps = (state) => {

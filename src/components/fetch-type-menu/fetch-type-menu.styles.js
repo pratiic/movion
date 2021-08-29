@@ -12,6 +12,10 @@ export const FetchTypeMenuWrapper = styled.div`
 	z-index: 3;
 	top: 8rem;
 	right: 0;
+
+	@media screen and (max-width: 500px) {
+		top: 7rem;
+	}
 `;
 
 export const StyledFetchTypeMenu = styled.div`

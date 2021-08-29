@@ -112,7 +112,10 @@ const ChatsGeneric = ({ displayList, title, message, currentUser }) => {
 			{renderChatsToggler()}
 
 			{(displayList.length > 0 || searchActive) && (
-				<UserSearch submitHandler={handleSearch} />
+				<UserSearch
+					searchActive={searchActive}
+					submitHandler={handleSearch}
+				/>
 			)}
 
 			{searchActive && (

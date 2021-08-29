@@ -6,6 +6,8 @@ import {
 	StyledUserNotification,
 	StyledMessage,
 	StyledNotificationTime,
+	IconContainer,
+	NotificationMain,
 } from "./user-notification.styles";
 import { StyledDeleteIcon } from "../../styles/styles.icons";
 
@@ -78,27 +80,31 @@ const UserNotification = ({
 				username={sourceUser.username}
 				photoURL={sourceUser.photoURL}
 			/>
-			<StyledMessage onClick={handleMessageClick}>
-				{deleting ? (
-					"deleting notification..."
-				) : (
-					<React.Fragment>
-						{getNotificationMessage(
-							type,
-							action,
-							sourceUser.username
-						)}
-						<StyledNotificationTime>
-							{getHowLongAgo(createdAt)}
-						</StyledNotificationTime>
-					</React.Fragment>
-				)}
-			</StyledMessage>
-			<StyledDeleteIcon
-				$smaller
-				$showBackground
-				onClick={handleDeleteIconClick}
-			/>
+			<NotificationMain>
+				<StyledMessage onClick={handleMessageClick}>
+					{deleting ? (
+						"deleting notification..."
+					) : (
+						<React.Fragment>
+							{getNotificationMessage(
+								type,
+								action,
+								sourceUser.username
+							)}
+						</React.Fragment>
+					)}
+				</StyledMessage>
+				<StyledNotificationTime>
+					{getHowLongAgo(createdAt)}
+				</StyledNotificationTime>
+			</NotificationMain>
+			<IconContainer>
+				<StyledDeleteIcon
+					$smaller
+					$showBackground
+					onClick={handleDeleteIconClick}
+				/>
+			</IconContainer>
 		</StyledUserNotification>
 	);
 };

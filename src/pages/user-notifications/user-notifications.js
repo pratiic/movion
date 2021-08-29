@@ -23,18 +23,21 @@ const UserNotifications = ({
 
 	return (
 		<StyledUserNotifications>
-			<Header>
-				<HeaderTitle>your notifications</HeaderTitle>
-				<ClearNotifications>clear all notifications</ClearNotifications>
-			</Header>
+			<StyledTitle marginbt="0.5rem">your notifications</StyledTitle>
 
 			{userNotifications.length > 0 ? (
-				userNotifications.map((userNotification) => (
-					<UserNotification
-						{...userNotification}
-						key={userNotification.notificationID}
-					/>
-				))
+				<React.Fragment>
+					<ClearNotifications>
+						clear all notficiations
+					</ClearNotifications>
+
+					{userNotifications.map((userNotification) => (
+						<UserNotification
+							{...userNotification}
+							key={userNotification.notificationID}
+						/>
+					))}
+				</React.Fragment>
 			) : (
 				<StyledMessage>{userNotificationsMessage}</StyledMessage>
 			)}

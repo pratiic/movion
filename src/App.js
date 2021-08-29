@@ -189,10 +189,6 @@ const App = ({
 					})
 				)
 			);
-
-			// if (snapshot.docs.length === 0) {
-			// 	setChatsMessage("you dont have any chats");
-			// }
 		});
 	};
 

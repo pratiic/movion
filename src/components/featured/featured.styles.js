@@ -16,6 +16,8 @@ export const FeaturedWrapper = styled.div`
 `;
 
 export const StyledFeatured = styled.div`
+	display: flex;
+	align-items: center;
 	height: 100vh;
 	width: 100%;
 	font-size: 1.75rem;
@@ -24,9 +26,7 @@ export const StyledFeatured = styled.div`
 	background-size: cover;
 	background-position: center;
 	position: relative;
-	margin-bottom: 3rem;
-	display: flex;
-	align-items: center;
+	margin-bottom: 2rem;
 
 	${OverlayStyles};
 `;
@@ -38,14 +38,14 @@ export const Title = styled.p`
 `;
 
 export const Overview = styled.p`
-	max-width: 70%;
+	width: 70%;
 	margin-bottom: 2.5rem;
 
 	@media screen and (max-width: 800px) {
-		max-width: 85%;
+		width: 85%;
 	}
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 700px) {
 		width: 100%;
 	}
 `;

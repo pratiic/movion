@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { HeaderElementStyles } from "../header/header.styles";
 import { cssColors } from "../../styles/styles.variables";
@@ -9,8 +9,12 @@ export const StyledHeaderUtil = styled.div`
 	display: flex;
 	align-items: center;
 	position: relative;
+	padding: 0.5rem;
+	border-radius: 50%;
 
 	&:hover {
+		background-color: ${({ theme }) => theme.bgFocused};
+
 		svg {
 			path {
 				fill: ${cssColors.bluePrimary};
@@ -19,12 +23,46 @@ export const StyledHeaderUtil = styled.div`
 	}
 
 	&:active {
+		background-color: ${({ theme }) => theme.bgFocusedDark};
+
 		svg {
 			path {
 				fill: ${({ theme }) => theme.textIconBlur};
 			}
 		}
 	}
+
+	${({ active }) =>
+		active &&
+		css`
+			background-color: ${({ theme }) => theme.bgFocused};
+
+			svg {
+				path {
+					fill: ${cssColors.bluePrimary};
+				}
+			}
+		`}
+
+	${({ smallerScreen }) =>
+		smallerScreen &&
+		css`
+			display: none;
+
+			@media screen and (max-width: 850px) {
+				display: flex;
+			}
+		`}
+
+	${({ smallScreen }) =>
+		smallScreen &&
+		css`
+			display: none;
+
+			@media screen and (max-width: 1150px) {
+				display: flex;
+			}
+		`}
 `;
 
 export const StyledText = styled.span`

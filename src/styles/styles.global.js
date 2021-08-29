@@ -49,8 +49,3 @@ export const GlobalStyles = createGlobalStyle`
 	    }      
     }
 `;
-
-export const StyledApp = styled.div`
-	/* display: grid;
-	grid-template-rows: auto 1fr; */
-`;

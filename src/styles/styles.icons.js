@@ -22,7 +22,6 @@ import { ReactComponent as ReplyIcon } from "../assets/icons/reply.svg";
 import { ReactComponent as TrashCanIcon } from "../assets/icons/trash-can.svg";
 import { ReactComponent as EditIcon } from "../assets/icons/edit.svg";
 import { ReactComponent as ChatIcon } from "../assets/icons/chat.svg";
-// import { ReactComponent as VerticalDotIcon } from "../assets/icons/vertical-dot-menu.svg";
 import { ReactComponent as SmileyIcon } from "../assets/icons/smiley.svg";
 import { ReactComponent as DoubleTickIcon } from "../assets/icons/double-tick.svg";
 import { ReactComponent as ArrowLeftIcon } from "../assets/icons/arrow-left.svg";
@@ -51,6 +50,39 @@ export const MediumIconStyles = css`
 export const BiggerIconStyles = css`
 	height: 2.2rem;
 	width: 2.2rem;
+`;
+
+export const BackgroundIconStyles = css`
+	box-sizing: content-box;
+	padding: 0.5rem;
+	border-radius: 50%;
+
+	&:hover {
+		background-color: ${({ theme }) => theme.bgFocused};
+
+		path {
+			fill: ${cssColors.bluePrimary};
+		}
+	}
+
+	&:active {
+		background-color: ${({ theme }) => theme.bgFocusedDark};
+
+		path {
+			fill: ${({ theme }) => theme.textMuted};
+		}
+	}
+
+	/* &::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 200%;
+		width: 200%;
+		background-color: black;
+		z-index: 5;
+	} */
 `;
 
 export const IconStyles = css`
@@ -97,14 +129,10 @@ export const IconStyles = css`
 
     ${({ $bigger }) => $bigger && BiggerIconStyles}
 
-    ${({ $sidebarToggler }) =>
-		$sidebarToggler &&
+	${({ $headerElement }) =>
+		$headerElement &&
 		css`
-			display: none;
-
-			@media screen and (max-width: 1150px) {
-				display: block;
-			}
+			${HeaderElementStyles};
 		`}
 
     ${({ $searchbarToggler }) =>
@@ -124,8 +152,6 @@ export const IconStyles = css`
 
 			${SmallestIconStyles};
 		`}
-
-    ${({ $headerElement }) => $headerElement && HeaderElementStyles}
 
     ${({ $headerLinkIcon }) =>
 		$headerLinkIcon &&
@@ -181,33 +207,7 @@ export const IconStyles = css`
 			}
 		`} */
 
-		${({ $showBackground }) =>
-		$showBackground &&
-		css`
-			box-sizing: content-box;
-			padding: 0.5rem;
-			border-radius: 50%;
-
-			/* path {
-				fill: ${({ theme }) => theme.textMuted};
-			} */
-
-			&:hover {
-				background-color: ${({ theme }) => theme.bgFocused};
-
-				path {
-					fill: ${cssColors.bluePrimary};
-				}
-			}
-
-			&:active {
-				background-color: ${({ theme }) => theme.bgFocusedDark};
-
-				path {
-					fill: ${({ theme }) => theme.textMuted};
-				}
-			}
-		`}
+		${({ $showBackground }) => $showBackground && BackgroundIconStyles}
 `;
 
 export const StyledMovieIcon = styled(MovieIcon)`

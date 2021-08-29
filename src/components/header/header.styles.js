@@ -38,11 +38,15 @@ export const HeaderElementStyles = css`
 		margin-left: 3.4rem;
 	}
 
-	@media screen and (max-width: 400px) {
-		margin-left: 2.4rem;
+	@media screen and (max-width: 700px) {
+		margin-left: 2.5rem;
 	}
 
-	@media screen and (max-width: 350px) {
-		margin-left: 1.75rem;
+	@media screen and (max-width: 500px) {
+		margin-left: 2rem;
+	}
+
+	@media screen and (max-width: 450px) {
+		margin-left: 1.5rem;
 	}
 `;

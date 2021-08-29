@@ -1,10 +1,7 @@
 import styled, { css } from "styled-components";
 
 import { cssColors } from "../../styles/styles.variables";
-import {
-	StyledHorizontalDotMenuIcon,
-	StyledDoubleTickIcon,
-} from "../../styles/styles.icons";
+import { StyledHorizontalDotMenuIcon } from "../../styles/styles.icons";
 import { StyledProfilePicture } from "../profile-picture/profile-picture.styles";
 
 export const Text = styled.div`

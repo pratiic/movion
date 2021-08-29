@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { StyledHeaderUtils } from "./header-utils.styles";
 import {
@@ -21,7 +21,6 @@ import { toggleNotification } from "../../redux/notification/notification.action
 
 import {
 	getNewMessageChats,
-	getNewMessages,
 	getUnacknowledgedChats,
 } from "../../utils/utils.chats";
 
@@ -41,11 +40,20 @@ const HeaderUtils = ({
 	userChats,
 	chatRequests,
 }) => {
+	const [utilLinks, setUtilLinks] = useState([
+		{ activeLinks: ["favorites"], active: false },
+		{ activeLinks: ["notifications"], active: false },
+		{
+			activeLinks: ["chats", "chat-requests", "find-friends"],
+			active: false,
+		},
+	]);
 	const [unseenNotifications, setUnseenNotifications] = useState(0);
 	const [unacknowledgedChats, setUnacknowledgedChats] = useState(0);
 	const [messagesPlusRequests, setMessagesPlusRequests] = useState(0);
 
 	const history = useHistory();
+	const location = useLocation();
 
 	useEffect(() => {
 		setUnseenNotifications(
@@ -65,9 +73,26 @@ const HeaderUtils = ({
 		);
 	}, [userChats, chatRequests]);
 
+	useEffect(() => {
+		setUtilLinks(
+			utilLinks.map((utilLink) => {
+				if (
+					utilLink.activeLinks.find((activeLink) =>
+						location.pathname.includes(activeLink)
+					)
+				) {
+					return { ...utilLink, active: true };
+				}
+
+				return { ...utilLink, active: false };
+			})
+		);
+	}, [location]);
+
 	return (
 		<StyledHeaderUtils>
 			<HeaderUtil
+				active={utilLinks[0].active}
 				clickHandler={() => {
 					history.push("/favorites");
 				}}
@@ -75,12 +100,11 @@ const HeaderUtils = ({
 				<StyledHeartIcon $headerElement $smaller />
 			</HeaderUtil>
 
-			<HeaderUtil>
-				<ThemeToggler />
-			</HeaderUtil>
+			<ThemeToggler />
 
 			<HeaderUtil
 				text={unseenNotifications}
+				active={utilLinks[1].active}
 				clickHandler={() => {
 					history.push("/notifications");
 				}}
@@ -90,6 +114,7 @@ const HeaderUtils = ({
 
 			<HeaderUtil
 				text={messagesPlusRequests}
+				active={utilLinks[2].active}
 				clickHandler={() => {
 					history.push("/chats");
 				}}
@@ -107,6 +132,7 @@ const HeaderUtils = ({
 				</HeaderUtil>
 			) : (
 				<HeaderUtil
+					smallerScreen
 					clickHandler={() => {
 						toggleSearchbar();
 						focusSearchInput();
@@ -116,20 +142,17 @@ const HeaderUtils = ({
 						}
 					}}
 				>
-					<StyledSearchIcon
-						$headerElement
-						$searchbarToggler
-						$smaller
-					/>
+					<StyledSearchIcon $headerElement $smaller />
 				</HeaderUtil>
 			)}
 
 			{showSidebar ? (
 				<HeaderUtil clickHandler={toggleSidebar}>
-					<StyledDeleteIcon $headerElement $sidebarToggler $smaller />
+					<StyledDeleteIcon $headerElement $smaller />
 				</HeaderUtil>
 			) : (
 				<HeaderUtil
+					smallScreen
 					clickHandler={() => {
 						toggleSidebar();
 
@@ -138,11 +161,7 @@ const HeaderUtils = ({
 						}
 					}}
 				>
-					<StyledHamburgerIcon
-						$headerElement
-						$bigger
-						$sidebarToggler
-					/>
+					<StyledHamburgerIcon $headerElement $bigger />
 				</HeaderUtil>
 			)}
 		</StyledHeaderUtils>

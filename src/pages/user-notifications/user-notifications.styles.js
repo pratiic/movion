@@ -25,9 +25,11 @@ export const HeaderTitle = styled.p`
 
 export const ClearNotifications = styled.p`
 	color: ${cssColors.googleRed};
-	font-size: 1.75rem;
 	cursor: pointer;
 	padding-bottom: 0.3rem;
+	width: fit-content;
+	margin-left: auto;
+	margin-bottom: 1rem;
 
 	&::first-letter {
 		text-transform: uppercase;

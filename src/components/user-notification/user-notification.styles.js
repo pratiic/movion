@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const StyledUserNotification = styled.div`
 	border: 1px solid ${({ theme }) => theme.bgFocused};
@@ -9,29 +9,37 @@ export const StyledUserNotification = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	cursor: pointer;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
 		rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 
-	/* ${({ seen }) =>
-		!seen &&
-		css`
-			border: 1px solid ${({ theme }) => theme.textFocused};
+	& > *:first-child {
+		min-width: 2.75rem;
+	}
 
-			${StyledMessage} {
-				font-weight: 500;
-			}
-		`} */
+	& > *:last-child {
+		min-width: 2.5rem;
+	}
+`;
+
+export const NotificationMain = styled.div`
+	display: flex;
+	align-items: center;
+	flex: 1 1 auto;
+	overflow: hidden;
+	height: 100%;
 `;
 
 export const StyledMessage = styled.p`
-	display: flex;
-	align-items: center;
 	color: ${({ theme }) => theme.textIconBlur};
-	flex: 1 1 auto;
 	padding: 0 1rem;
 	margin: 0 0.75rem;
 	height: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 4rem;
+	width: 85%;
+	cursor: pointer;
 
 	&::first-letter {
 		text-transform: uppercase;
@@ -39,7 +47,6 @@ export const StyledMessage = styled.p`
 
 	&:hover {
 		background-color: ${({ theme }) => theme.bgFocused};
-
 		color: ${({ theme }) => theme.textFocused};
 	}
 
@@ -49,7 +56,13 @@ export const StyledMessage = styled.p`
 `;
 
 export const StyledNotificationTime = styled.span`
-	margin-left: 0.75rem;
 	color: ${({ theme }) => theme.textMuted};
 	font-size: 1.55rem;
+	min-width: 3rem;
+	white-space: nowrap;
+`;
+
+export const IconContainer = styled.div`
+	display: flex;
+	align-items: center;
 `;

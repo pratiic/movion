@@ -2,7 +2,14 @@ import React from "react";
 
 import { StyledHeaderUtil, StyledText } from "./header-util.styles";
 
-const HeaderUtil = ({ text, clickHandler, children }) => {
+const HeaderUtil = ({
+	text,
+	active,
+	smallerScreen,
+	smallScreen,
+	children,
+	clickHandler,
+}) => {
 	const getTextToDisplay = () => {
 		if (!text) {
 			return;
@@ -16,7 +23,12 @@ const HeaderUtil = ({ text, clickHandler, children }) => {
 	};
 
 	return (
-		<StyledHeaderUtil onClick={clickHandler}>
+		<StyledHeaderUtil
+			active={active}
+			smallerScreen={smallerScreen}
+			smallScreen={smallScreen}
+			onClick={clickHandler}
+		>
 			{children}
 			{text > 0 && <StyledText>{getTextToDisplay()}</StyledText>}
 		</StyledHeaderUtil>

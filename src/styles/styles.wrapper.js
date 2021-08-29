@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const WrapperCommonStyles = css`
 	margin: auto;
 
-	@media screen and (max-width: 750px) {
+	@media screen and (max-width: 1050px) {
 		padding-left: 3.5rem;
 		padding-right: 3.5rem;
 	}
@@ -11,6 +11,11 @@ const WrapperCommonStyles = css`
 	@media screen and (max-width: 550px) {
 		padding-left: 2.5rem;
 		padding-right: 2.5rem;
+	}
+
+	@media screen and (max-width: 500px) {
+		padding-left: 2rem;
+		padding-right: 2rem;
 	}
 
 	@media screen and (max-width: 450px) {

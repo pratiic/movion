@@ -1,12 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { StyledForm, Input } from "./user-search.styles";
 import { StyledSearchIcon } from "../../styles/styles.icons";
 
-const UserSearch = ({ submitHandler, clearSearch }) => {
+const UserSearch = ({ searchActive, submitHandler }) => {
 	const [searchValue, setSearchValue] = useState("");
 
 	const inputRef = useRef();
+
+	useEffect(() => {
+		if (!searchActive) {
+			setSearchValue("");
+		}
+	}, [searchActive]);
 
 	const handleSearchIconClick = () => {
 		inputRef.current.focus();
@@ -37,8 +43,6 @@ const UserSearch = ({ submitHandler, clearSearch }) => {
 				ref={inputRef}
 				onChange={handleInputChange}
 				value={searchValue}
-				// ref={inputRef}
-				// value={searchValue}
 			/>
 		</StyledForm>
 	);

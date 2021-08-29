@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { cssColors, cssFonts } from "../../styles/styles.variables";
-import { StyledProfilePicture } from "../profile-picture/profile-picture.styles";
 
 import { HeaderElementStyles } from "../header/header.styles";
 

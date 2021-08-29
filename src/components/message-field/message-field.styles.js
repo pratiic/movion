@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-import { cssColors, cssFonts } from "../../styles/styles.variables";
+import { cssFonts, cssColors } from "../../styles/styles.variables";
 
 export const Form = styled.form`
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: ${({ theme }) => theme.bgFocused};
-	border-radius: 7px;
-	padding: 0 1.5rem;
+	border-radius: 5px;
+	padding: 0 0.75rem;
 	position: relative;
-	margin: 1rem 1.7rem 1rem 1.7rem;
+	margin: 1rem;
 
 	.emoji-picker-react {
 		height: 100%;
@@ -59,20 +59,13 @@ export const Form = styled.form`
 			}
 		}
 
-		/* .active-category-indicator-wrapper {
-			.active-category-indicator {
-				background-color: ${({ theme }) => theme.textMuted};
-				opacity: 1;
-			}
-		} */
-
 		.skin-tones-list {
 			display: none;
 		}
 	}
 
 	@media screen and (max-width: 500px) {
-		margin: 0 0.8rem 0.75rem 0.8rem;
+		margin: 0.75rem 0;
 	}
 `;
 
@@ -94,7 +87,29 @@ export const Icons = styled.div`
 	align-items: center;
 
 	& > :not(:first-child) {
-		margin-left: 1.75rem;
+		margin-left: 1.25rem;
+	}
+
+	svg {
+		padding: 0.5rem;
+		box-sizing: content-box;
+		border-radius: 50%;
+
+		&:hover {
+			background-color: ${({ theme }) => theme.textMuted};
+
+			path {
+				fill: ${cssColors.bgFocused};
+			}
+		}
+
+		&:active {
+			background-color: ${({ theme }) => theme.bgFocusedDark};
+
+			path {
+				fill: ${({ theme }) => theme.textMuted};
+			}
+		}
 	}
 `;
 

@@ -5,11 +5,10 @@ import { cssColors } from "./styles.variables";
 
 export const StyledTitle = styled.div`
 	${TextStyles};
-	font-size: 3rem;
-	margin-bottom: ${({ marginbt }) => marginbt || "3rem"};
+	font-size: 2.75rem;
+	margin-bottom: ${({ marginbt }) => marginbt || "2rem"};
 	text-transform: capitalize;
 	letter-spacing: 1px;
-	font-weight: ${({ fontWeight }) => fontWeight || 300};
 	color: ${({ theme }) => theme.textIconBlur};
 
 	${({ size }) => {

@@ -17,4 +17,8 @@ export const StyledLogo = styled(Logo)`
 	@media screen and (max-width: 850px) {
 		width: 13rem;
 	}
+
+	@media screen and (max-width: 500px) {
+		width: 11rem;
+	}
 `;

@@ -58,6 +58,8 @@ const MessageField = ({
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
 
+		setShowEmojiBox(false);
+
 		const { messageEditMode, messageID } = messageEditInfo;
 
 		if (!message) {
@@ -142,14 +144,15 @@ const MessageField = ({
 				onChange={handleInputChange}
 			/>
 			<Icons>
-				{/* <EmojiIcon
-					className="icon emoji-icon"
-					onClick={handleEmojiButtonClick}
-				/> */}
-				<StyledDeleteIcon $smaller onClick={handleClearButtonClick} />
-				<StyledSmileyIcon onClick={handleEmojiButtonClick} />
+				{message && (
+					<StyledDeleteIcon
+						$noColor
+						onClick={handleClearButtonClick}
+					/>
+				)}
+				<StyledSmileyIcon $noColor onClick={handleEmojiButtonClick} />
 				<SendButton type="submit">
-					<StyledSendIcon className="icon" $smaller />
+					<StyledSendIcon $noColor />
 				</SendButton>
 			</Icons>
 		</Form>
