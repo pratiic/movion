@@ -8,6 +8,7 @@ export const StyledMessages = styled.div`
 	overflow-x: hidden;
 	padding: 0.7rem 0.8rem 0rem 0.7rem;
 	position: relative;
+	margin-top: 5rem;
 
 	&::-webkit-scrollbar {
 		width: 0;

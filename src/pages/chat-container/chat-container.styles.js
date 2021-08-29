@@ -13,6 +13,7 @@ export const Chat = styled.div`
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 	border-left: 1px solid ${({ theme }) => theme.bgFocused};
 	border-right: 1px solid ${({ theme }) => theme.bgFocused};
 

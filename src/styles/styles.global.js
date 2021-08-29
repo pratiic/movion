@@ -28,6 +28,10 @@ export const GlobalStyles = createGlobalStyle`
         &::-webkit-scrollbar-thumb {
             background-color: ${cssColors.greyText};
         }
+
+        & > * {
+            -webkit-tap-highlight-color: transparent;
+        }
     }
 
     a {
