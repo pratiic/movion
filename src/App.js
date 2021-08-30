@@ -49,6 +49,7 @@ import FindFriendsPage from "./pages/find-friends/find-friends";
 import ChatContainerPage from "./pages/chat-container/chat-container";
 import UserNotifications from "./pages/user-notifications/user-notifications";
 import ChatRequests from "./pages/chat-requests/chat-requests";
+import Modal from "./components/modal/modal";
 
 //this is the top level component of the application
 //this is where other components are brought to be rendered
@@ -217,6 +218,7 @@ const App = ({
 			<GlobalStyles />
 			<Notification />
 			<Header />
+			<Modal />
 			<Switch>
 				<Route exact path="/">
 					<Redirect to="/movies" />

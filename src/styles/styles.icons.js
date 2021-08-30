@@ -72,17 +72,6 @@ export const BackgroundIconStyles = css`
 			fill: ${({ theme }) => theme.textMuted};
 		}
 	}
-
-	/* &::before {
-		content: "";
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 200%;
-		width: 200%;
-		background-color: black;
-		z-index: 5;
-	} */
 `;
 
 export const IconStyles = css`
@@ -181,32 +170,6 @@ export const IconStyles = css`
 			transform: rotate(180deg);
 		`}
 
-	/* ${({ $menuToggleIcon }) =>
-		$menuToggleIcon &&
-		css`
-			box-sizing: content-box;
-			padding: 0.3rem;
-			border-radius: 50%;
-
-			path {
-				fill: ${({ theme }) => theme.textMuted};
-			}
-
-			&:hover {
-				background-color: ${({ theme }) => theme.bgFocused};
-
-				path {
-					fill: ${cssColors.bluePrimary};
-				}
-			}
-
-			&:active {
-				path {
-					fill: ${({ theme }) => theme.textMuted};
-				}
-			}
-		`} */
-
 		${({ $showBackground }) => $showBackground && BackgroundIconStyles}
 `;
 
@@ -266,19 +229,6 @@ export const StyledGoogleSignInIcon = styled(GoogleSignInIcon)`
 
 export const StyledHorizontalDotMenuIcon = styled(HorizontalDotMenuIcon)`
 	${IconStyles};
-
-	/* position: absolute;
-	background-color: ${({ theme }) => theme.bgFocused};
-	border-radius: 50%;
-	padding: 0.2rem;
-	bottom: 0.7rem;
-	right: 0.7rem;
-	opacity: 0.7;
-	cursor: pointer;
-
-	&:hover {
-		//background-color: white;
-	} */
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`
@@ -332,10 +282,6 @@ export const StyledEditIcon = styled(EditIcon)`
 export const StyledChatIcon = styled(ChatIcon)`
 	${IconStyles};
 `;
-
-// export const StyledVerticalDotIcon = styled(VerticalDotIcon)`
-// 	${IconStyles};
-// `;
 
 export const StyledSmileyIcon = styled(SmileyIcon)`
 	${IconStyles};

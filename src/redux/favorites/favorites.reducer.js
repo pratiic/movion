@@ -1,5 +1,3 @@
-import { favoritesActionTypes } from "./favorites.types";
-
 import { separateIntoTwo } from "./favorites.utils";
 
 const INITIAL_STATE = {
@@ -9,7 +7,7 @@ const INITIAL_STATE = {
 
 export const favoritesReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case favoritesActionTypes.FETCH_FAVORITES_SUCCESS:
+		case "SET_FAVORITES":
 			return {
 				...state,
 				favoriteMovies: separateIntoTwo(action.payload, "movie"),

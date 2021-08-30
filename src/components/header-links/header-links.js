@@ -77,7 +77,9 @@ const HeaderLinks = ({
 
 	const handleLinkClick = (event) => {
 		//whenever a header link is clicked, we close the sidebar
-		toggleSidebar();
+		if (showSidebar) {
+			toggleSidebar();
+		}
 	};
 
 	const setActiveLink = () => {
@@ -135,8 +137,6 @@ const HeaderLinks = ({
 				</React.Fragment>
 			)}
 		</StyledHeaderLinks>
-		// <HeaderLinksOverlay show={showSidebar}>
-		// </HeaderLinksOverlay>
 	);
 };
 

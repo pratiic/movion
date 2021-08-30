@@ -166,10 +166,7 @@ class SignInPage extends React.Component {
 						</GenericButton>
 						<GenericButton
 							btnType="outlined"
-							bg={cssColors.googleRed}
-							color={cssColors.googleRed}
-							darkBg="#d03325"
-							hoverColor="white"
+							color="red"
 							handleButtonClick={this.handleButtonClick}
 						>
 							<StyledGoogleSignInIcon $smaller /> sign in with

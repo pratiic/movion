@@ -3,6 +3,9 @@ import styled, { css } from "styled-components";
 import { cssColors } from "../../styles/styles.variables";
 
 export const StyledGenericButton = styled.button`
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	font-family: inherit;
 	outline: none;
 	font-size: 1.5rem;
@@ -10,56 +13,84 @@ export const StyledGenericButton = styled.button`
 	width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
 	padding: 0.6rem 1.2rem;
 	font-weight: 400;
-	background-color: ${({ bg }) => bg || cssColors.bluePrimary};
-	border: ${({ bg }) =>
-		bg ? `1px solid ${bg}` : `1px solid ${cssColors.bluePrimary}`};
+	background-color: ${cssColors.bluePrimary};
+	border: 1px solid ${cssColors.bluePrimary};
 	border-radius: 3px;
 	color: ${cssColors.greyDark};
 	letter-spacing: 1px;
 	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	transition: color 100ms ease-in;
 
 	svg {
 		margin-right: ${({ iconOnly }) => (iconOnly ? "0rem" : "0.8rem")};
 		path {
-			fill: ${({ color }) => color || cssColors.greyLighter};
+			fill: ${cssColors.bluePrimary};
 		}
 	}
+
+	&:hover {
+		background-color: ${cssColors.bluePrimaryDark};
+	}
+
+	&:active {
+		background-color: ${cssColors.bluePrimaryDarker};
+	}
+
+	${({ color }) =>
+		color === "red" &&
+		css`
+			background-color: ${cssColors.googleRed};
+			border: 1px solid ${cssColors.googleRed};
+
+			svg {
+				path {
+					fill: ${cssColors.googleRed};
+				}
+			}
+
+			&:hover {
+				background-color: ${cssColors.googleRedDark};
+			}
+
+			&:active {
+				background-color: ${cssColors.googleRedDarker};
+			}
+		`}
 
 	${({ btnType }) => {
 		if (btnType === "outlined") {
 			return css`
 				background-color: transparent;
-				color: ${({ color }) => color || cssColors.bluePrimary};
+				color: ${cssColors.bluePrimary};
 
 				&:hover {
-					background-color: ${({ bg }) =>
-						bg || cssColors.bluePrimary};
-					color: ${({ hoverColor }) =>
-						hoverColor || cssColors.greyDark};
+					background-color: ${cssColors.bluePrimary};
+					color: ${cssColors.greyDark};
 
 					svg {
 						path {
-							fill: ${({ hoverColor }) =>
-								hoverColor || cssColors.greyDark};
+							fill: ${cssColors.greyDark};
 						}
 					}
 				}
-			`;
-		}
-	}}
-
-	${({ color }) => {
-		if (color === "red") {
-			return css`
-				background-color: ${cssColors.googleRed}
 
 				&:active {
-					background-color: ${cssColors.dangerRedDark}
+					background-color: ${cssColors.bluePrimaryDarker};
 				}
+
+				${({ color }) =>
+					color === "red" &&
+					css`
+						color: ${cssColors.googleRed};
+
+						&:hover {
+							background-color: ${cssColors.googleRed};
+						}
+
+						&:active {
+							background-color: ${cssColors.googleRedDarker};
+						}
+					`}
 			`;
 		}
 	}}
@@ -90,8 +121,4 @@ export const StyledGenericButton = styled.button`
 			margin-left: auto;
 			margin-right: auto;
 		`}
-
-	&:active {
-		background-color: ${({ darkBg }) => darkBg || "#125bbb"};
-	}
 `;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 import { StyledMainCard } from "./main-card.styles";
 import { cssColors } from "../../styles/styles.variables";
@@ -8,11 +8,14 @@ import { StyledDeleteIcon } from "../../styles/styles.icons";
 
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
-import {
-	selectFavoriteMovies,
-	selectFavoriteTvShows,
-} from "../../redux/favorites/favorites.selectors";
 import { apiInfo } from "../../redux/api/api.info";
+import {
+	resetModal,
+	setClickHandler,
+	setHasOptions,
+	setModalTitle,
+	setShowModal,
+} from "../../redux/modal/modal.actions";
 
 import { renderReleaseDate } from "../../utils/utils.components";
 import { deleteFavoriteDocument } from "../../firebase/firebase.utils";
@@ -29,15 +32,31 @@ const MainCard = ({
 	title,
 	releaseDate,
 	posterPath,
-	favoriteMovies,
-	favoriteTvShows,
-	forComponent,
 }) => {
 	const history = useHistory();
 	const location = useLocation();
 
-	const handleButtonClick = () => {
-		removeFromFavorites();
+	const dispatch = useDispatch();
+
+	const handleRemoveClick = async () => {
+		dispatch(setShowModal());
+		dispatch(
+			setModalTitle(
+				"are you sure you want to remove this from favorites ?"
+			)
+		);
+		dispatch(setClickHandler(handleFavoriteRemoval));
+	};
+
+	const handleFavoriteRemoval = async () => {
+		dispatch(setHasOptions(false));
+
+		const status = await deleteFavoriteDocument(id, currentUser.id);
+		dispatch(resetModal());
+
+		if (status === "success") {
+			toggleNotification("removed from favorites", "success");
+		}
 	};
 
 	const handleCardImageClick = () => {
@@ -45,14 +64,6 @@ const MainCard = ({
 		//before navigating to the details page
 		resetSimilarFetchPage();
 		history.push(`/details/${type}/${id}`);
-	};
-
-	const removeFromFavorites = async () => {
-		const status = await deleteFavoriteDocument(id, currentUser.id);
-
-		if (status === "success") {
-			toggleNotification("removed from favorites", "success");
-		}
 	};
 
 	return (
@@ -79,13 +90,10 @@ const MainCard = ({
 			{location.pathname.includes("favorites") && (
 				<GenericButton
 					btnType="outlined"
+					color="red"
 					size="smaller"
 					width="full"
-					bg={cssColors.dangerRed}
-					darkBg={cssColors.dangerRedDark}
-					color={cssColors.dangerRed}
-					hoverColor="white"
-					handleButtonClick={handleButtonClick}
+					handleButtonClick={handleRemoveClick}
 				>
 					<StyledDeleteIcon $smallest /> remove
 				</GenericButton>
@@ -97,8 +105,6 @@ const MainCard = ({
 const mapStateToProps = (state) => {
 	return {
 		currentUser: state.currentUser.currentUser,
-		favoriteMovies: selectFavoriteMovies(state),
-		favoriteTvShows: selectFavoriteTvShows(state),
 	};
 };
 

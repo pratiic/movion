@@ -1,5 +1,7 @@
 export const cssColors = {
 	bluePrimary: "#1A73E8",
+	bluePrimaryDark: "#166cde",
+	bluePrimaryDarker: "#1464ce",
 	blueSecondary: "#0e141b",
 	orangePrimary: "#e86d1a",
 	greyDark: "#181818",
@@ -12,6 +14,8 @@ export const cssColors = {
 	greyText: "#757575",
 	greyTextDarker: "#424242",
 	googleRed: "#DB4437",
+	googleRedDark: "d8392b",
+	googleRedDarker: "cc3224",
 	dangerRed: "#DC3545",
 	dangerRedDark: "#d12434",
 };

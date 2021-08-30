@@ -67,8 +67,8 @@ export const StyledHeaderUtil = styled.div`
 
 export const StyledText = styled.span`
 	position: absolute;
-	right: -1rem;
-	top: -0.5rem;
+	right: -0.75rem;
+	top: -0.3rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
