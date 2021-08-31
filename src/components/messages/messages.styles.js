@@ -1,11 +1,13 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { StyledMessage } from "../../styles/styles.generic";
 
 export const StyledMessages = styled.div`
-	/* display: flex;
-	flex-direction: column;
-	justify-content: flex-end; */
+	${({ pushMessagesDown }) =>
+		!pushMessagesDown &&
+		css`
+			flex: 1;
+		`}
 	overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 0.7rem 0.8rem 0rem 0.7rem;

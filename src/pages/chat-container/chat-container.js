@@ -33,6 +33,7 @@ const ChatContainerPage = ({ currentUser, chatUser }) => {
 	const [loadingChatInfo, setLoadingChatInfo] = useState(false);
 	const [accepting, setAccepting] = useState(false);
 	const [rejecting, setRejecting] = useState(false);
+	const [pushMessagesDown, setPushMessagesDown] = useState(false);
 
 	const { id } = useParams();
 	const history = useHistory();
@@ -123,11 +124,13 @@ const ChatContainerPage = ({ currentUser, chatUser }) => {
 		<StyledChatContainer>
 			<Chat>
 				<ChatHeader />
-				<DownPusher />
+				{pushMessagesDown && <DownPusher />}
 				<Messages
 					messagesDocID={messagesDocID}
 					loadingChatInfo={loadingChatInfo}
 					chatExists={chatExists}
+					setPushMessagesDown={setPushMessagesDown}
+					pushMessagesDown={pushMessagesDown}
 				/>
 				{loadingChatInfo ? (
 					<IndicatorContainer>

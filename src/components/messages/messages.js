@@ -21,6 +21,8 @@ const Messages = ({
 	chatUser,
 	loadingChatInfo,
 	chatExists,
+	setPushMessagesDown,
+	pushMessagesDown,
 }) => {
 	const [messages, setMessages] = useState([]);
 	const [totalMessages, setTotalMessages] = useState(0);
@@ -92,6 +94,8 @@ const Messages = ({
 				// 	sendChatRequest(chatUser.userID, currentUser);
 				// }
 
+				setPushMessagesDown(true);
+
 				messagesCollectionRef.get().then((collectionRef) => {
 					setTotalMessages(collectionRef.docs.length);
 				});
@@ -141,7 +145,7 @@ const Messages = ({
 	}
 
 	return (
-		<StyledMessages>
+		<StyledMessages pushMessagesDown={pushMessagesDown}>
 			{messages.length > 0 ? (
 				<React.Fragment>
 					{messages.length < totalMessages ? (
