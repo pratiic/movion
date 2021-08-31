@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { StyledReview } from "./review.styles";
@@ -11,6 +11,13 @@ import {
 	setEditedReviewText,
 } from "../../redux/reviews/reviews.actions";
 import { setChatUser } from "../../redux/chat-user/chat-user.actions";
+import {
+	resetModal,
+	setClickHandler,
+	setHasOptions,
+	setModalTitle,
+	setShowModal,
+} from "../../redux/modal/modal.actions";
 
 import { firestore } from "../../firebase/firebase.utils";
 import { setUserNotification } from "../../firebase/firebase.user-notifications.utils";
@@ -52,6 +59,8 @@ const Review = ({
 	const [showReplies, setShowReplies] = useState(false);
 
 	const history = useHistory();
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		setLikedDisliked();
@@ -131,10 +140,23 @@ const Review = ({
 		});
 	};
 
-	const handleTrashCanIconClick = async () => {
-		console.log("pratiic");
-		await reviewRef.delete();
-		toggleNotification("review removed successfully");
+	const handleTrashCanIconClick = () => {
+		dispatch(setShowModal());
+		dispatch(setModalTitle("are you sure you want to delete your reply ?"));
+		dispatch(setClickHandler(handleReviewDeletion));
+	};
+
+	const handleReviewDeletion = async () => {
+		dispatch(setHasOptions(false));
+
+		try {
+			await reviewRef.delete();
+
+			toggleNotification("review removed successfully");
+		} catch (error) {
+		} finally {
+			dispatch(resetModal());
+		}
 	};
 
 	const handleEditIconClick = () => {
@@ -167,6 +189,7 @@ const Review = ({
 				dislikes={dislikes}
 				liked={liked}
 				disliked={disliked}
+				type="review"
 				likeHandler={handleThumbsUpIconClick}
 				dislikeHandler={handleThumbsDownIconClick}
 				editHandler={handleEditIconClick}

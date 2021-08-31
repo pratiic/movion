@@ -35,3 +35,7 @@ export const IndicatorContainer = styled.div`
 		width: 2.5rem;
 	}
 `;
+
+export const DownPusher = styled.div`
+	flex: 1;
+`;

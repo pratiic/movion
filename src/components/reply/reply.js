@@ -3,6 +3,13 @@ import { connect, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { toggleNotification } from "../../redux/notification/notification.actions";
+import {
+	resetModal,
+	setClickHandler,
+	setHasOptions,
+	setModalTitle,
+	setShowModal,
+} from "../../redux/modal/modal.actions";
 
 import {
 	likeReply,
@@ -88,8 +95,18 @@ const Reply = ({ reviewRef, currentUser, ...otherProps }) => {
 		}
 	};
 
-	const handleDeleteClick = async () => {
+	const handleDeleteClick = () => {
+		dispatch(setShowModal());
+		dispatch(setModalTitle("are you sure you want to delete your reply ?"));
+		dispatch(setClickHandler(handleReplyDeletion));
+	};
+
+	const handleReplyDeletion = async () => {
+		dispatch(setHasOptions(false));
+
 		const result = await deleteReply(replyRef);
+
+		dispatch(resetModal());
 
 		if (result.error) {
 			return dispatch(toggleNotification("something went wrong", false));
@@ -125,6 +142,7 @@ const Reply = ({ reviewRef, currentUser, ...otherProps }) => {
 			dislikes={dislikes}
 			liked={liked}
 			disliked={disliked}
+			type="reply"
 			likeHandler={handleLikeClick}
 			dislikeHandler={handleDislikeClick}
 			deleteHandler={handleDeleteClick}

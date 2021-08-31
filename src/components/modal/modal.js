@@ -60,14 +60,14 @@ const Modal = ({
 
 						<Buttons>
 							<GenericButton handleButtonClick={clickHandler}>
-								yup
+								i am, yes
 							</GenericButton>
 							<GenericButton
 								btnType="outlined"
 								color="red"
 								handleButtonClick={closeModal}
 							>
-								guess not
+								no
 							</GenericButton>
 						</Buttons>
 					</React.Fragment>

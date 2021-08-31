@@ -71,8 +71,8 @@ export const Form = styled.form`
 
 export const Input = styled.input`
 	width: 100%;
-	height: 3.5rem;
-	font-size: 1.7rem;
+	height: 4rem;
+	font-size: 1.75rem;
 	font-family: ${cssFonts.fontStackPrimary};
 	outline: none;
 	background-color: inherit;

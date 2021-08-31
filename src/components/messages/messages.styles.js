@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { StyledMessage } from "../../styles/styles.generic";
 
 export const StyledMessages = styled.div`
-	flex: 1;
+	/* display: flex;
+	flex-direction: column;
+	justify-content: flex-end; */
 	overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 0.7rem 0.8rem 0rem 0.7rem;

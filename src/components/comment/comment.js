@@ -41,6 +41,7 @@ const Comment = ({
 	dislikes,
 	liked,
 	disliked,
+	type,
 	likeHandler,
 	dislikeHandler,
 	editHandler,
@@ -61,29 +62,51 @@ const Comment = ({
 
 	const renderMenuIcon = () => {
 		return (
-			currentUser &&
-			currentUser.id !== user.userID && (
+			currentUser && (
 				<React.Fragment>
 					<Dropdown
 						show={showDropdown}
 						forComponent="review"
 						indicator="right"
 					>
-						<DropdownItem
-							toggleDropdown={toggleDropdown}
-							clickHandler={() => {
-								const chatUser = {
-									id: user.userID,
-									username: user.username,
-									photoURL: user.userPhotoURL,
-								};
-								dispatch(setChatUser(chatUser));
-								history.push(`/chat/${user.userID}`);
-								// addUserToChats(currentUser, user);
-							}}
-						>
-							<StyledChatIcon $smaller /> start chat
-						</DropdownItem>
+						{currentUser.id !== user.userID && (
+							<DropdownItem
+								toggleDropdown={toggleDropdown}
+								clickHandler={() => {
+									const chatUser = {
+										id: user.userID,
+										username: user.username,
+										photoURL: user.userPhotoURL,
+									};
+									dispatch(setChatUser(chatUser));
+									history.push(`/chat/${user.userID}`);
+								}}
+							>
+								<StyledChatIcon $smaller /> start chat
+							</DropdownItem>
+						)}
+
+						{currentUser && currentUser.id === user.userID && (
+							<React.Fragment>
+								<DropdownItem
+									toggleDropdown={toggleDropdown}
+									clickHandler={deleteHandler}
+								>
+									<StyledTrashCanIcon />
+									delete {type}
+								</DropdownItem>
+
+								{!editing && replyHandler && (
+									<DropdownItem
+										toggleDropdown={toggleDropdown}
+										clickHandler={editHandler}
+									>
+										<StyledEditIcon />
+										edit {type}
+									</DropdownItem>
+								)}
+							</React.Fragment>
+						)}
 					</Dropdown>
 
 					<StyledHorizontalDotMenuIcon
@@ -135,26 +158,6 @@ const Comment = ({
 							onClick={replyHandler}
 						/>
 					</IconContainer>
-				)}
-
-				{currentUser && currentUser.id === user.userID && (
-					<React.Fragment>
-						<IconContainer>
-							<StyledTrashCanIcon
-								$showBackground
-								onClick={deleteHandler}
-							/>
-						</IconContainer>
-
-						{!editing && replyHandler && (
-							<IconContainer>
-								<StyledEditIcon
-									$showBackground
-									onClick={editHandler}
-								/>
-							</IconContainer>
-						)}
-					</React.Fragment>
 				)}
 			</CommentFooter>
 		</StyledComment>

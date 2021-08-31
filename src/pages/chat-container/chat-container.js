@@ -6,6 +6,7 @@ import {
 	StyledChatContainer,
 	Chat,
 	IndicatorContainer,
+	DownPusher,
 } from "./chat-container.styles";
 import { StyledStaticIndicatorIcon } from "../../styles/styles.icons";
 
@@ -122,6 +123,7 @@ const ChatContainerPage = ({ currentUser, chatUser }) => {
 		<StyledChatContainer>
 			<Chat>
 				<ChatHeader />
+				<DownPusher />
 				<Messages
 					messagesDocID={messagesDocID}
 					loadingChatInfo={loadingChatInfo}
