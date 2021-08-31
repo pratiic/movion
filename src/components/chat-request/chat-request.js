@@ -35,19 +35,19 @@ const ChatRequest = ({ user, requestID, currentUser }) => {
 	const history = useHistory();
 
 	const handleAcceptButtonClick = async () => {
-		// if (rejecting) {
-		// 	return;
-		// }
-		// setAccepting(true);
-		// const result = await acceptChatRequest(user, currentUser, requestID);
-		// setAccepting(false);
-		// if (result.message) {
-		// 	setAccepted(true);
-		// 	dispatch(toggleNotification("chat request accepted"));
-		// 	dispatch(setChatUser(user));
-		// 	history.push(`/chat/${user.userID}`);
-		// 	passUserNotificationInfo("accept");
-		// }
+		if (rejecting) {
+			return;
+		}
+		setAccepting(true);
+		const result = await acceptChatRequest(user, currentUser, requestID);
+		setAccepting(false);
+		if (result.message) {
+			setAccepted(true);
+			dispatch(toggleNotification("chat request accepted"));
+			dispatch(setChatUser(user));
+			history.push(`/chat/${user.userID}`);
+			passUserNotificationInfo("accept");
+		}
 	};
 
 	const handleRejectButtonClick = () => {
