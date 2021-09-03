@@ -50,6 +50,26 @@ export const deleteUserNotification = async (notificationID, userID) => {
 	}
 };
 
+export const deleteAllNotifications = async (currentUserID) => {
+	const batch = firestore.batch();
+
+	try {
+		const userNotifications = await getNotificationsCollectionRef(
+			currentUserID
+		).get();
+
+		userNotifications.forEach((userNotification) => {
+			batch.delete(userNotification.ref);
+		});
+
+		await batch.commit();
+
+		return { message: "cleared" };
+	} catch (error) {
+		return { error: error.message };
+	}
+};
+
 export const getNotificationsCollectionRef = (userID) => {
 	return firestore
 		.collection("user-notifications")

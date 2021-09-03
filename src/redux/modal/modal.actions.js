@@ -41,3 +41,16 @@ export const resetModal = () => {
 		dispatch(setClickHandler(null));
 	};
 };
+
+export const setModal = (text, clickHandler) => {
+	return (dispatch) => {
+		dispatch(setShowModal(true));
+		dispatch(setHasOptions(clickHandler ? true : false));
+		if (clickHandler) {
+			dispatch(setModalTitle(text));
+			dispatch(setClickHandler(clickHandler));
+		} else {
+			dispatch(setModalMessage(text));
+		}
+	};
+};

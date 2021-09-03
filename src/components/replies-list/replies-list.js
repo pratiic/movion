@@ -20,15 +20,15 @@ const RepliesList = ({ reviewRef }) => {
 			.collection("replies")
 			.orderBy("createdAt", "desc")
 			.onSnapshot((snapshot) => {
-				if (snapshot.docs.length > 0) {
-					return setReplies(
-						snapshot.docs.map((doc) => {
-							return { ...doc.data(), replyID: doc.id };
-						})
-					);
-				}
+				setReplies(
+					snapshot.docs.map((doc) => {
+						return { ...doc.data(), replyID: doc.id };
+					})
+				);
 
-				setRepliesMessage("no replies");
+				if (snapshot.docs.length === 0) {
+					setRepliesMessage("no replies");
+				}
 			});
 	};
 

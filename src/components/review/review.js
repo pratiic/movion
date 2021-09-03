@@ -13,10 +13,8 @@ import {
 import { setChatUser } from "../../redux/chat-user/chat-user.actions";
 import {
 	resetModal,
-	setClickHandler,
 	setHasOptions,
-	setModalTitle,
-	setShowModal,
+	setModal,
 } from "../../redux/modal/modal.actions";
 
 import { firestore } from "../../firebase/firebase.utils";
@@ -141,9 +139,12 @@ const Review = ({
 	};
 
 	const handleTrashCanIconClick = () => {
-		dispatch(setShowModal());
-		dispatch(setModalTitle("are you sure you want to delete your reply ?"));
-		dispatch(setClickHandler(handleReviewDeletion));
+		dispatch(
+			setModal(
+				"are you sure you want to delete your reply ?",
+				handleReviewDeletion
+			)
+		);
 	};
 
 	const handleReviewDeletion = async () => {

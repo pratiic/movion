@@ -3,7 +3,6 @@ import { useHistory, useLocation } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 
 import { StyledMainCard } from "./main-card.styles";
-import { cssColors } from "../../styles/styles.variables";
 import { StyledDeleteIcon } from "../../styles/styles.icons";
 
 import { resetSimilarFetchPage } from "../../redux/details/details.actions";
@@ -11,10 +10,8 @@ import { toggleNotification } from "../../redux/notification/notification.action
 import { apiInfo } from "../../redux/api/api.info";
 import {
 	resetModal,
-	setClickHandler,
 	setHasOptions,
-	setModalTitle,
-	setShowModal,
+	setModal,
 } from "../../redux/modal/modal.actions";
 
 import { renderReleaseDate } from "../../utils/utils.components";
@@ -39,13 +36,12 @@ const MainCard = ({
 	const dispatch = useDispatch();
 
 	const handleRemoveClick = async () => {
-		dispatch(setShowModal());
 		dispatch(
-			setModalTitle(
-				"are you sure you want to remove this from favorites ?"
+			setModal(
+				"are you sure you want to remove this from favorites ?",
+				handleFavoriteRemoval
 			)
 		);
-		dispatch(setClickHandler(handleFavoriteRemoval));
 	};
 
 	const handleFavoriteRemoval = async () => {

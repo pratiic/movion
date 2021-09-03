@@ -16,7 +16,7 @@ const ProfilePicture = ({
 
 	return (
 		<StyledProfilePicture size={size} onClick={handleProfilePictureClick}>
-			{photoURL ? <img src={photoURL} /> : username[0]}
+			{photoURL ? <img src={photoURL} alt="profile pict" /> : username[0]}
 		</StyledProfilePicture>
 	);
 };

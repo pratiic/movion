@@ -5,10 +5,8 @@ import { useParams } from "react-router-dom";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 import {
 	resetModal,
-	setClickHandler,
 	setHasOptions,
-	setModalTitle,
-	setShowModal,
+	setModal,
 } from "../../redux/modal/modal.actions";
 
 import {
@@ -96,9 +94,12 @@ const Reply = ({ reviewRef, currentUser, ...otherProps }) => {
 	};
 
 	const handleDeleteClick = () => {
-		dispatch(setShowModal());
-		dispatch(setModalTitle("are you sure you want to delete your reply ?"));
-		dispatch(setClickHandler(handleReplyDeletion));
+		dispatch(
+			setModal(
+				"are you sure you want to delete your reply ?",
+				handleReplyDeletion
+			)
+		);
 	};
 
 	const handleReplyDeletion = async () => {

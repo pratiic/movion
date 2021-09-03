@@ -4,16 +4,13 @@ import { useHistory } from "react-router-dom";
 
 import { Buttons, StyledChatRequest } from "./chat-request.styles";
 import { StyledStaticIndicatorIcon } from "../../styles/styles.icons";
-import { cssColors } from "../../styles/styles.variables";
 
 import { toggleNotification } from "../../redux/notification/notification.actions";
 import { setChatUser } from "../../redux/chat-user/chat-user.actions";
 import {
 	resetModal,
-	setClickHandler,
 	setHasOptions,
-	setModalTitle,
-	setShowModal,
+	setModal,
 } from "../../redux/modal/modal.actions";
 
 import {
@@ -55,11 +52,12 @@ const ChatRequest = ({ user, requestID, currentUser }) => {
 			return;
 		}
 
-		dispatch(setShowModal());
 		dispatch(
-			setModalTitle("are you sure you want to reject the chat request ?")
+			setModal(
+				"are you sure you want to reject the chat request ?",
+				handleRequestRejection
+			)
 		);
-		dispatch(setClickHandler(handleRequestRejection));
 	};
 
 	const handleRequestRejection = async () => {

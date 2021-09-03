@@ -15,6 +15,7 @@ import { chatUserReducer } from "./chat-user/chat-user.reducer";
 import { userNotificationsReducer } from "./user-notifications/user-notifications.reducer";
 import { chatsReducer } from "./chats/chats.reducer";
 import { modalReducer } from "./modal/modal.reducer";
+import { systemUsersReducer } from "./system-users/system-users.reducer";
 
 export default combineReducers({
 	sidebar: sidebarReducer,
@@ -32,4 +33,5 @@ export default combineReducers({
 	userNotifications: userNotificationsReducer,
 	chats: chatsReducer,
 	modal: modalReducer,
+	systemUsers: systemUsersReducer,
 });

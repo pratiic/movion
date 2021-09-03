@@ -27,14 +27,14 @@ export const ReplyButton = styled.button`
 	width: auto;
 	margin-left: auto;
 	padding: 0.3rem 2.5rem;
-	background-color: ${({ theme }) => theme.bgFocused};
-	border: 1px solid ${({ theme }) => theme.bodyBg};
+	color: ${({ theme }) => theme.textMuted};
+	background-color: ${({ theme }) => theme.bodyBg};
+	border: 1px solid ${({ theme }) => theme.bgFocused};
 	border-radius: 5px;
-	color: ${({ theme }) => theme.textIconBlur};
 	font-family: inherit;
 	text-transform: capitalize;
 	cursor: pointer;
-	font-size: 1.7rem;
+	font-size: 1.55rem;
 
 	svg {
 		margin-right: 0;
@@ -44,6 +44,10 @@ export const ReplyButton = styled.button`
 	}
 
 	&:hover {
+		color: ${({ theme }) => theme.textFocused};
+		background-color: ${({ theme }) => theme.bgFocused};
+		border: 1px solid ${({ theme }) => theme.bodyBg};
+
 		svg {
 			path {
 				fill: ${cssColors.bluePrimary};
