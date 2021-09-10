@@ -11,7 +11,6 @@ export const StyledCardsListToggler = styled.div`
 	font-weight: 400;
 	cursor: pointer;
 	padding: 0.2rem 1rem;
-	/* width: 50%; */
 
 	svg {
 		margin: 0;
@@ -39,13 +38,7 @@ export const StyledCardsListToggler = styled.div`
 					}
 				}
 			}
-		`}/* @media screen and (max-width: 1000px) {
-		width: 80%;
-	}
-
-	@media screen and (max-width: 500px) {
-		width: 85%;
-	} */
+		`}
 `;
 
 export const Title = styled.p`

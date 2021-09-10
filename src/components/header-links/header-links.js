@@ -49,15 +49,6 @@ const HeaderLinks = ({
 			hideOnCurrentUser: false,
 		},
 
-		// {
-		// 	value: "chat",
-		// 	icon: <StyledChatIcon $headerLinkIcon />,
-		// 	pathnames: ["chat", "find-friends"],
-		// 	to: "/chats",
-		// 	active: false,
-		// 	hideOnCurrentUser: false,
-		// },
-
 		{
 			value: "sign in",
 			icon: <StyledLoginIcon $headerLinkIcon />,

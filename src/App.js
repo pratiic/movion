@@ -16,24 +16,17 @@ import { updateCurrentUser } from "./redux/current-user/current-user.actions";
 import { toggleNotification } from "./redux/notification/notification.actions";
 import { fetchFavoritesSuccess } from "./redux/favorites/favorites.actions";
 import { setTheme } from "./redux/theme/theme.actions";
-import {
-	setUserNotifications,
-	setUserNotificationsMessage,
-} from "./redux/user-notifications/user-notifications.actions";
-import {
-	setChatRequests,
-	setChats,
-	setChatsMessage,
-} from "./redux/chats/chats.actions";
 
 import {
 	auth,
 	createUserDocument,
 	getFavoritesCollectionRef,
 	getAllFavoriteDocuments,
-	firestore,
 } from "./firebase/firebase.utils";
 import { setCurrentTheme } from "./utils/utils.theme";
+import { fetchUserNotifications } from "./pages/user-notifications/user-notifications.utils";
+import { fetchUserChats } from "./pages/chats-container/chats-container.utils";
+import { fetchChatRequests } from "./pages/chat-requests/chat-requests.utils";
 
 import Header from "./components/header/header";
 import MoviesPage from "./pages/movies/movies";
@@ -54,13 +47,7 @@ import Modal from "./components/modal/modal";
 //this is the top level component of the application
 //this is where other components are brought to be rendered
 //this is where we also define routes to various parts of the application
-const App = ({
-	setTheme,
-	updateCurrentUser,
-	toggleNotification,
-	currentTheme,
-	currentUser,
-}) => {
+const App = ({ setTheme, updateCurrentUser, currentTheme, currentUser }) => {
 	const location = useLocation();
 	const history = useHistory();
 
@@ -79,7 +66,7 @@ const App = ({
 
 					userRef.onSnapshot((snapShot) => {
 						updateCurrentUser({ ...snapShot.data() });
-						toggleNotification("signed in successfully");
+						dispatch(toggleNotification("signed in successfully"));
 					});
 				} else {
 					updateCurrentUser(userAuth);
@@ -118,19 +105,23 @@ const App = ({
 			return;
 		}
 
-		fetchUserNotifications();
-		fetchUserChats();
-		fetchChatRequests();
+		fetchUserNotifications(currentUser, dispatch);
+		fetchUserChats(currentUser, dispatch);
+		fetchChatRequests(currentUser, dispatch);
+		//eslint-disable-next-line
 	}, [currentUser]);
 
 	useEffect(() => {
 		if (
 			location.pathname.includes("favorites") ||
 			location.pathname.includes("chat") ||
-			location.pathname.includes("find-friends")
+			location.pathname.includes("find-friends") ||
+			location.pathname.includes("notifications")
 		) {
 			if (!currentUser) {
-				// history.push("/signin");
+				dispatch(
+					toggleNotification("you need to sign in first", false)
+				);
 			}
 		}
 
@@ -142,76 +133,8 @@ const App = ({
 				history.goBack();
 			}
 		}
+		//eslint-disable-next-line
 	}, [location, currentUser]);
-
-	const fetchUserNotifications = () => {
-		const userNotificationsCollection = firestore
-			.collection("user-notifications")
-			.doc(currentUser.id)
-			.collection("notifications");
-
-		dispatch(setUserNotificationsMessage("loading your notifications..."));
-
-		userNotificationsCollection
-			.orderBy("createdAt", "desc")
-			.onSnapshot((snapshot) => {
-				const notifications = snapshot.docs.map((doc) => {
-					return { ...doc.data(), notificationID: doc.id };
-				});
-
-				if (notifications.length > 0) {
-					return dispatch(setUserNotifications(notifications));
-				}
-
-				dispatch(
-					setUserNotificationsMessage("you have no notifications")
-				);
-			});
-	};
-
-	const fetchUserChats = () => {
-		dispatch(setChatsMessage("loading your chats..."));
-
-		const currentUserChatsCollectionRef = firestore
-			.collection("chats")
-			.doc(currentUser.id)
-			.collection("chats");
-		// .orderBy("updatedAt", "desc");
-
-		currentUserChatsCollectionRef.onSnapshot((snapshot) => {
-			if (snapshot.docs.length === 0) {
-				dispatch(setChatsMessage("you have no chats"));
-			}
-
-			dispatch(
-				setChats(
-					snapshot.docs.map((doc) => {
-						return { ...doc.data(), chatID: doc.id };
-					})
-				)
-			);
-		});
-	};
-
-	const fetchChatRequests = () => {
-		firestore
-			.collection("chat-requests")
-			.doc(currentUser.id)
-			.collection("requests")
-			.onSnapshot((snapshot) => {
-				// if (snapshot.docs.length === 0) {
-				// 	return setChatRequestsMessage("you have no chat requests");
-				// }
-
-				dispatch(
-					setChatRequests(
-						snapshot.docs.map((doc) => {
-							return { ...doc.data(), requestID: doc.id };
-						})
-					)
-				);
-			});
-	};
 
 	return (
 		<ThemeProvider theme={currentTheme === "dark" ? darkTheme : lightTheme}>
@@ -301,9 +224,6 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		updateCurrentUser: (user) => {
 			dispatch(updateCurrentUser(user));
-		},
-		toggleNotification: (notificationMessage, notificationType) => {
-			dispatch(toggleNotification(notificationMessage, notificationType));
 		},
 		fetchFavoritesSuccess: (favorites) => {
 			dispatch(fetchFavoritesSuccess(favorites));

@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -7,6 +7,8 @@ import {
 	TextArea,
 	ReplyButton,
 } from "./custom-textarea.styles";
+
+import { toggleNotification } from "../../redux/notification/notification.actions";
 
 const CustomTextarea = ({
 	placeholder,
@@ -21,9 +23,12 @@ const CustomTextarea = ({
 }) => {
 	const history = useHistory();
 
+	const dispatch = useDispatch();
+
 	const handleInputFocus = () => {
 		if (!currentUser) {
 			history.push("/signin");
+			dispatch(toggleNotification("you need to sign in first", false));
 		}
 	};
 

@@ -12,7 +12,10 @@ import {
 import { StyledDeleteIcon } from "../../styles/styles.icons";
 
 import { setUserNotificationSeen as setUserNotificationSeenRedux } from "../../redux/user-notifications/user-notifications.actions";
-import { toggleNotification } from "../../redux/notification/notification.actions";
+import {
+	showErrorNotification,
+	toggleNotification,
+} from "../../redux/notification/notification.actions";
 import { setChatUser } from "../../redux/chat-user/chat-user.actions";
 
 import { getNotificationMessage } from "./user-notification.utils";
@@ -57,7 +60,8 @@ const UserNotification = ({
 		);
 
 		if (result.error) {
-			return setDeleting(false);
+			setDeleting(false);
+			return dispatch(showErrorNotification());
 		}
 
 		dispatch(toggleNotification("notification deleted"));

@@ -1,8 +1,8 @@
 import React, { createRef } from "react";
+import { connect } from "react-redux";
 
 import { StyledSignInPage, Buttons } from "./sign-in.styles";
 import { StyledGoogleSignInIcon } from "../../styles/styles.icons";
-import { cssColors } from "../../styles/styles.variables";
 import { StyledTitle, StyledSubtitle } from "../../styles/styles.title";
 import { StyledFormLink } from "../../styles/styles.form";
 
@@ -14,6 +14,8 @@ import {
 	validateEmail,
 	clearAllFields,
 } from "../../utils/utils.form-validation";
+
+import { toggleNotification } from "../../redux/notification/notification.actions";
 
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
@@ -51,10 +53,16 @@ class SignInPage extends React.Component {
 		this.clearAllFields = clearAllFields.bind(this);
 	}
 
-	handleButtonClick = (event) => {
+	handleButtonClick = async (event) => {
 		event.preventDefault();
 
-		signInWithGoogle();
+		const toggleNotification = this.props;
+
+		const result = await signInWithGoogle();
+
+		if (!result.user) {
+			toggleNotification("sign in failed", false);
+		}
 	};
 
 	handleInputChange = (event) => {
@@ -71,6 +79,8 @@ class SignInPage extends React.Component {
 
 	handleFormSubmit = async (event) => {
 		event.preventDefault();
+
+		const toggleNotification = this.props;
 
 		const fieldObjects = this.returnFieldObjects();
 
@@ -112,6 +122,8 @@ class SignInPage extends React.Component {
 							["email"],
 							"user with this email does not exist"
 						);
+					} else {
+						toggleNotification("sign in failed", false);
 					}
 				}
 			}
@@ -179,4 +191,12 @@ class SignInPage extends React.Component {
 	}
 }
 
-export default SignInPage;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleNotification: (notificationMessage, success) => {
+			dispatch(toggleNotification(notificationMessage, success));
+		},
+	};
+};
+
+export default connect(null, mapDispatchToProps)(SignInPage);

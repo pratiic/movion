@@ -1,3 +1,5 @@
+import firebase from "firebase/app";
+
 import { firestore } from "./firebase.utils";
 
 export const deleteMessage = async (messageID, messagesDocID) => {
@@ -18,6 +20,21 @@ export const editMessage = async (messageID, messagesDocID, message) => {
 		});
 
 		return { message: "edited" };
+	} catch (error) {
+		return { error: error.message };
+	}
+};
+
+export const setMessageAsSeen = async (
+	messageID,
+	messagesDocID,
+	currentUser,
+	chatUser
+) => {
+	try {
+		await getMessageDocRef(messageID, messagesDocID).update({ seen: true });
+
+		return { message: "seen" };
 	} catch (error) {
 		return { error: error.message };
 	}

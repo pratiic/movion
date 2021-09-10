@@ -18,16 +18,18 @@ export const StyledTitle = styled.div`
 			`;
 		} else if (size === "smallest") {
 			return css`
-				font-size: 2.3rem;
+				font-size: 2rem;
 			`;
 		}
 	}}
 
-	${({ transform }) =>
-		transform === "uppercase" &&
-		css`
-			text-transform: uppercase;
-		`}
+	${({ transform }) => {
+		if (transform === "uppercase") {
+			return css`
+				text-transform: uppercase;
+			`;
+		}
+	}}
 `;
 
 export const StyledSubtitle = styled.div`

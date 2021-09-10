@@ -3,17 +3,13 @@ import { tvShowsActionTypes } from "./tv-shows.types";
 import { validateForFreshness } from "../redux.utils";
 
 const INITIAL_STATE = {
-	// popularTvShows: [],
-	// popularTvShowsTotalPages: null,
-	// popularTvShowsFetchPage: 1,
-	// fetchingMorePopularTvShows: false,
-
 	tvShows: [],
 	fetchingTvShows: false,
 	tvShowsTotalPages: null,
 	currentTvShowsFetchPage: 1,
 	fetchingMoreTvShows: false,
 	tvShowsFetchType: "popular",
+	tvShowsError: "",
 };
 
 export const tvShowsReducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +32,11 @@ export const tvShowsReducer = (state = INITIAL_STATE, action) => {
 				fetchingMoreTvShows: false,
 				fetchingTvShows: false,
 				tvShowsTotalPages: action.payload.total_pages,
+			};
+		case tvShowsActionTypes.FETCH_TV_SHOWS_FAILURE:
+			return {
+				...state,
+				tvShowsError: action.payload,
 			};
 		case tvShowsActionTypes.INCREMENT_CURRENT_TV_SHOWS_FETCH_PAGE:
 			return {

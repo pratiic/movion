@@ -22,3 +22,9 @@ export const toggleNotification = (notificationMessage, success = true) => {
 		}, 2500);
 	};
 };
+
+export const showErrorNotification = () => {
+	return (dispatch) => {
+		dispatch(toggleNotification("something went wrong, try again", false));
+	};
+};

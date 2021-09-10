@@ -3,45 +3,22 @@ import { moviesActionTypes } from "./movies.types";
 import { validateForFreshness } from "../redux.utils";
 
 const INITIAL_STATE = {
-	// Movies: [],
-	// MoviesTotalPages: null,
-	// MoviesFetchPage: 1,
-	// fetchingMoreMovies: false,
-
 	movies: [],
 	fetchingMovies: false,
 	moviesTotalPages: null,
 	currentMoviesFetchPage: 1,
 	fetchingMoreMovies: false,
 	moviesFetchType: "popular",
+	moviesError: "",
 };
 
 export const moviesReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		// case moviesActionTypes.FETCH__MOVIES_SUCCESS:
-		// 	return {
-		// 		...state,
-		// 		Movies: validateForFreshness(
-		// 			state.Movies,
-		// 			action.payload.results
-		// 		),
-		// 		fetchingMoreMovies: false,
-		// 		MoviesTotalPages: action.payload.total_pages,
-		// 	};
-		// case moviesActionTypes.INCREMENT__MOVIES_FETCH_PAGE:
-		// 	return {
-		// 		...state,
-		// 		MoviesFetchPage: state.MoviesFetchPage + 1,
-		// 	};
-		// case moviesActionTypes.FETCH_MORE__MOVIES_START:
-		// 	return {
-		// 		...state,
-		// 		fetchingMoreMovies: true,
-		// 	};
 		case moviesActionTypes.FETCH_MOVIES_START:
 			return {
 				...state,
 				fetchingMovies: true,
+				moviesError: "",
 			};
 		case moviesActionTypes.FETCH_MOVIES_SUCCESS:
 			return {
@@ -56,6 +33,12 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
 				fetchingMoreMovies: false,
 				fetchingMovies: false,
 				moviesTotalPages: action.payload.total_pages,
+				moviesError: "",
+			};
+		case moviesActionTypes.FETCH_MOVIES_FAILURE:
+			return {
+				...state,
+				moviesError: action.payload,
 			};
 		case moviesActionTypes.INCREMENT_CURRENT_MOVIES_FETCH_PAGE:
 			return {

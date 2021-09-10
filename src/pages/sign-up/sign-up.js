@@ -1,8 +1,11 @@
 import React, { createRef } from "react";
+import { connect } from "react-redux";
 
 import { StyledSignUpPage } from "./sign-up.styles";
 import { StyledTitle, StyledSubtitle } from "../../styles/styles.title";
 import { StyledFormLink } from "../../styles/styles.form";
+
+import { toggleNotification } from "../../redux/notification/notification.actions";
 
 import {
 	getEmptyFieldNames,
@@ -77,6 +80,8 @@ class SignUpPage extends React.Component {
 	handleFormSubmit = async (event) => {
 		event.preventDefault();
 
+		const toggleNotification = this.props;
+
 		const fieldObjects = this.returnFieldObjects();
 
 		const [emptyFieldNames, nonEmptyFieldNames] = getEmptyFieldNames(
@@ -129,6 +134,8 @@ class SignUpPage extends React.Component {
 							["email"],
 							"this email is already in use in another account"
 						);
+					} else {
+						toggleNotification("sign up failed", false);
 					}
 				}
 			}
@@ -201,4 +208,12 @@ class SignUpPage extends React.Component {
 	}
 }
 
-export default SignUpPage;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleNotification: (notificationMessage, success) => {
+			dispatch(toggleNotification(notificationMessage, success));
+		},
+	};
+};
+
+export default connect(null, mapDispatchToProps)(SignUpPage);

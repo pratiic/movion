@@ -1,4 +1,10 @@
-export const setUserNotifications = (userNotifications) => {
+export const setFetched = () => {
+	return {
+		type: "SET_FETCHED",
+	};
+};
+
+export const setUserNotifications = (userNotifications, firstFetch) => {
 	return {
 		type: "SET_USER_NOTIFICATIONS",
 		payload: userNotifications,

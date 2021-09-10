@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import { StyledMoviesPage } from "./movies.styles";
@@ -14,6 +14,8 @@ import {
 
 import { renderGenericButton } from "../../utils/utils.components";
 import { capitalizeFirstLetter } from "../../utils/utils.strings";
+
+import { StyledMessage } from "../../styles/styles.generic";
 
 import Featured from "../../components/featured/featured";
 import MainCardsList from "../../components/main-cards-list/main-cards-list";
@@ -31,6 +33,7 @@ const MoviesPage = ({
 	fetchMoviesOrTvShows,
 	incrementCurrentMoviesFetchPage,
 	moviesFetchType,
+	moviesError,
 }) => {
 	useEffect(() => {
 		document.title = capitalizeFirstLetter(`${moviesFetchType} movies`);
@@ -60,6 +63,10 @@ const MoviesPage = ({
 		incrementCurrentMoviesFetchPage();
 	};
 
+	if (moviesError) {
+		return <StyledMessage marginTop="7rem">{moviesError}</StyledMessage>;
+	}
+
 	return (
 		<StyledMoviesPage>
 			{fetchingMovies ? (
@@ -85,7 +92,7 @@ const MoviesPage = ({
 					{renderGenericButton(
 						currentMoviesFetchPage,
 						moviesTotalPages,
-						<Spinner height="3.5rem" />,
+						<Spinner height="5rem" />,
 						<GenericButton
 							size="bigger"
 							marginbt
@@ -110,6 +117,7 @@ const mapStateToProps = (state) => {
 		fetchingMoreMovies: state.movies.fetchingMoreMovies,
 		moviesTotalPages: state.movies.moviesTotalPages,
 		moviesFetchType: state.movies.moviesFetchType,
+		moviesError: state.movies.moviesError,
 	};
 };
 

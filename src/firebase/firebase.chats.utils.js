@@ -153,6 +153,16 @@ export const setMessagesAsSeen = async (messages, currentUser, chatUser) => {
 	await Promise.all([batch.commit(), chatRef.update({ newMessages: 0 })]);
 };
 
+export const clearNewMessages = async (currentUser, chatUser) => {
+	const chatRef = firestore
+		.collection("chats")
+		.doc(currentUser.id)
+		.collection("chats")
+		.doc(chatUser.userID);
+
+	await chatRef.update({ newMessages: 0 });
+};
+
 export const getChatInfo = async (chatUserID, currentUser) => {
 	try {
 		const [

@@ -4,7 +4,10 @@ import { useHistory } from "react-router-dom";
 
 import { StyledReview } from "./review.styles";
 
-import { toggleNotification } from "../../redux/notification/notification.actions";
+import {
+	showErrorNotification,
+	toggleNotification,
+} from "../../redux/notification/notification.actions";
 import {
 	setEditing,
 	setEditedReviewID,
@@ -53,7 +56,6 @@ const Review = ({
 			.collection("reviews")
 			.doc(id)
 	);
-	const [showDropdown, setShowDropdown] = useState(false);
 	const [showReplies, setShowReplies] = useState(false);
 
 	const history = useHistory();
@@ -94,27 +96,38 @@ const Review = ({
 
 	const handleThumbsUpIconClick = () => {
 		if (!currentUser) {
-			return showSignInFirstNotification();
+			return signInFirst();
 		}
 
 		if (!liked) {
-			reviewRef.collection("disliked-by").doc(currentUser.id).delete();
-			reviewRef.collection("liked-by").doc(currentUser.id).set({});
+			try {
+				reviewRef
+					.collection("disliked-by")
+					.doc(currentUser.id)
+					.delete();
+				reviewRef.collection("liked-by").doc(currentUser.id).set({});
 
-			passNotificationInfo("like");
+				passNotificationInfo("like");
+			} catch (error) {
+				dispatch(showErrorNotification());
+			}
 		}
 	};
 
 	const handleThumbsDownIconClick = () => {
 		if (!currentUser) {
-			return showSignInFirstNotification();
+			return signInFirst();
 		}
 
 		if (!disliked) {
-			reviewRef.collection("liked-by").doc(currentUser.id).delete();
-			reviewRef.collection("disliked-by").doc(currentUser.id).set({});
+			try {
+				reviewRef.collection("liked-by").doc(currentUser.id).delete();
+				reviewRef.collection("disliked-by").doc(currentUser.id).set({});
 
-			passNotificationInfo("dislike");
+				passNotificationInfo("dislike");
+			} catch (error) {
+				dispatch(showErrorNotification());
+			}
 		}
 	};
 
@@ -155,6 +168,7 @@ const Review = ({
 
 			toggleNotification("review removed successfully");
 		} catch (error) {
+			dispatch(showErrorNotification());
 		} finally {
 			dispatch(resetModal());
 		}
@@ -166,7 +180,7 @@ const Review = ({
 		setEditedReviewText(text);
 	};
 
-	const showSignInFirstNotification = () => {
+	const signInFirst = () => {
 		toggleNotification("you need to sign in first", false);
 		history.push("/signin");
 	};

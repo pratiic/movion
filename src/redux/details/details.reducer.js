@@ -5,14 +5,17 @@ import { filterRedundant, filterRecurring } from "./details.utils";
 const INITIAL_STATE = {
 	mainDetails: null,
 	fetchingMainDetails: false,
+	mainDetailsError: "",
 	similar: [],
 	fetchingSimilar: false,
 	fetchingMoreSimilar: false,
 	currentSimilarFetchPage: 1,
 	totalSimilarPages: null,
+	similarError: "",
 	cast: [],
 	crew: [],
 	fetchingCastAndCrew: false,
+	castAndCrewError: "",
 };
 
 export const detailsReducer = (state = INITIAL_STATE, action) => {
@@ -21,17 +24,25 @@ export const detailsReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				fetchingMainDetails: true,
+				mainDetailsError: "",
 			};
 		case detailsActionTypes.FETCH_MAIN_DETAILS_SUCCESS:
 			return {
 				...state,
 				mainDetails: { ...action.payload },
 				fetchingMainDetails: false,
+				mainDetailsError: "",
+			};
+		case detailsActionTypes.FETCH_MAIN_DETAILS_FAILURE:
+			return {
+				...state,
+				mainDetailsError: action.payload,
 			};
 		case detailsActionTypes.FETCH_SIMILAR_START:
 			return {
 				...state,
 				fetchingSimilar: true,
+				similarError: "",
 			};
 		case detailsActionTypes.FETCH_SIMILAR_SUCCESS:
 			return {
@@ -43,6 +54,12 @@ export const detailsReducer = (state = INITIAL_STATE, action) => {
 				totalSimilarPages: action.payload.total_pages,
 				fetchingSimilar: false,
 				fetchingMoreSimilar: false,
+				similarError: "",
+			};
+		case detailsActionTypes.FETCH_SIMILAR_FAILURE:
+			return {
+				...state,
+				similarError: action.payload,
 			};
 		case detailsActionTypes.FETCH_MORE_SIMILAR_START:
 			return {
@@ -63,6 +80,7 @@ export const detailsReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				fetchingCastAndCrew: true,
+				castAndCrewError: "",
 			};
 		case detailsActionTypes.FETCH_CAST_AND_CREW_SUCCESS:
 			return {
@@ -70,7 +88,10 @@ export const detailsReducer = (state = INITIAL_STATE, action) => {
 				cast: filterRedundant(action.payload.cast),
 				crew: filterRedundant(action.payload.crew),
 				fetchingCastAndCrew: false,
+				castAndCrewError: "",
 			};
+		case detailsActionTypes.FETCH_CAST_AND_CREW_FAILURE:
+			return { ...state, castAndCrewError: action.payload };
 		default:
 			return state;
 	}

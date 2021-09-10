@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 
-import { toggleNotification } from "../../redux/notification/notification.actions";
+import { showErrorNotification } from "../../redux/notification/notification.actions";
 
 import { replyToReview } from "../../firebase/firebase.reviews.utils";
-import { setUserNotification } from "../../firebase/firebase.user-notifications.utils";
 
 import CustomTextarea from "../custom-textarea/custom-textarea";
 
@@ -43,11 +42,10 @@ const ReplyInput = ({ reviewRef, passNotificationInfo, currentUser }) => {
 		setReplying(false);
 
 		if (result.error) {
-			return;
+			return dispatch(showErrorNotification());
 		}
 
 		setReply("");
-
 		passNotificationInfo("reply");
 	};
 

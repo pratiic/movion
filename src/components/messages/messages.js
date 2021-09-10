@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 import { firestore } from "../../firebase/firebase.utils";
-import { setMessagesAsSeen } from "../../firebase/firebase.chats.utils";
+import { clearNewMessages } from "../../firebase/firebase.chats.utils";
 
 import {
 	StyledMessages,
@@ -48,7 +48,7 @@ const Messages = ({
 		}
 
 		if (messages.length > 0) {
-			setMessagesAsSeen(messages, currentUser, chatUser);
+			clearNewMessages(currentUser, chatUser);
 		}
 	}, [messages]);
 
@@ -88,12 +88,6 @@ const Messages = ({
 					return setMessagesMessage("no messages");
 				}
 
-				// if (snapshot.docs.length === 1) {
-				// 	addUserToChats(chatUser, currentUser);
-				// 	// addUserToChats(chatUser, currentUser);
-				// 	sendChatRequest(chatUser.userID, currentUser);
-				// }
-
 				setPushMessagesDown(true);
 
 				messagesCollectionRef.get().then((collectionRef) => {
@@ -118,21 +112,6 @@ const Messages = ({
 		setTop(top + 1);
 	};
 
-	// const setMessagesAsSeen = () => {
-	// 	const batch = firestore.batch();
-
-	// 	messages.forEach((message) => {
-	// 		const data = message.data();
-	// 		if (data.createdBy.id !== currentUser.id) {
-	// 			batch.update(message.ref, { seen: true });
-	// 		}
-	// 	});
-
-	// 	batch.commit().then((result) => {
-	// 		console.log(result);
-	// 	});
-	// };
-
 	const renderMessages = () => {
 		return messages.map((message) => {
 			const data = message.data();
@@ -148,13 +127,13 @@ const Messages = ({
 		<StyledMessages pushMessagesDown={pushMessagesDown}>
 			{messages.length > 0 ? (
 				<React.Fragment>
-					{messages.length < totalMessages ? (
+					{messages.length < totalMessages && (
 						<LoadMore onClick={handleLoadMoreButtonClick}>
 							{fetchingMoreMessages ? "loading..." : "load more"}
 						</LoadMore>
-					) : null}
+					)}
 					{renderMessages()}
-					{typing ? (
+					{typing && (
 						<Typing>
 							<ProfilePicture
 								username={chatUser.username}
@@ -163,7 +142,7 @@ const Messages = ({
 							/>
 							<p>typing...</p>
 						</Typing>
-					) : null}
+					)}
 					<DivAtBottom ref={bottomDivRef}></DivAtBottom>
 				</React.Fragment>
 			) : (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 
 import {
@@ -19,7 +19,10 @@ import {
 import { setMessageEditInfo } from "../../redux/chats/chats.actions";
 
 import { getCreatedTime } from "../../utils/utils.components";
-import { deleteMessage } from "../../firebase/firebase.messages.utils";
+import {
+	deleteMessage,
+	setMessageAsSeen,
+} from "../../firebase/firebase.messages.utils";
 
 import ProfilePicture from "../profile-picture/profile-picture";
 import Dropdown from "../dropdown/dropdown";
@@ -41,6 +44,12 @@ const Message = ({
 	const dispatch = useDispatch();
 
 	const self = currentUser.id === user.userID ? true : false;
+
+	useEffect(() => {
+		if (!seen && currentUser.id !== user.userID) {
+			setMessageAsSeen(messageID, messagesDocID);
+		}
+	}, [self]);
 
 	const toggleDropdown = () => {
 		setShowdropdown(!showDropdown);

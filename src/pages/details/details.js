@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { StyledDetails } from "./details.styles";
-import { StyledError } from "../../styles/styles.generic";
+import { StyledMessage } from "../../styles/styles.generic";
 import { StyledTitle } from "../../styles/styles.title";
 import { WrapperSmall } from "../../styles/styles.wrapper";
 
@@ -72,7 +72,14 @@ const DetailsPage = (props) => {
 			totalSimilarPages,
 			currentSimilarFetchPage,
 			fetchingSimilar,
+			similarError,
 		} = props;
+
+		if (similarError) {
+			return (
+				<StyledMessage marginTop="7rem">{similarError}</StyledMessage>
+			);
+		}
 
 		return fetchingSimilar ? null : (
 			<React.Fragment>
@@ -86,7 +93,7 @@ const DetailsPage = (props) => {
 						{renderGenericButton(
 							currentSimilarFetchPage,
 							totalSimilarPages,
-							<Spinner height="3.5rem" />,
+							<Spinner height="5rem" />,
 							<GenericButton
 								size="bigger"
 								marginbt
@@ -99,9 +106,9 @@ const DetailsPage = (props) => {
 						)}
 					</React.Fragment>
 				) : (
-					<StyledError align="center" marginbt>
+					<StyledMessage align="center" marginbt>
 						Sorry, no similar {getSearchMode()} available right now
-					</StyledError>
+					</StyledMessage>
 				)}
 			</React.Fragment>
 		);
@@ -134,6 +141,7 @@ const mapStateToProps = (state) => {
 		fetchingMoreSimilar: state.details.fetchingMoreSimilar,
 		totalSimilarPages: state.details.totalSimilarPages,
 		fetchingMainDetails: state.details.fetchingMainDetails,
+		similarError: state.details.similarError,
 	};
 };
 

@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 import { TextAreaContainer } from "./review-area.styles";
 
-import { toggleNotification } from "../../redux/notification/notification.actions";
+import {
+	showErrorNotification,
+	toggleNotification,
+} from "../../redux/notification/notification.actions";
 import { setEditing } from "../../redux/reviews/reviews.actions";
 
 import { firestore } from "../../firebase/firebase.utils";
@@ -23,8 +26,11 @@ const ReviewArea = ({
 	const [creatingReview, setCreatingReview] = useState(false);
 	const [textAreaRef, setTextAreaRef] = useState(useRef());
 
-	const { id } = useParams();
 	const divToScrollToRef = useRef();
+
+	const { id } = useParams();
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		setReview(editing ? editedReviewText : "");
@@ -57,20 +63,28 @@ const ReviewArea = ({
 		if (!editing) {
 			const reviewID = `${currentUser.id}${new Date().getTime()}`;
 
-			await reviewsCollectionRef.doc(reviewID).set({
-				text: review,
-				username: currentUser.username,
-				userID: currentUser.id,
-				userEmail: currentUser.email,
-				createdAt: new Date().getTime(),
-				id: reviewID,
-				userPhotoURL: currentUser.photoURL,
-			});
+			try {
+				await reviewsCollectionRef.doc(reviewID).set({
+					text: review,
+					username: currentUser.username,
+					userID: currentUser.id,
+					userEmail: currentUser.email,
+					createdAt: new Date().getTime(),
+					id: reviewID,
+					userPhotoURL: currentUser.photoURL,
+				});
+			} catch (error) {
+				dispatch(showErrorNotification());
+			}
 		} else {
-			await reviewsCollectionRef
-				.doc(editedReviewID)
-				.update({ text: review, edited: true });
-			toggleNotification("edited successfully", "success");
+			try {
+				await reviewsCollectionRef
+					.doc(editedReviewID)
+					.update({ text: review, edited: true });
+				toggleNotification("edited successfully", "success");
+			} catch (error) {
+				dispatch(showErrorNotification());
+			}
 		}
 
 		setEditing(false);

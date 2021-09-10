@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { StyledTvShowsPage } from "./tv-shows.styles";
 import { StyledTitle } from "../../styles/styles.title";
+import { StyledMessage } from "../../styles/styles.generic";
 
 import { getURL } from "../../redux/api/api.info";
 import { fetchMoviesOrTvShows } from "../../redux/api/api.actions";
@@ -32,6 +33,7 @@ const TvShowsPage = ({
 	incrementCurrentTvShowsFetchPage,
 	tvShowsFetchType,
 	fetchingTvShows,
+	tvShowsError,
 }) => {
 	useEffect(() => {
 		document.title = capitalizeFirstLetter(`${tvShowsFetchType} tv shows`);
@@ -58,6 +60,10 @@ const TvShowsPage = ({
 		incrementCurrentTvShowsFetchPage();
 	};
 
+	if (tvShowsError) {
+		return <StyledMessage marginTop="7rem">{tvShowsError}</StyledMessage>;
+	}
+
 	return (
 		<StyledTvShowsPage>
 			{fetchingTvShows ? (
@@ -80,7 +86,7 @@ const TvShowsPage = ({
 					{renderGenericButton(
 						currentTvShowsFetchPage,
 						tvShowsTotalPages,
-						<Spinner height="3.5rem" />,
+						<Spinner height="5rem" />,
 						<GenericButton
 							size="bigger"
 							marginbt
@@ -105,6 +111,7 @@ const mapStateToProps = (state) => {
 		tvShowsTotalPages: state.tvShows.tvShowsTotalPages,
 		tvShowsFetchType: state.tvShows.tvShowsFetchType,
 		fetchingTvShows: state.tvShows.fetchingTvShows,
+		tvShowsError: state.tvShows.tvShowsError,
 	};
 };
 

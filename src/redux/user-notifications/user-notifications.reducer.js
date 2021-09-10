@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
 	userNotifications: [],
 	userNotificationsMessage: "",
+	fetched: false,
 };
 
 export const userNotificationsReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +23,11 @@ export const userNotificationsReducer = (state = INITIAL_STATE, action) => {
 						return userNotification;
 					}
 				),
+			};
+		case "SET_FETCHED":
+			return {
+				...state,
+				fetched: true,
 			};
 		default:
 			return state;

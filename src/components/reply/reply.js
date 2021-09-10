@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { toggleNotification } from "../../redux/notification/notification.actions";
+import {
+	showErrorNotification,
+	toggleNotification,
+} from "../../redux/notification/notification.actions";
 import {
 	resetModal,
 	setHasOptions,
@@ -77,8 +80,10 @@ const Reply = ({ reviewRef, currentUser, ...otherProps }) => {
 		const result = await likeReply(replyRef, currentUser.id);
 
 		if (result.message) {
-			passNotificationInfo("like");
+			return passNotificationInfo("like");
 		}
+
+		dispatch(showErrorNotification());
 	};
 
 	const handleDislikeClick = async () => {
@@ -89,8 +94,10 @@ const Reply = ({ reviewRef, currentUser, ...otherProps }) => {
 		const result = await dislikeReply(replyRef, currentUser.id);
 
 		if (result.message) {
-			passNotificationInfo("dislike");
+			return passNotificationInfo("dislike");
 		}
+
+		dispatch(showErrorNotification());
 	};
 
 	const handleDeleteClick = () => {
@@ -110,7 +117,7 @@ const Reply = ({ reviewRef, currentUser, ...otherProps }) => {
 		dispatch(resetModal());
 
 		if (result.error) {
-			return dispatch(toggleNotification("something went wrong", false));
+			return dispatch(showErrorNotification());
 		}
 
 		dispatch(toggleNotification("reply deleted"));

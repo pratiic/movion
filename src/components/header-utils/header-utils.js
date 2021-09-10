@@ -87,6 +87,7 @@ const HeaderUtils = ({
 				return { ...utilLink, active: false };
 			})
 		);
+		//eslint-disable-next-line
 	}, [location]);
 
 	return (

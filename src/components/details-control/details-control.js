@@ -49,7 +49,6 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 		}
 
 		//checking if the content is already liked
-
 		const likesDislikesCollectionRef =
 			firestore.collection("likesdislikes");
 

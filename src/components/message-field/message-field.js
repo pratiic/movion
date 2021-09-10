@@ -9,6 +9,7 @@ import {
 	setChatToTop,
 	setMessageEditInfo,
 } from "../../redux/chats/chats.actions";
+import { toggleNotification } from "../../redux/notification/notification.actions";
 
 import { sendChatMessage } from "../../firebase/firebase.chats.utils";
 import { editMessage } from "../../firebase/firebase.messages.utils";
@@ -67,7 +68,7 @@ const MessageField = ({
 		}
 
 		if (messageEditMode) {
-			const result = await editMessage(messageID, messagesDocID, message);
+			await editMessage(messageID, messagesDocID, message);
 
 			dispatch(setMessageEditInfo(false));
 		} else {

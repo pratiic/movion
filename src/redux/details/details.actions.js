@@ -13,9 +13,10 @@ export const fetchMainDetailsSuccess = (details) => {
 	};
 };
 
-export const fetchMainDetailsFailure = () => {
+export const fetchMainDetailsFailure = (error) => {
 	return {
 		type: detailsActionTypes.FETCH_MAIN_DETAILS_FAILURE,
+		payload: error,
 	};
 };
 
@@ -32,9 +33,10 @@ export const fetchSimilarSuccess = (similarList) => {
 	};
 };
 
-export const fetchSimilarFailure = () => {
+export const fetchSimilarFailure = (error) => {
 	return {
 		type: detailsActionTypes.FETCH_SIMILAR_FAILURE,
+		payload: error,
 	};
 };
 
@@ -69,8 +71,9 @@ export const fetchCastAndCrewSuccess = (castAndCrew) => {
 	};
 };
 
-export const fetchCastAndCrewFailure = () => {
+export const fetchCastAndCrewFailure = (error) => {
 	return {
 		type: detailsActionTypes.FETCH_CAST_AND_CREW_FAILURE,
+		payload: error,
 	};
 };
