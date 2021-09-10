@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { StyledHeader, HeaderContainer, StyledLogo } from "./header.styles";
+import { StyledHeader, HeaderContainer } from "./header.styles";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 

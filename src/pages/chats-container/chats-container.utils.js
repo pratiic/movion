@@ -9,7 +9,6 @@ export const fetchUserChats = (currentUser, dispatch) => {
 		.collection("chats")
 		.doc(currentUser.id)
 		.collection("chats");
-	// .orderBy("updatedAt", "desc");
 
 	currentUserChatsCollectionRef.onSnapshot((snapshot) => {
 		if (snapshot.docs.length === 0) {

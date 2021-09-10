@@ -31,13 +31,6 @@ const User = ({
 		setChatUser({ userID, username, email, photoURL, createdAt });
 
 		history.push(`/chat/${userID}`);
-		// addUserToChats(currentUser, {
-		// 	id,
-		// 	username,
-		// 	email,
-		// 	photoURL,
-		// 	createdAt,
-		// });
 	};
 
 	const getChatMessages = () => {

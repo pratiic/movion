@@ -1,5 +1,3 @@
-import { firestore } from "./firebase.utils";
-
 export const replyToReview = async (reply, reviewRef) => {
 	try {
 		await reviewRef.collection("replies").add(reply);

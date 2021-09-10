@@ -14,7 +14,6 @@ const UsersContainer = ({ list, currentUser, type = "user" }) => {
 					return user.userID !== currentUser.id;
 				})
 				.map((user) => {
-					// const data = user.data();
 					return <User {...user} key={user.userID} />;
 				});
 		}

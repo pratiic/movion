@@ -23,7 +23,6 @@ import User from "../user/user";
 import GenericButton from "../generic-button/generic-button";
 
 const ChatRequest = ({ user, requestID, currentUser }) => {
-	const [accepted, setAccepted] = useState(false);
 	const [accepting, setAccepting] = useState(false);
 	const [rejecting, setRejecting] = useState(false);
 
@@ -39,7 +38,6 @@ const ChatRequest = ({ user, requestID, currentUser }) => {
 		const result = await acceptChatRequest(user, currentUser, requestID);
 		setAccepting(false);
 		if (result.message) {
-			setAccepted(true);
 			dispatch(toggleNotification("chat request accepted"));
 			dispatch(setChatUser(user));
 			history.push(`/chat/${user.userID}`);

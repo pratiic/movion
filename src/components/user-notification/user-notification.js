@@ -49,6 +49,7 @@ const UserNotification = ({
 			dispatch(setUserNotificationSeenRedux(notificationID));
 			setUserNotificationSeen(notificationID, currentUser.id);
 		}
+		//eslint-disable-next-line
 	}, []);
 
 	const handleDeleteIconClick = async () => {

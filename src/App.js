@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import {
 	Route,
@@ -48,6 +48,8 @@ import Modal from "./components/modal/modal";
 //this is where other components are brought to be rendered
 //this is where we also define routes to various parts of the application
 const App = ({ setTheme, updateCurrentUser, currentTheme, currentUser }) => {
+	const [unsubscribeFromUserNotifications] = useState(null);
+
 	const location = useLocation();
 	const history = useHistory();
 
@@ -57,7 +59,7 @@ const App = ({ setTheme, updateCurrentUser, currentTheme, currentUser }) => {
 		setCurrentTheme(setTheme);
 
 		//whenever the authentication state in our application changes
-		const unSubscribeFromAuth = auth.onAuthStateChanged(
+		const unsubscribeFromAuth = auth.onAuthStateChanged(
 			async (userAuth) => {
 				//this userAuth is either an object representing the user that is currently sign in
 				//or null meaning that no one is signed in or a user has signed out
@@ -77,7 +79,7 @@ const App = ({ setTheme, updateCurrentUser, currentTheme, currentUser }) => {
 		return () => {
 			//whenever the application closes, we unsubscribe from the auth
 			//library, preventing any memory leaks
-			unSubscribeFromAuth();
+			unsubscribeFromAuth();
 		};
 		// eslint-disable-next-line
 	}, []);
@@ -130,7 +132,7 @@ const App = ({ setTheme, updateCurrentUser, currentTheme, currentUser }) => {
 			location.pathname.includes("signup")
 		) {
 			if (currentUser) {
-				history.goBack();
+				history.push("/");
 			}
 		}
 		//eslint-disable-next-line

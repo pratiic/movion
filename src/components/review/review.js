@@ -64,6 +64,7 @@ const Review = ({
 
 	useEffect(() => {
 		setLikedDisliked();
+		//eslint-disable-next-line
 	}, [currentUser]);
 
 	const setLikedDisliked = () => {

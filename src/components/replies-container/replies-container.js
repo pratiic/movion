@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { StyledRepliesContainer } from "./replies-container.styles";
 
 import ReplyInput from "../reply-input/reply-input";
-import RepliesList from "../replies-list/replies-list";
+import CommentsList from "../comments-list/comments-list";
 
 const RepliesContainer = ({ reviewRef, passNotificationInfo }) => {
 	return (
@@ -12,7 +12,11 @@ const RepliesContainer = ({ reviewRef, passNotificationInfo }) => {
 				reviewRef={reviewRef}
 				passNotificationInfo={passNotificationInfo}
 			/>
-			<RepliesList reviewRef={reviewRef} />
+			<CommentsList
+				displayType="reply"
+				reviewRef={reviewRef}
+				messageSize="smaller"
+			/>
 		</StyledRepliesContainer>
 	);
 };

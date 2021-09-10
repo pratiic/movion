@@ -40,6 +40,7 @@ const ReviewArea = ({
 			window.scrollBy(0, -80);
 			textAreaRef.current.focus();
 		}
+		//eslint-disable-next-line
 	}, [editing]);
 
 	const handleTextAreaChange = (event) => {

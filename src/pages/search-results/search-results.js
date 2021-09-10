@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { StyledError, StyledMessage } from "../../styles/styles.generic";
+import { StyledError } from "../../styles/styles.generic";
 import { StyledTitle } from "../../styles/styles.title";
 import { cssColors } from "../../styles/styles.variables";
 import { StyledSearchResults, Query } from "./search-results.styles";
@@ -54,11 +54,6 @@ const SearchResultsPage = ({ searchMode, theme }) => {
 	};
 
 	const renderSearchResults = () => {
-		const queryStyles = {
-			color: cssColors.orangePrimary,
-			textTransform: "lowercase",
-		};
-
 		if (searchResults.length > 0) {
 			return (
 				<React.Fragment>

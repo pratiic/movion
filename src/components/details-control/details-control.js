@@ -35,7 +35,7 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 				.collection("users")
 				.doc(currentUser.id)
 				.collection("favorites");
-			//checking if the content is already added in favorites
+
 			currentUserFavoritesCollectionRef.onSnapshot((snapshot) => {
 				currentUserFavoritesCollectionRef
 					.doc(contentId)
@@ -48,7 +48,6 @@ const DetailsControl = ({ contentId, currentUser, contentMainDetails }) => {
 			});
 		}
 
-		//checking if the content is already liked
 		const likesDislikesCollectionRef =
 			firestore.collection("likesdislikes");
 

@@ -22,6 +22,7 @@ const Reviews = () => {
 
 	useEffect(() => {
 		fetchReviews();
+		//eslint-disable-next-line
 	}, [reviewsFetchNumber, id]);
 
 	const fetchReviews = async () => {
@@ -44,7 +45,6 @@ const Reviews = () => {
 				}
 
 				setFetchingMoreReviews(false);
-				// divToScrollToRef.current.scrollIntoView();
 
 				const data = await reviewsCollectionRef.get();
 				setTotalReviews(data.docs.length);
@@ -70,17 +70,17 @@ const Reviews = () => {
 							/>
 						);
 					})}
+
 					<div ref={divToScrollToRef}></div>
-					{reviewsFetchNumber < totalReviews ? (
+
+					{reviewsFetchNumber < totalReviews && (
 						<GenericButton
-							size="smaller"
-							btnType="outlined"
-							justify="center"
+							displayType="load-more"
 							handleButtonClick={fetchMoreReviews}
 						>
 							{fetchingMoreReviews ? "loading..." : "load more"}
 						</GenericButton>
-					) : null}
+					)}
 				</React.Fragment>
 			) : (
 				<StyledMessage>{reviewsMessage}</StyledMessage>

@@ -103,12 +103,6 @@ export const sendChatMessage = async (
 		.collection("chats")
 		.doc(currentUser.id);
 
-	const currentUserChatRef = firestore
-		.collection("chats")
-		.doc(currentUser.id)
-		.collection("chats")
-		.doc(currentUser.id);
-
 	try {
 		await Promise.all([
 			firestore

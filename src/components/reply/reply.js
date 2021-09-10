@@ -42,6 +42,7 @@ const Reply = ({ reviewRef, currentUser, ...otherProps }) => {
 		}
 
 		setLikedDisliked();
+		//eslint-disable-next-line
 	}, [replyRef]);
 
 	const setLikedDisliked = () => {

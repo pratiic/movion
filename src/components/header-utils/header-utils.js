@@ -19,10 +19,7 @@ import {
 import { toggleSearchbar } from "../../redux/searchbar/searchbar.actions";
 import { toggleNotification } from "../../redux/notification/notification.actions";
 
-import {
-	getNewMessageChats,
-	getUnacknowledgedChats,
-} from "../../utils/utils.chats";
+import { getNewMessageChats } from "../../utils/utils.chats";
 
 import ThemeToggler from "../theme-toggler/theme-toggler";
 import HeaderUtil from "../header-util/header-util";
@@ -49,7 +46,6 @@ const HeaderUtils = ({
 		},
 	]);
 	const [unseenNotifications, setUnseenNotifications] = useState(0);
-	const [unacknowledgedChats, setUnacknowledgedChats] = useState(0);
 	const [messagesPlusRequests, setMessagesPlusRequests] = useState(0);
 
 	const history = useHistory();
@@ -62,10 +58,6 @@ const HeaderUtils = ({
 			).length
 		);
 	}, [userNotifications]);
-
-	useEffect(() => {
-		setUnacknowledgedChats(getUnacknowledgedChats(userChats));
-	}, [userChats]);
 
 	useEffect(() => {
 		setMessagesPlusRequests(

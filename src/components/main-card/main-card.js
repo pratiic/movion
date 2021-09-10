@@ -19,7 +19,6 @@ import { deleteFavoriteDocument } from "../../firebase/firebase.utils";
 
 import GenericButton from "../../components/generic-button/generic-button";
 
-//this is the card for movies and tv shows
 const MainCard = ({
 	id,
 	type,
@@ -56,8 +55,6 @@ const MainCard = ({
 	};
 
 	const handleCardImageClick = () => {
-		//this is called here to reset the current fetch page for similar movies or tv shows to 1
-		//before navigating to the details page
 		resetSimilarFetchPage();
 		history.push(`/details/${type}/${id}`);
 	};

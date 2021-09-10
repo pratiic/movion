@@ -1,5 +1,3 @@
-import firebase from "firebase/app";
-
 import { firestore } from "./firebase.utils";
 
 export const deleteMessage = async (messageID, messagesDocID) => {

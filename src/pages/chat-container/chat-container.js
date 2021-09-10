@@ -51,10 +51,12 @@ const ChatContainerPage = ({ currentUser, chatUser }) => {
 					setMessagesDocID(`${id}${currentUser.id}`);
 				}
 			});
+		//eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
 		fetchChatInfo();
+		//eslint-disable-next-line
 	}, []);
 
 	const fetchChatInfo = async () => {

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import {
-	StyledProfile,
-	ProfileLetter,
-	Username,
-	ProfileHeader,
-} from "./profile.styles";
+import { StyledProfile, Username, ProfileHeader } from "./profile.styles";
 import { StyledLogoutIcon } from "../../styles/styles.icons";
 
 import { currentUserSignout } from "../../redux/current-user/current-user.actions";
@@ -15,14 +10,12 @@ import Dropdown from "../dropdown/dropdown";
 import DropdownItem from "../dropdown-item/dropdown-item";
 import ProfilePicture from "../profile-picture/profile-picture";
 
-const Profile = (props) => {
+const Profile = ({ username, photoURL, currentUserSignout }) => {
 	const [showDropdown, setShowDropdown] = useState(false);
 
 	const toggleDropdown = () => {
 		setShowDropdown(!showDropdown);
 	};
-
-	const { username, photoURL, currentUserSignout } = props;
 
 	return (
 		<StyledProfile>
@@ -38,7 +31,6 @@ const Profile = (props) => {
 				indicator="right"
 			>
 				<ProfileHeader>
-					{" "}
 					<ProfilePicture username={username} photoURL={photoURL} />
 					{username}
 				</ProfileHeader>

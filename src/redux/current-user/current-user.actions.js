@@ -17,10 +17,12 @@ export const updateCurrentUser = (user) => {
 export const currentUserSignout = () => {
 	return (dispatch) => {
 		auth.signOut();
-		dispatch(toggleNotification("signed out successfully", "success"));
+		dispatch(updateCurrentUser(null));
 		dispatch(closeSidebar());
 		dispatch(setUserNotifications([]));
 		dispatch(setChats([]));
 		dispatch(setChatRequests([]));
+		dispatch(toggleNotification("signed out successfully", "success"));
+		window.location.reload();
 	};
 };

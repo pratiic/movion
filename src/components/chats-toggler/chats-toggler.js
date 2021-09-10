@@ -8,20 +8,15 @@ import {
 	ToggleOption,
 } from "./chats-toggler.styles";
 
-import {
-	getNewMessageChats,
-	getUnacknowledgedChats,
-} from "../../utils/utils.chats";
+import { getNewMessageChats } from "../../utils/utils.chats";
 
 const ChatsToggler = ({ chatRequests, userChats }) => {
-	const [unacknowledgedChats, setUnacknowledgedChats] = useState(0);
 	const [newMessageChats, setNewMessageChats] = useState(0);
 
 	const location = useLocation();
 	const history = useHistory();
 
 	useEffect(() => {
-		setUnacknowledgedChats(getUnacknowledgedChats(userChats));
 		setNewMessageChats(getNewMessageChats(userChats));
 	}, [userChats]);
 

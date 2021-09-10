@@ -22,10 +22,10 @@ const CardsListToggler = ({
 			}}
 		>
 			<Title>
-				{title}{" "}
+				{title}
 				<span style={mutedStyles}>
 					{optionalValue && { optionalValue }}
-				</span>{" "}
+				</span>
 			</Title>
 			<StyledChevronDownIcon $noColor $rotateIconUp={rotateIconUp} />
 		</StyledCardsListToggler>

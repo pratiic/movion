@@ -37,23 +37,6 @@ export const StyledMessages = styled.div`
 
 export const DivAtBottom = styled.div``;
 
-export const LoadMore = styled.button`
-	color: ${({ theme }) => theme.textMuted};
-	background-color: transparent;
-	border: 1px solid ${({ theme }) => theme.textMuted};
-	outline: none;
-	padding: 0.3rem 0.5rem;
-	border-radius: 5px;
-	cursor: pointer;
-	display: block;
-	width: fit-content;
-	margin: 0 auto 0.7rem auto;
-
-	&:active {
-		color: ${({ theme }) => theme.bgFocused};
-	}
-`;
-
 export const Typing = styled.div`
 	color: ${({ theme }) => theme.textMuted};
 	width: fit-content;

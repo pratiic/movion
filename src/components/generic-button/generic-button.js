@@ -1,8 +1,21 @@
 import React from "react";
 
-import { StyledGenericButton } from "./generic-button.styles";
+import { StyledGenericButton, LoadMoreButton } from "./generic-button.styles";
 
-const GenericButton = ({ children, handleButtonClick, ...otherProps }) => {
+const GenericButton = ({
+	displayType,
+	children,
+	handleButtonClick,
+	...otherProps
+}) => {
+	if (displayType === "load-more") {
+		return (
+			<LoadMoreButton onClick={handleButtonClick}>
+				{children}
+			</LoadMoreButton>
+		);
+	}
+
 	return (
 		<StyledGenericButton {...otherProps} onClick={handleButtonClick}>
 			{children}

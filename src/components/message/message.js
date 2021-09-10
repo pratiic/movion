@@ -49,6 +49,7 @@ const Message = ({
 		if (!seen && currentUser.id !== user.userID) {
 			setMessageAsSeen(messageID, messagesDocID);
 		}
+		//eslint-disable-next-line
 	}, [self]);
 
 	const toggleDropdown = () => {

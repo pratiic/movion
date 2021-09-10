@@ -1,7 +1,3 @@
-export const getUnacknowledgedChats = (chats) => {
-	return chats.filter((chat) => !chat.acknowledged).length;
-};
-
 export const getNewMessages = (chats) => {
 	let newMessages = 0;
 

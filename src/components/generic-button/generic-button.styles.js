@@ -122,3 +122,31 @@ export const StyledGenericButton = styled.button`
 			margin-right: auto;
 		`}
 `;
+
+export const LoadMoreButton = styled.button`
+	display: block;
+	margin: 0 auto 1.5rem auto;
+	background-color: transparent;
+	outline: none;
+	border: 1px solid ${({ theme }) => theme.textMuted};
+	border-radius: 5px;
+	padding: 0.3rem 0.5rem;
+	color: ${({ theme }) => theme.textMuted};
+	font-size: 1.5rem;
+	font-family: inherit;
+	cursor: pointer;
+
+	&::first-letter {
+		text-transform: uppercase;
+	}
+
+	&:hover {
+		border: 1px solid ${cssColors.bluePrimary};
+		color: ${cssColors.bluePrimary};
+	}
+
+	&:active {
+		border: 1px solid ${({ theme }) => theme.textMuted};
+		color: ${({ theme }) => theme.textMuted};
+	}
+`;

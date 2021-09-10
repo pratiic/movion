@@ -7,13 +7,8 @@ import {
 	StyledTvIcon,
 	StyledLoginIcon,
 	StyledLogoutIcon,
-	StyledChatIcon,
 } from "../../styles/styles.icons";
-import {
-	HeaderLinksOverlay,
-	StyledHeaderLinks,
-	StyledLink,
-} from "./header-links.styles";
+import { StyledHeaderLinks, StyledLink } from "./header-links.styles";
 
 import { toggleSearchMode } from "../../redux/searchbar/searchbar.actions";
 import { toggleSidebar } from "../../redux/sidebar/sidebar.actions";
@@ -119,7 +114,7 @@ const HeaderLinks = ({
 						as="p"
 						onClick={() => {
 							currentUserSignout();
-							history.push("./movies");
+							history.push("/movies");
 						}}
 						forSmallerScreens
 					>

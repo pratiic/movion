@@ -12,3 +12,7 @@ export const StyledFindFriends = styled.div`
 		margin-bottom: 2.5rem;
 	}
 `;
+
+export const Divider = styled.div`
+	margin-bottom: 1.5rem;
+`;

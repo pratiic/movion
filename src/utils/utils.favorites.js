@@ -1,8 +1,6 @@
 import { createFavoriteDocument } from "../firebase/firebase.utils";
 
 export const addToFavorites = async (favoriteObject) => {
-	console.log(favoriteObject);
-
 	const { id, currentUserId, title, release_date, poster_path, type } =
 		favoriteObject;
 

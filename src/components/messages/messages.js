@@ -4,16 +4,12 @@ import { connect } from "react-redux";
 import { firestore } from "../../firebase/firebase.utils";
 import { clearNewMessages } from "../../firebase/firebase.chats.utils";
 
-import {
-	StyledMessages,
-	DivAtBottom,
-	LoadMore,
-	Typing,
-} from "./messages.styles";
+import { StyledMessages, DivAtBottom, Typing } from "./messages.styles";
 import { StyledMessage } from "../../styles/styles.generic";
 
 import Message from "../message/message";
 import ProfilePicture from "../profile-picture/profile-picture";
+import GenericButton from "../generic-button/generic-button";
 
 const Messages = ({
 	messagesDocID,
@@ -40,6 +36,7 @@ const Messages = ({
 		if (messagesDocID) {
 			fetchMessages(messagesToFetch);
 		}
+		//eslint-disable-next-line
 	}, [messagesDocID]);
 
 	useEffect(() => {
@@ -50,6 +47,7 @@ const Messages = ({
 		if (messages.length > 0) {
 			clearNewMessages(currentUser, chatUser);
 		}
+		//eslint-disable-next-line
 	}, [messages]);
 
 	useEffect(() => {
@@ -69,6 +67,7 @@ const Messages = ({
 				// }
 			});
 		}
+		//eslint-disable-next-line
 	}, [messagesDocID]);
 
 	const fetchMessages = (totalMessagesToFetch) => {
@@ -77,11 +76,12 @@ const Messages = ({
 			.doc(messagesDocID)
 			.collection("messages");
 
+		setFetchingMoreMessages(true);
+
 		messagesCollectionRef
 			.orderBy("createdAt", "desc")
 			.limit(totalMessagesToFetch)
 			.onSnapshot((snapshot) => {
-				setFetchingMoreMessages(true);
 				setMessages(reverseArray(snapshot.docs));
 
 				if (snapshot.docs.length === 0) {
@@ -128,9 +128,12 @@ const Messages = ({
 			{messages.length > 0 ? (
 				<React.Fragment>
 					{messages.length < totalMessages && (
-						<LoadMore onClick={handleLoadMoreButtonClick}>
+						<GenericButton
+							displayType="load-more"
+							handleButtonClick={handleLoadMoreButtonClick}
+						>
 							{fetchingMoreMessages ? "loading..." : "load more"}
-						</LoadMore>
+						</GenericButton>
 					)}
 					{renderMessages()}
 					{typing && (

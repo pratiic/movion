@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { StyledNotification } from "./notification.styles";
 import { StyledTickIcon, StyledDeleteIcon } from "../../styles/styles.icons";
 
-//this component is for showing notifications for different activities
 const Notification = ({ notificationMessage, success }) => {
 	if (!notificationMessage) {
 		return null;

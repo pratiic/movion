@@ -8,8 +8,6 @@ import { toggleNotification } from "../../redux/notification/notification.action
 
 const DetailsController = ({
 	children,
-	icon,
-	value,
 	forComponent,
 	currentUser,
 	toggleNotification,
