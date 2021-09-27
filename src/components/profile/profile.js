@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { StyledProfile, Username, ProfileHeader } from "./profile.styles";
 import { StyledLogoutIcon } from "../../styles/styles.icons";
@@ -12,6 +13,8 @@ import ProfilePicture from "../profile-picture/profile-picture";
 
 const Profile = ({ username, photoURL, currentUserSignout }) => {
 	const [showDropdown, setShowDropdown] = useState(false);
+
+	const history = useHistory();
 
 	const toggleDropdown = () => {
 		setShowDropdown(!showDropdown);
@@ -39,6 +42,7 @@ const Profile = ({ username, photoURL, currentUserSignout }) => {
 					func="sign out"
 					toggleDropdown={toggleDropdown}
 					clickHandler={() => {
+						history.push("/movies");
 						currentUserSignout();
 					}}
 				>

@@ -113,8 +113,8 @@ const HeaderLinks = ({
 					<StyledLink
 						as="p"
 						onClick={() => {
-							currentUserSignout();
 							history.push("/movies");
+							currentUserSignout();
 						}}
 						forSmallerScreens
 					>

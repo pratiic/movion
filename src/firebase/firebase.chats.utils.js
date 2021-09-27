@@ -99,7 +99,7 @@ export const sendChatMessage = async (
 
 	const chatUserChatRef = firestore
 		.collection("chats")
-		.doc(chatUser.userID)
+		.doc(chatUser.userID || chatUser.id)
 		.collection("chats")
 		.doc(currentUser.id);
 
@@ -152,7 +152,7 @@ export const clearNewMessages = async (currentUser, chatUser) => {
 		.collection("chats")
 		.doc(currentUser.id)
 		.collection("chats")
-		.doc(chatUser.userID);
+		.doc(chatUser.userID || chatUser.id);
 
 	await chatRef.update({ newMessages: 0 });
 };

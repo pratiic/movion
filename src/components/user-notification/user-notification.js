@@ -100,7 +100,7 @@ const UserNotification = ({
 					)}
 				</StyledMessage>
 				<StyledNotificationTime>
-					{getHowLongAgo(createdAt)}
+					{getHowLongAgo(createdAt, true)}
 				</StyledNotificationTime>
 			</NotificationMain>
 			<IconContainer>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import {
 	Route,
@@ -48,8 +48,6 @@ import Modal from "./components/modal/modal";
 //this is where other components are brought to be rendered
 //this is where we also define routes to various parts of the application
 const App = ({ setTheme, updateCurrentUser, currentTheme, currentUser }) => {
-	const [unsubscribeFromUserNotifications] = useState(null);
-
 	const location = useLocation();
 	const history = useHistory();
 

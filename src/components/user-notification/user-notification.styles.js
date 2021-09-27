@@ -60,6 +60,7 @@ export const StyledNotificationTime = styled.span`
 	font-size: 1.55rem;
 	min-width: 3rem;
 	white-space: nowrap;
+	text-align: right;
 `;
 
 export const IconContainer = styled.div`

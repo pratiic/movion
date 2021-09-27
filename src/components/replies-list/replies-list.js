@@ -11,6 +11,7 @@ const RepliesList = ({ reviewRef }) => {
 
 	useEffect(() => {
 		fetchReplies();
+		//eslint-disable-next-line
 	}, []);
 
 	const fetchReplies = async () => {
