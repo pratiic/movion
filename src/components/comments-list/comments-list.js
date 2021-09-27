@@ -68,7 +68,7 @@ const CommentsList = ({ reviewRef, displayType, messageSize }) => {
 	};
 
 	const getDisplayTerm = () => {
-		return type === "review" ? "reviews" : "replies";
+		return displayType === "review" ? "reviews" : "replies";
 	};
 
 	return (
