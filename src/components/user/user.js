@@ -44,6 +44,7 @@ const User = ({
 		<StyledUser onClick={handleUserClick}>
 			<ProfilePicture
 				username={username}
+				email={email}
 				photoURL={photoURL}
 				size="bigger"
 			/>

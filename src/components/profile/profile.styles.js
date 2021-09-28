@@ -38,6 +38,16 @@ export const Username = styled.p`
 	}
 `;
 
+export const Email = styled.p`
+	display: none;
+	color: ${({ theme }) => theme.textIconBlur};
+	text-transform: lowercase;
+
+	@media screen and (max-width: 1150px) {
+		display: block;
+	}
+`;
+
 export const ProfileLetter = styled.div`
 	height: 2.75rem;
 	width: 2.75rem;
@@ -70,7 +80,6 @@ export const ProfileHeader = styled.div`
 	border-bottom: 1px solid ${cssColors.greyLighter};
 	display: flex;
 	align-items: center;
-	text-transform: capitalize;
 	color: ${({ theme }) => theme.textIconBlur};
 
 	${StyledProfilePicture} {

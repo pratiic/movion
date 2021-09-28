@@ -25,6 +25,8 @@ const HeaderLinks = ({
 }) => {
 	const history = useHistory();
 
+	console.log(currentUser);
+
 	const [headerLinks, setHeaderLinks] = useState([
 		{
 			value: "movies",
@@ -107,6 +109,7 @@ const HeaderLinks = ({
 				<React.Fragment>
 					<Profile
 						username={currentUser.username}
+						email={currentUser.email}
 						photoURL={currentUser.photoURL}
 					/>
 
